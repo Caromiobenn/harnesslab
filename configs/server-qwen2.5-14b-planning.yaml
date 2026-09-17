@@ -1,0 +1,20 @@
+schema_version: "0.2"
+experiment:
+  name: server-qwen2.5-14b-planning
+  description: LangChain harness with TodoListMiddleware on self-hosted Qwen2.5-14B-Instruct-AWQ
+  repeats: 3
+  seed: 20260917
+harness:
+  kind: langchain_planning
+  model:
+    provider: openai_compatible
+    name: qwen2.5-14b-instruct-awq
+    base_url: http://127.0.0.1:8000/v1
+    api_key_env: null
+    temperature: 0
+    max_completion_tokens: 2048
+    request_timeout_seconds: 180
+    max_retries: 1
+catalog: ../benchmarks/catalog-v0.2.yaml
+output:
+  directory: ../artifacts/server

@@ -1,0 +1,90 @@
+schema_version: "0.1"
+status: exploratory_complete
+executed_at_utc: "2026-09-17T10:51:47Z"
+model:
+  source: Qwen/Qwen2.5-14B-Instruct-AWQ
+  served_name: qwen2.5-14b-instruct-awq
+  quantization: AWQ-4bit
+  parameters: 14.7B
+  context_length: 16384
+  vllm: 0.7.3
+  tool_call_parser: hermes
+hardware:
+  gpu: 2 x NVIDIA GeForce RTX 4090 24GB
+  serving_gpu_count: 1
+  driver: "550.142"
+runtime:
+  python: 3.12.8
+  deepagents: 0.7.14
+  langchain: 1.4.0
+  langchain_openai: 1.6.2
+  langgraph: 1.2.11
+design:
+  tasks: 3
+  repeats: 3
+  harnesses: 3
+  run_cells: 27
+  complete_pairs: 9
+  expected_pairs: 9
+  temperature: 0
+  seed: 20260917
+results:
+  - harness: langchain_baseline
+    successes: 0
+    runs: 9
+    validation_failures: 9
+    execution_errors: 0
+    mean_model_calls: 1.0
+    mean_tool_calls: 0.0
+    mean_input_tokens: 600.0
+    mean_output_tokens: 184.0
+    mean_duration_ms: 2684.409805000036
+  - harness: langchain_planning
+    successes: 3
+    runs: 9
+    validation_failures: 3
+    execution_errors: 3
+    mean_model_calls: 2.0
+    mean_tool_calls: 4.333333333333333
+    mean_input_tokens: 4727.0
+    mean_output_tokens: 1386.0
+    mean_duration_ms: 24604.884894111314
+  - harness: deepagents_default
+    successes: 0
+    runs: 9
+    validation_failures: 9
+    execution_errors: 0
+    mean_model_calls: 3.6666666666666665
+    mean_tool_calls: 4.0
+    mean_input_tokens: 11512.0
+    mean_output_tokens: 1898.0
+    mean_duration_ms: 28162.657747111047
+task_successes:
+  structured.contacts-normalize.v1@1:
+    langchain_baseline: 0/3
+    langchain_planning: 0/3
+    deepagents_default: 0/3
+  structured.invoice-reconcile.v1@1:
+    langchain_baseline: 0/3
+    langchain_planning: 3/3
+    deepagents_default: 0/3
+  file.sales-rollup.v1@1:
+    langchain_baseline: 0/3
+    langchain_planning: 0/3
+    deepagents_default: 0/3
+integrity:
+  experiment_source_tree_sha256: ff79ebe8bc7459553012cef489ffe8257ac9e4ae531eefb6777295f32138d111
+  postrun_source_tree_sha256: 3d90aece908407e4f9d2508cdfb2a343346b19465811f47620b4bc66b7a621a9
+  source_tree_file_count: 69
+  comparison_sha256: bfad96513510b02a61f2d7d11dfaf7908f774ebab478441a87303f279345cc79
+  baseline_runs_sha256: 089b6d4cb1b1bfd6ff916e1a38fca89d3caf717b513b4f194f8f55a057f777cd
+  planning_runs_sha256: 6ce4c513dad790a287c3ec91352ee5627a30a486fa5635ba7ff02e3bb105d623
+  deepagents_runs_sha256: a3dfac503014b16813fcf0118c64dc2cc681f7a13845a3c0ebd94738c62ee455
+limitations:
+  - Three logical tasks are insufficient for a general harness-quality claim.
+  - All three repeats were behaviorally identical within each task and harness.
+  - Token means undercount planning file-task errors because provider usage is unavailable after the exception.
+  - Deep Agents is a bundle comparison and does not identify one causal mechanism.
+postrun_fixes:
+  - Persist provider token counts in model_returned trace events so later tool errors retain usage.
+  - Continue the matrix after a condition reports execution errors, then always build comparison output.

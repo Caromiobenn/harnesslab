@@ -1,0 +1,9 @@
+schema_version: "0.2"
+name: harnesslab-core-v0.2
+cases:
+  - public: public/structured.contacts-normalize.v1.yaml
+    evaluation: private/structured.contacts-normalize.v1.eval.yaml
+  - public: public/structured.invoice-reconcile.v1.yaml
+    evaluation: private/structured.invoice-reconcile.v1.eval.yaml
+  - public: public/file.sales-rollup.v1.yaml
+    evaluation: private/file.sales-rollup.v1.eval.yaml

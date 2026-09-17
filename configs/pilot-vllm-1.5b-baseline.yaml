@@ -1,0 +1,23 @@
+schema_version: "0.2"
+experiment:
+  name: pilot-vllm-1.5b-baseline
+  description: Compatibility-only pilot against a remote self-hosted 1.5B model
+  repeats: 1
+  seed: 42
+harness:
+  kind: langchain_baseline
+  model:
+    provider: openai_compatible
+    name: deepseek-r1-distill-qwen-1.5b
+    base_url: http://127.0.0.1:18000/v1
+    api_key_env: null
+    temperature: 0
+    max_completion_tokens: 2048
+    request_timeout_seconds: 120
+    max_retries: 1
+catalog: ../benchmarks/catalog-v0.2.yaml
+task_refs:
+  - structured.contacts-normalize.v1@1
+  - structured.invoice-reconcile.v1@1
+output:
+  directory: ../artifacts/pilots

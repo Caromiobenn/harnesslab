@@ -1,0 +1,17 @@
+schema_version: "0.1"
+
+experiment:
+  name: offline-deepagents-default
+  description: Deep Agents 0.7.x default harness with a scripted, API-free model.
+  repeats: 1
+  seed: 20260916
+
+harness:
+  kind: deepagents_default
+  model: scripted-tool-v1
+
+tasks:
+  - ../tasks/smoke/sum_numbers.yaml
+
+output:
+  directory: ../artifacts/runs

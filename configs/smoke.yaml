@@ -1,0 +1,17 @@
+schema_version: "0.1"
+
+experiment:
+  name: offline-smoke
+  description: End-to-end check of task loading, tracing, validation, and persistence.
+  repeats: 1
+  seed: 20260916
+
+harness:
+  kind: mock
+  model: deterministic-relay-v1
+
+tasks:
+  - ../tasks/smoke/sum_numbers.yaml
+
+output:
+  directory: ../artifacts/runs

@@ -1,0 +1,17 @@
+schema_version: "0.1"
+
+experiment:
+  name: offline-langchain-baseline
+  description: Real LangChain agent graph with a scripted, API-free tool-calling model.
+  repeats: 1
+  seed: 20260916
+
+harness:
+  kind: langchain_baseline
+  model: scripted-tool-v1
+
+tasks:
+  - ../tasks/smoke/sum_numbers.yaml
+
+output:
+  directory: ../artifacts/runs

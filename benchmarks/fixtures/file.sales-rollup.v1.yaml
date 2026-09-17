@@ -1,0 +1,20 @@
+schema_version: "0.2"
+directories:
+  - output
+files:
+  input/batch-a.json: |
+    {
+      "orders": [
+        {"id": "O-100", "region": "north", "status": "paid", "amount": "19.99"},
+        {"id": "O-101", "region": "east", "status": "pending", "amount": "9.50"},
+        {"id": "O-102", "region": "north", "status": "refunded", "amount": "12.00"}
+      ]
+    }
+  input/batch-b.json: |
+    {
+      "orders": [
+        {"id": "O-103", "region": "south", "status": "paid", "amount": "8.00"},
+        {"id": "O-104", "region": "north", "status": "paid", "amount": "10.01"},
+        {"id": "O-105", "region": "south", "status": "paid", "amount": "2.50"}
+      ]
+    }

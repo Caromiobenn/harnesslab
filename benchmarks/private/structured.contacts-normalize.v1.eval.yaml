@@ -1,0 +1,19 @@
+schema_version: "0.2"
+task_ref: structured.contacts-normalize.v1@1
+reference_submission:
+  contacts:
+    - email: alice@example.com
+      name: Alice Chen
+      phone: "8613800138000"
+      tags: [beijing, newsletter, vip]
+    - email: bob@example.com
+      name: Bob Li
+      phone: "01055550199"
+      tags: [partner]
+validators:
+  - kind: json_schema
+  - kind: contacts_normalization
+  - kind: canonical_json
+    hard: false
+    weight: 0.25
+fault_variants: {}

@@ -1,0 +1,53 @@
+schema_version: "0.2"
+id: structured.contacts-normalize.v1
+revision: 1
+category: structured_output
+instruction: >-
+  Normalize and deduplicate the supplied contacts. Trim and lowercase email addresses;
+  deduplicate by normalized email; collapse whitespace in names; keep the first non-empty
+  name and phone; retain only phone digits; lowercase, deduplicate, and sort tags; finally
+  sort contacts by email. Return only JSON matching the supplied schema.
+input:
+  contacts:
+    - name: "  Alice   Chen "
+      email: " ALICE@Example.COM "
+      phone: "+86 138-0013-8000"
+      tags: ["VIP", "Beijing"]
+    - name: ""
+      email: "alice@example.com"
+      phone: ""
+      tags: ["vip", "Newsletter"]
+    - name: "Bob Li"
+      email: "bob@example.com"
+      phone: "010-5555-0199"
+      tags: [" Partner "]
+environment:
+  toolset: null
+  workspace: none
+output_contract:
+  mode: json
+  schema_name: normalized-contacts.v1
+  json_schema:
+    type: object
+    additionalProperties: false
+    required: [contacts]
+    properties:
+      contacts:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [email, name, phone, tags]
+          properties:
+            email: {type: string, format: email}
+            name: {type: string}
+            phone: {type: string, pattern: "^[0-9]*$"}
+            tags:
+              type: array
+              items: {type: string}
+              uniqueItems: true
+limits:
+  actor_model_calls: 4
+  domain_tool_calls: 0
+  wall_clock_seconds: 60
+tags: [normalization, deduplication, simple]

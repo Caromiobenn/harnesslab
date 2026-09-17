@@ -1,0 +1,18 @@
+schema_version: "0.2"
+task_ref: structured.invoice-reconcile.v1@1
+reference_submission:
+  lines:
+    - id: A
+      net: "35.98"
+    - id: B
+      net: "16.67"
+  subtotal: "52.65"
+  tax: "3.16"
+  total: "55.81"
+  paid: "30.00"
+  balance: "25.81"
+  status: partial
+validators:
+  - kind: json_schema
+  - kind: invoice_reconciliation
+fault_variants: {}

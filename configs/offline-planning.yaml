@@ -1,0 +1,17 @@
+schema_version: "0.1"
+
+experiment:
+  name: offline-langchain-planning
+  description: LangChain baseline plus explicit TodoListMiddleware planning.
+  repeats: 1
+  seed: 20260916
+
+harness:
+  kind: langchain_planning
+  model: scripted-tool-v1
+
+tasks:
+  - ../tasks/smoke/sum_numbers.yaml
+
+output:
+  directory: ../artifacts/runs

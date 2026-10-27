@@ -1,0 +1,24 @@
+schema_version: '0.2'
+task_ref: rubric.invoice.holdout.03@1
+reference_submission:
+  lines:
+  - id: A
+    net: '5.03'
+  - id: B
+    net: '46.91'
+  - id: C
+    net: '10.00'
+  - id: D
+    net: '21.11'
+  - id: E
+    net: '20.83'
+  subtotal: '103.88'
+  tax: '0.00'
+  total: '103.88'
+  paid: '104.88'
+  balance: '-1.00'
+  status: paid
+validators:
+- kind: json_schema
+- kind: invoice_reconciliation
+fault_variants: {}

@@ -19,6 +19,7 @@ from harnesslab.runner import ExperimentResult, usage_from_trace
 from harnesslab.storage import ArtifactStore
 from harnesslab.tracing import TraceRecorder
 from harnesslab.validators import evaluate_benchmark_submission
+from harnesslab.validators.snapshots import evaluate_candidate_snapshots
 from harnesslab.workspace import materialize_workspace, snapshot_workspace
 
 
@@ -27,6 +28,7 @@ def run_benchmark_experiment(
     *,
     output_root: Path | None = None,
     harness: AgentHarness | None = None,
+    repeat_offset: int = 0,
 ) -> ExperimentResult:
     """Run selected v0.2 cases while keeping private evaluation outside the harness."""
     config = loaded.config
@@ -41,8 +43,9 @@ def run_benchmark_experiment(
             "config_sha256": file_sha256(loaded.config_path),
             "catalog_path": str(loaded.catalog.catalog_path),
             "catalog_sha256": file_sha256(loaded.catalog.catalog_path),
-            "lockfile_sha256": file_sha256(loaded.config_path.parent.parent / "uv.lock"),
+            "lockfile_sha256": file_sha256(Path(__file__).resolve().parents[2] / "uv.lock"),
             "experiment": config.experiment,
+            "repeat_offset": repeat_offset,
             "harness": config.harness,
             "cases": [
                 {
@@ -75,6 +78,7 @@ def run_benchmark_experiment(
     active_harness = harness or build_online_harness(
         config.harness.kind,
         config.harness.model,
+        verification=config.harness.verification,
     )
     experiment_started_at = utc_now()
     experiment_clock = perf_counter()
@@ -82,6 +86,7 @@ def run_benchmark_experiment(
 
     for repeat in range(config.experiment.repeats):
         for case in loaded.cases:
+            run_repeat = repeat + repeat_offset
             seed = config.experiment.seed + repeat
             run_id = uuid4().hex
             run_started_at = utc_now()
@@ -93,7 +98,7 @@ def run_benchmark_experiment(
             trace.emit(
                 TraceEventKind.RUN_STARTED,
                 case.public.task_ref,
-                payload={"repeat": repeat, "seed": seed},
+                payload={"repeat": run_repeat, "seed": seed},
             )
             workspace = None
             initial_workspace = None
@@ -152,7 +157,7 @@ def run_benchmark_experiment(
                 )
                 error = f"{type(exc).__name__}: {exc}"
                 success = False
-                diagnostics = {"oracle_fields_visible": False}
+                diagnostics = getattr(exc, "diagnostics", {"oracle_fields_visible": False})
                 trace.emit(
                     TraceEventKind.RUN_ERRORED,
                     case.public.task_ref,
@@ -168,13 +173,17 @@ def run_benchmark_experiment(
                     },
                 )
 
+            if diagnostics.get("candidates"):
+                diagnostics["candidate_evaluations"] = evaluate_candidate_snapshots(
+                    case, diagnostics["candidates"]
+                )
             record = RunRecord(
                 run_id=run_id,
                 experiment=config.experiment.name,
                 task_id=case.public.task_ref,
                 harness=config.harness.kind,
                 model=config.harness.model.name,
-                repeat=repeat,
+                repeat=run_repeat,
                 seed=seed,
                 status=status,
                 success=success,

@@ -1,0 +1,39 @@
+schema_version: '0.2'
+name: rubric-v1-holdout
+cases:
+- public: public/rubric.contacts.holdout.00.yaml
+  evaluation: private/rubric.contacts.holdout.00.eval.yaml
+- public: public/rubric.contacts.holdout.01.yaml
+  evaluation: private/rubric.contacts.holdout.01.eval.yaml
+- public: public/rubric.contacts.holdout.02.yaml
+  evaluation: private/rubric.contacts.holdout.02.eval.yaml
+- public: public/rubric.contacts.holdout.03.yaml
+  evaluation: private/rubric.contacts.holdout.03.eval.yaml
+- public: public/rubric.contacts.holdout.04.yaml
+  evaluation: private/rubric.contacts.holdout.04.eval.yaml
+- public: public/rubric.contacts.holdout.05.yaml
+  evaluation: private/rubric.contacts.holdout.05.eval.yaml
+- public: public/rubric.invoice.holdout.00.yaml
+  evaluation: private/rubric.invoice.holdout.00.eval.yaml
+- public: public/rubric.invoice.holdout.01.yaml
+  evaluation: private/rubric.invoice.holdout.01.eval.yaml
+- public: public/rubric.invoice.holdout.02.yaml
+  evaluation: private/rubric.invoice.holdout.02.eval.yaml
+- public: public/rubric.invoice.holdout.03.yaml
+  evaluation: private/rubric.invoice.holdout.03.eval.yaml
+- public: public/rubric.invoice.holdout.04.yaml
+  evaluation: private/rubric.invoice.holdout.04.eval.yaml
+- public: public/rubric.invoice.holdout.05.yaml
+  evaluation: private/rubric.invoice.holdout.05.eval.yaml
+- public: public/rubric.sales.holdout.00.yaml
+  evaluation: private/rubric.sales.holdout.00.eval.yaml
+- public: public/rubric.sales.holdout.01.yaml
+  evaluation: private/rubric.sales.holdout.01.eval.yaml
+- public: public/rubric.sales.holdout.02.yaml
+  evaluation: private/rubric.sales.holdout.02.eval.yaml
+- public: public/rubric.sales.holdout.03.yaml
+  evaluation: private/rubric.sales.holdout.03.eval.yaml
+- public: public/rubric.sales.holdout.04.yaml
+  evaluation: private/rubric.sales.holdout.04.eval.yaml
+- public: public/rubric.sales.holdout.05.yaml
+  evaluation: private/rubric.sales.holdout.05.eval.yaml

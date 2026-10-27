@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import yaml
 from pydantic import Field, model_validator
@@ -41,6 +41,7 @@ class OpenAICompatibleModelSettings(StrictModel):
     max_completion_tokens: int = Field(default=2048, ge=1, le=131_072)
     request_timeout_seconds: float = Field(default=120.0, gt=0.0, le=3600.0)
     max_retries: int = Field(default=1, ge=0, le=10)
+    extra_body: dict[str, Any] = Field(default_factory=dict)
     input_cost_per_million_usd: float | None = Field(default=None, ge=0.0)
     output_cost_per_million_usd: float | None = Field(default=None, ge=0.0)
 
@@ -52,14 +53,35 @@ class OpenAICompatibleModelSettings(StrictModel):
         return self
 
 
+class VerificationSettings(StrictModel):
+    """Explicit runtime treatments; private validators are never available here."""
+
+    mode: Literal["none", "retry", "rubric"] = "none"
+    evidence_tools: bool = False
+    max_iterations: int = Field(default=3, ge=1, le=5)
+    total_model_call_limit: int = Field(default=24, ge=1, le=200)
+    total_tool_call_limit: int = Field(default=60, ge=1, le=500)
+    grader_call_limit: int = Field(default=12, ge=1, le=100)
+    grader_model: OpenAICompatibleModelSettings | None = None
+
+    @model_validator(mode="after")
+    def evidence_requires_rubric(self) -> VerificationSettings:
+        if self.evidence_tools and self.mode != "rubric":
+            raise ValueError("evidence_tools requires mode='rubric'")
+        return self
+
+
 class BenchmarkHarnessSettings(StrictModel):
     kind: HarnessKind
     model: OpenAICompatibleModelSettings
+    verification: VerificationSettings = Field(default_factory=VerificationSettings)
 
     @model_validator(mode="after")
     def real_framework_harness_required(self) -> BenchmarkHarnessSettings:
         if self.kind is HarnessKind.MOCK:
             raise ValueError("Benchmark v0.2 requires a real framework harness")
+        if self.verification.mode != "none" and self.kind is not HarnessKind.DEEPAGENTS_DEFAULT:
+            raise ValueError("runtime verification currently requires deepagents_default")
         return self
 
 

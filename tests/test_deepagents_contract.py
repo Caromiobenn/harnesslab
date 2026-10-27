@@ -65,3 +65,7 @@ def test_deep_agent_executes_a_scripted_tool_call_without_an_api_key() -> None:
         isinstance(message, ToolMessage) and message.content == "ping"
         for message in result["messages"]
     )
+
+
+# 这个测试采用预设回复的假模型, 它说明工具链路能通。
+# 不证明真实模型会正确选择工具。

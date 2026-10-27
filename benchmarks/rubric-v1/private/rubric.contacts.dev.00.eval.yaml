@@ -1,0 +1,32 @@
+schema_version: '0.2'
+task_ref: rubric.contacts.dev.00@1
+reference_submission:
+  contacts:
+  - email: person0-0@example.org
+    name: User 0
+    phone: '85694160'
+    tags:
+    - alpha
+    - beta
+    - vip
+  - email: person0-1@example.org
+    name: User 1
+    phone: '52353828'
+    tags:
+    - alpha
+    - beta
+    - vip
+  - email: person0-2@example.org
+    name: User 2
+    phone: '88736780'
+    tags:
+    - alpha
+    - beta
+    - vip
+validators:
+- kind: json_schema
+- kind: contacts_normalization
+- kind: canonical_json
+  hard: false
+  weight: 0.25
+fault_variants: {}

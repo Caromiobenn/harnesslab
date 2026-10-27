@@ -179,6 +179,12 @@ tests/                    unit, contract, isolation, and integration tests
 
 ## Roadmap and claim boundary
 
+The Qwen3.5 runtime-feedback study adds generic revision, transcript-only rubric grading,
+and rubric grading with read-only evidence tools. Its frozen protocol, budget ceilings,
+development/holdout split, and claim boundaries are documented in
+[`docs/rubric-study-20261025.md`](docs/rubric-study-20261025.md). Implementation and contract
+tests do not establish a behavioral improvement; that requires the recorded real-model runs.
+
 - Expand v0.2 to structured, file, code, tool-state, long-horizon, and travel task families.
 - Expand the existing isolated workspace and text-tool registry to more task families.
 - Implement matched specialist-subagent and verified-execution treatments.

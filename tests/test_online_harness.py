@@ -64,7 +64,8 @@ def test_online_harness_runs_real_agent_graph_with_injected_chat_model() -> None
         TraceEventKind.HARNESS_CONFIGURED,
         TraceEventKind.MODEL_CALLED,
         TraceEventKind.MODEL_RETURNED,
+        TraceEventKind.CANDIDATE_COMPLETED,
     ]
-    returned = trace.events[-1]
+    returned = trace.events[-2]
     assert returned.payload["input_tokens"] == 100
     assert returned.payload["output_tokens"] == 40

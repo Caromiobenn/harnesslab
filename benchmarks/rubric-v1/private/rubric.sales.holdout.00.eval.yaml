@@ -1,0 +1,19 @@
+schema_version: '0.2'
+task_ref: rubric.sales.holdout.00@1
+fixture_ref: ../fixtures/file.sales-rollup.v1.yaml
+reference_submission:
+  files:
+    output/summary.json: "{\n  \"regions\": [\n    {\n      \"region\": \"south\"\
+      ,\n      \"paid_orders\": 2,\n      \"revenue\": \"0.30\"\n    },\n    {\n \
+      \     \"region\": \"west\",\n      \"paid_orders\": 1,\n      \"revenue\": \"\
+      19.99\"\n    }\n  ],\n  \"grand_total\": \"20.29\"\n}\n"
+validators:
+- kind: workspace_integrity
+  hard: true
+  weight: 1
+- kind: sales_rollup
+  hard: true
+  weight: 2
+  parameters:
+    output_path: /output/summary.json
+fault_variants: {}

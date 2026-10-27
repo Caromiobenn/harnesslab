@@ -1,0 +1,59 @@
+schema_version: '0.2'
+id: rubric.sales.holdout.01
+revision: 1
+category: file
+instruction: Read every JSON file under /input. Include only orders whose status is
+  exactly "paid". Group them by region, count paid orders, and sum amount using decimal
+  arithmetic. Sort regions lexicographically. Write the result as UTF-8 JSON to /output/summary.json
+  and do not modify anything under /input. Amounts must be strings with exactly two
+  decimal places. After writing the file, return a brief completion message; the file,
+  not the message, is evaluated.
+input:
+  input_glob: /input/*.json
+  output_path: /output/summary.json
+environment:
+  toolset: workspace_text_v1
+  workspace: fresh
+  fixture: ../fixtures/rubric.sales.holdout.01.yaml
+  writable_paths:
+  - /output
+output_contract:
+  mode: files
+  schema_name: sales-rollup.v1
+  json_schema:
+    type: object
+    additionalProperties: false
+    required:
+    - regions
+    - grand_total
+    properties:
+      regions:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+          - region
+          - paid_orders
+          - revenue
+          properties:
+            region:
+              type: string
+            paid_orders:
+              type: integer
+              minimum: 1
+            revenue:
+              type: string
+              pattern: ^-?[0-9]+\.[0-9]{2}$
+      grand_total:
+        type: string
+        pattern: ^-?[0-9]+\.[0-9]{2}$
+limits:
+  actor_model_calls: 12
+  domain_tool_calls: 40
+  wall_clock_seconds: 240
+tags:
+- sales
+- holdout
+- generated-instance
+- variant-5

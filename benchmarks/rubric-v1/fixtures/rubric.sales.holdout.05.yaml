@@ -1,0 +1,20 @@
+schema_version: '0.2'
+directories:
+- output
+files:
+  input/batch-0.json: "{\n  \"orders\": [\n    {\n      \"id\": \"order-105-0\",\n\
+    \      \"region\": \"west\",\n      \"status\": \"paid\",\n      \"amount\": \"\
+    2.50\"\n    },\n    {\n      \"id\": \"order-105-2\",\n      \"region\": \"north\"\
+    ,\n      \"status\": \"Paid\",\n      \"amount\": \"0.10\"\n    },\n    {\n  \
+    \    \"id\": \"order-105-4\",\n      \"region\": \"north\",\n      \"status\"\
+    : \"paid\",\n      \"amount\": \"0.10\"\n    },\n    {\n      \"id\": \"order-105-6\"\
+    ,\n      \"region\": \"east\",\n      \"status\": \"paid\",\n      \"amount\"\
+    : \"19.99\"\n    }\n  ]\n}\n"
+  input/batch-1.json: "{\n  \"orders\": [\n    {\n      \"id\": \"order-105-1\",\n\
+    \      \"region\": \"south\",\n      \"status\": \"refunded\",\n      \"amount\"\
+    : \"0.20\"\n    },\n    {\n      \"id\": \"order-105-3\",\n      \"region\": \"\
+    east\",\n      \"status\": \"pending\",\n      \"amount\": \"2.50\"\n    },\n\
+    \    {\n      \"id\": \"order-105-5\",\n      \"region\": \"south\",\n      \"\
+    status\": \"pending\",\n      \"amount\": \"0.10\"\n    },\n    {\n      \"id\"\
+    : \"order-105-7\",\n      \"region\": \"north\",\n      \"status\": \"refunded\"\
+    ,\n      \"amount\": \"0.20\"\n    }\n  ]\n}\n"

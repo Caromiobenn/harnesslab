@@ -1,6 +1,6 @@
 """Construct harness adapters from experiment configuration."""
 
-from harnesslab.config import OpenAICompatibleModelSettings
+from harnesslab.config import OpenAICompatibleModelSettings, VerificationSettings
 from harnesslab.harnesses.base import AgentHarness
 from harnesslab.harnesses.framework_agents import FrameworkAgentHarness
 from harnesslab.harnesses.mock import MockHarness
@@ -19,9 +19,11 @@ def build_online_harness(
     settings: OpenAICompatibleModelSettings,
     *,
     model_factory: ModelFactory | None = None,
+    verification: VerificationSettings | None = None,
 ) -> AgentHarness:
     return OnlineFrameworkAgentHarness(
         kind=kind,
         settings=settings,
         model_factory=model_factory,
+        verification=verification,
     )

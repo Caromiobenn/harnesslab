@@ -1,0 +1,46 @@
+schema_version: '0.2'
+task_ref: rubric.contacts.holdout.02@1
+reference_submission:
+  contacts:
+  - email: person102-0@example.org
+    name: User 0
+    phone: '31865101'
+    tags:
+    - alpha
+    - beta
+    - vip
+  - email: person102-1@example.org
+    name: User 1
+    phone: '35517439'
+    tags:
+    - alpha
+    - beta
+    - vip
+  - email: person102-2@example.org
+    name: User 2
+    phone: '76457298'
+    tags:
+    - alpha
+    - beta
+    - vip
+  - email: person102-3@example.org
+    name: User 3
+    phone: '38800826'
+    tags:
+    - alpha
+    - beta
+    - vip
+  - email: person102-4@example.org
+    name: User 4
+    phone: '17715312'
+    tags:
+    - alpha
+    - beta
+    - vip
+validators:
+- kind: json_schema
+- kind: contacts_normalization
+- kind: canonical_json
+  hard: false
+  weight: 0.25
+fault_variants: {}

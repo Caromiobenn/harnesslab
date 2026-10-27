@@ -1,0 +1,20 @@
+schema_version: '0.2'
+task_ref: rubric.invoice.dev.01@1
+reference_submission:
+  lines:
+  - id: A
+    net: '2.35'
+  - id: B
+    net: '33.33'
+  - id: C
+    net: '1.27'
+  subtotal: '36.95'
+  tax: '4.80'
+  total: '41.75'
+  paid: '20.88'
+  balance: '20.87'
+  status: partial
+validators:
+- kind: json_schema
+- kind: invoice_reconciliation
+fault_variants: {}

@@ -1,0 +1,15 @@
+schema_version: '0.2'
+name: rubric-v1-dev
+cases:
+- public: public/rubric.contacts.dev.00.yaml
+  evaluation: private/rubric.contacts.dev.00.eval.yaml
+- public: public/rubric.contacts.dev.01.yaml
+  evaluation: private/rubric.contacts.dev.01.eval.yaml
+- public: public/rubric.invoice.dev.00.yaml
+  evaluation: private/rubric.invoice.dev.00.eval.yaml
+- public: public/rubric.invoice.dev.01.yaml
+  evaluation: private/rubric.invoice.dev.01.eval.yaml
+- public: public/rubric.sales.dev.00.yaml
+  evaluation: private/rubric.sales.dev.00.eval.yaml
+- public: public/rubric.sales.dev.01.yaml
+  evaluation: private/rubric.sales.dev.01.eval.yaml

@@ -9,9 +9,10 @@ from time import perf_counter
 from typing import Any
 from uuid import UUID
 
-from deepagents import create_deep_agent
+from deepagents import RubricMiddleware, create_deep_agent
 from deepagents.backends import FilesystemBackend, StateBackend
 from deepagents.middleware.filesystem import FilesystemPermission
+from deepagents.middleware.rubric import GRADER_SYSTEM_PROMPT
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelCallLimitMiddleware, TodoListMiddleware
 from langchain_core.callbacks import BaseCallbackHandler, UsageMetadataCallbackHandler
@@ -20,9 +21,16 @@ from langchain_core.messages import AIMessage, BaseMessage, ToolMessage
 from langchain_core.outputs import LLMResult
 from langchain_openai import ChatOpenAI
 
-from harnesslab.config import OpenAICompatibleModelSettings
+from harnesslab.config import OpenAICompatibleModelSettings, VerificationSettings
 from harnesslab.harnesses.base import HarnessExecution, HarnessRequest
 from harnesslab.harnesses.framework_agents import _parse_final_output
+from harnesslab.harnesses.verification import (
+    RUBRIC_VERSION,
+    CandidateObserver,
+    GenericRetryMiddleware,
+    public_rubric,
+    runtime_gate,
+)
 from harnesslab.models import HarnessKind, TraceEventKind, UsageMetrics
 from harnesslab.reproducibility import canonical_sha256
 from harnesslab.tracing import TraceRecorder
@@ -31,10 +39,27 @@ from harnesslab.workspace import WorkspaceToolRegistry
 ModelFactory = Callable[[int], BaseChatModel]
 
 
+class OnlineExecutionError(RuntimeError):
+    """Preserve partial diagnostics when a bounded online execution fails."""
+
+    def __init__(self, error: Exception, diagnostics: dict[str, Any]) -> None:
+        super().__init__(f"{type(error).__name__}: {error}")
+        self.diagnostics = diagnostics
+
+
 class FrameworkTraceCallback(BaseCallbackHandler):
     """Record model/tool lifecycle events without persisting prompt or tool contents."""
 
-    def __init__(self, trace: TraceRecorder, *, model_name: str) -> None:
+    raise_error = True
+
+    def __init__(
+        self,
+        trace: TraceRecorder,
+        *,
+        model_name: str,
+        max_model_calls: int = 200,
+        max_tool_calls: int = 500,
+    ) -> None:
         self.trace = trace
         self.model_name = model_name
         self.model_calls = 0
@@ -42,6 +67,13 @@ class FrameworkTraceCallback(BaseCallbackHandler):
         self.observed_tools: list[str] = []
         self._active_tools: dict[UUID, tuple[float, str]] = {}
         self._lock = Lock()
+        self.max_model_calls = max_model_calls
+        self.max_tool_calls = max_tool_calls
+        self._model_roles: dict[UUID, str] = {}
+        self.role_usage = {
+            role: {"model_calls": 0, "input_tokens": 0, "output_tokens": 0}
+            for role in ("actor", "grader")
+        }
 
     def on_chat_model_start(
         self,
@@ -51,15 +83,22 @@ class FrameworkTraceCallback(BaseCallbackHandler):
         run_id: UUID,
         **kwargs: Any,
     ) -> None:
-        del serialized, run_id, kwargs
+        del serialized
+        metadata = kwargs.get("metadata") or {}
+        role = "grader" if "rubric_grader_configured_model" in metadata else "actor"
         with self._lock:
+            if self.model_calls >= self.max_model_calls:
+                raise RuntimeError(f"combined model-call budget exhausted: {self.max_model_calls}")
             self.model_calls += 1
             call_index = self.model_calls
+            self._model_roles[run_id] = role
+            self.role_usage[role]["model_calls"] += 1
         self.trace.emit(
             TraceEventKind.MODEL_CALLED,
             self.model_name,
             payload={
                 "call_index": call_index,
+                "role": role,
                 "batch_size": len(messages),
                 "message_count": sum(len(batch) for batch in messages),
                 "content_recorded": False,
@@ -73,7 +112,8 @@ class FrameworkTraceCallback(BaseCallbackHandler):
         run_id: UUID,
         **kwargs: Any,
     ) -> None:
-        del run_id, kwargs
+        del kwargs
+        role = self._model_roles.get(run_id, "actor")
         tool_calls: list[dict[str, str | None]] = []
         generation_count = 0
         input_tokens = 0
@@ -90,11 +130,15 @@ class FrameworkTraceCallback(BaseCallbackHandler):
                     if message.usage_metadata:
                         input_tokens += int(message.usage_metadata.get("input_tokens", 0))
                         output_tokens += int(message.usage_metadata.get("output_tokens", 0))
+        with self._lock:
+            self.role_usage[role]["input_tokens"] += input_tokens
+            self.role_usage[role]["output_tokens"] += output_tokens
         self.trace.emit(
             TraceEventKind.MODEL_RETURNED,
             self.model_name,
             payload={
                 "generation_count": generation_count,
+                "role": role,
                 "tool_calls": tool_calls,
                 "input_tokens": input_tokens,
                 "output_tokens": output_tokens,
@@ -127,6 +171,8 @@ class FrameworkTraceCallback(BaseCallbackHandler):
         del kwargs
         name = str(serialized.get("name") or "unknown_tool")
         with self._lock:
+            if self.tool_calls >= self.max_tool_calls:
+                raise RuntimeError(f"combined tool-call budget exhausted: {self.max_tool_calls}")
             self.tool_calls += 1
             self.observed_tools.append(name)
             self._active_tools[run_id] = (perf_counter(), name)
@@ -188,6 +234,8 @@ class OnlineFrameworkAgentHarness:
         kind: HarnessKind,
         settings: OpenAICompatibleModelSettings,
         model_factory: ModelFactory | None = None,
+        verification: VerificationSettings | None = None,
+        grader_model_factory: ModelFactory | None = None,
     ) -> None:
         if kind not in {
             HarnessKind.LANGCHAIN_BASELINE,
@@ -195,15 +243,22 @@ class OnlineFrameworkAgentHarness:
             HarnessKind.DEEPAGENTS_DEFAULT,
         }:
             raise ValueError(f"unsupported online harness kind: {kind}")
-        self.kind = kind
+        self.kind = HarnessKind(kind)
         self.settings = settings
         self.model_name = settings.name
         self._model_factory = model_factory
+        self.verification = verification or VerificationSettings()
+        self._grader_model_factory = grader_model_factory
 
     def execute(self, request: HarnessRequest, trace: TraceRecorder) -> HarnessExecution:
         started = perf_counter()
         model = self._build_model(request.seed, request.task.limits.get("wall_clock_seconds"))
-        trace_callback = FrameworkTraceCallback(trace, model_name=self.model_name)
+        trace_callback = FrameworkTraceCallback(
+            trace,
+            model_name=self.model_name,
+            max_model_calls=self.verification.total_model_call_limit,
+            max_tool_calls=self.verification.total_tool_call_limit,
+        )
         usage_callback = UsageMetadataCallbackHandler()
         planning = self.kind is HarnessKind.LANGCHAIN_PLANNING
         actor_model_calls = request.task.limits.get("actor_model_calls", 12)
@@ -212,6 +267,50 @@ class OnlineFrameworkAgentHarness:
         ]
         if planning:
             middleware.insert(0, TodoListMiddleware())
+        observer = CandidateObserver(request, trace)
+        evaluations: list[dict[str, Any]] = []
+
+        def record_evaluation(evaluation: dict[str, Any]) -> None:
+            evaluations.append(dict(evaluation))
+            trace.emit(TraceEventKind.RUBRIC_EVALUATED, "runtime_grader", payload=dict(evaluation))
+
+        if self.verification.mode == "retry":
+            middleware.append(GenericRetryMiddleware(self.verification.max_iterations))
+        elif self.verification.mode == "rubric":
+            grader_settings = self.verification.grader_model or self.settings
+            grader = (
+                self._grader_model_factory(request.seed)
+                if self._grader_model_factory is not None
+                else self._build_chat_model(
+                    grader_settings, request.seed, request.task.limits.get("wall_clock_seconds")
+                )
+            )
+            middleware.append(
+                RubricMiddleware(
+                    model=grader,
+                    system_prompt=GRADER_SYSTEM_PROMPT
+                    + (
+                        "\nStudy verdict policy: A missing file, invalid JSON, schema error, "
+                        "wrong answer, or unmet task requirement is a CANDIDATE DEFECT. "
+                        "Return needs_revision for candidate defects, with actionable gaps, "
+                        "so the working agent can fix them. Do NOT return failed merely "
+                        "because the candidate is wrong. failed is reserved for a rubric "
+                        "that is itself malformed or impossible to interpret. "
+                        "Use exactly the criterion names requested in the rubric."
+                    ),
+                    tools=observer.evidence_tools() if self.verification.evidence_tools else [],
+                    max_iterations=self.verification.max_iterations,
+                    grader_middleware=[
+                        ModelCallLimitMiddleware(
+                            run_limit=self.verification.grader_call_limit, exit_behavior="error"
+                        )
+                    ],
+                    on_evaluation=record_evaluation,
+                )
+            )
+        # after_agent hooks execute in reverse order: snapshot BEFORE grading/revision.
+        # 在 Agent 自然停止时保存候选答案及工作区快照
+        middleware.append(observer)
 
         workspace_tools: list[Any] = []
         workspace_registry = None
@@ -236,6 +335,7 @@ class OnlineFrameworkAgentHarness:
                 "provider": self.settings.provider,
                 "planning": planning,
                 "scripted": False,
+                "verification": self.verification.model_dump(mode="json"),
                 "actor_model_call_limit": actor_model_calls,
                 "workspace": request.task.workspace,
                 "domain_tools": [tool.name for tool in workspace_tools],
@@ -245,7 +345,9 @@ class OnlineFrameworkAgentHarness:
         system_prompt = (
             "Complete the task using only the public task request. Follow its output contract "
             "exactly. When JSON is requested, return exactly one JSON value with no Markdown "
-            "fence or explanatory text."
+            "fence or explanatory text. Compute the ANSWER from Task input. "
+            "The Required output contract describes the schema for your answer; "
+            "it is NOT the answer. Never echo the schema or task metadata as your result."
         )
         if self.kind is HarnessKind.DEEPAGENTS_DEFAULT:
             backend = (
@@ -271,17 +373,44 @@ class OnlineFrameworkAgentHarness:
                 system_prompt=system_prompt,
             )
 
-        result = agent.invoke(
-            {"messages": [{"role": "user", "content": request.task.render_user_prompt()}]},
-            config={
-                "callbacks": [trace_callback, usage_callback],
-                "recursion_limit": max(25, actor_model_calls * 4 + 5),
-            },
-        )
+        invocation: dict[str, Any] = {
+            "messages": [{"role": "user", "content": request.task.render_user_prompt()}]
+        }
+        if self.verification.mode == "rubric":
+            invocation["rubric"] = public_rubric(
+                request, evidence_tools=self.verification.evidence_tools
+            )
+        failure = None
+        try:
+            result = agent.invoke(
+                invocation,
+                config={
+                    "callbacks": [trace_callback, usage_callback],
+                    "recursion_limit": max(100, actor_model_calls * 8 + 20),
+                },
+            )
+        except Exception as exc:
+            failure = exc
+            result = {"messages": []}
         messages = list(result["messages"])
-        output = _parse_final_output(messages)
-        input_tokens, output_tokens = _aggregate_usage(usage_callback, messages)
-        estimated_cost = self._estimate_cost(input_tokens, output_tokens)
+        output = _parse_final_output(messages) if messages else None
+        input_tokens = sum(item["input_tokens"] for item in trace_callback.role_usage.values())
+        output_tokens = sum(item["output_tokens"] for item in trace_callback.role_usage.values())
+        if not input_tokens and not output_tokens:
+            input_tokens, output_tokens = _aggregate_usage(usage_callback, messages)
+        for role, counts in trace_callback.role_usage.items():
+            prices = (
+                (self.verification.grader_model or self.settings)
+                if role == "grader"
+                else self.settings
+            )
+            counts["estimated_cost_usd"] = (
+                counts["input_tokens"] * (prices.input_cost_per_million_usd or 0)
+                + counts["output_tokens"] * (prices.output_cost_per_million_usd or 0)
+            ) / 1_000_000
+        estimated_cost = sum(
+            item["estimated_cost_usd"] for item in trace_callback.role_usage.values()
+        )
         usage_metadata = {
             model_name: dict(values) for model_name, values in usage_callback.usage_metadata.items()
         }
@@ -303,7 +432,22 @@ class OnlineFrameworkAgentHarness:
             "usage_metadata": usage_metadata,
             "cost_priced": self.settings.input_cost_per_million_usd is not None,
             "oracle_fields_visible": False,
+            "verification_mode": self.verification.mode,
+            "evidence_tools": self.verification.evidence_tools,
+            "rubric_version": RUBRIC_VERSION if self.verification.mode == "rubric" else None,
+            "rubric_sha256": canonical_sha256(invocation.get("rubric", "")),
+            "rubric_evaluations": evaluations,
+            "role_usage": trace_callback.role_usage,
+            "candidates": observer.candidates,
+            "public_evidence": observer.evidence,
+            "runtime_accepted": runtime_gate(
+                evaluations, observer, evidence_tools=self.verification.evidence_tools
+            )
+            if self.verification.mode == "rubric"
+            else bool(messages),
         }
+        if failure is not None:
+            raise OnlineExecutionError(failure, diagnostics) from failure
         return HarnessExecution(
             output=output,
             metrics=UsageMetrics(
@@ -320,20 +464,29 @@ class OnlineFrameworkAgentHarness:
     def _build_model(self, seed: int, wall_clock_seconds: int | None) -> BaseChatModel:
         if self._model_factory is not None:
             return self._model_factory(seed)
-        timeout = self.settings.request_timeout_seconds
+        return self._build_chat_model(self.settings, seed, wall_clock_seconds)
+
+    @staticmethod
+    def _build_chat_model(
+        settings: OpenAICompatibleModelSettings,
+        seed: int,
+        wall_clock_seconds: int | None,
+    ) -> BaseChatModel:
+        timeout = settings.request_timeout_seconds
         if wall_clock_seconds is not None:
             timeout = min(timeout, float(wall_clock_seconds))
         return ChatOpenAI(
-            model=self.settings.name,
-            base_url=self.settings.base_url,
-            api_key=_resolve_api_key(self.settings.api_key_env),
-            temperature=self.settings.temperature,
-            max_completion_tokens=self.settings.max_completion_tokens,
+            model=settings.name,
+            base_url=settings.base_url,
+            api_key=_resolve_api_key(settings.api_key_env),
+            temperature=settings.temperature,
+            max_completion_tokens=settings.max_completion_tokens,
             timeout=timeout,
-            max_retries=self.settings.max_retries,
+            max_retries=settings.max_retries,
             seed=seed,
             stream_usage=True,
             use_responses_api=False,
+            extra_body=settings.extra_body,
         )
 
     def _estimate_cost(self, input_tokens: int, output_tokens: int) -> float:

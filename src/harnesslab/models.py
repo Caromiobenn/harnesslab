@@ -52,6 +52,8 @@ class TraceEventKind(StrEnum):
     MODEL_CALLED = "model_called"
     MODEL_RETURNED = "model_returned"
     MODEL_ERRORED = "model_errored"
+    CANDIDATE_COMPLETED = "candidate_completed"
+    RUBRIC_EVALUATED = "rubric_evaluated"
     VALIDATION_COMPLETED = "validation_completed"
     RUN_COMPLETED = "run_completed"
     RUN_ERRORED = "run_errored"

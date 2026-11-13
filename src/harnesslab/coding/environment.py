@@ -121,6 +121,7 @@ class StudyEnvironment(BenchmarkAliyunEnvironment):
         if self._prerequisite["source_fingerprint"] != self._source_fingerprint:
             raise ValueError("Prerequisites refer to a different task environment")
         self._actor_active = False
+        self._actor_env = {}
 
     async def start(self, force_build: bool):
         await super().start(force_build)
@@ -153,8 +154,18 @@ class StudyEnvironment(BenchmarkAliyunEnvironment):
 
     async def begin_actor(self, network_mode: str, logs_dir: Path):
         if self.environment_name == "compile-compcert":
-            path = f"{PREFIX}/opam/toolchain/bin:" + self._startup_env()["PATH"]
-            self._runtime_env.update(PATH=path, OPAMROOT=f"{PREFIX}/opam", OPAMSWITCH="toolchain")
+            result = await super().exec(
+                "printf '%s' \"$PATH\"", user=ACTOR, env={"HOME": f"/home/{ACTOR}"}, timeout_sec=30
+            )
+            if result.return_code or not result.stdout.strip():
+                raise RuntimeError("Could not inspect the CompCert actor's shell PATH")
+            self._actor_env = {
+                "PATH": f"{PREFIX}/opam/toolchain/bin:" + result.stdout.strip(),
+                "OPAMROOT": f"{PREFIX}/opam",
+                "OPAMSWITCH": "toolchain",
+            }
+            self._runtime_env.update(self._actor_env)
+            save_json(logs_dir / "toolchain-environment.json", self._actor_env)
         await self._sandbox.update_network(
             {"allow_internet_access": network_mode == "public", "allow_out": []}
         )
@@ -269,7 +280,11 @@ print(json.dumps({'paths':existing,'parts':parts,'bytes':archive.stat().st_size,
     async def exec(self, command, **kwargs):
         if self._actor_active:
             kwargs["user"] = ACTOR
-            kwargs["env"] = {**(kwargs.get("env") or {}), "HOME": f"/home/{ACTOR}"}
+            kwargs["env"] = {
+                **self._actor_env,
+                **(kwargs.get("env") or {}),
+                "HOME": f"/home/{ACTOR}",
+            }
         return await super().exec(command, **kwargs)
 
     async def upload_file(self, source_path, target_path):

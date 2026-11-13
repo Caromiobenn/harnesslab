@@ -52,6 +52,10 @@ def environment(tmp_path, monkeypatch):
 
         async def exec(self, command, **kwargs):
             calls.append(("exec", command, kwargs))
+            if command == "printf '%s' \"$PATH\"":
+                return SimpleNamespace(
+                    return_code=0, stdout="/image/bin:/usr/local/bin:/usr/bin", stderr=""
+                )
             return SimpleNamespace(
                 return_code=self.return_code,
                 stderr="fixture error",
@@ -69,7 +73,7 @@ def environment(tmp_path, monkeypatch):
             Path(target).write_bytes(await read(source))
 
         def _startup_env(self):
-            return {"PATH": "/usr/bin"}
+            return {}
 
     monkeypatch.setitem(
         sys.modules, "benchmark_next_environment", SimpleNamespace(BenchmarkAliyunEnvironment=Base)
@@ -147,17 +151,26 @@ def test_prerequisite_hash_and_preparation_errors_stop_start(environment):
         asyncio.run(instance.start(False))
 
 
-def test_compcert_toolchain_is_actor_only_and_shared_by_both_network_arms(environment, tmp_path):
-    module, _, _ = environment
+@pytest.mark.parametrize("network", ["offline", "public"])
+def test_compcert_preserves_shell_path_and_sends_opam_environment_to_tools(
+    environment, tmp_path, network
+):
+    module, calls, _ = environment
     instance = module.StudyEnvironment(
         prerequisites_manifest="manifest.json", environment_name="compile-compcert"
     )
     asyncio.run(instance.start(False))
     assert "OPAMROOT" not in instance._runtime_env
-    asyncio.run(instance.begin_actor("offline", tmp_path))
-    assert instance._runtime_env["PATH"].startswith(
-        "/opt/harnesslab-prerequisites/opam/toolchain/bin:"
-    )
+    instance.reachable = network == "public"
+    asyncio.run(instance.begin_actor(network, tmp_path))
+    asyncio.run(instance.exec("coqc --version"))
+    expected = "/opt/harnesslab-prerequisites/opam/toolchain/bin:/image/bin:/usr/local/bin:/usr/bin"
+    tool = next(row for row in calls if row[:2] == ("exec", "coqc --version"))
+    assert tool[2]["env"]["PATH"] == expected
+    assert tool[2]["env"]["OPAMROOT"] == "/opt/harnesslab-prerequisites/opam"
+    assert tool[2]["env"]["OPAMSWITCH"] == "toolchain"
+    assert tool[2]["user"] == "harnesslab"
+    assert json.loads((tmp_path / "toolchain-environment.json").read_text())["PATH"] == expected
 
 
 def test_shutdown_accepts_exited_children_waiting_for_parent_reaping(

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "openssl-selfsigned-cert": {
+      "runtime_profile": "native",
+      "source_fingerprint": "25f13892cc0da621e5e0e3ef41da5fa6aed05fc39082c1da1d98a60737a05cf9",
+      "capture_paths": [
+        "/app"
+      ],
+      "archives": [],
+      "env": {},
+      "verifier": {
+        "archives": [
+          {
+            "archive": "artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/4e8edc06fdd8/verifier.tar.gz",
+            "sha256": "06bf61769516c82dd5d858465951b14d9db234b1ef365c65ff6279a84904ef5f",
+            "bytes": 2584128
+          },
+          {
+            "archive": "artifacts/coding-system-caches/tb21-verifier-system-20261114/openssl-selfsigned-cert/system.tar.gz",
+            "sha256": "e9404fc3cd5e8d2dfca7598ddbfb8369ba56acba383df640c3ac0c645cf6a469",
+            "bytes": 2498002
+          }
+        ],
+        "downloads": {
+          "https://astral.sh/uv/0.9.5/install.sh": {
+            "path": "/opt/harnesslab-verifier-cache/downloads/uv-install.sh",
+            "sha256": "8402ab80d2ef54d7044a71ea4e4e1e8db3b20c87c7bffbc30bff59f1e80ebbd5"
+          }
+        },
+        "env": {
+          "UV_DOWNLOAD_URL": "http://127.0.0.1:18765",
+          "UV_PYTHON": "/opt/benchmark-next-verifier/python313/bin/python3.13",
+          "UV_PYTHON_INSTALL_DIR": "/opt/benchmark-next-verifier/managed-python",
+          "UV_INDEX_URL": "https://mirrors.aliyun.com/pypi/simple/",
+          "UV_CACHE_DIR": "/opt/harnesslab-verifier-cache/uv",
+          "UV_OFFLINE": "1",
+          "APT_CONFIG": "/opt/harnesslab-verifier-cache/apt.conf"
+        },
+        "install_command": "if ls /opt/harnesslab-verifier-system/debs/*.deb >/dev/null 2>&1; then dpkg -i /opt/harnesslab-verifier-system/debs/*.deb; fi",
+        "test_script_sha256": "4770437ea96c3cc84684b4f99d55fb148fcac09f9ea1e8ef49de487716e6c334"
+      }
+    },
+    "log-summary-date-ranges": {
+      "runtime_profile": "native",
+      "source_fingerprint": "0a023b6ac5602bd60893b9432a72a24772bfa01c57bcf95dfc7456cc9341a453",
+      "capture_paths": [
+        "/app"
+      ],
+      "archives": [],
+      "env": {},
+      "verifier": {
+        "archives": [
+          {
+            "archive": "artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/4e8edc06fdd8/verifier.tar.gz",
+            "sha256": "06bf61769516c82dd5d858465951b14d9db234b1ef365c65ff6279a84904ef5f",
+            "bytes": 2584128
+          },
+          {
+            "archive": "artifacts/coding-system-caches/tb21-verifier-system-20261114/log-summary-date-ranges/system.tar.gz",
+            "sha256": "b27b20484c39f0474919e533b69873a54f39a4549d70997dd528eccbe64eb049",
+            "bytes": 2498010
+          }
+        ],
+        "downloads": {
+          "https://astral.sh/uv/0.9.5/install.sh": {
+            "path": "/opt/harnesslab-verifier-cache/downloads/uv-install.sh",
+            "sha256": "8402ab80d2ef54d7044a71ea4e4e1e8db3b20c87c7bffbc30bff59f1e80ebbd5"
+          }
+        },
+        "env": {
+          "UV_DOWNLOAD_URL": "http://127.0.0.1:18765",
+          "UV_PYTHON": "/opt/benchmark-next-verifier/python313/bin/python3.13",
+          "UV_PYTHON_INSTALL_DIR": "/opt/benchmark-next-verifier/managed-python",
+          "UV_INDEX_URL": "https://mirrors.aliyun.com/pypi/simple/",
+          "UV_CACHE_DIR": "/opt/harnesslab-verifier-cache/uv",
+          "UV_OFFLINE": "1",
+          "APT_CONFIG": "/opt/harnesslab-verifier-cache/apt.conf"
+        },
+        "install_command": "if ls /opt/harnesslab-verifier-system/debs/*.deb >/dev/null 2>&1; then dpkg -i /opt/harnesslab-verifier-system/debs/*.deb; fi",
+        "test_script_sha256": "4770437ea96c3cc84684b4f99d55fb148fcac09f9ea1e8ef49de487716e6c334"
+      }
+    },
+    "sqlite-db-truncate": {
+      "runtime_profile": "native",
+      "source_fingerprint": "6b281801b2d0b598291a91d85c5d1fbc7f8fb15a61833b0ecb28d30b23649e32",
+      "capture_paths": [
+        "/app"
+      ],
+      "archives": [],
+      "env": {},
+      "verifier": {
+        "archives": [
+          {
+            "archive": "artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/4e8edc06fdd8/verifier.tar.gz",
+            "sha256": "06bf61769516c82dd5d858465951b14d9db234b1ef365c65ff6279a84904ef5f",
+            "bytes": 2584128
+          },
+          {
+            "archive": "artifacts/coding-system-caches/tb21-verifier-system-20261114/sqlite-db-truncate/system.tar.gz",
+            "sha256": "227603bd66f1f8e6b01633f2b7fc29fe6e4f3456100f101e542f9022c024d934",
+            "bytes": 2498013
+          }
+        ],
+        "downloads": {
+          "https://astral.sh/uv/0.9.5/install.sh": {
+            "path": "/opt/harnesslab-verifier-cache/downloads/uv-install.sh",
+            "sha256": "8402ab80d2ef54d7044a71ea4e4e1e8db3b20c87c7bffbc30bff59f1e80ebbd5"
+          }
+        },
+        "env": {
+          "UV_DOWNLOAD_URL": "http://127.0.0.1:18765",
+          "UV_PYTHON": "/opt/benchmark-next-verifier/python313/bin/python3.13",
+          "UV_PYTHON_INSTALL_DIR": "/opt/benchmark-next-verifier/managed-python",
+          "UV_INDEX_URL": "https://mirrors.aliyun.com/pypi/simple/",
+          "UV_CACHE_DIR": "/opt/harnesslab-verifier-cache/uv",
+          "UV_OFFLINE": "1",
+          "APT_CONFIG": "/opt/harnesslab-verifier-cache/apt.conf"
+        },
+        "install_command": "if ls /opt/harnesslab-verifier-system/debs/*.deb >/dev/null 2>&1; then dpkg -i /opt/harnesslab-verifier-system/debs/*.deb; fi",
+        "test_script_sha256": "4770437ea96c3cc84684b4f99d55fb148fcac09f9ea1e8ef49de487716e6c334"
+      }
+    }
+  }
+}

@@ -55,6 +55,7 @@ class NativeStudyEnvironment(BenchmarkAliyunEnvironment):
         self._command_records = []
         self._baseline_processes = []
         self._logs = None
+        self._study_verifier_env = None
 
     async def root_command(self, command, timeout=120):
         result = await super().exec(command, user="root", timeout_sec=timeout)
@@ -234,3 +235,18 @@ Path({(CONTROL + "/submission.json")!r}).write_text(json.dumps(record))
         await self._sandbox.update_network(
             {"allow_internet_access": self._study_network == "public", "allow_out": []}
         )
+
+    async def exec(self, command, **kwargs):
+        kwargs["env"] = {**self._runtime_env, **(kwargs.get("env") or {})}
+        if not self._actor_active and "/tests/test.sh" in command:
+            if self._study_verifier_env is None:
+                from harnesslab.coding.verifier_cache import prepare_verifier
+
+                self._study_verifier_env = await prepare_verifier(
+                    self, self.entry["verifier"], CONTROL, PYTHON
+                )
+                # The public cache replaces the parent's online dependency transport.
+                self._verifier_bootstrap = False
+                save_json(self._logs / "verifier-prerequisites.json", self.entry["verifier"])
+            kwargs["env"] = {**(kwargs.get("env") or {}), **self._study_verifier_env}
+        return await super().exec(command, **kwargs)

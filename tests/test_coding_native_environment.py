@@ -177,3 +177,50 @@ def test_submission_transfer_checks_hash_and_preserves_service_network(native, t
         assert processes["new_at_submission"] == [{"pid": 33, "start_ticks": 10}]
     assert environment._study_network == "offline"
     assert not any(call[0] == "network" for call in calls)
+
+
+def test_official_verifier_uses_cache_after_submission_once(native, tmp_path, monkeypatch):
+    from harnesslab.coding import verifier_cache
+
+    _, environment, calls, _ = native
+    prepared = []
+    environment.entry["verifier"] = {"archives": ["pinned-public-cache"]}
+    environment._logs = tmp_path
+    environment._actor_active = True
+
+    async def prepare(target, spec, control, python):
+        prepared.append(spec)
+        return {"UV_OFFLINE": "1", "PATH": "/cached-bin:/usr/bin"}
+
+    monkeypatch.setattr(verifier_cache, "prepare_verifier", prepare)
+
+    async def scenario():
+        await environment.exec("ls /tests/test.sh")
+        assert not prepared
+        environment._actor_active = False
+        await environment.exec("bash /tests/test.sh", env={"TEST_VALUE": "preserved"})
+        await environment.exec("bash /tests/test.sh")
+
+    asyncio.run(scenario())
+    assert prepared == [{"archives": ["pinned-public-cache"]}]
+    assert not environment._verifier_bootstrap
+    assert calls[-2][2]["env"] == {
+        "TEST_VALUE": "preserved",
+        "UV_OFFLINE": "1",
+        "PATH": "/cached-bin:/usr/bin",
+    }
+    assert json.loads((tmp_path / "verifier-prerequisites.json").read_text()) == prepared[0]
+
+
+def test_prerequisites_added_after_sandbox_creation_reach_actor_commands(native):
+    _, environment, calls, _ = native
+    environment._actor_active = True
+    environment._runtime_env.update(
+        PIP_INDEX_URL="file:///cache/simple", APT_CONFIG="/cache/apt.conf"
+    )
+    asyncio.run(environment.exec("pip install build", env={"TEST_MARKER": "passed"}))
+    assert calls[-1][2]["env"] == {
+        "PIP_INDEX_URL": "file:///cache/simple",
+        "APT_CONFIG": "/cache/apt.conf",
+        "TEST_MARKER": "passed",
+    }

@@ -1,0 +1,51 @@
+{
+  "tasks": {
+    "pypi-server": {
+      "runtime_profile": "native",
+      "source_fingerprint": "dede89fc240b77d967038403d5c59ab1e3b48b2fa13ad34499d3f3fc6ad0b9ad",
+      "capture_paths": [
+        "/app",
+        "/opt/pypiserver",
+        "/root/.pypirc"
+      ],
+      "archives": [
+        {
+          "archive": "cache/coding-native/pypi-server-v2/actor.tar.gz",
+          "sha256": "c78890a675020a5140454852f2546b28cdf6468b7bdfb2d9966b39a64bf1f0d3",
+          "bytes": 131228110
+        }
+      ],
+      "env": {
+        "PIP_INDEX_URL": "file:///opt/harnesslab-public-cache/simple",
+        "PIP_FIND_LINKS": "/opt/harnesslab-public-cache/wheels",
+        "APT_CONFIG": "/opt/harnesslab-public-cache/apt.conf"
+      },
+      "verifier": {
+        "archives": [
+          {
+            "archive": "cache/coding-native/pypi-server/verifier.tar.gz",
+            "sha256": "cff8e33140392a5bdd0a0d7c7f7c876e5d8e7f15863fd2f06fbf6dddfdabaeec",
+            "bytes": 4306808
+          }
+        ],
+        "downloads": {
+          "https://astral.sh/uv/0.9.5/install.sh": {
+            "path": "/opt/harnesslab-verifier-cache/downloads/uv-install.sh",
+            "sha256": "8402ab80d2ef54d7044a71ea4e4e1e8db3b20c87c7bffbc30bff59f1e80ebbd5"
+          }
+        },
+        "install_command": "if ls /opt/harnesslab-verifier-cache/debs/*.deb >/dev/null 2>&1; then dpkg -i /opt/harnesslab-verifier-cache/debs/*.deb; fi",
+        "env": {
+          "UV_OFFLINE": "1",
+          "UV_CACHE_DIR": "/opt/harnesslab-verifier-cache/uv",
+          "APT_CONFIG": "/opt/harnesslab-verifier-cache/apt.conf",
+          "PIP_INDEX_URL": "file:///opt/harnesslab-public-cache/simple",
+          "PIP_FIND_LINKS": "/opt/harnesslab-public-cache/wheels"
+        },
+        "test_script_sha256": "d2b1220e42bcfdcce87907ac5bbd69ac210a3c94926545ca2439636786e7784e"
+      }
+    }
+  },
+  "schema_version": 1,
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93"
+}

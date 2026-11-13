@@ -3,7 +3,7 @@
 import json
 import time
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID, uuid4, uuid5
 
 from dotenv import dotenv_values
 from langchain_core.tracers.langchain import LangChainTracer, wait_for_all_tracers
@@ -73,13 +73,9 @@ class StudyTrace:
         save_json(self.path, self.record)
 
 
-def publish_trial(root: Path, trial: Path, outcome: dict):
-    path = trial / "agent/langsmith.json"
-    if not path.exists():
-        return None
-    record = json.loads(path.read_text())
+def measurements(outcome):
     metrics = outcome["metrics"]
-    scores = {
+    values = {
         "official_reward": outcome["reward"],
         "pipeline_ok": int(outcome["pipeline_ok"]),
         "model_calls": metrics["model_responses"],
@@ -87,27 +83,105 @@ def publish_trial(root: Path, trial: Path, outcome: dict):
         "environment_commands": metrics["environment_commands"],
         "command_failures": metrics["environment_command_failures"],
         "agent_seconds": metrics["agent_seconds"],
+        "agent_execution_phase_seconds": (metrics.get("phase_seconds") or {}).get(
+            "agent_execution"
+        ),
         "trial_seconds": metrics["trial_seconds"],
         "submission_capture_seconds": metrics["submission_capture_seconds"],
         "review_candidates": metrics["candidates"],
         "evidence_checks": metrics["evidence_checks"],
         **metrics["tokens_and_lengths"],
     }
+    grader = (metrics.get("role_usage") or {}).get("grader") or {}
+    values.update({"grader_" + key: value for key, value in grader.items()})
+    result = {}
+    for key, raw in values.items():
+        if raw is None:
+            continue
+        scaled = key.endswith(("tokens", "chars"))
+        unit = (
+            "tokens"
+            if key.endswith("tokens")
+            else "characters"
+            if key.endswith("chars")
+            else "seconds"
+            if key.endswith("seconds")
+            else "count"
+        )
+        scale = 1_000_000 if scaled else 1
+        result[key + "_millions" if scaled else key] = {
+            "score": round(raw / scale, 4),
+            "value": {"raw": raw, "unit": unit, "scale": scale},
+        }
+    return result
+
+
+def persist_feedback(client, run, run_id, expected):
+    existing = {item.key: item for item in client.list_feedback(run_ids=[run.id])}
+    for key, item in expected.items():
+        previous = existing.get(key)
+        if previous and previous.value == item["value"]:
+            continue
+        if previous:
+            client.update_feedback(previous.id, score=item["score"], value=item["value"])
+        else:
+            # Omit trace_id to make writes synchronous and surface API validation errors.
+            client.create_feedback(
+                run_id=run.id,
+                session_id=run.session_id,
+                start_time=run.start_time,
+                key=key,
+                score=item["score"],
+                value=item["value"],
+                feedback_id=uuid5(UUID(run_id), "harnesslab-metric-v2:" + key),
+                comment="Canonical local measurement; value.raw preserves the exact value.",
+            )
+    for _attempt in range(6):
+        observed = {item.key: item for item in client.list_feedback(run_ids=[run.id])}
+        if all(
+            key in observed and observed[key].value == item["value"]
+            for key, item in expected.items()
+        ):
+            return True
+        time.sleep(2)
+    return False
+
+
+def publish_trial(root: Path, trial: Path, outcome: dict):
+    path = trial / "agent/langsmith.json"
+    if not path.exists():
+        return None
+    record = json.loads(path.read_text())
+    receipt_path = trial / "agent/langsmith-metrics.json"
+    expected = measurements(outcome)
+    if receipt_path.exists():
+        previous = json.loads(receipt_path.read_text())
+        if previous.get("verified") and previous.get("measurements") == expected:
+            record.update(
+                feedback_status="verified", feedback_keys=list(expected), url=previous["url"]
+            )
+            save_json(path, record)
+            return record
+    receipt = {
+        "task": outcome.get("task"),
+        "group": outcome.get("group"),
+        "network": outcome.get("network_mode"),
+        "run_id": record["run_id"],
+        "measurements": expected,
+        "verified": False,
+    }
     try:
-        client, _ = tracing_client(root)
-        for key, value in scores.items():
-            if value is not None:
-                client.create_feedback(
-                    run_id=record["run_id"],
-                    trace_id=record["run_id"],
-                    key=key,
-                    score=value,
-                    comment="Measured by HarnessLab; official_reward comes from Harbor verifier.",
-                )
-        client.flush(timeout=30)
-        record["feedback_status"] = "uploaded"
-        record["feedback_keys"] = [k for k, v in scores.items() if v is not None]
+        client, project = tracing_client(root)
+        run = client.read_run(record["run_id"])
+        record["url"] = record.get("url") or client.get_run_url(run=run, project_name=project)
+        receipt["url"] = record["url"]
+        receipt["verified"] = persist_feedback(client, run, record["run_id"], expected)
+        record["feedback_status"] = "verified" if receipt["verified"] else "verification_pending"
+        record["feedback_keys"] = list(expected)
+        record.pop("feedback_error_type", None)
     except Exception as exc:
         record.update(feedback_status="upload_error", feedback_error_type=type(exc).__name__)
+        receipt["error_type"] = type(exc).__name__
+    save_json(receipt_path, receipt)
     save_json(path, record)
     return record

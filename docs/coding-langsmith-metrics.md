@@ -17,6 +17,12 @@ by reading them back from LangSmith. Only this readback produces a verified
 `agent/langsmith-metrics.json` receipt. The script skips already verified, unchanged
 measurements and never calls a model or repeats a benchmark trial.
 
-During pilot job 1207614 the actor code stays frozen. This reporting step repairs and
-verifies feedback independently. The next frozen execution version should incorporate
-the same unit conversion and persistence checks into its post-verifier publisher.
+During pilot job 1207614 the actor code stayed frozen and the reporting script repaired
+feedback independently. The next execution version uses the same synchronous publisher
+for new trials and historical synchronization, with deterministic feedback IDs and exact
+raw-value readback. Only verified persistence is reported as `feedback_status=verified`.
+
+`agent_execution_phase_seconds` additionally exposes Harbor's recorded actor phase,
+including shutdown/draining. It remains distinct from `agent_seconds`, which stops at
+the execution deadline and excludes capture. When a shutdown error prevented the latter
+measurement, its missing value stays missing and the recorded phase duration is retained.

@@ -4,7 +4,9 @@ import asyncio
 import hashlib
 import importlib.util
 import json
+import os
 import sys
+import time
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -156,3 +158,40 @@ def test_compcert_toolchain_is_actor_only_and_shared_by_both_network_arms(enviro
     assert instance._runtime_env["PATH"].startswith(
         "/opt/harnesslab-prerequisites/opam/toolchain/bin:"
     )
+
+
+def test_shutdown_accepts_exited_children_waiting_for_parent_reaping(
+    environment, tmp_path, monkeypatch
+):
+    module, _, _ = environment
+    folders = []
+    for pid, uid, state in [(101, 26000, "S"), (102, 26000, "Z"), (103, 0, "S")]:
+        folder = tmp_path / str(pid)
+        folder.mkdir()
+        (folder / "status").write_text(f"Uid:\t{uid}\t{uid}\t{uid}\t{uid}\nState:\t{state}\n")
+        folders.append(folder)
+    monkeypatch.setattr(Path, "glob", lambda *args: folders)
+    monkeypatch.setattr(time, "sleep", lambda _: None)
+    killed = []
+
+    def kill(pid, signal):
+        killed.append(pid)
+        path = tmp_path / str(pid) / "status"
+        path.write_text(path.read_text().replace("State:\tS", "State:\tZ"))
+
+    monkeypatch.setattr(os, "kill", kill)
+    exec(module.STOP_ACTOR, {})
+    assert killed == [101]
+    assert "State:\tS" in (tmp_path / "103/status").read_text()
+
+
+def test_shutdown_reports_a_process_that_remains_active(environment, tmp_path, monkeypatch):
+    module, _, _ = environment
+    folder = tmp_path / "101"
+    folder.mkdir()
+    (folder / "status").write_text("Uid:\t26000\t26000\t26000\t26000\nState:\tD\n")
+    monkeypatch.setattr(Path, "glob", lambda *args: [folder])
+    monkeypatch.setattr(time, "sleep", lambda _: None)
+    monkeypatch.setattr(os, "kill", lambda *args: None)
+    with pytest.raises(RuntimeError, match=r"Actor processes still active.*101"):
+        exec(module.STOP_ACTOR, {})

@@ -53,23 +53,32 @@ chown -R {ACTOR_UID}:{ACTOR_UID} /app /home/{ACTOR} /usr/local/lib/compcert
 cp -L "$(command -v python3)" {PREFIX}/controller-python
 """
 
-STOP_ACTOR = """import os,signal,time
+STOP_ACTOR = """import json,os,signal,time
 from pathlib import Path
-for attempt in range(3):
+def active_processes():
     targets=[]
     for folder in Path('/proc').glob('[0-9]*'):
         try:
-            uid=next(line for line in (folder/'status').read_text().splitlines()
-                     if line.startswith('Uid:')).split()[1]
-            if int(uid)==26000: targets.append(int(folder.name))
+            fields=dict(line.split(':',1) for line in (folder/'status').read_text().splitlines()
+                        if ':' in line)
+            uid=int(fields['Uid'].split()[0])
+            state=fields['State'].split()[0]
+            # A zombie has exited; only its parent's wait/reaping can remove the proc entry.
+            if uid==26000 and state not in ('Z','X'):
+                targets.append({'pid':int(folder.name),'state':state})
         except (FileNotFoundError,ProcessLookupError): pass
+    return targets
+for attempt in range(50):
+    targets=active_processes()
     if not targets: break
-    for pid in targets:
-        try: os.kill(pid,signal.SIGKILL)
+    for target in targets:
+        try: os.kill(target['pid'],signal.SIGKILL)
         except ProcessLookupError: pass
     time.sleep(0.1)
 else:
-    raise RuntimeError('Actor processes did not exit')
+    remaining=active_processes()
+    if remaining:
+        raise RuntimeError('Actor processes still active: '+json.dumps(remaining))
 """
 
 SOURCE_MIRRORS = r"""import json,os,subprocess

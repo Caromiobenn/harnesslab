@@ -227,7 +227,13 @@ def execute_stage(
     return outcome
 
 
-def run_batch(root: Path, config: CodingConfig, batch: str, resume: bool = False) -> dict:
+def run_batch(
+    root: Path,
+    config: CodingConfig,
+    batch: str,
+    resume: bool = False,
+    reuse_manifest: Path | None = None,
+) -> dict:
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", batch):
         raise ValueError("Use a short alphanumeric batch name")
     model = model_settings(root)
@@ -261,24 +267,36 @@ def run_batch(root: Path, config: CodingConfig, batch: str, resume: bool = False
         "api_style": model["api_style"],
         "thinking_body": thinking_body(config, model),
     }
+    references = {}
+    if reuse_manifest is not None:
+        from harnesslab.coding.reuse import digest, load_reuse
+
+        references = load_reuse(reuse_manifest, plan)
+        plan["reuse_manifest"] = {"path": str(reuse_manifest), "sha256": digest(reuse_manifest)}
     plan_path = folder / "plan.json"
     if plan_path.exists() and (not resume or json.loads(plan_path.read_text()) != plan):
         raise ValueError("Batch plan is immutable; use a new batch for code/config changes")
     save_json(plan_path, plan)
     outcomes = []
 
+    def stage(row, group, repeat):
+        key = config.network_mode, row["task"], group, repeat
+        if key in references:
+            from harnesslab.coding.reuse import save_reused
+
+            return save_reused(folder, batch, references[key], resume)
+        return execute_stage(root, folder, row, group, config, batch, repeat, resume)
+
     def run_task(row):
         records = []
         for control, expected in (("empty", 0), ("oracle", 1)):
-            outcome = execute_stage(root, folder, row, control, config, batch, 0, resume)
+            outcome = stage(row, control, 0)
             records.append(outcome)
             if not outcome["pipeline_ok"] or outcome["reward"] != expected:
                 return records
         for repeat in range(config.repeats):
             for group in config.groups:
-                records.append(
-                    execute_stage(root, folder, row, group, config, batch, repeat, resume)
-                )
+                records.append(stage(row, group, repeat))
         return records
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=config.concurrency) as pool:
@@ -300,6 +318,7 @@ def run_batch(root: Path, config: CodingConfig, batch: str, resume: bool = False
     summary = {
         "expected_model_runs": expected_runs,
         "completed_model_runs": len(model_runs),
+        "reused_model_runs": sum("reuse" in row for row in model_runs),
         "integration_passed": len(model_runs) == expected_runs
         and all(row["pipeline_ok"] for row in outcomes),
         "groups": {

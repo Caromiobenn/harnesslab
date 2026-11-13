@@ -266,3 +266,60 @@ def test_cli_rejects_task_outside_frozen_set(project, monkeypatch):
     with pytest.raises(SystemExit) as exit_info:
         cli.main()
     assert exit_info.value.code == 2
+
+
+def test_batch_reuses_a_scored_zero_without_executing_its_model(project, monkeypatch):
+    from harnesslab.coding.reuse import digest
+
+    root, config, _ = project
+    calls = []
+
+    def stage(root, folder, row, group, config, batch, repeat, resume):
+        calls.append(group)
+        return {
+            "task": row["task"],
+            "group": group,
+            "repeat": repeat,
+            "network_mode": config.network_mode,
+            "pipeline_ok": True,
+            "reward": int(group not in ("empty", "mini")),
+            "cleanup_verified": True,
+            "job_name": batch + "-" + group,
+            "trial": "/original/trial",
+        }
+
+    monkeypatch.setattr(runner, "execute_stage", stage)
+    first = runner.run_batch(root, config, "original")
+    plan_path = root / "artifacts/coding/original/plan.json"
+    plan = json.loads(plan_path.read_text())
+    original = next(row for row in first["outcomes"] if row["group"] == "mini")
+    outcome_path = plan_path.parent / "mini.outcome.json"
+    save_json(outcome_path, original)
+    manifest_path = root / "reuse.json"
+    save_json(
+        manifest_path,
+        {
+            "target_source_hashes": plan["source_hashes"],
+            "references": [
+                {
+                    "outcome_path": str(outcome_path),
+                    "outcome_sha256": digest(outcome_path),
+                    "plan_path": str(plan_path),
+                    "plan_sha256": digest(plan_path),
+                    "compatible_groups": ["mini"],
+                    "reviewed_source_differences": {},
+                    "compatibility_reason": "Identical actor and task protocol.",
+                }
+            ],
+        },
+    )
+    calls.clear()
+    result = runner.run_batch(root, config, "continuation", reuse_manifest=manifest_path)
+    assert calls == ["empty", "oracle", "deepagents_default"]
+    assert result["reused_model_runs"] == 1
+    assert result["groups"]["mini"] == {"valid_runs": 1, "successes": 0}
+    saved = json.loads(
+        (root / "artifacts/coding/continuation/continuation-task-mini-0.outcome.json").read_text()
+    )
+    assert saved["job_name"] == original["job_name"]
+    assert saved["reuse"]["source_sha256"] == digest(outcome_path)

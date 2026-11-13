@@ -97,6 +97,7 @@ def make_report(root, config, batches):
                 "langsmith_url": trace.get("url"),
                 "trial": row.get("trial"),
                 "outcome_path": str(path),
+                "reuse": row.get("reuse"),
             }
             record.update({key: lengths.get(key, metrics.get(key)) for key in MEASURES})
             roles = metrics.get("role_usage") or {}

@@ -37,3 +37,10 @@ duplicating completed model work.
 The existing pilot runtime and source hashes stay frozen while its job is active.
 Independent full-dataset dependency preparation can proceed while the pilot runs.
 Full-dataset model trials follow pilot acceptance and matching task controls.
+
+
+## Verified expansion progress
+
+The full 89-task configuration and task-file lock are now committed. The native runtime implements service retention, image permissions and submission deltas. Public verifier preparation now covers 33 shared Python recipes (82 tasks), six custom Python tasks and the previously accepted Cython profile. The broad system-package ledger covers 79 tasks; the six pilot tasks and four earlier native controls retain their separate profiles.
+
+Seven more tasks passed all 28 offline/public empty/reference controls in job 1208116. gRPC and EigenPy passed another eight controls in job 1208132 using public installer archives without pre-installing task dependencies. These results do not establish readiness of every task: public model/data snapshots, remaining actor dependencies and remaining task controls still need completion. Full model trials follow six-task pilot acceptance; the original HIGH, N=1 model protocol remains unchanged.

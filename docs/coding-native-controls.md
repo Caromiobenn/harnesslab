@@ -37,3 +37,20 @@ python scripts/run_coding_native_controls.py \
 These controls contain no model calls. Full model execution follows six-task pilot
 acceptance and each task's environment controls. Tasks still needing public input
 fixtures or actor dependencies remain in the 89-task plan and are prepared separately.
+
+
+## Verified first native control batch
+
+CPU job `1208116` completed 28/28 accepted controls across seven tasks and both network arms. Each empty submission scored 0 and each official reference scored 1. Network probes and submission transfer hashes were checked for every trial; all instances were confirmed deleted. This includes persistent SSH/Nginx services and the interactive terminal implementation.
+
+| Task | Accepted controls | Offline reference assertions |
+| --- | ---: | ---: |
+| constraints-scheduling | 4/4 | 3/3 |
+| extract-elf | 4/4 | 2/2 |
+| fix-git | 4/4 | 2/2 |
+| git-leak-recovery | 4/4 | 5/5 |
+| git-multibranch | 4/4 | 1/1 |
+| headless-terminal | 4/4 | 7/7 |
+| large-scale-text-editing | 4/4 | 5/5 |
+
+The immutable plan, source hashes, public-cache ledger and outcomes are in `artifacts/native-controls/tb21-native-batch1-20261114/`. These are environment controls, not new model samples. The orchestration stage passed 157 tests and its GitHub CI.

@@ -89,6 +89,7 @@ def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: 
             raise ValueError("Public verifier inputs do not match the official task")
         entry["verifier"]["archives"].append(inputs["archive"])
         entry["verifier"]["python_downloads"] = inputs["python_downloads"]
+        entry["verifier"]["env"].update(inputs.get("verifier_env", {}))
     return entry
 
 

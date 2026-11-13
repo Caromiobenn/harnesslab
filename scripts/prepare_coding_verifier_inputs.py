@@ -76,6 +76,7 @@ def main():
         record.update(
             ok=True,
             python_downloads={recipe["url"]: {"path": target, "sha256": digest}},
+            verifier_env=recipe.get("verifier_env", {}),
             downloaded_file={"sha256": digest, "bytes": path.stat().st_size},
             archive={
                 "archive": str(archive.relative_to(root)),

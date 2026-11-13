@@ -101,6 +101,7 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
                 "test-data",
                 source_fingerprint="image",
                 test_script_sha256=sha,
+                verifier_env={"SE_CHROMEDRIVER": "/usr/bin/chromedriver"},
                 python_downloads={
                     "https://public.test/data.zip": {
                         "path": "/verifier-data.zip",
@@ -120,6 +121,8 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
     if custom:
         assert "https://public.test/data.zip" in profile["verifier"]["python_downloads"]
         assert "python_downloads" not in profile
+        assert profile["verifier"]["env"]["SE_CHROMEDRIVER"] == "/usr/bin/chromedriver"
+        assert "SE_CHROMEDRIVER" not in profile["env"]
     assert profile["capture_paths"] == ["/app", "/etc/nginx"]
     assert profile["verifier"]["test_script_sha256"] == sha
     with pytest.raises(ValueError, match="official task image"):

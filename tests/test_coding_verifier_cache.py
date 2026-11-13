@@ -67,7 +67,9 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
         sys.modules,
         "benchmark_next_bootstrap",
         SimpleNamespace(
-            prepare_tb21=bootstrap, verifier_environment=lambda: {"UV_PYTHON": "pinned-python"}
+            DIRECTORY="/pinned-bootstrap",
+            prepare_tb21=bootstrap,
+            verifier_environment=lambda: {"UV_PYTHON": "pinned-python"},
         ),
     )
 
@@ -104,6 +106,6 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
     assert result == {
         "UV_PYTHON": "pinned-python",
         "UV_OFFLINE": "1",
-        "PATH": "/controller/verifier-bin:/image/bin:/usr/bin",
+        "PATH": "/controller/verifier-bin:/image/bin:/usr/bin:/pinned-bootstrap/python313/bin",
     }
     assert json.loads(files["/controller/verifier-prerequisites.json"]) == spec

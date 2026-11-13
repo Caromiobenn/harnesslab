@@ -29,7 +29,7 @@ os.execv({real_curl!r},[{real_curl!r},*args])
 
 async def prepare_verifier(environment, spec: dict, control: str, python: str) -> dict:
     """Install only recorded public prerequisites after the actor has submitted."""
-    from benchmark_next_bootstrap import prepare_tb21, verifier_environment
+    from benchmark_next_bootstrap import DIRECTORY, prepare_tb21, verifier_environment
 
     (environment._root / "cache/tmp").mkdir(parents=True, exist_ok=True)
     await prepare_tb21(environment._root, environment)
@@ -51,7 +51,9 @@ async def prepare_verifier(environment, spec: dict, control: str, python: str) -
     await environment.root_command("chmod 755 " + directory + "/curl")
     env = {**verifier_environment(), **spec["env"]}
     shell_path = (await environment.root_command("printf '%s' \"$PATH\"")).stdout.strip()
-    env["PATH"] = directory + ":" + shell_path
+    # uvx's explicit -p 3.13 overrides UV_PYTHON; expose the already-pinned
+    # interpreter as a fallback while preserving the image's Python precedence.
+    env["PATH"] = directory + ":" + shell_path + ":" + DIRECTORY + "/python313/bin"
     await environment._sandbox.files.write(
         control + "/verifier-prerequisites.json", json.dumps(spec, sort_keys=True)
     )

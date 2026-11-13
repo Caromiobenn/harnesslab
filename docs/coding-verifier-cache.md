@@ -42,3 +42,39 @@ This acceptance also exercised passing newly prepared cache variables into comma
 after instance creation. Updating a startup configuration dictionary alone was insufficient
 for the installed Harbor version; the adapter now merges those variables per command.
 The stage passed 143 tests, Ruff checks and the existing smoke validation.
+
+## Shared verifier package preparation
+
+`scripts/prepare_coding_verifier_caches.py` groups the fixed dataset's verifier scripts
+by their exact `uvx` dependency arguments. It checks each script against the dataset
+provenance before reading it, preserves pinned versions and indexes, and expands only
+literal shell assignments used in those arguments. It runs `pytest --version` to populate
+the public package cache; it does not execute task assertions or reference solutions.
+
+Each recipe uses a fresh cloud instance. After resolution, the script disables internet
+access and checks that the same package environment starts with `UV_OFFLINE=1`. It saves
+the resolved package versions, an archive checksum, the offline probe and instance cleanup
+receipt. Equal recipes share one archive; task-specific system packages and public inputs
+remain separate prerequisites. Scripts with a custom pip/venv setup are listed for separate
+preparation. The task's own empty/reference controls remain the final readiness check.
+
+For a bounded preparation pass, select representative tasks:
+
+```bash
+uv run --extra coding python scripts/prepare_coding_verifier_caches.py \
+  --dataset /path/to/pinned-terminal-bench-2.1 \
+  --run verifier-cache-acceptance \
+  --tasks log-summary-date-ranges adaptive-rejection-sampler
+```
+
+Preparation uses two concurrent instances and makes no model calls. Successfully saved
+recipes can be reused within the same preparation run after their archive hashes are
+checked. A failed recipe retains its receipt and logs for inspection.
+
+The bounded preparation completed in CPU job `1207997`: the common pytest recipe
+(`4e8edc06fdd8`) produced a 2,584,128-byte archive, and the NumPy/SciPy recipe
+(`c196ea8dbf39`) produced a 54,932,793-byte archive. Both started pytest 8.4.1 after
+internet access was disabled. Archive transfer checksums matched and both instances
+were confirmed deleted. Receipts are under
+`artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/`.
+The code passed 145 tests (85.59% coverage), Ruff and the smoke validation.

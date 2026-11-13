@@ -80,6 +80,15 @@ def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: 
         entry["archives"].append(actor["archive"])
         entry["env"].update(actor["env"])
         entry.setdefault("offline_env", {}).update(actor.get("offline_env", {}))
+    if task in families.get("verifier_inputs", {}):
+        inputs = public_cache(root, families["verifier_inputs"][task])
+        if (
+            inputs["source_fingerprint"] != row["source_fingerprint"]
+            or inputs["test_script_sha256"] != test_sha
+        ):
+            raise ValueError("Public verifier inputs do not match the official task")
+        entry["verifier"]["archives"].append(inputs["archive"])
+        entry["verifier"]["python_downloads"] = inputs["python_downloads"]
     return entry
 
 

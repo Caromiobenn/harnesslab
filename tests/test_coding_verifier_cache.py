@@ -10,7 +10,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from harnesslab.coding.verifier_cache import curl_wrapper, prepare_verifier
+from harnesslab.coding.verifier_cache import curl_wrapper, prepare_verifier, urllib_cache_hook
 
 
 @pytest.mark.skipif(os.name == "nt", reason="The cloud command launcher runs on Linux")
@@ -53,8 +53,9 @@ def test_cached_curl_preserves_options_output_and_unknown_urls(tmp_path):
     assert "checksum mismatch" in result.stderr
 
 
+@pytest.mark.parametrize("python_downloads", [False, True])
 def test_verifier_preparation_initializes_upload_directory_and_cached_environment(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, python_downloads
 ):
     events = []
     files = {}
@@ -100,12 +101,55 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
         "downloads": {},
         "env": {"UV_OFFLINE": "1"},
     }
+    if python_downloads:
+        spec["python_downloads"] = {
+            "https://example.test/input.zip": {"path": "/public.zip", "sha256": "fixed"}
+        }
+        spec["env"]["PYTHONPATH"] = "/existing-helper"
     result = asyncio.run(prepare_verifier(environment, spec, "/controller", "python"))
     assert events[0] == "bootstrap"
     assert "install-recorded-dependencies" in events
-    assert result == {
+    expected = {
         "UV_PYTHON": "pinned-python",
         "UV_OFFLINE": "1",
         "PATH": "/controller/verifier-bin:/image/bin:/usr/bin:/pinned-bootstrap/python313/bin",
     }
+    if python_downloads:
+        expected["PYTHONPATH"] = "/controller/verifier-python:/existing-helper"
+        assert "urlopen" in files["/controller/verifier-python/sitecustomize.py"]
+    assert result == expected
     assert json.loads(files["/controller/verifier-prerequisites.json"]) == spec
+
+
+def test_urllib_verifier_cache_uses_exact_url_and_checks_bytes_in_real_python(tmp_path):
+    archive = tmp_path / "testbed.zip"
+    archive.write_bytes(b"public test archive")
+    url = "https://cache-test.invalid/official.zip"
+    log = tmp_path / "downloads.jsonl"
+    (tmp_path / "sitecustomize.py").write_text(
+        urllib_cache_hook(
+            {
+                url: {
+                    "path": str(archive),
+                    "sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
+                }
+            },
+            str(log),
+        )
+    )
+    code = f"""import urllib.request
+urllib.request.urlretrieve({url!r},'copied.zip')
+assert urllib.request.urlopen({archive.as_uri()!r}).read()==b'public test archive'
+"""
+    env = {**os.environ, "PYTHONPATH": str(tmp_path)}
+    result = subprocess.run(
+        [sys.executable, "-c", code], cwd=tmp_path, env=env, capture_output=True, text=True
+    )
+    assert result.returncode == 0, result.stderr
+    assert (tmp_path / "copied.zip").read_bytes() == archive.read_bytes()
+    assert len(log.read_text().splitlines()) == 1
+    archive.write_bytes(b"changed archive")
+    result = subprocess.run(
+        [sys.executable, "-c", code], cwd=tmp_path, env=env, capture_output=True, text=True
+    )
+    assert result.returncode != 0 and "checksum mismatch" in result.stderr

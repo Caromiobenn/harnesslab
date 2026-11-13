@@ -95,6 +95,20 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
                 offline_env={"HF_HUB_OFFLINE": "1"},
             )
         }
+        families["verifier_inputs"] = {
+            "task": cache_origin(
+                tmp_path,
+                "test-data",
+                source_fingerprint="image",
+                test_script_sha256=sha,
+                python_downloads={
+                    "https://public.test/data.zip": {
+                        "path": "/verifier-data.zip",
+                        "sha256": "pinned",
+                    }
+                },
+            )
+        }
     row = {"task": "task", "path": str(task), "source_fingerprint": "image"}
     profile = task_prerequisites(tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger)
     assert len(profile["archives"]) == 2 * int(custom)
@@ -102,7 +116,10 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
     if custom:
         assert profile["env"] == {"PIP_FIND_LINKS": "/public-wheels", "HF_HOME": "/public-hub"}
         assert profile["offline_env"] == {"HF_HUB_OFFLINE": "1"}
-    assert len(profile["verifier"]["archives"]) == 2
+    assert len(profile["verifier"]["archives"]) == 2 + int(custom)
+    if custom:
+        assert "https://public.test/data.zip" in profile["verifier"]["python_downloads"]
+        assert "python_downloads" not in profile
     assert profile["capture_paths"] == ["/app", "/etc/nginx"]
     assert profile["verifier"]["test_script_sha256"] == sha
     with pytest.raises(ValueError, match="official task image"):

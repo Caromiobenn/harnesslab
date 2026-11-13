@@ -37,3 +37,8 @@ instance deletion under `artifacts/coding-public-hub-inputs/`.
 
 
 The second preparation run `tb21-public-hub-offline-20261114` accepted both public input archives, including ordinary offline library loading and verified deletion of the preparation instances. The dataset task also installed its package archive offline in a fresh instance. This stage passed 163 tests and the required 85% coverage, Ruff and smoke checks. Fresh-instance official task controls remain the next acceptance step.
+
+
+## Complete task controls
+
+Job `1208173` subsequently passed all eight fresh-instance empty/reference controls for the dataset-token-count and sentiment-service tasks in both network arms. All official assertions executed, empty submissions scored zero, references scored one, and all instances were confirmed deleted. The service remained available through grading. These controls made no model calls.

@@ -104,6 +104,8 @@ class NativeStudyEnvironment(BenchmarkAliyunEnvironment):
     async def begin_actor(self, network_mode, logs_dir):
         self._logs = logs_dir
         self._study_network = network_mode
+        offline_env = self.entry.get("offline_env", {}) if network_mode == "offline" else {}
+        self._runtime_env.update(offline_env)
         await self._sandbox.update_network(
             {"allow_internet_access": network_mode == "public", "allow_out": []}
         )
@@ -125,6 +127,7 @@ class NativeStudyEnvironment(BenchmarkAliyunEnvironment):
                 "actor_user": self.actor_user,
                 "verifier_mode": network_mode,
                 "prerequisites": self.entry,
+                "offline_env": offline_env,
             },
         )
         if not verified:

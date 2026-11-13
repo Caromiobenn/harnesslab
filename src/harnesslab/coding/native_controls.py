@@ -71,12 +71,15 @@ def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: 
             "test_script_sha256": test_sha,
         },
     }
-    if task in families.get("actor_python", {}):
-        actor = public_cache(root, families["actor_python"][task])
+    for family in ("actor_python", "actor_hub"):
+        if task not in families.get(family, {}):
+            continue
+        actor = public_cache(root, families[family][task])
         if actor["source_fingerprint"] != row["source_fingerprint"]:
-            raise ValueError("Actor package cache does not match the official task image")
-        entry["archives"] = [actor["archive"]]
-        entry["env"] = actor["env"]
+            raise ValueError("Actor public cache does not match the official task image")
+        entry["archives"].append(actor["archive"])
+        entry["env"].update(actor["env"])
+        entry.setdefault("offline_env", {}).update(actor.get("offline_env", {}))
     return entry
 
 

@@ -94,7 +94,10 @@ def test_image_identity_and_offline_network_survive_verifier_phase_switch(native
     ]
 
 
-def test_begin_actor_records_baseline_and_image_identity_before_opening_commands(native, tmp_path):
+@pytest.mark.parametrize("mode", ["offline", "public"])
+def test_begin_actor_records_baseline_and_image_identity_before_opening_commands(
+    native, tmp_path, mode, monkeypatch
+):
     module, environment, calls, files = native
 
     async def python(code, timeout=120):
@@ -104,12 +107,25 @@ def test_begin_actor_records_baseline_and_image_identity_before_opening_commands
         return SimpleNamespace(stdout="")
 
     environment.python_command = python
-    asyncio.run(environment.begin_actor("offline", tmp_path / "agent"))
+
+    async def probe(self, command, **kwargs):
+        calls.append(("exec", command, kwargs))
+        return SimpleNamespace(
+            return_code=0, stderr="", stdout=json.dumps([{"reachable": mode == "public"}])
+        )
+
+    monkeypatch.setattr(module.BenchmarkAliyunEnvironment, "exec", probe)
+    environment.entry["env"] = {"HF_HOME": "/public-hub"}
+    environment.entry["offline_env"] = {"HF_HUB_OFFLINE": "1"}
+    asyncio.run(environment.begin_actor(mode, tmp_path / "agent"))
     assert environment._actor_active
     assert environment._scope is not None
     assert json.loads((tmp_path / "agent/network.json").read_text())["actor_user"] == "root"
     assert json.loads((tmp_path / "agent/submission/baseline.json").read_text())["/app/input"]
-    assert calls[0] == ("network", {"allow_internet_access": False, "allow_out": []})
+    assert calls[0] == ("network", {"allow_internet_access": mode == "public", "allow_out": []})
+    expected = {"HF_HUB_OFFLINE": "1"} if mode == "offline" else {}
+    assert environment._runtime_env == expected
+    assert json.loads((tmp_path / "agent/network.json").read_text())["offline_env"] == expected
 
 
 def test_reference_control_runs_in_same_network_phase_and_ends_phase_after_failure(

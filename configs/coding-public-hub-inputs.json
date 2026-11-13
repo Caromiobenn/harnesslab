@@ -1,0 +1,35 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "count-dataset-tokens": {
+      "kind": "dataset_tokenizer",
+      "repositories": [
+        {
+          "repo_id": "Qwen/Qwen2.5-1.5B-Instruct",
+          "repo_type": "model",
+          "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "files": ["README.md", "config.json", "merges.txt", "tokenizer.json", "tokenizer_config.json", "vocab.json"]
+        },
+        {
+          "repo_id": "ryanmarten/OpenThoughts-1k-sample",
+          "repo_type": "dataset",
+          "revision": "a82400884621626d41bef89b7604f8054e7e00e0",
+          "files": ["README.md", "data/train-00000-of-00001.parquet", "metadata/train-00000-of-00001.parquet"],
+          "configs": ["default", "metadata"]
+        }
+      ]
+    },
+    "hf-model-inference": {
+      "kind": "sentiment_model",
+      "repositories": [
+        {
+          "repo_id": "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+          "repo_type": "model",
+          "revision": "714eb0fa89d2f80546fda750413ed43d93601a13",
+          "files": ["README.md", "config.json", "model.safetensors", "tokenizer_config.json", "vocab.txt"],
+          "aliases": ["distilbert-base-uncased-finetuned-sst-2-english"]
+        }
+      ]
+    }
+  }
+}

@@ -86,12 +86,22 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
                 env={"PIP_FIND_LINKS": "/public-wheels"},
             )
         }
+        families["actor_hub"] = {
+            "task": cache_origin(
+                tmp_path,
+                "hub",
+                source_fingerprint="image",
+                env={"HF_HOME": "/public-hub"},
+                offline_env={"HF_HUB_OFFLINE": "1"},
+            )
+        }
     row = {"task": "task", "path": str(task), "source_fingerprint": "image"}
     profile = task_prerequisites(tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger)
-    assert len(profile["archives"]) == int(custom)
+    assert len(profile["archives"]) == 2 * int(custom)
     assert "install_command" not in profile
     if custom:
-        assert profile["env"] == {"PIP_FIND_LINKS": "/public-wheels"}
+        assert profile["env"] == {"PIP_FIND_LINKS": "/public-wheels", "HF_HOME": "/public-hub"}
+        assert profile["offline_env"] == {"HF_HUB_OFFLINE": "1"}
     assert len(profile["verifier"]["archives"]) == 2
     assert profile["capture_paths"] == ["/app", "/etc/nginx"]
     assert profile["verifier"]["test_script_sha256"] == sha

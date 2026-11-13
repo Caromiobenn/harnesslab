@@ -57,7 +57,7 @@ def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: 
         raise ValueError("System cache does not match the official task image")
     if python.get("source_fingerprint", row["source_fingerprint"]) != row["source_fingerprint"]:
         raise ValueError("Custom Python cache does not match the official task image")
-    return {
+    entry = {
         "runtime_profile": "native",
         "source_fingerprint": row["source_fingerprint"],
         "capture_paths": capture_paths,
@@ -71,6 +71,13 @@ def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: 
             "test_script_sha256": test_sha,
         },
     }
+    if task in families.get("actor_python", {}):
+        actor = public_cache(root, families["actor_python"][task])
+        if actor["source_fingerprint"] != row["source_fingerprint"]:
+            raise ValueError("Actor package cache does not match the official task image")
+        entry["archives"] = [actor["archive"]]
+        entry["env"] = actor["env"]
+    return entry
 
 
 def official_control_result(outcome: dict, expected: float) -> dict:

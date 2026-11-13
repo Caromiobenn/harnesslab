@@ -6,6 +6,8 @@
     "extract-elf": {"capture_paths": ["/app"]},
     "headless-terminal": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages", "/root/.bashrc", "/root/.profile"]},
     "constraints-scheduling": {"capture_paths": ["/app"]},
-    "large-scale-text-editing": {"capture_paths": ["/app"]}
+    "large-scale-text-editing": {"capture_paths": ["/app"]},
+    "kv-store-grpc": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages"]},
+    "largest-eigenval": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages"]}
   }
 }

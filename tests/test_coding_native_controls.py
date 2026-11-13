@@ -77,9 +77,21 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
         "system": {"task": system},
     }
     ledger = {"families": families}
+    if custom:
+        families["actor_python"] = {
+            "task": cache_origin(
+                tmp_path,
+                "actor",
+                source_fingerprint="image",
+                env={"PIP_FIND_LINKS": "/public-wheels"},
+            )
+        }
     row = {"task": "task", "path": str(task), "source_fingerprint": "image"}
     profile = task_prerequisites(tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger)
-    assert profile["archives"] == []
+    assert len(profile["archives"]) == int(custom)
+    assert "install_command" not in profile
+    if custom:
+        assert profile["env"] == {"PIP_FIND_LINKS": "/public-wheels"}
     assert len(profile["verifier"]["archives"]) == 2
     assert profile["capture_paths"] == ["/app", "/etc/nginx"]
     assert profile["verifier"]["test_script_sha256"] == sha

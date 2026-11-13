@@ -115,20 +115,21 @@ def make_report(root, config, batches):
     for row in records:
         cells[(row["network"], row["task"], row["group"], row["repeat"])].append(row)
     duplicate_valid = [
-        key for key, rows in cells.items() if sum(r["pipeline_ok"] for r in rows) > 1
+        key for key, rows in cells.items() if sum(r["reward"] is not None for r in rows) > 1
     ]
     if duplicate_valid:
         raise ValueError(
-            f"Multiple valid runs for a planned cell; select batches explicitly: {duplicate_valid}"
+            f"Multiple official scores for a cell; select batches explicitly: {duplicate_valid}"
         )
     selected = {
-        key: next((r for r in rows if r["pipeline_ok"]), rows[-1]) for key, rows in cells.items()
+        key: next((r for r in rows if r["reward"] is not None), rows[-1])
+        for key, rows in cells.items()
     }
     groups = []
     for network in ("offline", "public"):
         for group in config["groups"]:
             rows = [r for r in selected.values() if r["network"] == network and r["group"] == group]
-            valid = [r for r in rows if r["pipeline_ok"]]
+            valid = [r for r in rows if r["reward"] is not None]
             successes = sum(r["reward"] == 1 for r in valid)
             all_rows = [r for r in records if r["network"] == network and r["group"] == group]
             usage = {key: distribution([r[key] for r in all_rows]) for key in MEASURES}
@@ -140,6 +141,8 @@ def make_report(root, config, batches):
                     "finished_cells": len(rows),
                     "valid_scored_cells": len(valid),
                     "infrastructure_error_cells": len(rows) - len(valid),
+                    "scored_pipeline_error_cells": sum(not r["pipeline_ok"] for r in valid),
+                    "pipeline_error_cells": sum(not r["pipeline_ok"] for r in rows),
                     "successes": successes,
                     "success_rate": successes / len(valid) if valid else None,
                     "deadline_stops": sum(r["deadline_stop"] for r in rows),
@@ -157,7 +160,7 @@ def make_report(root, config, batches):
             continue
         baseline_group = "mini" if group == "deepagents_default" else "deepagents_default"
         base = selected.get((network, task, baseline_group, repeat))
-        if not base or not base["pipeline_ok"] or not treatment["pipeline_ok"]:
+        if not base or base["reward"] is None or treatment["reward"] is None:
             continue
         label = "same_result"
         if treatment["reward"] > base["reward"]:
@@ -177,6 +180,8 @@ def make_report(root, config, batches):
                 "treatment_trial": treatment["trial"],
                 "base_reward": base["reward"],
                 "treatment_reward": treatment["reward"],
+                "base_pipeline_ok": base["pipeline_ok"],
+                "treatment_pipeline_ok": treatment["pipeline_ok"],
                 "review_candidates": treatment["candidates"],
                 "evidence_checks": treatment["evidence_checks"],
                 "output_token_delta": treatment["output_tokens"] - base["output_tokens"]
@@ -196,8 +201,8 @@ def make_report(root, config, batches):
         if (
             network != "offline"
             or not public
-            or not offline["pipeline_ok"]
-            or not public["pipeline_ok"]
+            or offline["reward"] is None
+            or public["reward"] is None
         ):
             continue
         network_pairs.append(
@@ -208,6 +213,8 @@ def make_report(root, config, batches):
                 "public_reward": public["reward"],
                 "offline_trial": offline["trial"],
                 "public_trial": public["trial"],
+                "offline_pipeline_ok": offline["pipeline_ok"],
+                "public_pipeline_ok": public["pipeline_ok"],
             }
         )
     return {
@@ -218,7 +225,16 @@ def make_report(root, config, batches):
         "case_candidates": cases,
         "network_pairs": network_pairs,
         "definitions": {
-            "success_rate": "Official successes / valid scores; infrastructure failures separate.",
+            "success_rate": (
+                "Official successes / all official scores, including scored harness/review errors."
+            ),
+            "infrastructure_error_cells": (
+                "Ended cells without an official score; excluded from the score denominator "
+                "and retained in usage."
+            ),
+            "scored_pipeline_error_cells": (
+                "Scored cells with a separate integration error; retained in the score denominator."
+            ),
             "usage": "All ended attempts, including infrastructure failures.",
             "missing": "Missing measurements stay null; observed_trials is the metric denominator.",
             "cases": "Inspection candidates, not causal explanations or hacking verdicts.",
@@ -251,6 +267,8 @@ def main():
         "successes",
         "success_rate",
         "infrastructure_error_cells",
+        "scored_pipeline_error_cells",
+        "pipeline_error_cells",
         "deadline_stops",
     ]
     with (args.output / "groups.csv").open("w", newline="") as stream:

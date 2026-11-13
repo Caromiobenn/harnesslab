@@ -1,13 +1,183 @@
 {
   "tasks": {
-    "fix-git": {"capture_paths": ["/app"]},
-    "git-leak-recovery": {"capture_paths": ["/app"]},
-    "git-multibranch": {"capture_paths": ["/app", "/git", "/etc/nginx", "/etc/ssh", "/etc/ssl", "/etc/passwd", "/etc/shadow", "/etc/group", "/etc/gshadow", "/home/git", "/var/www"]},
-    "extract-elf": {"capture_paths": ["/app"]},
-    "headless-terminal": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages", "/root/.bashrc", "/root/.profile"]},
-    "constraints-scheduling": {"capture_paths": ["/app"]},
-    "large-scale-text-editing": {"capture_paths": ["/app"]},
-    "kv-store-grpc": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages"]},
-    "largest-eigenval": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages"]}
+    "fix-git": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "git-leak-recovery": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "git-multibranch": {
+      "capture_paths": [
+        "/app",
+        "/git",
+        "/etc/nginx",
+        "/etc/ssh",
+        "/etc/ssl",
+        "/etc/passwd",
+        "/etc/shadow",
+        "/etc/group",
+        "/etc/gshadow",
+        "/home/git",
+        "/var/www"
+      ]
+    },
+    "extract-elf": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "headless-terminal": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages",
+        "/root/.bashrc",
+        "/root/.profile"
+      ]
+    },
+    "constraints-scheduling": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "large-scale-text-editing": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "kv-store-grpc": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages"
+      ]
+    },
+    "largest-eigenval": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages"
+      ]
+    },
+    "break-filter-js-from-html": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "circuit-fibsqrt": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "custom-memory-heap-crash": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "distribution-search": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "feal-differential-cryptanalysis": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "feal-linear-cryptanalysis": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "filter-js-from-html": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "fix-ocaml-gc": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "gpt2-codegolf": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "llm-inference-batching-scheduler": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "make-mips-interpreter": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "model-extraction-relu-logits": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "multi-source-data-merger": {
+      "capture_paths": [
+        "/app",
+        "/data"
+      ]
+    },
+    "password-recovery": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "path-tracing": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "path-tracing-reverse": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "portfolio-optimization": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "prove-plus-comm": {
+      "capture_paths": [
+        "/workspace"
+      ]
+    },
+    "query-optimize": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "regex-chess": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sanitize-git-repo": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "schemelike-metacircular-eval": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "vulnerable-secret": {
+      "capture_paths": [
+        "/app"
+      ]
+    }
   }
 }

@@ -142,7 +142,7 @@ uv run --extra coding harnesslab-coding plan \
 ```
 
 First accept a bounded trial of the prepared environment and review loop. Then run the
-six-task paired pilot; each command below schedules 90 model trials plus controls:
+six-task paired pilot; each command below schedules 30 model trials plus 12 controls:
 
 ```bash
 uv run --extra coding harnesslab-coding run \

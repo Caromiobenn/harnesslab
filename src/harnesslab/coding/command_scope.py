@@ -75,6 +75,7 @@ def process_group_command(sandbox, command, python="python3"):
         result = await sandbox.commands.run(script, user="root", timeout=15)
         return json.loads(result.stdout)
 
+    cleanup.record_path = record
     return wrapped, cleanup
 
 

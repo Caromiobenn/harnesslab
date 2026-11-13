@@ -323,3 +323,22 @@ def test_batch_reuses_a_scored_zero_without_executing_its_model(project, monkeyp
     )
     assert saved["job_name"] == original["job_name"]
     assert saved["reuse"]["source_sha256"] == digest(outcome_path)
+
+
+@pytest.mark.parametrize("group", ["empty", "oracle", "mini", "rubric_evidence"])
+def test_full_task_profile_uses_matching_controls_without_changing_model_budget(project, group):
+    root, config, _ = project
+    row = runner.task_plan(root, config, "task")
+    save_json(root / "native.json", {"tasks": {"task": {"runtime_profile": "native"}}})
+    config = config.model_copy(
+        update={"prerequisites_manifest": "native.json", "network_mode": "offline"}
+    )
+    result = runner.job_config(root, config, row, group, "fixture")
+    assert result["environment"]["import_path"].endswith(":NativeStudyEnvironment")
+    agent = result["agents"][0]
+    if group in ("empty", "oracle"):
+        assert agent["import_path"].endswith(":Native" + group.title() + "Control")
+        assert agent["kwargs"]["network_mode"] == "offline"
+    else:
+        assert agent["kwargs"]["experiment"]["reasoning_effort"] == "high"
+        assert result["n_attempts"] == 1

@@ -49,16 +49,37 @@ def task_plan(root: Path, config: CodingConfig, task: str) -> dict:
 def job_config(root: Path, config: CodingConfig, row: dict, group: str, name: str) -> dict:
     from harbor.models.job.config import JobConfig
 
+    native = False
+    environment_import = "benchmark_next_environment:BenchmarkAliyunEnvironment"
+    if config.prerequisites_manifest:
+        entry = json.loads((root / config.prerequisites_manifest).read_text())["tasks"][row["task"]]
+        profile = entry.get("runtime_profile", "pilot")
+        if profile not in ("pilot", "native"):
+            raise ValueError("Unknown task runtime profile: " + profile)
+        native = profile == "native"
+        environment_import = (
+            "harnesslab.coding.native_environment:NativeStudyEnvironment"
+            if native
+            else "harnesslab.coding.environment:StudyEnvironment"
+        )
     if group == "empty":
-        agent = {"import_path": "harnesslab.coding.controls:EmptyControl"}
+        agent = {
+            "import_path": "harnesslab.coding.controls:"
+            + ("NativeEmptyControl" if native else "EmptyControl")
+        }
+        if native:
+            agent["kwargs"] = {"network_mode": config.network_mode}
     elif group == "oracle":
         agent = {
-            "import_path": "harnesslab.coding.controls:OracleControl",
+            "import_path": "harnesslab.coding.controls:"
+            + ("NativeOracleControl" if native else "OracleControl"),
             "kwargs": {
                 "task_dir": row["path"],
                 "agent_timeout_sec": row["agent_seconds"],
             },
         }
+        if native:
+            agent["kwargs"]["network_mode"] = config.network_mode
     else:
         model = model_settings(root, require_key=False)["model"]
         agent = {
@@ -80,11 +101,7 @@ def job_config(root: Path, config: CodingConfig, row: dict, group: str, name: st
         "tasks": [{"path": row["path"]}],
         "agents": [agent],
         "environment": {
-            "import_path": (
-                "harnesslab.coding.environment:StudyEnvironment"
-                if config.prerequisites_manifest
-                else "benchmark_next_environment:BenchmarkAliyunEnvironment"
-            ),
+            "import_path": environment_import,
             "delete": True,
             "kwargs": {
                 "profile_file": ".env.sandbox",
@@ -113,7 +130,11 @@ def preflight_environment(root: Path, config: CodingConfig, row: dict) -> None:
 
     environment = job_config(root, config, row, "empty", "preflight")["environment"]
     adapter = BenchmarkAliyunEnvironment
-    if config.prerequisites_manifest:
+    if environment["import_path"].endswith(":NativeStudyEnvironment"):
+        from harnesslab.coding.native_environment import NativeStudyEnvironment
+
+        adapter = NativeStudyEnvironment
+    elif config.prerequisites_manifest:
         from harnesslab.coding.environment import StudyEnvironment
 
         adapter = StudyEnvironment

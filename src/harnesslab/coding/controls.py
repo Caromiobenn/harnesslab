@@ -31,3 +31,30 @@ class OracleControl(OracleAgent):
             trial_paths=TrialPaths(trial_dir=Path(logs_dir).parent),
             **kwargs,
         )
+
+
+class NativeEmptyControl(EmptyControl):
+    def __init__(self, *args, network_mode, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.network_mode = network_mode
+
+    async def setup(self, environment):
+        await environment.begin_actor(self.network_mode, self.logs_dir)
+
+    async def run(self, instruction, environment, context):
+        await environment.end_actor(self.logs_dir)
+
+
+class NativeOracleControl(OracleControl):
+    def __init__(self, *args, network_mode, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.network_mode = network_mode
+
+    async def setup(self, environment):
+        await environment.begin_actor(self.network_mode, self.logs_dir)
+
+    async def run(self, instruction, environment, context):
+        try:
+            await super().run(instruction, environment, context)
+        finally:
+            await environment.end_actor(self.logs_dir)

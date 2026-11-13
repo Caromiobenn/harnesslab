@@ -76,7 +76,11 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
 
     async def command(text, timeout=120):
         events.append(text)
-        return SimpleNamespace(stdout="/usr/bin/curl\n" if text == "command -v curl" else "")
+        output = {
+            "command -v curl": "/usr/bin/curl\n",
+            "printf '%s' \"$PATH\"": "/image/bin:/usr/bin",
+        }
+        return SimpleNamespace(stdout=output.get(text, ""))
 
     async def write(path, content):
         files[path] = content
@@ -85,7 +89,7 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
         _root=tmp_path,
         upload_archive=upload,
         root_command=command,
-        _startup_env=lambda: {"PATH": "/usr/bin"},
+        _startup_env=lambda: {},
         _sandbox=SimpleNamespace(files=SimpleNamespace(write=write)),
     )
     spec = {
@@ -100,6 +104,6 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
     assert result == {
         "UV_PYTHON": "pinned-python",
         "UV_OFFLINE": "1",
-        "PATH": "/controller/verifier-bin:/usr/bin",
+        "PATH": "/controller/verifier-bin:/image/bin:/usr/bin",
     }
     assert json.loads(files["/controller/verifier-prerequisites.json"]) == spec

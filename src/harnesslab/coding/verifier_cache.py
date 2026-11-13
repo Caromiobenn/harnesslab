@@ -50,7 +50,8 @@ async def prepare_verifier(environment, spec: dict, control: str, python: str) -
     )
     await environment.root_command("chmod 755 " + directory + "/curl")
     env = {**verifier_environment(), **spec["env"]}
-    env["PATH"] = directory + ":" + environment._startup_env()["PATH"]
+    shell_path = (await environment.root_command("printf '%s' \"$PATH\"")).stdout.strip()
+    env["PATH"] = directory + ":" + shell_path
     await environment._sandbox.files.write(
         control + "/verifier-prerequisites.json", json.dumps(spec, sort_keys=True)
     )

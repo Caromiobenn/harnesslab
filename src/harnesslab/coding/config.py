@@ -45,6 +45,7 @@ def project_root() -> Path:
 
 
 def configure_runtime(root: Path) -> None:
+    (root / "cache/tmp").mkdir(parents=True, exist_ok=True)
     os.environ["HARNESSLAB_ROOT"] = str(root)
     os.environ["DATA_ENGINEERING_ROOT"] = str(root)
     os.environ["BENCHMARK_NEXT_SANDBOX_ENV"] = ".env.sandbox"

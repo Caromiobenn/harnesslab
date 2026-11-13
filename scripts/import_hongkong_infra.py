@@ -1,4 +1,4 @@
-"""Import only the pinned six tasks and the existing Hong Kong environment adapter."""
+"""Import the configured pinned tasks and the existing Hong Kong runtime dependencies."""
 
 from __future__ import annotations
 
@@ -17,6 +17,8 @@ MODULES = (
     "benchmark_next_cleanup.py",
     "sandbox_profile.py",
     "benchmark_next_bootstrap.py",
+    "benchmark_next_http_cache.py",
+    "benchmark_next_agent_runtime.py",
     "agent_artifacts.py",
 )
 
@@ -37,6 +39,38 @@ def inside(root, relative):
 '''
 
 
+def import_runtime_assets(source: Path, root: Path) -> dict[str, str]:
+    """Copy the public data and native helpers declared by the runtime profile."""
+    copied = {}
+
+    def copy(relative: str, expected: str | None = None) -> None:
+        origin = (source / relative).resolve()
+        destination = (root / relative).resolve()
+        if not origin.is_relative_to(source.resolve()) or not destination.is_relative_to(
+            root.resolve()
+        ):
+            raise ValueError("Runtime asset is outside the project")
+        with origin.open("rb") as stream:
+            digest = hashlib.file_digest(stream, "sha256").hexdigest()
+        if expected is not None and digest != expected:
+            raise ValueError("Runtime asset checksum mismatch: " + relative)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(origin, destination)
+        copied[relative] = digest
+
+    copy("configs/benchmark-agent-runtime.json")
+    runtime = json.loads((source / "configs/benchmark-runtime-next.json").read_text())
+    for profile in runtime["environments"].values():
+        if cache := profile.get("http_cache"):
+            copy("scripts/benchmark_http_cache.py", cache["helper_sha256"])
+            copy(cache["path"], cache["sha256"])
+        if redirect := profile.get("loopback_port_redirect"):
+            artifact = redirect["artifact"]
+            copy("scripts/benchmark_loopback_redirect.c", artifact["source_sha256"])
+            copy(artifact["path"], artifact["sha256"])
+    return copied
+
+
 def import_infra(source: Path, root: Path) -> dict:
     config = load_config(root)
     vendor = root / "vendor/hongkong"
@@ -52,6 +86,7 @@ def import_infra(source: Path, root: Path) -> dict:
         content = (source / "configs" / name).read_bytes()
         sources[f"configs/{name}"] = hashlib.sha256(content).hexdigest()
         (root / "configs" / name).write_bytes(content)
+    sources.update(import_runtime_assets(source, root))
     dataset = source / "cache/benchmark-next" / f"{config.benchmark}-{config.revision[:12]}"
     provenance = json.loads((dataset / "provenance.json").read_text())
     if provenance["revision"] != config.revision:

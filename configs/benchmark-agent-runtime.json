@@ -1,0 +1,7 @@
+{
+  "certifi_version": "2026.10.23",
+  "ca_sha256": "2ef52ad56b4803e264045c915e55c236cbfa045b84b81efefc218a19eb44bd2b",
+  "python_artifact": "python313.tar.gz",
+  "python_sha256": "26e9648a24ac7af70af650dd237bf3334d4de1e95291ea462dab82301ef1ff27",
+  "purpose": "Native harness HTTPS trust and process cleanup only; not added to task PATH"
+}

@@ -24,6 +24,12 @@ actor submits. Official task tests remain unchanged. Use identical packages in b
 network conditions, then run empty and official-reference controls in each condition.
 An offline package installation probe alone does not establish task readiness.
 
+For images without a CA certificate package, preparation supplies the controller's
+versioned certifi public trust bundle through APT's `Acquire::https::CaInfo` option.
+The receipt records the certifi version and bundle SHA-256. HTTPS certificate checking
+and package signature verification remain enabled. The bundle is used by preparation;
+the cached package archive is installed after the actor submits.
+
 ## Verified three-task controls
 
 CPU job `1208017` prepared and installed the cached curl dependency closure offline

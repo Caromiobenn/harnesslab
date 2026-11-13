@@ -7,9 +7,16 @@
     "scripts/benchmark_next_cleanup.py": "983258c879faf5936e51f482cd09ffd313745ca66c128ef0f94347e2714b239b",
     "scripts/sandbox_profile.py": "e453139a07a26c899348c8c3d526a1c1764dd68b34c9a21337a7e1589bb90a6a",
     "scripts/benchmark_next_bootstrap.py": "77d5a48e677220fd0f541cf905309ee77c8ab95b103499a99b1d80a30b951b25",
+    "scripts/benchmark_next_http_cache.py": "1dfa200e2d890084e11ec29ed89b20432408392036d1829c623afe8e530b6578",
+    "scripts/benchmark_next_agent_runtime.py": "3d12e3ec0188ab1edbc82d82dd204b80fc655e3a1e7e1608feadc319504a5daa",
     "scripts/agent_artifacts.py": "709bcf465caaf28a3fbf77c4bfed5851e7be1c4499f15de2dc98e937e339e274",
     "configs/benchmark-images-next.json": "23c5e84c1cbfe5aae51c174f3dc9872fcc77d9e45da867651b37bd27bbdef377",
-    "configs/benchmark-runtime-next.json": "591320cf5e6a7fdb6293bafe4238f80631f997d50375005a2f7dfdada8c7001d"
+    "configs/benchmark-runtime-next.json": "591320cf5e6a7fdb6293bafe4238f80631f997d50375005a2f7dfdada8c7001d",
+    "configs/benchmark-agent-runtime.json": "a498dbe54a9f41c636b3869ac8b03a4954701963736c9a168d1e1ec720258a2a",
+    "scripts/benchmark_http_cache.py": "497ec2eecba706d4fc80517418618149c7659883dbe6c5ad75de5d5e4953f74f",
+    "cache/benchmark-next-runtime/cifar-10-binary.tar.gz": "c4a38c50a1bc5f3a1c5537f2155ab9d68f9f25eb1ed8d9ddda3db29a59bca1dd",
+    "scripts/benchmark_loopback_redirect.c": "588c47a2d7d2b4754f7c97a42f4b540b2f1a22e4b845eef94320efb689c3a5d3",
+    "cache/benchmark-next-runtime/loopback/588c47a2d7d2b475/loopback.so": "18322a45027edce639e4a7a18a53e2083be6e94498903aa44d03a541357a2016"
   },
   "builder_repository": "https://github.com/Caromiobenn/benchmark-sandbox-builder",
   "workflow": ".github/workflows/benchmark.yml",

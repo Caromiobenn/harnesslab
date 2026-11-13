@@ -11,6 +11,8 @@ import re
 import shlex
 from pathlib import Path
 
+import certifi
+
 from harnesslab.coding.config import configure_runtime, project_root, save_json
 
 PREFIX = "/opt/harnesslab-verifier-system"
@@ -83,11 +85,18 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
         owned.add(environment._sandbox.sandbox_id)
         result["sandbox_id"] = environment._sandbox.sandbox_id
         save_json(receipt, result)
-        (root / "cache/tmp").mkdir(parents=True, exist_ok=True)
         await prepare_tb21(root, environment)
+        ca_path = "/opt/harnesslab-controller/preparation-ca.pem"
+        ca_bundle = Path(certifi.where()).read_bytes()
+        await environment._sandbox.files.write(ca_path, ca_bundle)
+        result["preparation_ca"] = {
+            "certifi_version": certifi.__version__,
+            "sha256": hashlib.sha256(ca_bundle).hexdigest(),
+        }
+        apt = "apt-get -o Acquire::https::CaInfo=" + shlex.quote(ca_path)
         command = (
-            f"mkdir -p {PREFIX}/debs/partial && apt-get update -qq && "
-            f"apt-get -y --download-only -o Dir::Cache::archives={PREFIX}/debs install "
+            f"mkdir -p {PREFIX}/debs/partial && {apt} update -qq && "
+            f"{apt} -y --download-only -o Dir::Cache::archives={PREFIX}/debs install "
             + shlex.join(packages)
         )
         (folder / "prepare.sh").write_text(command + "\n")

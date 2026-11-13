@@ -8,12 +8,13 @@ import shlex
 import threading
 from pathlib import Path
 
-from deepagents.middleware.rubric import GRADER_SYSTEM_PROMPT, RubricMiddleware
+from deepagents.middleware.rubric import GRADER_SYSTEM_PROMPT
 from langchain.agents.middleware import AgentMiddleware, AgentState, hook_config
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import StructuredTool
 
 from harnesslab.coding.config import save_json
+from harnesslab.coding.rubric_contract import FixedCriteriaRubric
 from harnesslab.harnesses.verification import GenericRetryMiddleware
 
 CRITERIA = ("deliverables", "behavior", "verification")
@@ -239,7 +240,8 @@ def build_review(
             "Original public task:\n" + instruction,
         ]
     )
-    grader = RubricMiddleware(
+    grader = FixedCriteriaRubric(
+        criterion_names=(*CRITERIA, "current_evidence") if evidence else CRITERIA,
         model=model,
         tools=ledger.tools() if evidence else [],
         max_iterations=iterations,

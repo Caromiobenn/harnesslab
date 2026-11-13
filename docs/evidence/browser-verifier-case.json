@@ -1,0 +1,136 @@
+{
+  "task": "filter-js-from-html",
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "kind": "controlled_verifier_diagnostic",
+  "model_calls": 0,
+  "candidate_sha256": "cf7fefd5aab2677bb9f6227609f522630e3b13a2732ce0962f8ef3d372c7dc30",
+  "candidate": "from bs4 import BeautifulSoup\nfrom pathlib import Path\nimport sys\np=Path(sys.argv[1])\np.write_text(str(BeautifulSoup(p.read_text(), \"html.parser\")))\n",
+  "sources": [
+    {
+      "run": "tb21-filter-norm-bad-20261114",
+      "version": "automatic_driver",
+      "candidate": "from bs4 import BeautifulSoup\nfrom pathlib import Path\nimport sys\np=Path(sys.argv[1])\np.write_text(str(BeautifulSoup(p.read_text(), \"html.parser\")))\n",
+      "candidate_sha256": "cf7fefd5aab2677bb9f6227609f522630e3b13a2732ce0962f8ef3d372c7dc30",
+      "receipt_sha256": "a82cfc774468735fcd8e009f10774272839c1b5dde9bee9c42d7c6b75b51f911",
+      "source_control_manifest_sha256": "fdf59ae729572bf183c292e5eaa6427fde055a389fb5c8fce740407ce564935f"
+    },
+    {
+      "run": "tb21-filter-browser-norm-20261114",
+      "version": "installed_driver",
+      "candidate": "from bs4 import BeautifulSoup\nfrom pathlib import Path\nimport sys\np=Path(sys.argv[1])\np.write_text(str(BeautifulSoup(p.read_text(), \"html.parser\")))\n",
+      "candidate_sha256": "cf7fefd5aab2677bb9f6227609f522630e3b13a2732ce0962f8ef3d372c7dc30",
+      "receipt_sha256": "a461ca7c1c0003f7e366723b0630e5bafaaf54917e495611a883b829ad7f3005",
+      "source_control_manifest_sha256": "0b706fd587968f21a8b7c3f55e920af5bc251769bdb71d529436ca3089d81f84"
+    }
+  ],
+  "outcomes": [
+    {
+      "version": "automatic_driver",
+      "network": "offline",
+      "reward": 1.0,
+      "pipeline_ok": true,
+      "cleanup_verified": true,
+      "browser_attempts": 28,
+      "driver_failures": 28,
+      "page_load_failures": 0,
+      "alerts_detected": 0,
+      "no_alert_batches": 0,
+      "timeout_passes": 0,
+      "test_summary": {
+        "tests": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1794612151.1016374,
+        "stop": 1794612772.6382387
+      },
+      "trial": "artifacts/coding/jobs/tb21-filter-norm-bad-20261114-offline-filter-js-from-html-empty-0/filter-js-from-html__nz5v9rE",
+      "stdout_sha256": "8399847877d2dbc5f4c8ec9796cd5e6f54bcdccbf9a1a8c672a8111521ce30bf"
+    },
+    {
+      "version": "automatic_driver",
+      "network": "public",
+      "reward": 0.0,
+      "pipeline_ok": true,
+      "cleanup_verified": true,
+      "browser_attempts": 28,
+      "driver_failures": 0,
+      "page_load_failures": 8,
+      "alerts_detected": 18,
+      "no_alert_batches": 2,
+      "timeout_passes": 0,
+      "test_summary": {
+        "tests": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1794612796.5628834,
+        "stop": 1794613254.8682146
+      },
+      "trial": "artifacts/coding/jobs/tb21-filter-norm-bad-20261114-public-filter-js-from-html-empty-0/filter-js-from-html__dYd2zJa",
+      "stdout_sha256": "460180a6bc357ed8000b59821753a858ccfbf9800a74a341479132fe3f3cf8d9"
+    },
+    {
+      "version": "installed_driver",
+      "network": "offline",
+      "reward": 0.0,
+      "pipeline_ok": true,
+      "cleanup_verified": true,
+      "browser_attempts": 28,
+      "driver_failures": 0,
+      "page_load_failures": 6,
+      "alerts_detected": 20,
+      "no_alert_batches": 2,
+      "timeout_passes": 0,
+      "test_summary": {
+        "tests": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1794612370.6086419,
+        "stop": 1794612722.3053758
+      },
+      "trial": "artifacts/coding/jobs/tb21-filter-browser-norm-20261114-offline-filter-js-from-html-empty-0/filter-js-from-html__ZvLKczt",
+      "stdout_sha256": "bd13dd5de89923c205136c68aa229807d2abc6aba74a96adb81b613c1a08536f"
+    },
+    {
+      "version": "installed_driver",
+      "network": "public",
+      "reward": 0.0,
+      "pipeline_ok": true,
+      "cleanup_verified": true,
+      "browser_attempts": 28,
+      "driver_failures": 0,
+      "page_load_failures": 8,
+      "alerts_detected": 19,
+      "no_alert_batches": 1,
+      "timeout_passes": 0,
+      "test_summary": {
+        "tests": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1794612748.9427211,
+        "stop": 1794613223.532893
+      },
+      "trial": "artifacts/coding/jobs/tb21-filter-browser-norm-20261114-public-filter-js-from-html-empty-0/filter-js-from-html__XZLXmiu",
+      "stdout_sha256": "6c1a69170e5ff70098a10ec509eb8b5aa146458dbdfe27ebfc1a0134b1bb4ded"
+    }
+  ],
+  "public_test_input": {
+    "sha256": "2d6b6599de34df3ebfc76cdbc9f530cb12afcf4cf397f754b077534d0089d287",
+    "bytes": 136398
+  },
+  "setup_equivalence_verified": true,
+  "changed_verifier_environment": {
+    "SE_CHROMEDRIVER": "/usr/bin/chromedriver"
+  }
+}

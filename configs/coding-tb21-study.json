@@ -1,0 +1,22 @@
+{
+  "benchmark": "terminal-bench-2.1",
+  "revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": ["compile-compcert", "build-cython-ext", "cancel-async-tasks", "db-wal-recovery", "raman-fitting", "regex-log"],
+  "groups": ["mini", "deepagents_default", "generic_retry", "rubric_transcript", "rubric_evidence"],
+  "thinking": "enabled",
+  "reasoning_effort": "high",
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "context_window_tokens": 1048576,
+  "max_model_calls": 500,
+  "max_output_tokens": 393216,
+  "request_timeout": 240,
+  "command_timeout": 120,
+  "network_mode": "offline",
+  "prerequisites_manifest": "configs/coding-prerequisites.lock.json",
+  "concurrency": 2,
+  "repeats": 1,
+  "max_review_iterations": 3,
+  "langsmith_tracing": true,
+  "purpose": "Five-harness online/offline comparison at user-selected HIGH reasoning effort and one independent attempt per cell. Report-informed decoding, context and round settings; model snapshot 1017. Both network arms use identical recorded public prerequisites. Compare correctness, model/tool usage, output lengths, time, review costs, and audited cases."
+}

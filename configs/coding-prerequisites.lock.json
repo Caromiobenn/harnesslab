@@ -1,0 +1,112 @@
+{
+  "benchmark": "terminal-bench-2.1",
+  "revision": "12b7565679ce5006230b820666353673a133db93",
+  "purpose": "Identical public dependencies/source fixtures for both network arms",
+  "tasks": {
+    "cancel-async-tasks": {
+      "task": "cancel-async-tasks",
+      "source_fingerprint": "79881d3fda3d87391645d1777ceb3d825cfc75fb7e3a27e00528fdbf783dc02e",
+      "template_id": "ybozzdkk08076beehega",
+      "script_sha256": "63ca4ebf623d2a69f02fb3c830caa0d3ddd9c807aa3cf675edc1153bddfae9c4",
+      "public_sources": null,
+      "ok": true,
+      "sandbox_id": "sbx-defc8ae8-c19a-4505-ac19-b227b0dd9512",
+      "exit_code": 0,
+      "archive": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113/cancel-async-tasks/prerequisites.tar.gz",
+      "bytes": 8958477,
+      "sha256": "9a959cc6f722076fc6998265c3cff5e2cc6a0ce6cb1d3b239cc74f291c54ef93",
+      "cleanup_verified": true,
+      "receipt": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113/cancel-async-tasks/receipt.json",
+      "receipt_sha256": "1111d89e6af650a9afc8d249b3d05bb04cfff279fa92d80d219d077c72891905"
+    },
+    "regex-log": {
+      "task": "regex-log",
+      "source_fingerprint": "a1e1d59e6ca0fa8e49e79044547837bfaa064dc0e7178dc9a45a47a800e7b23b",
+      "template_id": "umbwbsd3v263714b9hg4",
+      "script_sha256": "d6f528d72acb6c377fe230880917bd87ea592d5c03554f08550a16eee07a1156",
+      "public_sources": null,
+      "ok": true,
+      "sandbox_id": "sbx-f65049b8-6aba-4772-8ffb-0e381bc654de",
+      "exit_code": 0,
+      "archive": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113/regex-log/prerequisites.tar.gz",
+      "bytes": 15204295,
+      "sha256": "22dfaf99dbf1a1ecb0d6317c73908f9d3193c9ed2be7b3545b4e1274522abf53",
+      "cleanup_verified": true,
+      "receipt": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113/regex-log/receipt.json",
+      "receipt_sha256": "e7addb1bcc69d0009af3d9344e6119e8854e79f7e1e09c24472ab8828823c6f4"
+    },
+    "build-cython-ext": {
+      "task": "build-cython-ext",
+      "source_fingerprint": "1c1b6e5049d8a73d75f680a1381bfcae703fad1ac29305a1b594e18470b1bd18",
+      "template_id": "bbwvnxw4be90ahd6o7b9",
+      "script_sha256": "42160c4b90e7274b43cefee95fe4991da9215e22a346062ab6d8904a1dddedfe",
+      "public_sources": [
+        "https://github.com/SPOCKnots/pyknotid.git",
+        "0.5.3",
+        "pyknotid"
+      ],
+      "ok": true,
+      "sandbox_id": "sbx-09f0ee4c-028b-4122-918c-1fec494d4ce7",
+      "exit_code": 0,
+      "archive": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113b/build-cython-ext/prerequisites.tar.gz",
+      "bytes": 98573920,
+      "sha256": "6b81fbcb190cfee9736359ca8b0fbcbb8b74a510adad2f23b09d059c65894c3a",
+      "cleanup_verified": true,
+      "receipt": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113b/build-cython-ext/receipt.json",
+      "receipt_sha256": "ea0123e5b902ce21cd849cd0f894b59edfedfc5af13cd4314c2c843220bdc299"
+    },
+    "db-wal-recovery": {
+      "task": "db-wal-recovery",
+      "source_fingerprint": "cc12332621664190e4060656d450330281ce90363b1d9e2a52457b369e656a8a",
+      "template_id": "8th2nz96ad0jndfoaems",
+      "script_sha256": "63ca4ebf623d2a69f02fb3c830caa0d3ddd9c807aa3cf675edc1153bddfae9c4",
+      "public_sources": null,
+      "ok": true,
+      "sandbox_id": "sbx-807acdf5-8827-4e3b-a407-872251810844",
+      "exit_code": 0,
+      "archive": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113b/db-wal-recovery/prerequisites.tar.gz",
+      "bytes": 1706839,
+      "sha256": "b073cc271014df97d2c5958f8700a521ca9bc4cca9e01b9fac86575d4104ae46",
+      "cleanup_verified": true,
+      "receipt": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113b/db-wal-recovery/receipt.json",
+      "receipt_sha256": "3822534ca6960ae53a48289f7f75fde19cbfdb3e10f3b12263f66ded1cba98c3"
+    },
+    "raman-fitting": {
+      "task": "raman-fitting",
+      "source_fingerprint": "5ebbd743cd05b7900197abbd6eeec90e14cf86da92a920c7bec310454be7e37f",
+      "template_id": "h4vr0naqtvz3rm1ddb5c",
+      "script_sha256": "0fe0e8c8f4fc6447a78c118cc88a9e0a1846f4ab49da6c3b3fdc676f4cacbb65",
+      "public_sources": null,
+      "ok": true,
+      "sandbox_id": "sbx-adc266d1-a60b-49e6-80e9-98c69293b6ac",
+      "exit_code": 0,
+      "archive": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113c/raman-fitting/prerequisites.tar.gz",
+      "bytes": 61520497,
+      "sha256": "1f154f95c30fa67f8f0d19b791e018c6471a0d8f86df8cfdf539a0d7d769c589",
+      "cleanup_verified": true,
+      "receipt": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113c/raman-fitting/receipt.json",
+      "receipt_sha256": "4bf0deef7c48bc32e4fa8cef9c008f364d6a759ac05f8afc52725518627d4e2f"
+    },
+    "compile-compcert": {
+      "task": "compile-compcert",
+      "source_fingerprint": "a7058bdfcc2637595b6891c9c861f54d5f02fc9cd05b7c1ecaf7c3491bcc95b9",
+      "template_id": "gny1nf4sb08te0itbtee",
+      "script_sha256": "7de7056f17b5cd2bd1ffcad93b6029e258ac128a43eb8d6801bfdd73059a81f5",
+      "public_sources": [
+        "https://github.com/AbsInt/CompCert.git",
+        "v3.13.1",
+        "CompCert"
+      ],
+      "ok": true,
+      "sandbox_id": "sbx-d3680062-2ce1-4abe-bd06-7f3936c9c618",
+      "exit_code": 0,
+      "archive": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113d/compile-compcert/prerequisites.tar.gz",
+      "bytes": 803390939,
+      "sha256": "73fb6cfce9def240ccd20c920d325ae802a410fbcb3c56796fd7f966ce61b433",
+      "transfer_parts": 48,
+      "cleanup_verified": true,
+      "receipt": "artifacts/coding-prerequisites/tb21-public-prerequisites-20261113d/compile-compcert/receipt.json",
+      "receipt_sha256": "0a94f4cecc41ef121b10ff05f9d94075fd059b504fdc473061f26d4c31314a74"
+    }
+  }
+}

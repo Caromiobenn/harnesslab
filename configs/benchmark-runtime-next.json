@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "environments": {
+    "ec5c1f905ead4ab57cf8436739487e838145b0ffcfe650107dc45077c0adef08": {
+      "http_cache": {
+        "url": "http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz",
+        "download_url": "https://cave.cs.toronto.edu/kriz/cifar-10-binary.tar.gz",
+        "path": "cache/benchmark-next-runtime/cifar-10-binary.tar.gz",
+        "bytes": 170052171,
+        "md5": "c32a1d4ab5d03f1284b67883e8d87530",
+        "sha256": "c4a38c50a1bc5f3a1c5537f2155ab9d68f9f25eb1ed8d9ddda3db29a59bca1dd",
+        "helper_sha256": "497ec2eecba706d4fc80517418618149c7659883dbe6c5ad75de5d5e4953f74f"
+      },
+      "reason": "The original dataset download consumed the official 3600-second agent budget. Serve the identical publisher-checksummed public archive through a task-local HTTP cache; preserve the original URL, source files, training work and time budgets. Cache is available equally to all harnesses and controls.",
+      "publisher_checksum": "https://cave.cs.toronto.edu/kriz/cifar.html",
+      "evidence": "logs/benchmark-next/hk-tb21-full-20261109-tb21-007-a1/"
+    },
+    "cca208075b157d61983ae1746ecc2bc070fb02bb2e6f1a4b5d4d22cf3f9f2506": {
+      "apt_security_archive": "bullseye",
+      "reason": "Debian bullseye security packages have moved to the official archive. Preserve package versions and signature verification; change repository location only for this task. Official files and budgets unchanged.",
+      "evidence": "logs/benchmark-next/hk-tb21-official-068-20261109/"
+    },
+    "8826a5fd9cab4195c73679303a94b531961c17515a13e9320af6b2a47289f6b1": {
+      "apt_security_archive": "bullseye",
+      "reason": "Debian bullseye security packages have moved to the official archive. Preserve package versions and signature verification; change repository location only for this task. Official files and budgets unchanged.",
+      "evidence": "logs/benchmark-next/hk-tb21-official-069-20261109/"
+    },
+    "9f5349db514b21606563372907976b5bfa8cc8ed4781bc71d5959dfe7c655b5a": {
+      "env": {
+        "R_REMOTES_UPGRADE": "never"
+      },
+      "reason": "Keep dependency versions explicitly installed by the official RStan reference; remotes otherwise upgrades StanHeaders 2.32.10 to 2.39.0 while installing rstan 2.32.7 and rejects the reference model syntax. No task, reference, verifier or budget changes.",
+      "evidence": "logs/benchmark-next/hk-tb21-cmake-047-20261109/",
+      "upstream_documentation": "https://remotes.r-lib.org/reference/install_remote.html"
+    },
+    "5d12414d8b40ec3b88ef2507c7d72723e1c3eaba8d3753ad07f1ba65ee523533": {
+      "env": {
+        "NODE_OPTIONS": "--dns-result-order=ipv4first"
+      },
+      "reason": "Hong Kong localhost resolves to ::1 but the official NodeBB test server listens on IPv4; prefer IPv4 without changing benchmark code or assertions.",
+      "evidence": "logs/benchmark-next/hk-a2-swe-nodebb-20261109/"
+    },
+    "2aba9cdb19a7d0550e3e9648379ce54444324e0fe6802175c3be8fe5e85ffa4f": {
+      "env": {
+        "PATH": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "reason": "Restore exact official image PATH after FC envd login shell resets it. No benchmark code or test changes.",
+      "official_image_config_digest": "sha256:7d16ea3620f7dd953ac6c555c89270910d03e1bbf92367faa2c345aff0bfb751"
+    },
+    "415defad7227cd1bc605a65761fec4289c62f34642fbf5ebfb9408b4a5f25bb0": {
+      "env": {
+        "PATH": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "reason": "Restore exact official image PATH after FC envd login shell resets it. No benchmark code or test changes.",
+      "official_image_config_digest": "sha256:9f7188d8d483f4f7368ca9ee40409f04ac7c0c1d466003bdff3a5b809c5873cc"
+    },
+    "1c1b6e5049d8a73d75f680a1381bfcae703fad1ac29305a1b594e18470b1bd18": {
+      "pip_constraints": {
+        "planarity": "0.6"
+      },
+      "reason": "Official reference code expects the pre-1.0 planarity graph attributes; unbounded dependency installs 1.0.0 and fails with KeyError pos. Scope applies to both agents and verifier without changing task source.",
+      "evidence": "logs/benchmark-next/hk-cython-dependency-probe-20261109",
+      "upstream_reference_reward_unconstrained": 0,
+      "reference_reward_with_constraint": 1,
+      "protocol_adaptation": "explicit transitive dependency compatibility pin; disclose with scores"
+    },
+    "5b06869fb2881252ea528d1c0fda9cf93d5e4cd6b021a7265a34ad04c158f13c": {
+      "env": {
+        "NODE_OPTIONS": "--dns-result-order=ipv4first"
+      },
+      "reason": "Apply the verified Hong Kong NodeBB IPv4 localhost adaptation to the official HARD-51 NodeBB task; its own empty/gold controls remain mandatory. No source or test changes.",
+      "evidence": "logs/benchmark-next/hk-a3-swe-nodebb-20261109/"
+    },
+    "8d0040ba4a31584741a45b82c32aaad0966dcd0b9fa57c9bb30235a248b174ee": {
+      "reason": "Hong Kong runtime owns port 5000; task-only bind/connect mapping keeps official Flask and verifier URLs unchanged while provider services remain on their original ports.",
+      "loopback_port_redirect": {
+        "from": 5000,
+        "to": 15000,
+        "artifact": {
+          "source_sha256": "588c47a2d7d2b4754f7c97a42f4b540b2f1a22e4b845eef94320efb689c3a5d3",
+          "sha256": "18322a45027edce639e4a7a18a53e2083be6e94498903aa44d03a541357a2016",
+          "path": "cache/benchmark-next-runtime/loopback/588c47a2d7d2b475/loopback.so",
+          "compiler_target": "x86_64-linux-gnu"
+        }
+      }
+    },
+    "9e60f66002cd82e1a523f366db1c76fb527ffea0ba6a638244910b2c86c09d7e": {
+      "env": {
+        "TORCH_DISTRIBUTED_DEBUG": "DETAIL"
+      },
+      "reason": "Enable the documented PyTorch collective consistency/synchronization wrapper to avoid the reproduced Hong Kong Gloo destructor/GIL deadlock. Adds synchronization overhead equally for all harnesses and controls. Preserve PyTorch 2.7.0, Python 3.13, one-core affinity, official files and original 900-second budgets.",
+      "upstream_documentation": "https://github.com/pytorch/pytorch/blob/v2.7.0/docs/source/distributed.rst",
+      "evidence": "logs/benchmark-next/hk-tb21-torch-debug-083-20261109/"
+    }
+  }
+}

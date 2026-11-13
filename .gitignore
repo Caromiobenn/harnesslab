@@ -12,3 +12,4 @@ artifacts/
 dist/
 build/
 *.egg-info/
+cache/

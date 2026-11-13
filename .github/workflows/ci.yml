@@ -13,8 +13,8 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
-      - run: uv sync --locked --dev
-      - run: uv run ruff format --check .
-      - run: uv run ruff check .
-      - run: uv run pytest --cov=harnesslab --cov-report=term-missing --cov-fail-under=85
-      - run: uv run harnesslab run configs/smoke.yaml --fail-on-validation
+      - run: uv sync --locked --dev --extra coding
+      - run: uv run --extra coding ruff format --check .
+      - run: uv run --extra coding ruff check .
+      - run: uv run --extra coding pytest --cov=harnesslab --cov-report=term-missing --cov-fail-under=85
+      - run: uv run --extra coding harnesslab run configs/smoke.yaml --fail-on-validation

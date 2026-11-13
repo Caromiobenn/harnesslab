@@ -21,6 +21,6 @@
   "builder_repository": "https://github.com/Caromiobenn/benchmark-sandbox-builder",
   "workflow": ".github/workflows/benchmark.yml",
   "adaptation": "project_paths.py redirects reads/writes to HarnessLab; other modules unchanged",
-  "task_count": 6,
-  "task_file_count": 54
+  "task_count": 89,
+  "task_file_count": 1035
 }

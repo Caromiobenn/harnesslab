@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "fix-git": {"capture_paths": ["/app"]},
+    "git-leak-recovery": {"capture_paths": ["/app"]},
+    "git-multibranch": {"capture_paths": ["/app", "/git", "/etc/nginx", "/etc/ssh", "/etc/ssl", "/etc/passwd", "/etc/shadow", "/etc/group", "/etc/gshadow", "/home/git", "/var/www"]},
+    "extract-elf": {"capture_paths": ["/app"]},
+    "headless-terminal": {"capture_paths": ["/app", "/usr/local/bin", "/usr/local/lib/python3.13/site-packages", "/root/.bashrc", "/root/.profile"]},
+    "constraints-scheduling": {"capture_paths": ["/app"]},
+    "large-scale-text-editing": {"capture_paths": ["/app"]}
+  }
+}

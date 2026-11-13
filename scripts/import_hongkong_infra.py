@@ -71,8 +71,8 @@ def import_runtime_assets(source: Path, root: Path) -> dict[str, str]:
     return copied
 
 
-def import_infra(source: Path, root: Path) -> dict:
-    config = load_config(root)
+def import_infra(source: Path, root: Path, config_path: Path | None = None) -> dict:
+    config = load_config(root, config_path)
     vendor = root / "vendor/hongkong"
     vendor.mkdir(parents=True, exist_ok=True)
     sources = {}
@@ -143,6 +143,7 @@ def import_infra(source: Path, root: Path) -> dict:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
+    parser.add_argument("--config", type=Path)
     args = parser.parse_args()
-    receipt = import_infra(args.source.resolve(), Path(__file__).resolve().parents[1])
+    receipt = import_infra(args.source.resolve(), Path(__file__).resolve().parents[1], args.config)
     print(json.dumps({"tasks_imported": receipt["task_count"]}))

@@ -24,6 +24,13 @@ actor submits. Official task tests remain unchanged. Use identical packages in b
 network conditions, then run empty and official-reference controls in each condition.
 An offline package installation probe alone does not establish task readiness.
 
+Installation uses APT's dependency resolver with local `.deb` paths and
+`--no-download`, with `Dir::Cache::archives` pointing to the same downloaded archive
+directory. This respects package pre-dependencies, including the Python minimal
+interpreter required before the `python3-minimal` wrapper can be unpacked. The
+instance's internet access is already disabled during this check. A successful probe
+records the exact installation command for later restoration in a fresh task image.
+
 For images without a CA certificate package, preparation supplies the controller's
 versioned certifi public trust bundle through APT's `Acquire::https::CaInfo` option.
 The receipt records the certifi version and bundle SHA-256. HTTPS certificate checking
@@ -47,3 +54,20 @@ The task profiles are in `configs/coding-native-curl.lock.json`. Full control re
 are in `artifacts/setup/tb21-native-curl-controls-20261114/acceptance.json`; package
 inventories and preparation logs are in `artifacts/coding-system-caches/tb21-verifier-system-20261114/`.
 No model was called. The stage passed 145 tests, Ruff and the smoke validation.
+
+
+## Verified package pre-dependency ordering
+
+CPU job `1208071` successfully installed the cached official verifier package closures
+for `make-doom-for-mips` and `pytorch-model-cli` with internet disabled. Both previously
+failed because a single `dpkg -i` pass tried to unpack Python wrapper packages before
+their required minimal interpreter was configured. The installer now uses APT's local
+dependency ordering with `--no-download` and the recorded archive directory. Both
+preparation instances were confirmed deleted. This stage passed 147 tests, Ruff and
+smoke validation; it made no model calls.
+
+The initial APT probe (`1208060`) retained failure records because it still used APT's
+default archive directory. Successful retry records and exact package checksums are in
+`artifacts/coding-system-caches/tb21-system-order-accept-20261114b/`. The original failed
+attempts remain separate. See the [APT reference](https://manpages.debian.org/bookworm/apt/apt-get.8.en.html)
+for `--no-download` and `Dir::Cache::archives`.

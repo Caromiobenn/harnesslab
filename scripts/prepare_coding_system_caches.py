@@ -105,7 +105,11 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
         (folder / "prepare.stderr").write_text(output.stderr or "")
         if output.return_code:
             raise RuntimeError("System package download failed; see preparation logs")
-        install = f"if ls {PREFIX}/debs/*.deb >/dev/null 2>&1; then dpkg -i {PREFIX}/debs/*.deb; fi"
+        install = (
+            f"if ls {PREFIX}/debs/*.deb >/dev/null 2>&1; then "
+            "DEBIAN_FRONTEND=noninteractive apt-get -y --no-download "
+            f"-o Dir::Cache::archives={PREFIX}/debs install {PREFIX}/debs/*.deb; fi"
+        )
         await environment._sandbox.update_network({"allow_internet_access": False, "allow_out": []})
         offline = await environment.exec(install, user="root", timeout_sec=300)
         (folder / "offline.stdout").write_text(offline.stdout or "")

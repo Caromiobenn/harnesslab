@@ -78,3 +78,18 @@ internet access was disabled. Archive transfer checksums matched and both instan
 were confirmed deleted. Receipts are under
 `artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/`.
 The code passed 145 tests (85.59% coverage), Ruff and the smoke validation.
+
+Git-based dependencies retain the official pinned repository revision. The preparation
+instance installs Git when the recipe requires it, records the package installation log,
+then caches the built public package with the rest of the dependencies. This is preparation
+tooling only; task actors still receive the declared task profile and solve the task themselves.
+
+The MobileSAM recipe passed preparation in CPU job `1208006`, using Python 3.11 and the
+official pinned MobileSAM revision `34bbbfdface3c18e5221aa7de6032d7220c6c6a1`.
+Its 511,371,951-byte archive includes the managed Python installation and resolved
+package cache. The same recipe started pytest 8.4.1 offline; archive transfer matched
+SHA-256 `fc5d6c297c8900ffb2d790f0edfaeff100656dbf71e91a1dd60fe103c8215798`.
+The preparation instance was confirmed deleted. The receipt is under
+`artifacts/coding-verifier-caches/tb21-verifier-source-20261114/e1bc108605a4/`.
+This verifies package preparation; task inputs, weights, system dependencies and the
+official task controls are tracked separately.

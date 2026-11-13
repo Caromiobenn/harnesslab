@@ -99,6 +99,16 @@ async def prepare_one(root: Path, dataset: Path, run: str, key: str, recipe: dic
         save_json(receipt, result)
         (root / "cache/tmp").mkdir(parents=True, exist_ok=True)
         await prepare_tb21(root, environment)
+        if any(value.startswith("git+") for value in recipe["args"]):
+            packages = await environment.root_command(
+                "apt-get update -qq && apt-get install -y --no-install-recommends git "
+                "&& dpkg-query -W -f='${Package}=${Version}\\n' git",
+                timeout=300,
+            )
+            (folder / "preparation-packages.log").write_text(
+                (packages.stdout or "") + (packages.stderr or "")
+            )
+            result["preparation_packages"] = ["git"]
         await environment.root_command(f"mkdir -p {VERIFY}/downloads")
         data, downloads = pinned_installer(root)
         await environment._sandbox.files.write(VERIFY + "/downloads/uv-install.sh", data)

@@ -35,4 +35,5 @@ within their wall-time limit and use the persistent cell ledger to continue with
 duplicating completed model work.
 
 The existing pilot runtime and source hashes stay frozen while its job is active.
-Full-dataset preparation and launch follow pilot acceptance.
+Independent full-dataset dependency preparation can proceed while the pilot runs.
+Full-dataset model trials follow pilot acceptance and matching task controls.

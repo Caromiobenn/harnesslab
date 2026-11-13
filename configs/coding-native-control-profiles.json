@@ -178,6 +178,71 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "code-from-image": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "extract-moves-from-video": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "modernize-scientific-stack": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "polyglot-rust-c": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "pytorch-model-recovery": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "reshard-c4-data": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sparql-university": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "torch-pipeline-parallelism": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "torch-tensor-parallelism": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "tune-mjcf": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "video-processing": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "winning-avg-corewars": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "write-compressor": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

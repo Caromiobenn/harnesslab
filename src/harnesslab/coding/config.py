@@ -37,6 +37,7 @@ class CodingConfig(BaseModel):
     concurrency: int = Field(default=2, ge=1, le=4)
     repeats: int = Field(default=1, ge=1)
     max_review_iterations: int = Field(default=3, ge=1)
+    review_tool_max_chars: int = Field(default=0, ge=0)
     langsmith_tracing: bool = False
     purpose: str
 

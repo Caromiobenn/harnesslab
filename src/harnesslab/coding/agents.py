@@ -208,6 +208,7 @@ class DeepAgentsCodingAgent(BaseAgent):
             trace,
             config.max_review_iterations,
             instruction,
+            output_max_chars=config.review_tool_max_chars,
         )
         agent = create_deep_agent(model=model, backend=backend, middleware=middleware)
         observation = None

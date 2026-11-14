@@ -20,11 +20,44 @@ from harnesslab.harnesses.verification import GenericRetryMiddleware
 CRITERIA = ("deliverables", "behavior", "verification")
 
 
+def evidence_preview(record: dict, max_chars: int) -> dict:
+    """Bound model-visible evidence while the ledger retains the complete tool result."""
+    if not max_chars:
+        return record
+    preview = {**record, "preview_limit_chars": max_chars}
+    if record["kind"] == "read" and record.get("content") is not None:
+        data = dict(record["content"])
+        content = data["content"]
+        binary = data["encoding"] == "base64"
+        data["content"] = "" if binary else content[:max_chars]
+        preview.update(
+            content=data,
+            content_omitted=binary,
+            content_truncated=not binary and len(content) > max_chars,
+            original_content_chars=len(content),
+        )
+        if binary:
+            preview["inspection_hint"] = (
+                "Binary content is omitted. Its size and SHA-256 are in artifacts. "
+                "Use verify_candidate with a suitable parser to inspect the actual file "
+                "and print a concise summary."
+            )
+    elif record["kind"] == "verification":
+        output = record["output"]
+        preview.update(
+            output=output[:max_chars],
+            output_truncated=len(output) > max_chars,
+            original_output_chars=len(output),
+        )
+    return preview
+
+
 class ReviewLedger:
-    def __init__(self, backend, folder: Path, trace):
+    def __init__(self, backend, folder: Path, trace, *, output_max_chars: int = 0):
         self.backend = backend
         self.folder = folder
         self.trace = trace
+        self.output_max_chars = output_max_chars
         self.lock = threading.Lock()
         self.candidates: list[dict] = []
         self.evidence: list[dict] = []
@@ -82,7 +115,10 @@ print(json.dumps(result))
         return json.loads(result.output)
 
     def read_artifact(self, path: str) -> dict:
-        """Read a public artifact in the current sandbox; return text and its content hash."""
+        """Read a public artifact and its hash; large or binary content may be summarized.
+
+        For binary artifacts, use verify_candidate with an appropriate parser and concise output.
+        """
         manifest = self.snapshot([path])
         if "error" in manifest[path]:
             return {"candidate_id": self.candidate_id, "artifact": manifest}
@@ -95,7 +131,7 @@ print(json.dumps(result))
             "error": text.error,
         }
         self.record("evidence", record)
-        return record
+        return evidence_preview(record, self.output_max_chars)
 
     def verify_candidate(self, command: str, artifacts: list[str]) -> dict:
         """Run a public behavior/test command and bind its result to the listed deliverable files.
@@ -120,7 +156,7 @@ print(json.dumps(result))
             and all("sha256" in value for value in after.values()),
         }
         self.record("evidence", record)
-        return record
+        return evidence_preview(record, self.output_max_chars)
 
     def current_evidence(self) -> tuple[bool, str]:
         records = [
@@ -211,11 +247,19 @@ class EvidenceGate(AgentMiddleware):
 
 
 def build_review(
-    group: str, model, backend, folder: Path, trace, iterations: int, instruction: str
+    group: str,
+    model,
+    backend,
+    folder: Path,
+    trace,
+    iterations: int,
+    instruction: str,
+    *,
+    output_max_chars: int = 0,
 ) -> tuple[list, dict, ReviewLedger | None]:
     if group == "deepagents_default":
         return [], {}, None
-    ledger = ReviewLedger(backend, folder, trace)
+    ledger = ReviewLedger(backend, folder, trace, output_max_chars=output_max_chars)
     observer = CandidateObserver(ledger)
     outcome = ReviewOutcome(ledger)
     if group == "generic_retry":

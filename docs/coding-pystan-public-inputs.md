@@ -70,3 +70,12 @@ and builds httpstan from its pinned source. Poetry 1.8.5 satisfies the reference
 `~=1.8` requirement; setuptools 70.3.0 satisfies its final `<71` compatibility requirement.
 Both network arms receive the same installer files. Per-interpreter resolved package
 versions, file hashes, import results and cleanup are retained in the cache receipt.
+
+
+Package resolution follows the reference's installation phases: pip/build utilities,
+Poetry, then PyStan and analysis libraries. Poetry 1.8.5 requires crashtest 0.4.x,
+while PyStan's clikit dependency requires crashtest 0.3.x. A single combined resolver
+request is unsatisfiable; the reference intentionally uses Poetry before installing
+PyStan. Download phases therefore retain both required public distributions, and the
+offline probe installs them in the same order. The initial combined-resolution failure
+and its verified instance cleanup are preserved as zero-model preparation evidence.

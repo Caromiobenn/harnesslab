@@ -46,6 +46,14 @@ def package_commands(
         not re.fullmatch(r"[A-Za-z0-9_.-]+==[A-Za-z0-9_.+-]+", item) for item in download_packages
     ):
         raise ValueError("Actor cache packages require explicit public version pins")
+    phases = recipe.get("package_phases") or [packages]
+    if sorted(package for phase in phases for package in phase) != sorted(packages):
+        raise ValueError("Installation phases must cover the pinned task packages exactly")
+    download_phases = (
+        phases + ([recipe["build_packages"]] if recipe.get("build_packages") else [])
+        if recipe.get("package_phases")
+        else [download_packages]
+    )
     if recipe.get("installer") == "uv":
         env = {
             "UV_CACHE_DIR": PREFIX + "/uv-cache",
@@ -57,7 +65,6 @@ def package_commands(
             "uv run --no-project --offline --script /tmp/harnesslab-offline-deps.py",
             env,
         )
-    names = shlex.join(packages)
     checks = (
         "import importlib,json;from importlib.metadata import version;"
         + "[importlib.import_module(name) for name in "
@@ -76,7 +83,7 @@ def package_commands(
     }
     install_flag = " --break-system-packages" if recipe.get("break_system_packages") else ""
     if probe_target:
-        install_flag += " --target " + shlex.quote(probe_target)
+        install_flag += " --upgrade --target " + shlex.quote(probe_target)
     check_prefix = "PYTHONPATH=" + shlex.quote(probe_target) + " " if probe_target else ""
     index = (
         " --extra-index-url " + shlex.quote(recipe["extra_index_url"])
@@ -84,10 +91,16 @@ def package_commands(
         else ""
     )
     return (
-        f"{shlex.quote(python)} -m pip download --dest {PREFIX} "
-        f"{shlex.join(download_packages)}{index}",
-        f"{shlex.quote(python)} -m pip install {names}{install_flag} && "
-        f"{check_prefix}{shlex.quote(python)} -c {shlex.quote(checks)}",
+        " && ".join(
+            f"{shlex.quote(python)} -m pip download --dest {PREFIX} {shlex.join(phase)}{index}"
+            for phase in download_phases
+        ),
+        " && ".join(
+            f"{shlex.quote(python)} -m pip install {shlex.join(phase)}{install_flag}"
+            for phase in phases
+        )
+        + " && "
+        + f"{check_prefix}{shlex.quote(python)} -c {shlex.quote(checks)}",
         env,
     )
 

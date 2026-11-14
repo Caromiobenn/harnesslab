@@ -213,7 +213,24 @@
         "python3.10-distutils",
         "build-essential"
       ],
-      "source": "Pinned public task libraries and compatible build tools for the original Python 3.10 reference, plus the task image native Python ABI. Official reference still builds httpstan from source; cache may also serve publicly published upstream wheels to actors using pip."
+      "source": "Pinned public task libraries and compatible build tools for the original Python 3.10 reference, plus the task image native Python ABI. Official reference still builds httpstan from source; cache may also serve publicly published upstream wheels to actors using pip.",
+      "package_phases": [
+        [
+          "pip==25.1.1",
+          "setuptools==70.3.0",
+          "wheel==0.45.1"
+        ],
+        [
+          "poetry==1.8.5"
+        ],
+        [
+          "pystan==3.10.0",
+          "httpstan==4.13.0",
+          "pandas==2.2.2",
+          "numpy==1.26.4",
+          "nest_asyncio==1.6.0"
+        ]
+      ]
     }
   }
 }

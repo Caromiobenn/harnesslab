@@ -465,6 +465,13 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "rstan-to-pystan": {
+      "capture_paths": [
+        "/app",
+        "/opt/harnesslab-public-apt/repository-hits.jsonl",
+        "/opt/harnesslab-public-downloads/cache-hits.jsonl"
+      ]
     }
   }
 }

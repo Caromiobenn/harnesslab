@@ -79,3 +79,18 @@ request is unsatisfiable; the reference intentionally uses Poetry before install
 PyStan. Download phases therefore retain both required public distributions, and the
 offline probe installs them in the same order. The initial combined-resolution failure
 and its verified instance cleanup are preserved as zero-model preparation evidence.
+
+
+The task capture profile preserves `/app`, containing the converted script, its input
+files and the four required output CSV files. Public repository and download cache-hit
+logs are also captured. The original verifier runs in the task instance and checks both
+outputs and the prohibition on R/RStan. Capturing `/app` alone does not preserve all
+system package state for a later replay; the original native verifier result remains the
+scoring record for these controls.
+
+The package cache passed offline installation/import checks in both interpreters before
+the profile was added. A missing profile stopped control setup before any task control
+instance or model call; the accepted package receipt is reused without rebuilding it.
+Preparation receipts retain actual versions separately for each interpreter: an isolated
+native-Python probe can resolve transitive build-tool versions differently from Python
+3.10. The original reference's final `setuptools<71` installation remains unchanged.

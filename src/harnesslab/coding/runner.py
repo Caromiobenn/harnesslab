@@ -248,19 +248,9 @@ def execute_stage(
     return outcome
 
 
-def run_batch(
-    root: Path,
-    config: CodingConfig,
-    batch: str,
-    resume: bool = False,
-    reuse_manifest: Path | None = None,
-    controls_manifest: Path | None = None,
-) -> dict:
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", batch):
-        raise ValueError("Use a short alphanumeric batch name")
+def build_plan(root: Path, config: CodingConfig) -> dict:
+    """Inspect the exact task, runtime and model contract without launching a trial."""
     model = model_settings(root)
-    folder = root / "artifacts/coding" / batch
-    folder.mkdir(parents=True, exist_ok=True)
     rows = [task_plan(root, config, name) for name in config.tasks]
     for row in rows:
         preflight_environment(root, config, row)
@@ -280,7 +270,7 @@ def run_batch(
     if config.prerequisites_manifest:
         path = root / config.prerequisites_manifest
         hashes[config.prerequisites_manifest] = hashlib.sha256(path.read_bytes()).hexdigest()
-    plan = {
+    return {
         "configuration": config.model_dump(),
         "tasks": rows,
         "source_hashes": hashes,
@@ -289,6 +279,22 @@ def run_batch(
         "api_style": model["api_style"],
         "thinking_body": thinking_body(config, model),
     }
+
+
+def run_batch(
+    root: Path,
+    config: CodingConfig,
+    batch: str,
+    resume: bool = False,
+    reuse_manifest: Path | None = None,
+    controls_manifest: Path | None = None,
+) -> dict:
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", batch):
+        raise ValueError("Use a short alphanumeric batch name")
+    folder = root / "artifacts/coding" / batch
+    folder.mkdir(parents=True, exist_ok=True)
+    plan = build_plan(root, config)
+    rows = plan["tasks"]
     references = {}
     if reuse_manifest is not None:
         from harnesslab.coding.reuse import digest, load_reuse

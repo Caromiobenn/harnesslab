@@ -116,6 +116,19 @@ def test_network_pair_requires_same_repeat(reporter):
     assert pair["metrics"]["output_tokens"]["observed_delta"] == 4
 
 
+def test_python_runtime_change_keeps_paired_cohorts_separate(reporter):
+    rows = []
+    for task, enabled in [("a", False), ("b", True)]:
+        for group in ("deepagents_default", "rubric_evidence"):
+            rows.append(row(task + group, task=task, group=group, actor_python_fallback=enabled))
+    report = reporter.paired_report(source(rows))
+    assert len(report["comparisons"]) == 2
+    assert {c["baseline_runtime"]["actor_python_fallback"] for c in report["comparisons"]} == {
+        False,
+        True,
+    }
+
+
 @pytest.mark.parametrize("duplicate_path", [False, True])
 def test_duplicate_scores_or_cost_sources_are_rejected(reporter, duplicate_path):
     data = source([row("one"), row("one" if duplicate_path else "two")])

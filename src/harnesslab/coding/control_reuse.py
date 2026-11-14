@@ -22,6 +22,36 @@ def task_contract(row: dict) -> dict:
     return {name: value for name, value in row.items() if name != "path"}
 
 
+def check_prerequisites(before: dict, after: dict, entry: dict, source_hashes: dict) -> None:
+    if before == after:
+        return
+    amendment = entry.get("actor_python_amendment")
+    if (
+        not amendment
+        or before.get("actor_python_fallback", False)
+        or after != {**before, "actor_python_fallback": True}
+    ):
+        raise ValueError("Control task prerequisites changed")
+    accepted = checked_json(amendment["path"], amendment["sha256"])
+    runtime = "src/harnesslab/coding/native_environment.py"
+    if (
+        not accepted["ok"]
+        or accepted["model_calls"] != 0
+        or accepted["runtime_sha256"] != source_hashes[runtime]
+        or {row["mode"] for row in accepted["probes"]} != {"offline", "public"}
+        or len(accepted["probes"]) != 2
+        or not all(row["ok"] and row["cleanup_verified"] for row in accepted["probes"])
+        or len(accepted["controls"]) != 4
+        or {(row["network_mode"], row["group"]) for row in accepted["controls"]}
+        != {(mode, group) for mode in ("offline", "public") for group in ("empty", "oracle")}
+        or not all(
+            official_control_result(row, float(row["group"] == "oracle"))["control_accepted"]
+            for row in accepted["controls"]
+        )
+    ):
+        raise ValueError("Python runtime amendment lacks accepted cloud checks")
+
+
 def load_control_reuse(root: Path, path: Path, target_plan: dict) -> dict:
     """Validate controls separately from model samples; never replace a model attempt."""
     manifest = json.loads(path.read_text())
@@ -45,8 +75,9 @@ def load_control_reuse(root: Path, path: Path, target_plan: dict) -> dict:
         if task_contract(source_task) != task_contract(targets[task]):
             raise ValueError("Control task image or time budget changed")
         inputs = checked_json(entry["prerequisites_path"], source["manifest_sha256"])
-        if inputs["tasks"][task] != target_inputs["tasks"][task]:
-            raise ValueError("Control task prerequisites changed")
+        check_prerequisites(
+            inputs["tasks"][task], target_inputs["tasks"][task], entry, target_plan["source_hashes"]
+        )
         differences = source_differences(source["source_hashes"], target_plan["source_hashes"])
         if differences != entry["reviewed_source_differences"] or not entry["compatibility_reason"]:
             raise ValueError("Control runtime differences need an explicit compatibility review")
@@ -80,6 +111,7 @@ def load_control_reuse(root: Path, path: Path, target_plan: dict) -> dict:
                     "prerequisites": entry["prerequisites_path"],
                     "prerequisites_sha256": source["manifest_sha256"],
                     "reason": entry["compatibility_reason"],
+                    "actor_python_amendment": entry.get("actor_python_amendment"),
                 },
             }
     return references

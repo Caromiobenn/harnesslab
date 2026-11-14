@@ -123,6 +123,10 @@ def main():
     root = project_root()
     configure_runtime(root)
     study = checked_json(args.study, args.study_sha256)
+    if amendment := study.get("python_amendment"):
+        for name in ("acceptance", "retirement"):
+            reference = amendment[name]
+            checked_json(reference["path"], reference["sha256"])
     unit_index = args.unit if args.unit is not None else int(os.environ["SLURM_ARRAY_TASK_ID"])
     if not 0 <= unit_index < len(study["units"]):
         raise ValueError("Execution unit is outside the frozen expansion plan")

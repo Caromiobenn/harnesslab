@@ -4,6 +4,7 @@ import pytest
 
 from harnesslab.coding.config import save_json
 from harnesslab.coding.control_reuse import (
+    check_prerequisites,
     load_control_reuse,
     save_reused_control,
     source_differences,
@@ -167,3 +168,40 @@ def test_control_for_another_task_does_not_replace_any_selected_cell(control_fix
     root, path, _, target, _ = control_fixture
     target["tasks"] = []
     assert load_control_reuse(root, path, target) == {}
+
+
+@pytest.mark.parametrize("change", [None, "archive", "runtime", "probe", "controls", "model"])
+def test_python_amendment_only_reuses_unchanged_tasks_after_cloud_acceptance(
+    control_fixture, change
+):
+    root, _, _, _, source = control_fixture
+    before = {"archives": [{"sha256": "original"}], "capture_paths": ["/app"]}
+    after = {**before, "actor_python_fallback": True}
+    accepted = {
+        "ok": True,
+        "model_calls": 0,
+        "runtime_sha256": "runtime",
+        "probes": [
+            {"mode": mode, "ok": True, "cleanup_verified": True} for mode in ("offline", "public")
+        ],
+        "controls": source["outcomes"],
+    }
+    if change == "archive":
+        after["archives"] = [{"sha256": "changed"}]
+    elif change == "runtime":
+        accepted["runtime_sha256"] = "another-runtime"
+    elif change == "probe":
+        accepted["probes"][0]["ok"] = False
+    elif change == "controls":
+        accepted["controls"].pop()
+    elif change == "model":
+        accepted["model_calls"] = 1
+    path = root / "python-acceptance.json"
+    save_json(path, accepted)
+    entry = {"actor_python_amendment": {"path": str(path), "sha256": digest(path)}}
+    hashes = {"src/harnesslab/coding/native_environment.py": "runtime"}
+    if change:
+        with pytest.raises(ValueError):
+            check_prerequisites(before, after, entry, hashes)
+    else:
+        check_prerequisites(before, after, entry, hashes)

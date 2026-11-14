@@ -102,6 +102,23 @@ def test_mini_native_tooling_remains_visible_in_case_comparisons(tmp_path):
     assert case["treatment_request_adapter"] == "legacy_sdk_tool_content"
 
 
+def test_python_fallback_is_read_from_saved_runtime_and_separates_costs(tmp_path):
+    config = {"tasks": ["old", "new"], "groups": ["mini"], "repeats": 1}
+    for task, enabled in [("old", False), ("new", True)]:
+        outcome(tmp_path, "first", task, 1, True)
+        trial = tmp_path / task
+        (trial / "agent").mkdir(parents=True)
+        (trial / "agent/network.json").write_text(json.dumps({"actor_python_fallback": enabled}))
+        path = tmp_path / f"artifacts/coding/first/{task}-mini.outcome.json"
+        row = json.loads(path.read_text())
+        row["trial"] = str(trial)
+        path.write_text(json.dumps(row))
+    report = reporter.make_report(tmp_path, config, ["first"])
+    assert len(report["runtime_cohorts"]) == 2
+    assert {row["actor_python_fallback"] for row in report["runtime_cohorts"]} == {False, True}
+    assert all(row["valid_scored_cells"] == 1 for row in report["runtime_cohorts"])
+
+
 @pytest.fixture
 def regraded(tmp_path):
     config = {"tasks": ["task"], "groups": ["deepagents_default"], "repeats": 1}

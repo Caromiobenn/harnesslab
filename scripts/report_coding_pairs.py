@@ -18,8 +18,11 @@ def cell_key(row):
 
 def runtime(row):
     return {
-        key: row.get(key)
-        for key in ("response_transport", "request_adapter", "effective_model_profile")
+        "actor_python_fallback": row.get("actor_python_fallback", False),
+        **{
+            key: row.get(key)
+            for key in ("response_transport", "request_adapter", "effective_model_profile")
+        },
     }
 
 

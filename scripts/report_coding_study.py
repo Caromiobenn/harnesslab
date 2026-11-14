@@ -64,10 +64,13 @@ def runtime_cohorts(records):
             row["response_transport"],
             row["request_adapter"],
             json.dumps(row["effective_model_profile"], sort_keys=True),
+            row.get("actor_python_fallback", False),
         )
         cohorts[key].append(row)
     result = []
-    for (network, group, transport, adapter, profile), rows in sorted(cohorts.items()):
+    for (network, group, transport, adapter, profile, actor_python), rows in sorted(
+        cohorts.items()
+    ):
         scored = [row for row in rows if row["reward"] is not None]
         successes = sum(row["reward"] == 1 for row in scored)
         result.append(
@@ -77,6 +80,7 @@ def runtime_cohorts(records):
                 "response_transport": transport,
                 "request_adapter": adapter,
                 "effective_model_profile": json.loads(profile),
+                "actor_python_fallback": actor_python,
                 "tasks": sorted({row["task"] for row in rows}),
                 "ended_attempts": len(rows),
                 "valid_scored_cells": len(scored),
@@ -163,6 +167,10 @@ def make_report(root, config, batches, regrades=()):
             metadata = (row.get("agent_result") or {}).get("metadata") or {}
             started = metadata.get("started_model_calls")
             received = metrics.get("model_responses")
+            network_path = trial / "agent/network.json" if trial else None
+            network_record = (
+                read_json(network_path) if network_path and network_path.exists() else {}
+            )
             record = {
                 "task": row["task"],
                 "group": row["group"],
@@ -181,6 +189,7 @@ def make_report(root, config, batches, regrades=()):
                 "request_adapter": metadata.get("request_adapter")
                 or ("mini_native_shell" if row["group"] == "mini" else "legacy_sdk_tool_content"),
                 "effective_model_profile": metadata.get("effective_model_profile"),
+                "actor_python_fallback": network_record.get("actor_python_fallback", False),
                 "started_model_calls": started,
                 "usage_completeness": ("partial" if started > received else "complete")
                 if started is not None and received is not None

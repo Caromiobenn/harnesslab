@@ -15,3 +15,10 @@ The task retains its official one CPU, 2 GiB RAM and 12,000-second actor/verifie
 
 Source: the fixed benchmark revision `12b7565679ce5006230b820666353673a133db93`,
 `tasks/build-pov-ray/{instruction.md,task.toml,solution/solve.sh,tests/test.sh}`.
+
+The first preparation (`1209441`) downloaded all three archives and installed the exact
+APT package versions offline, then failed while collecting the version receipt:
+`dpkg-query` takes package names, whereas APT accepts `package=version` selectors.
+The version-report command now strips only that selector suffix; both download and install
+commands still enforce the original version pins. The failed receipt and cleanup evidence
+remain retained. The retry reuses the unchanged public release archive and repeats no model calls.

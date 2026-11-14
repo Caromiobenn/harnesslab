@@ -199,7 +199,8 @@ async def prepare_one(
         if offline.return_code:
             raise RuntimeError("Cached packages could not be installed offline")
         versions = await environment.root_command(
-            "dpkg-query -W -f='${Package}=${Version}\\n' " + shlex.join(packages)
+            "dpkg-query -W -f='${Package}=${Version}\\n' "
+            + shlex.join(package.partition("=")[0] for package in packages)
         )
         result["offline_probe"] = {"return_code": offline.return_code, "versions": versions.stdout}
         code = f"""import hashlib,json,subprocess,tarfile

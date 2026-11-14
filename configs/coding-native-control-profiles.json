@@ -369,6 +369,16 @@
         "/app",
         "/usr/local/bin"
       ]
+    },
+    "qemu-startup": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "qemu-alpine-ssh": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

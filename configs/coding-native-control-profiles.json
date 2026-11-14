@@ -1,0 +1,433 @@
+{
+  "tasks": {
+    "build-pmars": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin/pmars"
+      ]
+    },
+    "financial-document-processor": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "pytorch-model-cli": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "fix-git": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "git-leak-recovery": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "git-multibranch": {
+      "capture_paths": [
+        "/app",
+        "/git",
+        "/etc/nginx",
+        "/etc/ssh",
+        "/etc/ssl",
+        "/etc/passwd",
+        "/etc/shadow",
+        "/etc/group",
+        "/etc/gshadow",
+        "/home/git",
+        "/var/www"
+      ]
+    },
+    "extract-elf": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "headless-terminal": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages",
+        "/root/.bashrc",
+        "/root/.profile"
+      ]
+    },
+    "constraints-scheduling": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "large-scale-text-editing": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "kv-store-grpc": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages"
+      ]
+    },
+    "largest-eigenval": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages"
+      ]
+    },
+    "break-filter-js-from-html": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "circuit-fibsqrt": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "custom-memory-heap-crash": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "distribution-search": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "feal-differential-cryptanalysis": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "feal-linear-cryptanalysis": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "filter-js-from-html": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "fix-ocaml-gc": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "gpt2-codegolf": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "llm-inference-batching-scheduler": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "make-mips-interpreter": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "model-extraction-relu-logits": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "multi-source-data-merger": {
+      "capture_paths": [
+        "/app",
+        "/data"
+      ]
+    },
+    "password-recovery": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "path-tracing": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "path-tracing-reverse": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "portfolio-optimization": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "prove-plus-comm": {
+      "capture_paths": [
+        "/workspace"
+      ]
+    },
+    "query-optimize": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "regex-chess": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sanitize-git-repo": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "schemelike-metacircular-eval": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "vulnerable-secret": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "code-from-image": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "extract-moves-from-video": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "modernize-scientific-stack": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "polyglot-rust-c": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "pytorch-model-recovery": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "reshard-c4-data": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sparql-university": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "torch-pipeline-parallelism": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "torch-tensor-parallelism": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "tune-mjcf": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "video-processing": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "winning-avg-corewars": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "write-compressor": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "cobol-modernization": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "merge-diff-arc-agi-task": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "nginx-request-logging": {
+      "capture_paths": [
+        "/app",
+        "/etc/nginx",
+        "/var/www",
+        "/var/log/nginx"
+      ]
+    },
+    "configure-git-webserver": {
+      "capture_paths": [
+        "/app",
+        "/git",
+        "/etc/nginx",
+        "/etc/ssh",
+        "/etc/passwd",
+        "/etc/shadow",
+        "/etc/group",
+        "/etc/gshadow",
+        "/home",
+        "/root/.ssh",
+        "/var/www"
+      ]
+    },
+    "dna-assembly": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "dna-insert": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "adaptive-rejection-sampler": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "overfull-hbox": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sqlite-with-gcov": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin"
+      ]
+    },
+    "chess-best-move": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "gcode-to-text": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "make-doom-for-mips": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "fix-code-vulnerability": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "log-summary-date-ranges": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "openssl-selfsigned-cert": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "polyglot-c-py": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sqlite-db-truncate": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "pypi-server": {
+      "capture_paths": [
+        "/app",
+        "/opt/pypiserver",
+        "/srv/pypi-packages",
+        "/tmp/vectorops",
+        "/var/log/pypiserver.log",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages"
+      ]
+    },
+    "crack-7z-hash": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "mteb-leaderboard": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "train-fasttext": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin"
+      ]
+    },
+    "qemu-startup": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "qemu-alpine-ssh": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "mteb-retrieve": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "mailman": {
+      "capture_paths": [
+        "/app",
+        "/etc/postfix",
+        "/etc/mailman3",
+        "/etc/mailname",
+        "/etc/passwd",
+        "/etc/group",
+        "/etc/shadow",
+        "/etc/gshadow",
+        "/var/lib/mailman3",
+        "/var/mail",
+        "/usr/lib/mailman3/configure_list.py"
+      ],
+      "verifier_env": {
+        "UV_PYTHON": "/app/.tb/bin/python"
+      }
+    },
+    "bn-fit-modify": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sam-cell-seg": {
+      "capture_paths": [
+        "/app"
+      ]
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "model": "deepseek-v4.1-flash-1017",
+  "reasoning_effort": "high",
+  "repeats": 1,
+  "new_model_calls": 0,
+  "source_evidence_sha256": "aa4fd20bb7b2d50d3bd6c8ae9ea01d648f3ebab0500b2d4d6579e671e7688f8f",
+  "rows": [
+    {
+      "task": "chess-best-move",
+      "group": "mini",
+      "network": "offline",
+      "trial_id": "chess-best-move__Ke34G4p",
+      "reward": 0.0,
+      "cleanup_verified": true,
+      "model_responses": 34,
+      "tool_calls": 34,
+      "agent_seconds": 353.18210165400524,
+      "tokens_and_lengths": {
+        "input_tokens": 891123,
+        "output_tokens": 27930,
+        "reasoning_tokens": 19952,
+        "cached_input_tokens": 834560,
+        "visible_text_chars": 178,
+        "reasoning_text_chars": 76131,
+        "tool_argument_chars": 17866
+      },
+      "input_image": {
+        "mode": 420,
+        "uid": 0,
+        "gid": 0,
+        "kind": "file",
+        "bytes": 37114,
+        "sha256": "4bab110b8b483ad05705b81bf939f34d8bb92952748760674ffb4b4db9614288"
+      },
+      "move_txt": "c1d3\ng2g3\n",
+      "official_tests": {
+        "tests": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1794624165.0492423,
+        "stop": 1794624165.0722353
+      },
+      "artifact_hashes": {
+        "tb21-full-stream1-20261114-offline-002/tb21-full-stream1-20261114-offline-002-chess-best-move-mini-0.outcome.json": "1d672f5c9428eea34da92e245c4154de8aeaf8e948fcfbdb020139cabf3f9bc2",
+        "jobs/tb21-full-stream1-20261114-offline-002-chess-best-move-mini-0/chess-best-move__Ke34G4p/agent/mini-trajectory.json": "cdc981e392cc5b97270bdd2a27e6e396ae6c936de8bd8760ea8a768b9bf74baf",
+        "jobs/tb21-full-stream1-20261114-offline-002-chess-best-move-mini-0/chess-best-move__Ke34G4p/agent/submission/baseline.json": "26e85f7447fc2aee84deb2c10a7f2bc4c6ad2eb2eaef4ee6ade66cb23d871289",
+        "jobs/tb21-full-stream1-20261114-offline-002-chess-best-move-mini-0/chess-best-move__Ke34G4p/agent/submission/manifest.json": "c664cb56a80a464e0a907117c9681a118ac3b8cc448c59ed29dfb4cf43354d42",
+        "jobs/tb21-full-stream1-20261114-offline-002-chess-best-move-mini-0/chess-best-move__Ke34G4p/verifier/ctrf.json": "ca6cd3a0584c2ad19868cba0022014267925635a09cb2053963b7a91200a2670",
+        "jobs/tb21-full-stream1-20261114-offline-002-chess-best-move-mini-0/chess-best-move__Ke34G4p/result.json": "bd81383be850ca70cba0572f6f05587ccf01728ae074c2582bd4ef3a203ce22a"
+      }
+    },
+    {
+      "task": "chess-best-move",
+      "group": "mini",
+      "network": "public",
+      "trial_id": "chess-best-move__4zfj6xY",
+      "reward": 1.0,
+      "cleanup_verified": true,
+      "model_responses": 19,
+      "tool_calls": 19,
+      "agent_seconds": 97.90593341598287,
+      "tokens_and_lengths": {
+        "input_tokens": 225796,
+        "output_tokens": 12555,
+        "reasoning_tokens": 8467,
+        "cached_input_tokens": 195840,
+        "visible_text_chars": 183,
+        "reasoning_text_chars": 30326,
+        "tool_argument_chars": 9440
+      },
+      "input_image": {
+        "mode": 420,
+        "uid": 0,
+        "gid": 0,
+        "kind": "file",
+        "bytes": 37114,
+        "sha256": "4bab110b8b483ad05705b81bf939f34d8bb92952748760674ffb4b4db9614288"
+      },
+      "move_txt": "e2e4\ng2g4\n",
+      "official_tests": {
+        "tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1794624253.6407819,
+        "stop": 1794624253.6567028
+      },
+      "artifact_hashes": {
+        "tb21-full-stream1-20261114-public-003/tb21-full-stream1-20261114-public-003-chess-best-move-mini-0.outcome.json": "3f7f9f66f1effabd72de8603f613efe73e07cee4796af9bff15242937cc75432",
+        "jobs/tb21-full-stream1-20261114-public-003-chess-best-move-mini-0/chess-best-move__4zfj6xY/agent/mini-trajectory.json": "478477853a3534b4ae5f1118508202f1610106f8f6408746f98818e757240cd0",
+        "jobs/tb21-full-stream1-20261114-public-003-chess-best-move-mini-0/chess-best-move__4zfj6xY/agent/submission/baseline.json": "26e85f7447fc2aee84deb2c10a7f2bc4c6ad2eb2eaef4ee6ade66cb23d871289",
+        "jobs/tb21-full-stream1-20261114-public-003-chess-best-move-mini-0/chess-best-move__4zfj6xY/agent/submission/manifest.json": "ff4071067db4968899088dc1273dbea0da9dfbdbb01051d4443043381b81d155",
+        "jobs/tb21-full-stream1-20261114-public-003-chess-best-move-mini-0/chess-best-move__4zfj6xY/verifier/ctrf.json": "af84a9a2b522406927aedaa71225f1310b1408c6a234a81dcf6475893e62cbca",
+        "jobs/tb21-full-stream1-20261114-public-003-chess-best-move-mini-0/chess-best-move__4zfj6xY/result.json": "304da898eb05881b1585716b007d03077ac4ff7c2066182cf69532a7514b5213"
+      }
+    }
+  ]
+}

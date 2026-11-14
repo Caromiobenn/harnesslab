@@ -1,0 +1,329 @@
+{
+  "recorded_at": "2026-11-14T04:09:53.354930+00:00",
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "scope": "environment controls and queued first model attempts",
+  "new_model_calls_during_controls": 0,
+  "controls": [
+    {
+      "task": "pytorch-model-cli",
+      "runtime_commit": "9dc6308aff147f29c6ab22f1ad8889db29aa49ee",
+      "runtime_branch": "feat/tb21-torch-cli-prerequisites",
+      "acceptance": "artifacts/worktrees/tb21-torch-cli/artifacts/native-controls/tb21-torch-cli-controls-20261114/acceptance.json",
+      "acceptance_sha256": "913315f5d42bbfe7abe5d96b00f1ed069f889d21675ccd33732097be665cf7f7",
+      "prerequisites_sha256": "45f0938d0869504fec708730397f7791b0a3857b6a9d650a0783ddf8b61d60a3",
+      "verified_source_files": 40,
+      "archives": [
+        {
+          "archive": "artifacts/coding-actor-wheels/tb21-torch-cli-deps-20261114/pytorch-model-cli/actor-wheels.tar.gz",
+          "sha256": "0aab360326f94f04d4d7aee76a443da1de22199722664d4137ceb6573f9f2454"
+        },
+        {
+          "archive": "artifacts/coding-actor-system/tb21-torch-cli-deps-20261114/pytorch-model-cli/system.tar.gz",
+          "sha256": "4b032bfbead6ec4212977958c8f4033dd90b1add0ae8ce3581d46d17decc6e8b"
+        },
+        {
+          "archive": "artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/965f04824509/verifier.tar.gz",
+          "sha256": "4fab210347534047cf7e104f5e544d9bf3566f4dc9409a38878610647a9fe5a8"
+        },
+        {
+          "archive": "artifacts/coding-system-caches/tb21-system-order-accept-20261114b/pytorch-model-cli/system.tar.gz",
+          "sha256": "b8ddc024ce2ffdb9d36865cb6231fa936b9293de61af84def585346c6e0df768"
+        },
+        {
+          "archive": "artifacts/coding-verifier-inputs/tb21-torch-cli-deps-20261114/pytorch-model-cli/verifier-inputs.tar.gz",
+          "sha256": "b829e9e56e0e8d9fde2f5496d6170fe21b1502faa9acc86285e430d0428abb69"
+        }
+      ],
+      "outcomes": [
+        {
+          "group": "empty",
+          "network_mode": "public",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628237.6048903,
+            "stop": 1794628245.8187797
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "public",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628366.3354356,
+            "stop": 1794628392.0889716
+          }
+        },
+        {
+          "group": "empty",
+          "network_mode": "offline",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628268.5076337,
+            "stop": 1794628276.5700772
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "offline",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628631.7451088,
+            "stop": 1794628657.3312385
+          }
+        }
+      ]
+    },
+    {
+      "task": "financial-document-processor",
+      "runtime_commit": "06267bf50d6c73ccb441982925921300a7793b67",
+      "runtime_branch": "feat/tb21-financial-document-prerequisites",
+      "acceptance": "artifacts/worktrees/tb21-financial-docs/artifacts/native-controls/tb21-financial-docs-controls-20261114/acceptance.json",
+      "acceptance_sha256": "3c6fc503523923e520527a7e9e13880c8dcd5a75dbc57f98b762468d5db91a43",
+      "prerequisites_sha256": "dde6fe6ae8d0da4b04d7a02154feb10ebc4ecfb602b643703c0342629eaa40d5",
+      "verified_source_files": 40,
+      "archives": [
+        {
+          "archive": "artifacts/coding-actor-wheels/tb21-financial-docs-deps-20261114/financial-document-processor/actor-wheels.tar.gz",
+          "sha256": "55d8d3881b1b1d44f1770a8854751393707e757cf7223877b590b2886d7790ac"
+        },
+        {
+          "archive": "artifacts/coding-actor-system/tb21-financial-docs-deps-20261114/financial-document-processor/system.tar.gz",
+          "sha256": "bb56c0e6405cc560dea709387c06dea9111f72bafe8508ed193b5e40497716a9"
+        },
+        {
+          "archive": "artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/823847f394b1/verifier.tar.gz",
+          "sha256": "53a3896170a276da6f2b1f635a955bb72e51f93457d229595729f651524d5da5"
+        },
+        {
+          "archive": "artifacts/coding-system-caches/tb21-system-repair-20261114/financial-document-processor/system.tar.gz",
+          "sha256": "ae59e8ad9cf3ae76dba929c1e097b677013d763bb1d3cc18016df56492ab35e2"
+        }
+      ],
+      "outcomes": [
+        {
+          "group": "empty",
+          "network_mode": "public",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628621.2209494,
+            "stop": 1794628622.6064606
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "public",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628718.816563,
+            "stop": 1794628720.2262256
+          }
+        },
+        {
+          "group": "empty",
+          "network_mode": "offline",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628629.7806082,
+            "stop": 1794628631.2715049
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "offline",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794628736.3440297,
+            "stop": 1794628737.621492
+          }
+        }
+      ]
+    },
+    {
+      "task": "build-pmars",
+      "runtime_commit": "64b8e6df95f61177fd4341f85505fae0975a6023",
+      "runtime_branch": "feat/tb21-pmars-source-cache",
+      "acceptance": "artifacts/worktrees/tb21-pmars-source/artifacts/native-controls/tb21-pmars-source-controls-20261114/acceptance.json",
+      "acceptance_sha256": "0c90e72855851a676c6b502c3b03cc4c5f7d4dcc78acdf1078c475054a08eef7",
+      "prerequisites_sha256": "5c8d7477aac210460736bb7df9280038ba638b079fb252d6909afd8c039a3d9a",
+      "verified_source_files": 40,
+      "archives": [
+        {
+          "archive": "artifacts/coding-actor-system/tb21-pmars-source-deps-20261114/build-pmars/system.tar.gz",
+          "sha256": "a601cb781ebf8df044df6905459bc7d6182ef13e123b01a41d21e01248d05a35"
+        },
+        {
+          "archive": "artifacts/coding-verifier-caches/tb21-verifier-shared-20261114/4e8edc06fdd8/verifier.tar.gz",
+          "sha256": "06bf61769516c82dd5d858465951b14d9db234b1ef365c65ff6279a84904ef5f"
+        },
+        {
+          "archive": "artifacts/coding-system-caches/tb21-verifier-system-full-20261114/build-pmars/system.tar.gz",
+          "sha256": "f1cbd91aefd431cff4c91a0f6b75be5c9528614334dda1da62c54b1d5b9fa934"
+        }
+      ],
+      "outcomes": [
+        {
+          "group": "empty",
+          "network_mode": "public",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794629069.8855298,
+            "stop": 1794629069.9944806
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "public",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794629130.2521665,
+            "stop": 1794629130.4151423
+          }
+        },
+        {
+          "group": "empty",
+          "network_mode": "offline",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794629082.3869162,
+            "stop": 1794629082.4801075
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "offline",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794629144.9487214,
+            "stop": 1794629145.1416798
+          }
+        }
+      ]
+    }
+  ],
+  "queued_expansion": {
+    "run": "tb21-full-image2-20261114",
+    "runtime_commit": "64b8e6df95f61177fd4341f85505fae0975a6023",
+    "study_sha256": "b031ac82a2f1e973206f0ff50055579f0dc712d984685438f6bde73632da742b",
+    "submission_sha256": "84fe8ea5bd910fea55e649c896ceec09a138f2d643877ac3f0481cba4668cb2b",
+    "array_job_id": "1209289",
+    "dependency": "afterany:1209096",
+    "tasks": [
+      "build-pmars",
+      "financial-document-processor",
+      "pytorch-model-cli"
+    ],
+    "new_model_cells": 30,
+    "array_concurrency": 2,
+    "reasoning_effort": "high",
+    "repeats": 1,
+    "preserved_pilot_cells": 60,
+    "reserved_prior_cells": 710,
+    "pending_tasks": [
+      "bn-fit-modify",
+      "build-pov-ray",
+      "caffe-cifar-10",
+      "install-windows-3.11",
+      "mcmc-sampling-stan",
+      "protein-assembly",
+      "reshard-c4-data",
+      "rstan-to-pystan",
+      "sam-cell-seg"
+    ]
+  }
+}

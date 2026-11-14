@@ -1,0 +1,165 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "financial-document-processor": {
+      "installer": "uv",
+      "python": "3.13",
+      "packages": [
+        "numpy==2.3.2",
+        "opencv-python==4.11.0.86",
+        "packaging==25.0",
+        "pandas==2.3.2",
+        "pillow==11.3.0",
+        "pymupdf==1.25.2",
+        "pytesseract==0.3.13",
+        "python-dateutil==2.9.0.post0",
+        "pytz==2025.2",
+        "six==1.17.0",
+        "tzdata==2025.2"
+      ],
+      "import_modules": [
+        "numpy",
+        "pandas",
+        "PIL",
+        "fitz",
+        "pytesseract"
+      ],
+      "system_packages": [
+        "tesseract-ocr"
+      ],
+      "source": "Exact Python and dependency requirements from the official reference PEP 723 header. Cache contains the public interpreter and dependency packages, without task documents, extracted text or reference code."
+    },
+    "pytorch-model-cli": {
+      "packages": [
+        "torch==2.7.0+cpu",
+        "numpy==2.3.1"
+      ],
+      "import_modules": [
+        "torch",
+        "numpy"
+      ],
+      "extra_index_url": "https://download.pytorch.org/whl/cpu",
+      "system_packages": [
+        "build-essential"
+      ],
+      "source": "Official reference installs torch 2.7.0 from the CPU index and NumPy; NumPy is pinned to the official verifier version. Cache contains public installers only."
+    },
+    "kv-store-grpc": {
+      "packages": [
+        "grpcio==1.73.0",
+        "grpcio-tools==1.73.0"
+      ],
+      "import_modules": [
+        "grpc",
+        "grpc_tools.protoc"
+      ],
+      "source": "Package versions explicitly required by the public task instruction."
+    },
+    "largest-eigenval": {
+      "packages": [
+        "eigenpy==3.10.3"
+      ],
+      "import_modules": [
+        "eigenpy"
+      ],
+      "source": "Public library version used by the official reference runtime; cache includes installers, no reference implementation."
+    },
+    "chess-best-move": {
+      "packages": [
+        "numpy==2.3.2",
+        "python-chess==1.2.0"
+      ],
+      "import_modules": [
+        "numpy",
+        "chess"
+      ],
+      "break_system_packages": true,
+      "system_packages": [
+        "stockfish"
+      ],
+      "source": "Exact public dependency pins from the official reference installation commands; no task solution is cached."
+    },
+    "gcode-to-text": {
+      "packages": [
+        "matplotlib==3.10.7",
+        "pytesseract==0.3.13",
+        "pillow==12.0.0",
+        "opencv-python==4.12.0.88"
+      ],
+      "import_modules": [
+        "matplotlib",
+        "pytesseract",
+        "PIL",
+        "cv2"
+      ],
+      "system_packages": [
+        "python3-opencv",
+        "tesseract-ocr",
+        "libtesseract-dev"
+      ],
+      "source": "Exact public dependency pins from the official reference installation commands; OpenCV system dependencies are probed with the accepted public APT cache."
+    },
+    "count-dataset-tokens": {
+      "packages": [
+        "datasets==4.0.0",
+        "transformers==4.56.0",
+        "jinja2==3.1.6"
+      ],
+      "import_modules": [
+        "datasets",
+        "transformers",
+        "jinja2"
+      ],
+      "source": "Public library versions used by the official reference runtime; dataset and tokenizer snapshots are provisioned separately."
+    },
+    "pypi-server": {
+      "packages": [
+        "pypiserver==2.3.2",
+        "passlib==1.7.4",
+        "bcrypt==4.3.0",
+        "packaging==25.0",
+        "build==1.3.0",
+        "twine==6.1.0",
+        "setuptools==75.6.0",
+        "wheel==0.45.1"
+      ],
+      "import_modules": [
+        "pypiserver",
+        "passlib",
+        "bcrypt",
+        "packaging",
+        "build",
+        "twine",
+        "wheel"
+      ],
+      "source": "Public package versions from the pinned task image and official reference installation commands. Installer archives contain no submitted vectorops package.",
+      "offline_local_index": true
+    },
+    "sam-cell-seg": {
+      "packages": [
+        "torch==2.5.1+cpu",
+        "torchvision==0.20.1+cpu",
+        "pandas==2.3.2",
+        "timm==1.0.19",
+        "opencv-python==4.12.0.88",
+        "numpy==2.2.6",
+        "setuptools==75.6.0",
+        "wheel==0.45.1"
+      ],
+      "import_modules": [
+        "torch",
+        "torchvision",
+        "pandas",
+        "timm",
+        "cv2"
+      ],
+      "extra_index_url": "https://download.pytorch.org/whl/cpu",
+      "system_packages": [
+        "git",
+        "curl",
+        "libgl1"
+      ],
+      "source": "Exact reference dependency versions with CPU wheels. Public build dependencies support the separately pinned MobileSAM Git install."
+    }
+  }
+}

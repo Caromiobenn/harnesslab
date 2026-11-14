@@ -25,12 +25,20 @@ success, false completion, recovery, and cost without asking the agent to grade 
 
 ## Current evidence-backed status
 
-The repository currently provides two distinct layers:
+The repository provides the historical contract suites and a coding-agent evaluation path:
 
 | Layer | Purpose | What it proves |
 |---|---|---|
 | v0.1 offline contract suite | Mock and scripted model runs through real framework graphs | Adapters, tools, traces, validators, and artifacts are wired correctly |
 | v0.2 benchmark protocol | Public/private task packages and OpenAI-compatible execution | Real models can be evaluated without receiving oracle fields |
+| Terminal-Bench 2.1 integration | mini-swe-agent and four Deep Agents groups on six pinned tasks | Official verification, comparable runtime budgets, and observable review/repair behavior |
+
+The [coding-agent guide](docs/coding-tb21.md) covers the DeepSeek API profile, the reused
+Harbor / Alibaba Hong Kong environment, and the HIGH study's five groups and paired
+online/offline conditions. Earlier integration runs remain separate. The guide also
+links the first independently regraded answer-access case and its saved evidence.
+The controller needs CPU only: model inference is remote, and task commands plus official
+tests run in the cloud task environment.
 
 Implemented harness adapters:
 

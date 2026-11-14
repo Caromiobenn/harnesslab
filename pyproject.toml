@@ -18,6 +18,21 @@ dependencies = [
 
 [project.scripts]
 harnesslab = "harnesslab.cli:main"
+harnesslab-coding = "harnesslab.coding.cli:main"
+
+[project.optional-dependencies]
+coding = [
+    "harbor[e2b]==0.25.0",
+    "e2b==2.62.1",
+    "mini-swe-agent==2.4.6+fc.1",
+    "litellm==1.106.6",
+    "mcp==2.3.0",
+    "langchain-deepseek>=1.0,<2",
+    "python-dotenv>=1.0,<2",
+]
+
+[tool.uv.sources]
+mini-swe-agent = { path = "vendor/wheels/mini_swe_agent-2.4.6+fc.1-py3-none-any.whl" }
 
 [dependency-groups]
 dev = [
@@ -40,6 +55,7 @@ testpaths = ["tests"]
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+extend-exclude = ["vendor", "scripts/benchmark_http_cache.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]

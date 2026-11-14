@@ -1,0 +1,15 @@
+{
+  "benchmark": "terminal-bench-2.1",
+  "revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": ["compile-compcert", "build-cython-ext", "cancel-async-tasks", "db-wal-recovery", "raman-fitting", "regex-log"],
+  "groups": ["mini", "deepagents_default"],
+  "thinking": "enabled",
+  "reasoning_effort": "high",
+  "max_output_tokens": 32768,
+  "request_timeout": 240,
+  "command_timeout": 120,
+  "concurrency": 2,
+  "repeats": 1,
+  "max_review_iterations": 3,
+  "purpose": "Six-task integration acceptance; official task budgets and final verifiers."
+}

@@ -1,0 +1,53 @@
+# Full-dataset expansion inventory
+
+The pinned Terminal-Bench 2.1 revision is
+`12b7565679ce5006230b820666353673a133db93`.
+The read-only inventory on 2026-11-14 verified all task file hashes and found existing
+Hong Kong template mappings for all 89 tasks. All task definitions request zero GPUs.
+The authoritative inventory is `artifacts/setup/full-dataset-inventory.json` on the
+controller; this check did not launch full-dataset model trials.
+
+The final matrix is 89 tasks × five groups × two network conditions × one independent
+attempt = 890 model cells. Retain valid pilot cells and expand to the remaining 83 tasks
+(830 additional model cells), provided their frozen protocol remains compatible.
+Keep infrastructure failures and interrupted attempts in a separate attempt ledger;
+never rerun a valid failed solution to select a better score.
+
+Before extending the six-task runtime, address task semantics found in public instructions:
+
+| Requirement | Examples | Work required |
+|---|---|---|
+| A service must remain alive for grading | configure-git-webserver, hf-model-inference, install-windows-3.11, mailman, nginx-request-logging, pypi-server, qemu-alpine-ssh, qemu-startup | Preserve required service/VM state across the actor-to-verifier transition; the pilot's unconditional process termination cannot be reused unchanged |
+| Write outside `/app` or configure system services | nginx-request-logging, mailman, configure-git-webserver, build-pov-ray | Specify task-appropriate permissions and save all required configuration/install paths |
+| Public model, dataset, or source download | count-dataset-tokens, hf-model-inference, mteb-retrieve, sam-cell-seg, build-pov-ray | Pin public dependency/source artifacts, provision identical fixtures in both network arms, and preserve the actual task-solving work |
+| Historical external information is task input | mteb-leaderboard | Provide a dated public input snapshot for the offline arm; distinguish legitimate task research from benchmark-answer access |
+| Long-running compilation | build-pov-ray has a 12,000-second actor budget | Shard jobs using actual actor/verifier budgets instead of assuming every task takes 900 seconds |
+
+These are preparation requirements, not task exclusions. Every task still requires empty
+and official-reference controls in its prepared environment before model cells run.
+Task-specific lifecycle and permission choices must be identical across all five groups
+and both network arms, recorded with the source/configuration hashes.
+
+The sum of the official actor budgets is 151,950 seconds per complete group/network pass,
+or 422.08 sandbox hours across ten passes. This is a budget ceiling, not an elapsed-time
+prediction; it excludes setup, verification, and artifact capture. Keep controller jobs
+within their wall-time limit and use the persistent cell ledger to continue without
+duplicating completed model work.
+
+The existing pilot runtime and source hashes stay frozen while its job is active.
+Independent full-dataset dependency preparation can proceed while the pilot runs.
+Full-dataset model trials follow pilot acceptance and matching task controls.
+
+
+## Verified expansion progress
+
+The full 89-task configuration and task-file lock are now committed. The native runtime implements service retention, image permissions and submission deltas. Public verifier preparation now covers 33 shared Python recipes (82 tasks), six custom Python tasks and the previously accepted Cython profile. The broad system-package ledger covers 79 tasks; the six pilot tasks and four earlier native controls retain their separate profiles.
+
+Seven more tasks passed all 28 offline/public empty/reference controls in job 1208116. gRPC and EigenPy passed another eight controls in job 1208132 using public installer archives without pre-installing task dependencies. These results do not establish readiness of every task: public model/data snapshots, remaining actor dependencies and remaining task controls still need completion. Full model trials follow six-task pilot acceptance; the original HIGH, N=1 model protocol remains unchanged.
+
+
+## Further control and scoring evidence
+
+The next 23-task batch finished 90/92 controls; targeted HTML and OCaml repairs then passed four new controls each. Keep the original batch and repair records separate when assembling the final prerequisite manifest. Two public-Hub tasks passed another eight controls in job `1208173`. A third batch of 13 tasks is running 52 controls as job `1208242`. These are environment checks, not additional model attempts.
+
+A [controlled verifier case](case-offline-browser-false-acceptance.md) now documents an incorrect HTML normalizer scoring one when offline driver discovery failed, and scoring zero after installed-driver selection. Official rewards and browser execution evidence are both preserved.

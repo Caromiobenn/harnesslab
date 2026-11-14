@@ -1,0 +1,10 @@
+{
+  "uv-x86_64-unknown-linux-gnu.tar.gz": {
+    "bytes": 21202046,
+    "sha256": "db85e04df9e0f1e460a8e2cd4352d4d614ce78ab1f5c0973a5b374a85f3cefd7"
+  },
+  "python313.tar.gz": {
+    "bytes": 34135003,
+    "sha256": "26e9648a24ac7af70af650dd237bf3334d4de1e95291ea462dab82301ef1ff27"
+  }
+}

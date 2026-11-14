@@ -1,0 +1,2366 @@
+{
+  "schema_version": 2,
+  "policy": "official_sources_fresh_builds_only",
+  "description": "Legacy mirrors and per-instance migration recipes disabled by user decision. Register only new official-source image build outputs.",
+  "environments": {
+    "a7058bdfcc2637595b6891c9c861f54d5f02fc9cd05b7c1ecaf7c3491bcc95b9": {
+      "source_fingerprint": "a7058bdfcc2637595b6891c9c861f54d5f02fc9cd05b7c1ecaf7c3491bcc95b9",
+      "template_id": "gny1nf4sb08te0itbtee",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:9e86cd4e1124ee09eaa584afc7f6a789c64b06f2765c3dafb1b4e8e1fd53ffcd",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b18b7c81a1a5adb21b571ff9d8818628ad6ae48818f753d9bc0ded0f26c61b40",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "de1a1998c67197ea86978e5cb20455a4be0a5746fe8106f0701a06acde6265e4",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "320bef0b2e3918866c724a7c97aaba80e9decd0d8c2098848922d81c90ba4e31"
+    },
+    "1c1b6e5049d8a73d75f680a1381bfcae703fad1ac29305a1b594e18470b1bd18": {
+      "source_fingerprint": "1c1b6e5049d8a73d75f680a1381bfcae703fad1ac29305a1b594e18470b1bd18",
+      "template_id": "bbwvnxw4be90ahd6o7b9",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3d2d015d0b1dd5daac36166a5be3743715e21ac2636ba2251cf8c0a4a3c3df76",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:79f076e4dfc18aa304cc56c47a5f46b8280cd56af8c343ab3826ca27eb104154",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "5822f52f49a01a7541bfe6e6f17e38fad47a934614a9d736f6f40042057b7926",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ccebe7e5255fd1ed34d81fc10a52c03350e7405be417db2324d5dd485c5c2989"
+    },
+    "a1e1d59e6ca0fa8e49e79044547837bfaa064dc0e7178dc9a45a47a800e7b23b": {
+      "source_fingerprint": "a1e1d59e6ca0fa8e49e79044547837bfaa064dc0e7178dc9a45a47a800e7b23b",
+      "template_id": "umbwbsd3v263714b9hg4",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c8518967fd005e283d16c795585272dd86c59754da64a3307d64284ccc0ab4f5",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:192a218f68e0c3867c540bec583ce76e2eb768f9d51f3dcd0e1ba12c5ea44bd9",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "0c68ab1a5ada14385434a62f1c6b1421ef227bb964774b5a9b019f724f7d0989",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "8d9d207c8bf27c1c2f9656b85c8aa36a0b78602a2b0cbfce09281c79290e9945"
+    },
+    "cc12332621664190e4060656d450330281ce90363b1d9e2a52457b369e656a8a": {
+      "source_fingerprint": "cc12332621664190e4060656d450330281ce90363b1d9e2a52457b369e656a8a",
+      "template_id": "8th2nz96ad0jndfoaems",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7eb0fc1e7568440b49ee2c98914701d92af3c1728278033d4ea4e96b97b49a55",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b5733e08d8d91a84742f60ebfba32cd2dfb43226611bd57e65554512221f4170",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "d836ecbec80b28f218322a6a3520d97d78a8676a46694dec5bafae96aee7e679",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "69e6536a963a7c2d0c4777f7cd54fc4d025c2b4f297aa51f06d112dd6202392a"
+    },
+    "5ebbd743cd05b7900197abbd6eeec90e14cf86da92a920c7bec310454be7e37f": {
+      "source_fingerprint": "5ebbd743cd05b7900197abbd6eeec90e14cf86da92a920c7bec310454be7e37f",
+      "template_id": "h4vr0naqtvz3rm1ddb5c",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3b8a6e035afbfeb26b3b4e500f17c9811682a4a77faa5efde7db79d801898325",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:508f41a159c32b16e3f70b6829962f70d332209fac7e01717c3db38ecfcacb09",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "db9b77533378bf080ff090ea2f886d0be27e3d30881a041044672c6e91fbe355",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "db4aebb192a59db28f6349859e0e144daaa6bc39937ac00e4f45eb073d48836a"
+    },
+    "f9a82731f7f52ea9affe48bab716a9f9b5ac70d628d4f66a770fa944f462fa00": {
+      "source_fingerprint": "f9a82731f7f52ea9affe48bab716a9f9b5ac70d628d4f66a770fa944f462fa00",
+      "template_id": "lgr8wp8ljdxhe0pqulkq",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3bcdc0c7dfa7539e1c0fe6c312e3fb286086acd8da28828ba14679b07943e748",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:191314c260b40c99a7ca0b1fb29814402ba888cfc5d0b4597f5d651f5290aeac",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "d4a5871267c2e85c1d9ce213bf7354f132499abacc6f2540ca17607dff46969c",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "9c44595562499ff2736e29bf04a059ec781365c6b84c678ff60610b3c786f34a"
+    },
+    "415defad7227cd1bc605a65761fec4289c62f34642fbf5ebfb9408b4a5f25bb0": {
+      "source_fingerprint": "415defad7227cd1bc605a65761fec4289c62f34642fbf5ebfb9408b4a5f25bb0",
+      "template_id": "whstr3h86kcakqqivzyg",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:be6a4a4f92c7851d12f7688e0ea08c828a0f55ef177f1e8b4ebcce9b007e936b",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0bcf27d3a768ee44f7c5ada32d30908aa234da4aaa99de6cd74865f24334b94f",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "b73ab17e192352fb2b73e7ecbbee7662bf03067e484688b5e02f1c25572ea09f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "8ed0d4311080be17cdd1d06de6793d161aa6a198ad39295e79ccda3c00e3db11"
+    },
+    "2aba9cdb19a7d0550e3e9648379ce54444324e0fe6802175c3be8fe5e85ffa4f": {
+      "source_fingerprint": "2aba9cdb19a7d0550e3e9648379ce54444324e0fe6802175c3be8fe5e85ffa4f",
+      "template_id": "m365mnjgbob1sley2x4l",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:824bc6c04c5b1a08cb1935e43ce4ad21330eb1e700428dac22e644f42846557d",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6fedea262b4cc6ad71abcf061fc3ec77251be8359942f5efc367cf1f86e53623",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "b2c639616b3d67f8d4c4b0f86e2710cdc7eeec104dafa6f6e176a77dc6adbe1a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "58cde62f94cb157ce8b399242a3cd471e8ad6650cbb5c7108c00c7b33ece389d"
+    },
+    "5d12414d8b40ec3b88ef2507c7d72723e1c3eaba8d3753ad07f1ba65ee523533": {
+      "source_fingerprint": "5d12414d8b40ec3b88ef2507c7d72723e1c3eaba8d3753ad07f1ba65ee523533",
+      "template_id": "qowthhd9393ali66dimf",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3466014a7f3e296a3b71c270a7536eee42a1c1918b458613763e6d13b7b759a3",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7bcb96264c38b6597dd9527f3a5d2dbf272d60a44d76a9da1b79b93c4ebab1de",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "416d9ebc2d659b9b45735e67c0afeb122b21788a7465d2bbfc74f4b4c332a116",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "4b5cb124a710e2dae44725a33f56a44ef12116900c40b72ce74d357989b10dc1"
+    },
+    "33274bc85f7a57145169f44e5afa9d4d0d701e43de7bb813cf1274e41c5fb20d": {
+      "source_fingerprint": "33274bc85f7a57145169f44e5afa9d4d0d701e43de7bb813cf1274e41c5fb20d",
+      "template_id": "6m2vgrqxdt3g78y2nr8q",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:8c37aa689f82515161efd81eaa711d58403ba9cb3957a68e1417986a26a4ebe4",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:983ea50a24612e81d624810c3dc75870d851ce9b5ad709e4a33287a9f910d7bc",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "01cab51dfb2d674115ed8ae84921daff508397d46a6c2c1ebffae410e39b590c",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "56ed858803a9c17407704b571fcc49b7be3cf0ac7afdab24f6947ccff147ad83"
+    },
+    "510090eb4870f0923c915ea9908f6fc415e7408147d8f6ae0a4b65a328316277": {
+      "source_fingerprint": "510090eb4870f0923c915ea9908f6fc415e7408147d8f6ae0a4b65a328316277",
+      "template_id": "dvbx2iwoqcr57rcyl7n6",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:2274c1b2bcad2e2e88c8c544e6664c3724a22a99d590c3343f482c61bea7c019",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:93fcbe26292d9d5820fae4a97fc59d2b715cad0d0720c615fe4460d51955775f",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "558243641615c639b59e08525199539fa78571e109cc0187ab5f0b8e433727d0",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e8268e5a3eeed4da2c90e085fee0cd90fa16c73fb9f26d1d6719c826881188dd"
+    },
+    "79881d3fda3d87391645d1777ceb3d825cfc75fb7e3a27e00528fdbf783dc02e": {
+      "source_fingerprint": "79881d3fda3d87391645d1777ceb3d825cfc75fb7e3a27e00528fdbf783dc02e",
+      "template_id": "ybozzdkk08076beehega",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c99a09d76cd1d85e7b52a3e078369f815cd8ad3a588ce7a0095e5912c0a79dac",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:668dbd3a5c725bb1d4e8cbf16418555c316192e4e477af838858979ea0523010",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app"
+      },
+      "build_identity": "346e7c3fab2222bab06fd8e72408c293d7cba4f12b22f130301d94b2bb78bc24",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d858cbe68e94b7b4e2cf3f4200a95d2656b828c37255b8f543c6703ec2b18b42"
+    },
+    "5b06869fb2881252ea528d1c0fda9cf93d5e4cd6b021a7265a34ad04c158f13c": {
+      "source_fingerprint": "5b06869fb2881252ea528d1c0fda9cf93d5e4cd6b021a7265a34ad04c158f13c",
+      "template_id": "6n2ej93dl0rmqf5d9vgp",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:5311db2dd49933e35868b4ba6fe35e0310c7c71490fa60a0a033d4a90a8a6137",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:267632c93bae96eb120292b36e68227a41f2b6edd8e8ff5d7a3bdd7ef4af3b6b",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "259ea1f4a12a776f673fb240b3ea793107647e934ab9b03a69529dd264b63272",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "385d51fa7df3bc08b8a95e708045641c9122a4f327c6fa60d5c9af35c0578e60"
+    },
+    "c3220993fb34f7fec32877f1126dbfb6044b6354d1956c2ffbb713e590a9e116": {
+      "source_fingerprint": "c3220993fb34f7fec32877f1126dbfb6044b6354d1956c2ffbb713e590a9e116",
+      "template_id": "czsyny4yytdjetls4ekk",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:493094c7a5ffbf4c4704448f4f898275e9f678f222b5b022d77961bebe8a916c",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:a5aca5b8129b78dd72d652f77b5b83a1d07c49882e65471ba7d2fff739a99e9f",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "166d1303da2c14a49396ed480680e606e2bb3b08e4dd8c67224164fff9714edc",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ad05fdba1bef6ba76c4bf7739764774bff3c8c2bebd1692fa45e9d3d5d521f42"
+    },
+    "e07cfcb67f86c69c32f0a091517f02b665aa212013858b0ab50e0754a60661b1": {
+      "source_fingerprint": "e07cfcb67f86c69c32f0a091517f02b665aa212013858b0ab50e0754a60661b1",
+      "template_id": "diab4daecxyt6mx4ihxl",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0bc65bec17a38d701f5b5c4936257c67aaa8111a227465b4102326881f7f566d",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:4cf51f69dad7c8cb966fa2af791058ba72e3b4124461d7418239bda01b5a6a9f",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "32f4687f3ffb0b5be35a154ca10d2dd378d0b1ecefc70719b4edf857df9ea3a2",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "fec79e94d0b698fe1837aa3f32c847c95b2092c814ba7487fcecd2ea39674cbd"
+    },
+    "2f6264723f86383fd345433109e01784001f371051f7e06416cee7e8aaeb5119": {
+      "source_fingerprint": "2f6264723f86383fd345433109e01784001f371051f7e06416cee7e8aaeb5119",
+      "template_id": "3o2moqczieaiwdtvlri6",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:fc5249dd067a725df7a39816e85a9a30f963a444456bd0ec47813aee3b0ab8eb",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:5886dc437c80fa58b347bf930c7e044b4bc9813b183ab01761b801907d82dfc0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "db0b6f8952f22925cda4bb91b1cd0010f0d88c83f3abc04c1f9fc18e0815bc32",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "8014971fae153a1070254ef5fd983a1341049edac162aeeb27948635d705ea2d"
+    },
+    "5e3b0da627f426be0a6bcc9178e6f5fa5a118e483e75de633cc5749768d5301d": {
+      "source_fingerprint": "5e3b0da627f426be0a6bcc9178e6f5fa5a118e483e75de633cc5749768d5301d",
+      "template_id": "icrj694m1l564x8l2x5l",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3becf67bde40856802e89c7ee2d956f7c34ca2d59df7dfb4810add041cb537a4",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:2a3df24ea4ac85f3f01c2c23a1d3382cf1116765abcb37119d0148ef52129fa0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d35304c88e82ee1b6286b4493928836b275443fe425ed6c18d4fd2b4db3fdc42",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ebdff167a63480496d49555d3102fd80888e54a55fc2bdd8171a07aab6ecc8ea"
+    },
+    "5e4da1d5d5f0b8428e0b031681b34d991b1f284e7e798a40577a6950e8f4973f": {
+      "source_fingerprint": "5e4da1d5d5f0b8428e0b031681b34d991b1f284e7e798a40577a6950e8f4973f",
+      "template_id": "27i87s6giv6kvrb7ee6r",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:cb6199f3eaf83c3b206577481af715b105808472d690fd609608b8107e2139b6",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:f543293f942bf3593e4674dd8f720df8ecf2884ec4833e501225953267da98b3",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "3574e2c80bd0e04c13f8211d83a01582c479ddf3733b18eface73ce1de2156e3",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "0d8f62a0c364f24998cee5ace8cdbcfccfc3a7e07b9bff149d5a0940780e2b34"
+    },
+    "56e1faadb83e32cfeec82a2d740cdb40b74c01a22346bd279100a5e39b42a85e": {
+      "source_fingerprint": "56e1faadb83e32cfeec82a2d740cdb40b74c01a22346bd279100a5e39b42a85e",
+      "template_id": "bxk880sr10ym2bkzssp6",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:bc28a708cd75a56c34c94a956473a6d6fe6f94c7df366cd5a119655bd0b28500",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:74ef826866ce57312db8311f14ec0c2ce2d03570028b5951653607f0ed72fb79",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "f192909a0f3435094767c4ed215394ec0f10431df343d0f861921032f50f94e4",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "9ebc0152ea7f1216d974aebe9ea07b8ecae36b5842f477de54758f38c9ed78c1"
+    },
+    "5b3f60826ab3856e55cf22736fdd2581957e7aed870c07f8dc0f32dac7fd1196": {
+      "source_fingerprint": "5b3f60826ab3856e55cf22736fdd2581957e7aed870c07f8dc0f32dac7fd1196",
+      "template_id": "wp3yja5ldhi8z4nr6edb",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:9c0ef0508ef648ed525d26b941f16460c8d55ebb2445716c8d23a8faf12ba0ee",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:422becdc2bbc8f7b6d5ff1cc7b83fcebeb66591c2f3dd92e68ba12fde979fc73",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "71b080befcd993dc578df15857d883df0096eb2c7f80dc3c7ae2a7a6815ee62b",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b2e8952f32daff2ab3c361290aa6b5e58e2850fa40d36eee1108ed09e1f83f8e"
+    },
+    "0c73b5239c834b3c9d334d0ead600dbd0882eb4dfb02a3e912cd17a3f4698de4": {
+      "source_fingerprint": "0c73b5239c834b3c9d334d0ead600dbd0882eb4dfb02a3e912cd17a3f4698de4",
+      "template_id": "5citxkat70s7w0l1rvj4",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6edeefa5c6c00c7893c034cd1f7acecd6d958180eb67574226743479c4dddbda",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:31ebe11c8cb1c5e3f74b15e0345fce7f9adc7eb406209131828f8b49bf4b7f61",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c9f44ed02c1268ce41df68c5f935c53b96ca3820f6082addd8f36e497be7c30c",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "588fb58e39c08ce02c5e83c070ed34bd6f333930587bf8ab6e898c07b825bb82"
+    },
+    "c9e7712df2e2b2cef924edd17495ccd4a353f5f89bb8dbf2d1bdc77d4b6c6b3d": {
+      "source_fingerprint": "c9e7712df2e2b2cef924edd17495ccd4a353f5f89bb8dbf2d1bdc77d4b6c6b3d",
+      "template_id": "tyqhk9ietguh3qdlddnn",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e5f03120964ca4af8f2d742955d511cd3f9669dbea29cd08191f1f5b28184796",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:d00b6d7d6ecd96aa73bf62ef1a1c4a17b4973e2aea335118d7492ff0f5ba9a24",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "11b614748c61009433b01a872686404b893dad6c3ae01f1874353d279551ccb0",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "22c10f4742c38dd725e1cd3ca84e602061a29274473183fc7e7503a554f5a5fc"
+    },
+    "9507b73a7be9004423ab356df4a02b8e1d26147f336f5ad99cdfd8331fbf28ab": {
+      "source_fingerprint": "9507b73a7be9004423ab356df4a02b8e1d26147f336f5ad99cdfd8331fbf28ab",
+      "template_id": "qtb7b92sue99q9p8etc3",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:bae227d277fc41824a14c92aa53b257956be034b16d6fb704e3ac63242a3dd40",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:807fb8ab2e02372cc9b597e5b7432f35afcca267fc267a1fec95f16eaabaa5b2",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "040ce03a57b6f0e11031bc73c07ac3b1460220fd5ece680880f6cec5fd8dca40",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ce597d822a8c20967bffa51d01a114630644a3f8a03085fbc1ff6422a57225d8"
+    },
+    "997bb3e268129ab5810f6defa5711e3754e646ad6ba459173990487ce29501d5": {
+      "source_fingerprint": "997bb3e268129ab5810f6defa5711e3754e646ad6ba459173990487ce29501d5",
+      "template_id": "46pjjbg2o2jk6k5ela39",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:1a391f212ba45a4ba53cfbf5728cad5e0f738631d1fef94ae14c058765140e31",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:7f953d05e1c799e9d4443db13402d5c408ecc59579e33404a7f3960ac5abefb1",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "838e404b3deabb823260a806a5e01e01a09b10227173521659c9eec88ed79792",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "8690f19d3da3c47fd5b864c7a7a38e080b1092b8d1e9a4cd9cb0a0a7f1a3a14e"
+    },
+    "80958b90c7826a13c3041eb85ade04c88ba4b98b3a6b9d80eff2afefcb5650a5": {
+      "source_fingerprint": "80958b90c7826a13c3041eb85ade04c88ba4b98b3a6b9d80eff2afefcb5650a5",
+      "template_id": "d1xmwm4xf6pfkgjghipw",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:fba3bc88bcf4d2007ea62eadbe6972d5f794a0ad2990b0b18802a9fa5d8a7b97",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:b05662eed301c0c6fa444dd54e7038b1f75c439ea57e620519661c5f778aa86c",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "135c887b0215e0abca2db4cf46ab17d28cc12828a9ee6ab3d36ed3cf8857e09a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "dd35d838f28cd993d5fdb381c01fe68ef588018ca0373d06ce9689f16e6d7bc9"
+    },
+    "a8839f9e750098146de3d67c3e6ce156be81c14f84bb12ee7514f3c45d9818c0": {
+      "source_fingerprint": "a8839f9e750098146de3d67c3e6ce156be81c14f84bb12ee7514f3c45d9818c0",
+      "template_id": "j8mtqrltr3f0s7wea6l0",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a420432a5a2bbffffb23b65333269cd6bd31ac8fcc4c472766ec7910e777ff26",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:83c676dc11544ab213f9c59a3322e33b4d0113af8aa6043c1c2b29c6aeca55ba",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d698a04a2f25b43717de50fadb88794620e383e9a63bbd516aef0d9d053e3f5f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "279a88ab18d8355d9a9ded6f4623a1d01aa30ce7ceab291a38960a4bba68cd5f"
+    },
+    "b599e2e99a1ec789429eb454069ea187a40f0f96269a1c09a32eda45d9a1d2c0": {
+      "source_fingerprint": "b599e2e99a1ec789429eb454069ea187a40f0f96269a1c09a32eda45d9a1d2c0",
+      "template_id": "55k0mw7f156qcjogjs41",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:8678bbb70d61edbfada9ce0c98e366984b6100d62fb19d8954948aa76d77f9c5",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:3e22d74aee90feeb81e56bf39af968f91aed67da27dc192fa52486efac3c59be",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "5f625ae42aa3465de8169224c9883f9262f3f1ee9c44c88f575649729132bc80",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "798e21ff23d5a0a8d2b49105375d3c1ce459592cbdd4a43a7bdc16825b317657"
+    },
+    "f6e59ca09367b62b75430393d2d29630951b86463a0db411d976114c3154fe91": {
+      "source_fingerprint": "f6e59ca09367b62b75430393d2d29630951b86463a0db411d976114c3154fe91",
+      "template_id": "nehm0c1qu0ce0lbdq49x",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e4d8a8ab5c59a37c01f8cf2b4d502e7a49875bf6ecb8184fe1ff5cc512d0984a",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:7faec9a8ccea58ff60e9c4d75c5b51e0f1ab9edab361069b92d02e4ac2dff616",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "7cb0f3fe9170bf4aadcbc3bf80cd1e2ce5515e21318a24073eb10b1b5d87aa33",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "6cda35c511f573e1d52cddc197d4e33c2ceac1bfed45beb5343e3fedbf42f8c1"
+    },
+    "bce4147dbe94d1cfd569965bd54d4e3f3b7972f29f7eedbe1d4256486b45b8e5": {
+      "source_fingerprint": "bce4147dbe94d1cfd569965bd54d4e3f3b7972f29f7eedbe1d4256486b45b8e5",
+      "template_id": "m47pjx23uoxe2bod1hkb",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:1d889a2eea5a472af66989bca90c3e1565f00a742a17ab3f822cfb9d72b24cb5",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:ce030de85a57473a9b52d493fd023ab90871959e7129b4281edb1b2e5038d078",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "0500a765b3a724d32e948bd95c1996249c1f91ebe4df7ea76b0701589be66e61",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "7dfb17ef3e3c4f5363b279cc1a964933846f5d41d788699ffb9b090b28b8f69f"
+    },
+    "4c0934fe7fe2f65fe88a5cda11da6aa47f86d558e3b3c30984c3b19cfda6f1b2": {
+      "source_fingerprint": "4c0934fe7fe2f65fe88a5cda11da6aa47f86d558e3b3c30984c3b19cfda6f1b2",
+      "template_id": "a0h15nhmtkd5zyisfwcn",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7b992de69277d5f6a2214b0b18498c06b49f478b6da791d3222749087f89c66d",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:0d69bb686032bf1a248e5e4ccafb53e905bb6424bd38a7c1a0c6d37bb261b404",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b887eb8ba9c0fe2c215ed77634f2f6a8b35abc889bab47b7b04a205383cca15b",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "9002dc91896441dae802dd32ca70109cf8d931d903685a50226d920c2a6453c0"
+    },
+    "951764bd309dadf094e13ef4cc49a20d937cb56c5968c8a16031f4abdef70b68": {
+      "source_fingerprint": "951764bd309dadf094e13ef4cc49a20d937cb56c5968c8a16031f4abdef70b68",
+      "template_id": "mymgeaelkwsfggyhvty6",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6e96cdd45ee2d87baa4fc5203b8b3d92984329081c8eca447f8ac63f46aba88e",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:000203ab948b2b1ec3f09e0fa2abb1f07b574d5e4196e7563dd2bc586d918032",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "60cb989d0bb30923d9db16ce91050ae530adf1c97b77f52e1eb0a541a25f6895",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "cf22dffda93cd32a409607162061c58dfbf6ce7cb6b655171062a222553a6fef"
+    },
+    "881b6fa90c662b8748f0aedcda216c2b5c506593a9fe27e966773d212823b8e8": {
+      "source_fingerprint": "881b6fa90c662b8748f0aedcda216c2b5c506593a9fe27e966773d212823b8e8",
+      "template_id": "i87gl83riumy9bchgury",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e89e52b89286b30e869d362458b490e8049ff3245903684f4e06cc0dae41ec4b",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:8e2458836acf6d14616949c3573584a86449c29eb4a0bb09fab9a9b5ec8b53e9",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8b723a58895c05c3f3a21d958bfbb8b9a83fc7ff1a62b09d48901aab42e1cf9b",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e2aeac42e1249c18e2f7c99b93461494a8cba70d9a849cf1cd38164266ebfb54"
+    },
+    "d25223764b61cec64621b6c6dd4d792ed94aa1350b3a55b227386655afe9ba4f": {
+      "source_fingerprint": "d25223764b61cec64621b6c6dd4d792ed94aa1350b3a55b227386655afe9ba4f",
+      "template_id": "nqeegwxxi5u923ajegmq",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:606eb12c48390b374c7b971818475ebd4e8ee573459784b3acdacdba79bcb4c6",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:58487e5228163329485953a68e912a8e07ce196858b1343320516b2d0b5de5b0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "621628ea6a32bc28d6f34852bdf036f973f054978eb37c972d2954022a222efd",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b1fe3d926c9d5fb1380afe88e8d6f669ee5c184bf69937dc12288c6fbeb1a8e6"
+    },
+    "36ba8f1bae3a16738f370b510a2bdfcd904ac8624998c6e670f835b6d5419d9d": {
+      "source_fingerprint": "36ba8f1bae3a16738f370b510a2bdfcd904ac8624998c6e670f835b6d5419d9d",
+      "template_id": "vagd90t5vwnf30ymjiom",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b52c4479881195fe4e622e56ac3495945c9ab3748a916ffb0c3ba0cb4cf00dd9",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:632578dca791946b2c223c944706656007d8c930eab510dd50d7553c827c48ff",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "fadec1f4194eefc579eec30556bf01feb9cb29cf3fec0cd1a04e671b300be9d6",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "999aa693263f19f680de357eeb67bed46b58129c7b3fd4a7f8c78ee77f054df8"
+    },
+    "36d1fff217a7fe476cfa371354336092470cd94012ca267205cd6a697353aa2b": {
+      "source_fingerprint": "36d1fff217a7fe476cfa371354336092470cd94012ca267205cd6a697353aa2b",
+      "template_id": "9nthjvf2bd2djfdlph9g",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:34f4cdf330707ef348c43c5925d26dd0065aabb2c6f5ac08daac0f14444df36a",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:1aee15022a4e086e0d7929ed1046bddb922b4382f9f0a39645fd01d821ae2287",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "87eb607ce94efaa8b7675c1889c5a0a2fac5305cc07f0f21adbf805f07b0e76d",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ea6ce2f7cfc6d7b4c247c4068900e553d3535b0d37f2c38457ed417280701515"
+    },
+    "ab0160371556cea0c7d9e8c95148f8a74e9aaca44d7d0f19f9d8f748fd7e72ae": {
+      "source_fingerprint": "ab0160371556cea0c7d9e8c95148f8a74e9aaca44d7d0f19f9d8f748fd7e72ae",
+      "template_id": "r076n1ziky2fokiazp5l",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c692af739de136da20a7d5794258a8eb8745d5dfaea3809880bc0149eaafd0f4",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:78589d52b083b76adf455a17b9580771c9d268d5ac8e2877f6df7c7f418c3ba4",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "5d4d7221a2ba3408d217c66eb4fe78c3610f0fca769c446517d05eeed459d3dd",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "59486285d9d617b786c0458e7494d5c0b648abfec3a3ca4468fa774ed50c3fed"
+    },
+    "7e44d7cf45c3f2f27e90717d69d4df4d4bc0e998efb791e1a94241e74ee29ce6": {
+      "source_fingerprint": "7e44d7cf45c3f2f27e90717d69d4df4d4bc0e998efb791e1a94241e74ee29ce6",
+      "template_id": "2zwvd0gvvklvv802dugb",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c67235ba7fce1f9097d02d1819df83fa8d756bb5e3ab0feeeb349217ee4e01a9",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:13ccab4cac7106571fd71c80d622d32004c8c7d347e3339ce2015e18f25658e0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "819c6af740fa3e6c966562a1f3561f4f7047c12c08dd1e5de95e32ba52061850",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "cba5f474d04bd76bd763b62600c4d1de672a408b88b1e4be52a57a7b84390ba9"
+    },
+    "81649d8d8a6978b406a4a12b77ecda8c441e29b78a948c3a9be204ed8d75a497": {
+      "source_fingerprint": "81649d8d8a6978b406a4a12b77ecda8c441e29b78a948c3a9be204ed8d75a497",
+      "template_id": "r78ux9nxrfuml4mxvk8u",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:afb2e02f46f9dfcd2bdf059b3e9e946bf30e79c9497dbcc2f4ad56ef99c981f5",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:635b51862982f689649d792ee5ac3d6b7b546830e21b68d8693a6029ddb96b41",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "f002de65b7a40cdeb1b6d42eab256ba60c808b99d5552c9c7120cc7f802c3d76",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "14b9a99e76a9451325028595f3bc83e4e848311511c9435b750577c01b477dca"
+    },
+    "3aa26fa5efaad275cc6b419ec60f0c973167c3fa81a9a752aa8dd2355cc67d92": {
+      "source_fingerprint": "3aa26fa5efaad275cc6b419ec60f0c973167c3fa81a9a752aa8dd2355cc67d92",
+      "template_id": "5pns8ojj7cg5q5jgealu",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:78b6d08c6bb03e446a78c0138b6e598abace16f5a82869ed17d53164b827dd14",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:80f5acc1379b45b272a75d70dd78e80e5fbe2edcee0496ccf7913eaeabdda839",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "2804b579572deedfa674ee128a248590a1d0244b4c83780ff7d594426112e38d",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "6f069f828ab36a024b8a1ee9c55a2a5ef25369616c92ca061f88458e921f2fad"
+    },
+    "d251bc70edf94631661dcc99c6e98c4ddc2291b9998e5ed2e4301e41f264ba9b": {
+      "source_fingerprint": "d251bc70edf94631661dcc99c6e98c4ddc2291b9998e5ed2e4301e41f264ba9b",
+      "template_id": "93oti2db75fss9zbsz8y",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ee0b8ef78353768df97c0c95555d74b1f5e4435d7f44822cd139b4d8b8fd6bdb",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:e577f3213ab319585b714b4a534141576bcd4d2991a93bcbd862ae464e81804a",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "da44fd43b9b006b9df50aaecd243ec45eeb0bc59ed2ec4d092941cce745fe15a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "2d35431bcf02aee205f8060cf978962ea623ec2eeb8d4636aa610b40dcff4e0d"
+    },
+    "ce1caf51aa47cfb90c546009e2acba979d06d46ca81b6c205c57cec482137425": {
+      "source_fingerprint": "ce1caf51aa47cfb90c546009e2acba979d06d46ca81b6c205c57cec482137425",
+      "template_id": "q8slocdh9erad7uzzgfn",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:32ef400d6f6d471a1950a4bf118f85fd2f953db48dd7e92abace2759b5254e75",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:79cc62083ee6186c30fe3cd455b993344b92da3bbda87c792abee5bf130f57c4",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d252b2f72c4adbc3cf8a473e86c776ec71d6c3135149519d7cf0bf6050bbf67a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "4ef7f5e24e5a60994700c48b6d87a0debfac3bfd01296618b735f02eddbd10cb"
+    },
+    "6e3eb2bf6698da30b51e4d6c54c640c164f98b0941af2639541ac6f76c3ccaf5": {
+      "source_fingerprint": "6e3eb2bf6698da30b51e4d6c54c640c164f98b0941af2639541ac6f76c3ccaf5",
+      "template_id": "o385donsgwg0bna0lxcz",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:1ab9f11e46aa7ac83fbb767e412b4c50fbd9ea04d20bed35b925bfb72ee928ce",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:83645a1c5565267675a19af0916ba1eed14131c315d92cedb05abea398a03527",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "32f35a4e734a20f7a108906f84fd6356e2397d65a8894d461335a5f5f3567fc8",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "01def961181f8b5343c33b82900b545b212bc7f37dcf33959c9940c64495370b"
+    },
+    "03b145db4c637f32f4327f03f228d26aad4252f70fd219449b76a80174ca1bef": {
+      "source_fingerprint": "03b145db4c637f32f4327f03f228d26aad4252f70fd219449b76a80174ca1bef",
+      "template_id": "hvntsqaekx2gnfghgsgh",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:87e4e9b84af103c7fdbbd17e1b4f8d8168cf376a7f360cbbaf4888d4ed0e35e4",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:c4f917e70ee7ef568f248a25783b7629eec4fe05c5d092d42c8d1e380efb7c5b",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8b748f90ab8892ef374df9dae58438fa820c91455ff5ab5325ee216a1ac28506",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "1c0cbe40c8598525f9e935e3348f314470f4e75524d4dc45bddf336a85333aa7"
+    },
+    "8d3c5b3bf3d76a975830370dc0881cfa6eb0a069c14a04af6c0f8c0c149cc4e9": {
+      "source_fingerprint": "8d3c5b3bf3d76a975830370dc0881cfa6eb0a069c14a04af6c0f8c0c149cc4e9",
+      "template_id": "ck5ciyhe8mtlk4zxuqvg",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:72c40cc59566c59e75ac32711e7a388b458f15df12b9552168d57dafc7e4c3a9",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:5c89297876b6164c38e30194e0055a222ec4df9ddeeb5b206370c31cce77f841",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c34141dd1e6dc57494d8d69183fd7c0dadca57ce7b683ae733da2c0cbe285de7",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "1c39a06ecff5a439d5c91a3ccf6ab9f5c8abb0bb1b702a9f8b54617d02a7f962"
+    },
+    "21acdf6e7054fd241a0b5a210683e28bb1bf23327ea54e4df43c0169dacddc3f": {
+      "source_fingerprint": "21acdf6e7054fd241a0b5a210683e28bb1bf23327ea54e4df43c0169dacddc3f",
+      "template_id": "2bi5cpb00gm96bncd5bp",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d0fa9fe4f2b8871823ac5c4dba1474d4fb37c3b8c2a6669edd9dab9b767d4038",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:bc38d36c23ecc5f3a2d6db194dabcc1fb67146105629d0385ed1a9a3d67e6939",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c2c0417bb67b941270b6b30cf14c5deccb1d644fa2423cad7077e89ff93d54af",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d0de9d4020679e877e8bdee8750951c984d640d0f5ae9892a410380d5a60778c"
+    },
+    "3ee7831f62f7dbf8f97899bf3ec25c3d406b2e5f977080de25a9c326941c27a2": {
+      "source_fingerprint": "3ee7831f62f7dbf8f97899bf3ec25c3d406b2e5f977080de25a9c326941c27a2",
+      "template_id": "c34yfnd3sws4my18itdn",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0c83eeda208be2a5380d7b71d30f357dc00edc532efca95411d7a5ba8c0ff9e5",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:e250a1bb35b380c4f4af3e841d7ddb11b234b5c697977ff5a906c41b6e01ee23",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "0846594d3470a501e42cffc25d1112e9f871308d00e265472469faff90c62f8f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d33ae8bb27c16e5d1195c36b0ec8267f87ce004f2f9fd1514f21cbb9c2cbc0ff"
+    },
+    "34a7a482d663125b7ac49f8a47bc0a2f972966a84ccc7c39ab77f1223b2ad725": {
+      "source_fingerprint": "34a7a482d663125b7ac49f8a47bc0a2f972966a84ccc7c39ab77f1223b2ad725",
+      "template_id": "7c99puw3cmkhm4faw2dz",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:43941e326c43187c1fe1006b9f133e53e7c78c1eb062326297c4121f6d79bf3b",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:dbc99fae60462c154dad4d1bfa8d27bfc08e50ddd8a6a6fe156d089498c3ead5",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "983b69ac64bab32fbb0f4d5596d118d1d80bebbe8a3904706a00e94fea75c3f4",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "cc9310dc215fc204b56e520b3158c40401d20995b5cc5697dcc1d29d99fd5c51"
+    },
+    "13522a072e9ec8ecc397392b9dddc9e7830fb8e542f1a125e8cf5dd8d1ef5add": {
+      "source_fingerprint": "13522a072e9ec8ecc397392b9dddc9e7830fb8e542f1a125e8cf5dd8d1ef5add",
+      "template_id": "keywvihudyfticv06gfh",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ba411c990e97aad2f4da71374c67a608fb962edefc7a07d23166bfb98843fdde",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:212ef6274d32aff8b5aa5118165a820ecab4dee13230560fba6957c38b5d6be0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "061a284d887d54ebd98d94ef37b107d87bc2c1a0197ea45aa2855dff33bcd7f1",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e4c8300ab772589b45d335e17605cac1dd8a0890373378230edb3796fa69748a"
+    },
+    "d80e422a642bdbd4facdf15f33179e5d5328c8d6d8c0337bf7bbba8e7fea7784": {
+      "source_fingerprint": "d80e422a642bdbd4facdf15f33179e5d5328c8d6d8c0337bf7bbba8e7fea7784",
+      "template_id": "jvcimhf877cbznf3n0dw",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b71a3a3b312e0bd22a28232aa7b8098f3e6965af2f600d5f72986dde1b546810",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:db698fbb2f50522f181849bd38245f448f3feb287b5d6ebabcf527bf3da901d2",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "3b6509da45833b59682537d20a505df8ca72d4135944cecad2c21d714501e03a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "6891638f9a03dfca7b298b03891b031f0f8e0bad6229f9ca1553a52487b2543e"
+    },
+    "2777a102d826071c1bf734d52e45346331a71e17d3c4059732061fab919d1da7": {
+      "source_fingerprint": "2777a102d826071c1bf734d52e45346331a71e17d3c4059732061fab919d1da7",
+      "template_id": "ash4ly9las1572af4d4x",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:454defb0e18535f4f65912fe74ee5579bac7be418e60f1277aea132d89dc745f",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:0b94ba783c6b2431a9db74374a4b7efeb8bcc60c6792e3fff70a0d374dacd0ad",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c231a8376c42558814dc67a961f7b1e7b623690bc9090c99bb5b20ce9119b835",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d8ad4bec5c0ee65f433d710b68f2b4d16332ae93e517328f8a4bf1172cbdedfd"
+    },
+    "947c76445f2048a557b41a990b5e63fbf336ab196563b2980e1411599886fc15": {
+      "source_fingerprint": "947c76445f2048a557b41a990b5e63fbf336ab196563b2980e1411599886fc15",
+      "template_id": "zp4pkih284o622mykmpe",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e53a25afbb10838d50e027d6652418ec6390ee60ddd1251fb5ad62f730db4c84",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:8f510e7ba129a3a9b06a0e0aeecade57261246e0664caa07ac76ffd5efac40f6",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "4c4a8312ac8dfcaacd43fcb67856bef045e79a520c957f0bb140ca3d75fd20a1",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "4a32763e0effe7fd799aab6e50fbb09442e96ab5a7f241ae1df5f2c6c3a9ee45"
+    },
+    "bb0a677ef4e078dea03b7d848583b5198f5ddb1a71c297ceb8c2f5b564925a28": {
+      "source_fingerprint": "bb0a677ef4e078dea03b7d848583b5198f5ddb1a71c297ceb8c2f5b564925a28",
+      "template_id": "a7qabuuzzwswfaaudz4q",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7eaca3eac038ef99e9ece9d834f54aface74fdca803a6ac6bd9ecc5752ca43da",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:bd1f52e0267398ec26f33e99dcec4c262f9aba6ba841aab3c723941fc8f36b2b",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "84c6cb48522ed516fbbbbb062b1d8bcbf943b627b3e23f899423be85877de031",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "688b5d26eadcc8a17f13282983e38345b8efa51e8835a24a25a7d8f2d7d896b3"
+    },
+    "292db241bb3e55a2bbe85dfcca98ab369beb52da970ae1db1932982504ae0de4": {
+      "source_fingerprint": "292db241bb3e55a2bbe85dfcca98ab369beb52da970ae1db1932982504ae0de4",
+      "template_id": "d21emcmk1zy02tofv80v",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3476f59cefe1b59e75a3b8a847e6c3dd2965159422f2666eac826755c5225532",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:3f506b30838750b681489f4e7a476379ebe4d9d4acc67b9bbb0299c6531841dc",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "600ce8229479ee1fde65bec6ed288f121dfdf701e8b206ce9763415bb850b7bf",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "1499a3485140520f1e104aa9cc94604ba98d50a80aa615e8ea393491961ac63b"
+    },
+    "0437937735678ace2208519381ba8a35b78a5183b1028117c2ed81477d9f21d6": {
+      "source_fingerprint": "0437937735678ace2208519381ba8a35b78a5183b1028117c2ed81477d9f21d6",
+      "template_id": "0xxl7ebex51fqba1s3wz",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:37e2067dbd71c6e98e3c68157d5b280372d960c160d4f7459e19883c6f820463",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:48c8f7c7552cbd2ab7d734d7ab8e4961ba105db00e4cc0de51a2a04c783f08d0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "0681f4644e9a973b03ddf03ef98e1883d8fec1826d86299e3fd38138668988f2",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "a414465c12e17a670e87dae6c44c4fe068345fcc9286902bcc843617ea2223cc"
+    },
+    "8507683dcdce0c80f1280160491fad5e40ec08061637c52e4842469cc2954618": {
+      "source_fingerprint": "8507683dcdce0c80f1280160491fad5e40ec08061637c52e4842469cc2954618",
+      "template_id": "d2yncjr8tt1po50oljw5",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:efa69f076947c841804f1aac2e0d9726f0eeec5ddb8e5e8487f1556c885e03d2",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:ec0ac49e675ad869af892e7fcc6c863d61b4461decf08321a4c16147b1a84311",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "7e9d8bfea81d4bb3ad64f1e7495e0b8a8dc8a3f4233793a473e665169a12bacb",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e3176a21dc438ada32ca0742e679682b1976bb69a680589fdc760ca5b23987d2"
+    },
+    "90c64b312a15073c10e39738c7513c820d5a856a8498cf00621ac122e5887cdb": {
+      "source_fingerprint": "90c64b312a15073c10e39738c7513c820d5a856a8498cf00621ac122e5887cdb",
+      "template_id": "bajkew3wbsk3w8e1pb9x",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:741fb1d92f594ffdb5dc3ba3695d310b171f6b22ec5cb54aef114bcfc612d611",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:e7b8d6619890971c47d9b9eac31a8ac3c0d3218f3eba3590b5b1be33d00bbbe3",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "e12272e2c7f1b1de046be2577eb797243ade3c6575ce5d9ef0d6747ab1246dea",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ad2414611e489e4760f1506a72ba3bfe60ab97707b473a6c5a3a9ad1885a7823"
+    },
+    "b27e6034eac4a2b2265dc70b14101c80d82dd1d8776cff1b3da3d2f71702e451": {
+      "source_fingerprint": "b27e6034eac4a2b2265dc70b14101c80d82dd1d8776cff1b3da3d2f71702e451",
+      "template_id": "s6xx9runqlkmpa9g3wkx",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:45e1dade0b4b1d95d0c3e893a1e7b388629a9877e0c136b3904d61dc88893319",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:0997a6321343fcdc4d6d7d7484cce85b9a989ea4650e05172b6ce0ed552de636",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "bf88c68953f0c60c93c7958f1b0e719fe3d95e1980612e34cb311648c1a36eeb",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d86edb219f23da4ee3640bba96f75d5328d132ffa40fba984c352ac258a56d1c"
+    },
+    "5ff224f5eb30e56eff162991ec27674b540f10d840fa0638c07932ba9ff8f99e": {
+      "source_fingerprint": "5ff224f5eb30e56eff162991ec27674b540f10d840fa0638c07932ba9ff8f99e",
+      "template_id": "l9ngboxdqfo4plrocsj7",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:f5d412691a55534511b98632783e7688062a61f4c9885fec943e33c58bdda22a",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:61c22479df649f471ab2ed603deffaf7c290c96ff0b1fe725a62f588d7f4dc9d",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "f660d17542cbaa846527f87e88e4f26b43fc290509997230f260b9fdc3645f42",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "95e58439e7be84efcbcd319962a454e5b101783a70db31abac3829b643142bb1"
+    },
+    "44300a30c537a37b6514a9fb93d23eb15d44e4c2d1cea40c0ceb459c1451032f": {
+      "source_fingerprint": "44300a30c537a37b6514a9fb93d23eb15d44e4c2d1cea40c0ceb459c1451032f",
+      "template_id": "jwhjzvr6u0nlpe4n6y4a",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:98c6bb095eaaa6122afd98c3305d7e88ea5f2f34b167627832a698019e16b320",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:f2d98fc1a5c7fdb7a90fb16001e8b79a5a9ff86b0290bbcfbfd9c274b40c6ddb",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "090aa93093783cc55280b830fe347a057b598605237b1b2ae2dc31bab5556994",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "0b088223f1f2ebd829dd1c8d47d51436904715ab9e72f36eba77b010d7d7cc45"
+    },
+    "3a8982652048d6ab55cd46eb049422eda4f00db4c8420f5df867fdc8bbb6e820": {
+      "source_fingerprint": "3a8982652048d6ab55cd46eb049422eda4f00db4c8420f5df867fdc8bbb6e820",
+      "template_id": "vud7abba4r2uzcrynqae",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c27f849972a69122b55f0bb2790d0cf6475d27b3473c80845e72443a4d1d308f",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:9222ac9b8a480eff3f234f8e46361e81d78385da4aa3e03f8b796cf013324eba",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "24767c86db175d90b58406696c5b9b1cc89bcef983c3e13ae0b8fe0b015b85d6",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "dfb86f66fee97e001d2253b92a573edfa0f6d5a4043abbec4b1c20ee5cfcef9d"
+    },
+    "e1169cd9357f79026e9be683de8f64a93597330f3158d814a89180d6864434da": {
+      "source_fingerprint": "e1169cd9357f79026e9be683de8f64a93597330f3158d814a89180d6864434da",
+      "template_id": "1xqyv0ngjekvuddrql8r",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d8f71c7cc8eb47aa0636de8c9095a2682b43d397c8cb428a074311bcfb743023",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:3bfddf53621093a8fd5e7742f8d4d080b1aeabbfb415c22d625f0c6a87464ba9",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "4d5601dd9e260b1dcce0773926a2349d39df03170032795dc00bca2690a7499c",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "a607000fc7d4091bd146b25dd22395adcf1b4d62a2df570b0cc5fa03c1a47e65"
+    },
+    "7c070248086e122c78e6f4b2f17cbab5030a5eaaa03579dd3150bad9b8658b58": {
+      "source_fingerprint": "7c070248086e122c78e6f4b2f17cbab5030a5eaaa03579dd3150bad9b8658b58",
+      "template_id": "19kxc1jmkwa74euivqmg",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ec744b57b8e781c11cb4453dc0f15542d208b94c92091ad4d7823a84f2604c5b",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:ca4e551334e84cd67d942aa9d74e801c0f1f2be387e9a77c7a73a68e17056526",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "f36e0b5855a7d8cffe35c09c6525af7273e8aa7859c1c4cd090154a13c47e88a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "33ae1ef26eb3176a50d553a54b9dbeb9913ac92e25862498123775cd7823306f"
+    },
+    "6706638099e8a2139ac6bf9de6082ec048ab4c3ae65fb34597856ac8b29f4be3": {
+      "source_fingerprint": "6706638099e8a2139ac6bf9de6082ec048ab4c3ae65fb34597856ac8b29f4be3",
+      "template_id": "gcd6pt0e4tcitmd1sfeq",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:bdfbe9b481940fef8e0ecf2df0f0234a319fdd99a9019b43ba372d7a6354f6a0",
+      "source_image": "ghcr.io/scaleapi/swe-bench_pro-v2@sha256:1f7a7757d6bc1eb0264e50ad5c3385016fa77e0d92cf8d827a180e86ab7fae03",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "07d45f795e0cd4f58d0d965fb0bbd5ae416278dd6ed21b64e83181a9cc5bc1e8",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "46e4e3c65c08c08dabc219ec6170e568bf9add8ec1735d74658e036949b0cbaf"
+    },
+    "951249516869701edfbc53c9a1afbf04e67642f4d94a0c3792243cd11623d23a": {
+      "source_fingerprint": "951249516869701edfbc53c9a1afbf04e67642f4d94a0c3792243cd11623d23a",
+      "template_id": "61637k98nde8ulj1wcpt",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:9bbf46c3b68b8b6e4ef2385c86166182b0e21e732f97dcccacb4ee30b9364ada",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:43fb43890e8ca89d2342152719320650c042e35a731e8720777f03bd853a18b0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c35d6c545f909180093ec561b5bf6faa6b13399a55a47696e6b6852f5815a05e",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "5f46d0f71d7d4bb8cd1314f9246aa84ea5fef02997d2d449f2b404ddc5e2c24b"
+    },
+    "0345ac8eb29b70d41298879efcb8acbb221fd417a88f14e3ad739ecf944185d6": {
+      "source_fingerprint": "0345ac8eb29b70d41298879efcb8acbb221fd417a88f14e3ad739ecf944185d6",
+      "template_id": "fzkpgkzpqlacahmxvp6m",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ca84313501fe7402316a1529d6f10fd2ff2ee69bb115f16ebf0ecb360d8928b5",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b27c3806c0193116ab2c55e6a60ee0a79364d823369f1d5e39e90919f2c98ec4",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "42f96d57b923a762bc07557fc131e4850b2df911a9a50e558e4c3f246e2789ff",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ef333fa91f681a26ae7c02ef757c40382520e0bdb96cb678067d48725edf177f"
+    },
+    "eb4cc75539c6cc4175395ae17d9df9e01ec5f380706f9b3d6724f353e1ad7fb6": {
+      "source_fingerprint": "eb4cc75539c6cc4175395ae17d9df9e01ec5f380706f9b3d6724f353e1ad7fb6",
+      "template_id": "ccv97decg2g206u1fkjj",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6da03990d0e00fd6f0b6688c51347b3e42530ec0017556443ff971ac9e707164",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:5a8e8bfa0bacfea63b0aabb7d2f29fa6fd2a1738b8861159a4571f012dd7b6fd",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "10fdf2e1d54377cff9f13249c81477900aa662ee388a7a74215f1e86a4d728a1",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e5b81bcd0eff8366da1d2eec2b7b18dd7b9d32024e8ffac16d5b985e559bb4f8"
+    },
+    "320685a048d5049050c6fab88de529b92e407551948ae2b390539e401df27d3f": {
+      "source_fingerprint": "320685a048d5049050c6fab88de529b92e407551948ae2b390539e401df27d3f",
+      "template_id": "ofcjpboicdmcccz9y9mv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:8c94d1c31881b98ff93538591a6fc863c03be3ed956e47bc9eb08660d53e266c",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:81ab0c19acd4bf2e34c059b767d726359be2232a53d68a3db6df91ae7cd1ed50",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d15ce56f8a61738d54eff2c4802c3b768ed71d82c73beef1c8dbc7938aefe350",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "ea36408004ba18a4e3c2c9f9c16042d094bbd980171e8d857103741dfbeacf48"
+    },
+    "ec5c1f905ead4ab57cf8436739487e838145b0ffcfe650107dc45077c0adef08": {
+      "source_fingerprint": "ec5c1f905ead4ab57cf8436739487e838145b0ffcfe650107dc45077c0adef08",
+      "template_id": "bqzjsla60xi3t4j5a9id",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:2692bc97417983e35d0ab6f66115575a3d2bd77707afa193d9e1acd0a98a8783",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:99618c51c1bcc4728c173e24bd99bb023d6bcc8d53412247d2136b4eedddcf7c",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b05d0c76b299efffd9fb65d118e11f1cd5528503d8862700feb83dd03519fe28",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "1e9557aeedd080f61eb92989eeb44b8f44e5caa8813846660f29b01470412ccf"
+    },
+    "deb442c42808e32c631ddd048f6b507657d7685e65216eeff863397c90f43c58": {
+      "source_fingerprint": "deb442c42808e32c631ddd048f6b507657d7685e65216eeff863397c90f43c58",
+      "template_id": "wkusyyx1zb978q1v0eox",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:5e706fe8b9cfcc2255b58d8cd2397cd7f01e762e0e1455648e78697d9a78d8c6",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ded5ebf0074ed81ce48fc2cdcb04112a48640989295f622343ce9cf4b1feaffd",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "3ef6d7befd6dcca1edac5c9888656974ae877bd104731acce4ce970298328636",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "422d13b01ef2f7915269190466a74f1bd8953ad3f9c4b3c1dd9641c6bba1701a"
+    },
+    "48f42a2760bc0a972325614d86448e38505486f1447267e48376bd8018469fb9": {
+      "source_fingerprint": "48f42a2760bc0a972325614d86448e38505486f1447267e48376bd8018469fb9",
+      "template_id": "9bro5anj6ti5l0vzdbb2",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:94df0c565940304f058bcb38392f93628e3a943a3be87d74a661074a22c2663f",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4314b6f4469251efed635dc6fe9201b170bef8a934ffbecee4b743e620f6e828",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8cfd2937b72f02afe473f6a5b09b2c20b1ae9f4235613d71024e301a2990f632",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "3fe069971b353a585883c5288cbfe0fa9d671f12908350ef6d209993c52f8dc2"
+    },
+    "4089994b1138fb8a2fd0930f20365faf58425b0fc0a4ac8d3e53ce011c99062a": {
+      "source_fingerprint": "4089994b1138fb8a2fd0930f20365faf58425b0fc0a4ac8d3e53ce011c99062a",
+      "template_id": "xson9rx50gjfl7uw1d4a",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6939dd8cbba6fa025c81bde76bb18af7d84333902d51bb14447ce7df852d0721",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:17c81160b979b9f3798e9df3759f405241fcf2e94a37af2ac3670c764823bbec",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "67215366e3eaa00b09aaa1eac4bd6ddd803db8743961ffa65271997b6a1ef650",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "97e5e3625ee5de2bfd6116567be9c23cb8aa8990176f6a9fbd2aa67d450aca7c"
+    },
+    "d0d011608ed1b70c56b5b48bbfe9394f744ad3c4465ec225a30ba56a8a2d85fa": {
+      "source_fingerprint": "d0d011608ed1b70c56b5b48bbfe9394f744ad3c4465ec225a30ba56a8a2d85fa",
+      "template_id": "e02kog34da5i16nbi7ob",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:f139072de0d1c8681ca07ff0e2fa6a86bb2d48866b3e021d4ccfeae88506aff8",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:165d42fbd8d46f70f4c1100f1f20642a3de44d6e5135b373d1aaae9fd7ea1f42",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "5be2290f5c6a15aef9ffb5a61d84076d58be4816773b5c556f7c2522a3e33936",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "2ec30e7ac8e30dca318823d19fce93855dd93612b96d4c55ceb0811f66372cb9"
+    },
+    "130c70842fbd574157092afc73891a89ec1a77410376d601ee5b8d005351294e": {
+      "source_fingerprint": "130c70842fbd574157092afc73891a89ec1a77410376d601ee5b8d005351294e",
+      "template_id": "uz7u0fcuvtrfp69i33qd",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:fb0cfe56b4c769f65317f8cf39694ea80779304dc2c098260e22e70244e0ada7",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:f4f46827dd6a9d2136a83c26439f2620618e49573799b35fe288ebe573aeb73a",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "57387d5861f6ab5a130c457f99f31a5bdd2a62d3f111323d5dac6fa52acdf4d8",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "f2ae8ec3465b2246527d94d3f0db1563a2038d5e2bc5c4e1a1b397928b9839a9"
+    },
+    "51f985b856a64b1a94ed8960340dd5743ed74941517f385a526f6310d231cfa2": {
+      "source_fingerprint": "51f985b856a64b1a94ed8960340dd5743ed74941517f385a526f6310d231cfa2",
+      "template_id": "xhxu51dp4a1br9ncdavt",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:da8a884655bc2e4ec73c13634c1412a4699501493538e4908de273e4accedbaa",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:60b2368cbbb8dfc368640a19f91d3e7e6eb5f402eacddff0297803bed0207982",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c906ee4a2327c5b43d938c5ca2d3906aad480f2e8f52d2582aeed41e61c2d86f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "3b1cd79c09cffdf91066bc2b7645f4d9b1c906625a92a119868257fe9958739a"
+    },
+    "7954586bc8ab64469de1141ac6faf137c93450495dc13a8cc963a3ea9df8bac2": {
+      "source_fingerprint": "7954586bc8ab64469de1141ac6faf137c93450495dc13a8cc963a3ea9df8bac2",
+      "template_id": "1obwebbqot8ocdbd2u67",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d51ddc4ff32a95a06ee1f751063d10962d3c8e538f2e99e15de25c5064c7786d",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a64a292e1e6e98e71c40846cbd26f048c6ccaa5ec168eaa380f2a432cd7130aa",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "55b2cfd7b3d30c499b7a1f06233dc39bd1fc9e1c7450dceb8adb14a359562e58",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "f523a7d1ce3b8c27e7cd35486d19990bd44320ce6b696d1c2c6be2a1175c9d39"
+    },
+    "4eb715bbe01aaea82d1a89e8e5633a23b4d99eed4db8a409b5ed5e4c4798d55e": {
+      "source_fingerprint": "4eb715bbe01aaea82d1a89e8e5633a23b4d99eed4db8a409b5ed5e4c4798d55e",
+      "template_id": "rik0rj4nmm7myhtqt6y1",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:74851f6cf87b94d6891c8a742c3429077528c848b9519aa13c68a9740f483d86",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:92d06a228856269d42b96d8da9263292bc7d842b562e89bb8e1f9b2f7b3a0fe9",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "2acaeee21abafc9b4afe1133b15570ec24ba7ea2613f4c9f04a772c6c206f549",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "2950bd6ca39201e5d3683e7202f3745ba1b6a7b6bfa45be8919872915473b1e4"
+    },
+    "9470a683365d14eb9e1a2b3af6e9d678ff945cfbc6680f5e6be9d3cd0523c08a": {
+      "source_fingerprint": "9470a683365d14eb9e1a2b3af6e9d678ff945cfbc6680f5e6be9d3cd0523c08a",
+      "template_id": "3r2r1znfeb8hemn7mesj",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3f8e4b4f54a56eb8464ce8d866081a0a408c931d6ceceec4f1f2e3acb03fb2b2",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:993acdd0bf268bd9e68d806025ddfa468128ee2d98e93bc8edd02d3f22c9e4af",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ca41751009fe4111c92d2e4896d48eb689a13d2de853d159cb00c52fca501b54",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "38020a5f6b30754e3bb5520091fb44b9a7b4f556668ce12a7fe610a0d402e9b3"
+    },
+    "10ab33801db1294462589bb41d760eefb31b7f9b6290ec2b76c5960517db4eda": {
+      "source_fingerprint": "10ab33801db1294462589bb41d760eefb31b7f9b6290ec2b76c5960517db4eda",
+      "template_id": "onv30bplljvu6ndrxbbh",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4323328340f5181f137be71dbe746707e8edfaafb69fa898f37f808c31537ad8",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c744c206ec3ab764afeafdf3001bd7dd981211a667763be59a8a58f586d80f77",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8f3ee0be450b69114c1da6655115daca9ad5c4b3de8bf46ef5f87a17fff16af4",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "83adcacd0e5c18d2352c117d37e82b8690dd8b860fe1a0b1e4c0738c4aa5e75d"
+    },
+    "06bb407fcd24482c844076985bef3d8bb602dedcb648d57e749c8a0f0545d207": {
+      "source_fingerprint": "06bb407fcd24482c844076985bef3d8bb602dedcb648d57e749c8a0f0545d207",
+      "template_id": "u51ac4itdsakm7owptx0",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:79cceb24d8773460cf0cf7a7f99b031d68ff1eeec3a8e1359334efd4adb95383",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a80adad87c8511c8cb86a8902bc39531ae750f348965bac928f42932a810561c",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "9585cabdf59d696d2119eefc3016b5c02f442fad5c65010110206cb9c2216f3e",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "86d49ba3e1c7ece7ec0f96d5dd0c1507e5c363732d80b79b68dda1839529b565"
+    },
+    "8d0040ba4a31584741a45b82c32aaad0966dcd0b9fa57c9bb30235a248b174ee": {
+      "source_fingerprint": "8d0040ba4a31584741a45b82c32aaad0966dcd0b9fa57c9bb30235a248b174ee",
+      "template_id": "h771ty68j4ti111w0a9r",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6556abc063fc0fc11d51bc5bf0dbb6f26a748cb75610b5e789ec75d3dade28b7",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:782a63bd7253043b8fd92065cd26e621bd0f39f7350f75ebee0c1f201e21381e",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "5dbba05e7299afee68409dd4c5892318f63eda84de2ec06ba75c537769144545",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "62a336d779e9b37dc7f3066a8c572bd43ee95d9b14a83eec48cb8d87eb477033"
+    },
+    "e878ac56edb4e68a5c2871621e2804ec70c78e80de483b8eca793a0587feabaa": {
+      "source_fingerprint": "e878ac56edb4e68a5c2871621e2804ec70c78e80de483b8eca793a0587feabaa",
+      "template_id": "nm1455bp8jh81th1x7zq",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d056cfcd361ea707fb236068eac7dee9046f8ddc4111ea7327fc813114b5847d",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:506c0d93a5afc046aa4006361cc654427168a76bd33464604d22e48dd4412f87",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "19e6b80b78905a40af9fa26de137679a1af7e0581ba46faf32e3b04e52c926b5",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "738b4f4c4595c4e4da97835a3aeb38a8177b5b0f0cf4c56490a6c0d2028723d9"
+    },
+    "617d26373442e0b9f99a64cd6ddf541d83399e5765e5b1ec7640b0791710ea41": {
+      "source_fingerprint": "617d26373442e0b9f99a64cd6ddf541d83399e5765e5b1ec7640b0791710ea41",
+      "template_id": "d7e75g75u9p9ok9o81s1",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:8818193e7abd108d1dc92f2b2bd31b1b95fda7e41de6fb5d62bbda0117978994",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:222287bfae8395ee70ac9c1813aa6b497ea034c7d953d2673515123a0a61f228",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "afc6638290df958fc65db955fecdbf512b691a20e21916a58500bcb770d89348",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "fa1280a08194c8512eacc734147b79dd908c7499fcb69ded125a8fb23125066f"
+    },
+    "1ce2c1d64068a056e29a0e958c985d5a3a955df871e62ff7f63088d560882e9c": {
+      "source_fingerprint": "1ce2c1d64068a056e29a0e958c985d5a3a955df871e62ff7f63088d560882e9c",
+      "template_id": "in1wruu4g9m5am77ccsv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:12d2ef35934a0ffad9feb03b71f26ae4af6d35c431cd5886b7ae87896e250a16",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:287e0d6d9de2d74db0a03c902ae1b80e8992a97c527d3e06b420358609702a40",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b90245de52aca9943642158ec651c6145aa9dc1dbef0563ba1af5e296d9c8cfa",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d7b41121a43adef0fd04428fc1c620295012053ee9c70f4d999850e3c32ddd8a"
+    },
+    "b03b612fc1868d5896a0cede72a60a6e022d9ff49ce9d292182f46fb1ab45fd5": {
+      "source_fingerprint": "b03b612fc1868d5896a0cede72a60a6e022d9ff49ce9d292182f46fb1ab45fd5",
+      "template_id": "8p7a4dn19sa7ptidsckj",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:578bbd9c3b2c319531866ce1f799339d5e58b56bdc699c7309b70c2fe996b02c",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:11dc217304ddb7115af9c2f297c7cc738a11f1f1b37cad6762329544380c7822",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "24aa505b49c3b11744a4934a4cfb34d96211e853955b1c414036419e24bd91d1",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "1902544875587bfebf4b584208981fd840753ff0c60584a5c882fb9c5d886ba6"
+    },
+    "8e9308362633a12b2521efa1b8c6a6b73d680bf6b4992a78836a54527e351f46": {
+      "source_fingerprint": "8e9308362633a12b2521efa1b8c6a6b73d680bf6b4992a78836a54527e351f46",
+      "template_id": "axx07jr3egk97s0kr0iv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:901e1ac892b29100649c4e7e188f227081ff17ce18d262b0464c04ac19085bd4",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0ad48616e56dec605ce36a2c11c2cc00e65c4088244b598b065f2b3ead6bda96",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "f5a280081b5e0149b120aa825e37b4a7e20a656f8c48e53959d5127063a95572",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "558c07534c3c1247912b503bfaed1432ac9fa57c68f8ec01c647cb9d5d5e4600"
+    },
+    "d2ed4cda7c4dfaaabe940556d909c5301ef359e55d642721e7399f4e05f03086": {
+      "source_fingerprint": "d2ed4cda7c4dfaaabe940556d909c5301ef359e55d642721e7399f4e05f03086",
+      "template_id": "99hn3qdmncoen0jhwcvr",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ee2bbd97789258591a00eaf9457b0e87624e317193c8eaa6dd08d1b04f58301d",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:af4436b2ce4a6774885507e17347e9b8f9412563d4887fd8310c7082cef4ffda",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "6fb8080a47858189de4eba78d2f4a98963b031b217bf5c08f8dabcc1ea5a9adb",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "aa84394f27b2e5eff81fd6a3a870d01214d181f1fa241f26db205f5ce642f3e6"
+    },
+    "cbd7a1678c844f6dbeacae9d5de3bff01580820d222a787ca0d7066281cb5712": {
+      "source_fingerprint": "cbd7a1678c844f6dbeacae9d5de3bff01580820d222a787ca0d7066281cb5712",
+      "template_id": "dc5irqehipxainyp1u4n",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6a0aef33d6d32a26ecd91bcec93552c8a6ca4d6655f2c6fabaa8439200fd9859",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0a4d7021b2212767beaa73827bdde8f41908998c281511ee8eeb7375dfec8ab0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "78539fec6affca62bccbe64f6e120724a203c87b03cb77f28d681dbf3a742baa",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "4170489b151af3227292e7d361fdcdb6cb77fb66a714133c1122be5efb06103d"
+    },
+    "f831107207966fe7d6a275df7b90d4b8b2717efd94b00132c292b1e39e9615ba": {
+      "source_fingerprint": "f831107207966fe7d6a275df7b90d4b8b2717efd94b00132c292b1e39e9615ba",
+      "template_id": "5wrabcbqvzsdnwqkx37l",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0122ff3d4fa82104dccb9ad34bfc3239b06264f691a6daea0fdf864253bf5408",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4eb4e4462368674fe8674f83ba7ee4d3ea557de772b3fbc8b8eefc4bcaedea27",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b3834fbf2048fb3bea3cdb2fed235c74276aebe1eae28158ee7682d6b2d42a75",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "fef2a1cd4d43dc0f2966ae37c19e965dee649a7759f54a6dfa3e14c97f6e4763"
+    },
+    "0b95bf45a478cc123bba1ac72f70a9391dc68e8b6dc7d89b51e3cafb4f55b188": {
+      "source_fingerprint": "0b95bf45a478cc123bba1ac72f70a9391dc68e8b6dc7d89b51e3cafb4f55b188",
+      "template_id": "agfwblh9lbw47yn54wml",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:008e7eee36dcaafbe1d3115e90250cc2e15d19ef9f2aae793d4670098ca93dda",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:93bb8055a3ce97a7926e0ba6bd952cb42f60d77a566020c8077a53b9df4e67d8",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c5de3ae71c8b13954aad4f5f246d157cfa57b14f08888b67e1fddc3176460e30",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b588035f0a3d6f345f6f4c87c8640b8c0853e26bdeddf3a4aa5c4c82f7e5ba70"
+    },
+    "a746de4d2efbcd7cd45f53b3270cd325c068b731f642bcd1fe0eb7c9f5d6d2a4": {
+      "source_fingerprint": "a746de4d2efbcd7cd45f53b3270cd325c068b731f642bcd1fe0eb7c9f5d6d2a4",
+      "template_id": "p0jrdwoxyco0orxdpr1u",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:bea38c239ddc718fcff4e86aae669009e8f7206bae5789304911c7968745c363",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:49c7127cb4560114a1d78224ff65a0cab96362f18393777aee5965d61cae2635",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ceb7649577501a5bda184a191f0e50dac01d4ea2164330fec9092fba5a0ce6be",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "977e68bfe3416ef21b811ede387a6e24bad25ec523ba829ffb7d8cd68ab12401"
+    },
+    "57a3089dc9edf1fb333a2069e53a7c28224aba77eb20634a61623cdf74617c1e": {
+      "source_fingerprint": "57a3089dc9edf1fb333a2069e53a7c28224aba77eb20634a61623cdf74617c1e",
+      "template_id": "1j5pro3iwhrjtddo01sp",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0317bac9e197dce4a6dfe61648e549fa93c0136d356a913bceb8f55ee6ce6cb1",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4669fbd8e815becbf175e49c3a94ef4830ca86423aad6b46a7bcc083e78b2f78",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ffebb2111a1d0eaa1fa3c1cb1cc842662eb697a6fca92f0974cbc1a41cf2a1ec",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "56e4b3f8d930a073c817acfbbec7eda8a707c6d2d844a7094dfb78b9ad38d6a0"
+    },
+    "0a023b6ac5602bd60893b9432a72a24772bfa01c57bcf95dfc7456cc9341a453": {
+      "source_fingerprint": "0a023b6ac5602bd60893b9432a72a24772bfa01c57bcf95dfc7456cc9341a453",
+      "template_id": "5em1ldooe6ukon31p1xp",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:9e5d913e6eb36a98da78aaa508ad994bac28e26e69aa9b75f5723066a1439381",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d35b7d63b82fdf8f17877fb8b525119cc720168877dfaa3a43edd9b06ee0201d",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "74a2c235280e22319f2e1ed8ee4ef62b69f6b7bfe7bf33c79492687706996e77",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "23c4e7c14b0b9f7f2d8f3c80edfea64bcdba3976b7bad5848103ebd572b48bc1"
+    },
+    "2dcdc8b1f9743a14b0e6f4539405c7d47169359e90f6074c55603579b3c59c5c": {
+      "source_fingerprint": "2dcdc8b1f9743a14b0e6f4539405c7d47169359e90f6074c55603579b3c59c5c",
+      "template_id": "ik0zmxkbk628i8da6ecy",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:5e84588a566cfc46bafd0e156d5a00af43c9632c1f2da5d8fcbc38c4f72091ee",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0bc9937985355ba4fa20f7b4fa9420efe8ff4a06425891f225c9f8a2edb615bf",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "a1a7654d32e388673881ea7f852a127fa27dcd0c24096977fb3980c69f7d7168",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "3ad0e3ddfbc391732fee82768c407f01a65124e96ffaab67abccb0bb77ba54b9"
+    },
+    "5791b54d2d6beab725d5af67983c8e4e4cf65449314e1f870d837f7ea2d9fcd7": {
+      "source_fingerprint": "5791b54d2d6beab725d5af67983c8e4e4cf65449314e1f870d837f7ea2d9fcd7",
+      "template_id": "b468q8w7uo8g5l5a11zb",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a47df3bc8e99660861b2702112b1576de2322384ef7d27fc767d951ef2d00c8d",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:84463e93de2f918ef2c39eebab102060704fa1c17e8f6f7077fc4c07ff04982e",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "9657475b022817397765590de4b6c39d23d46a64b0f741dceae782233cf9117f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d4bfc94d8bce312b744138cd6ebbdfa90d27294d40342b32065fe3e2e8f92a76"
+    },
+    "f8164c3fa13a88040827019d6a225a7db7a479e587b68a5932643eafbac5f468": {
+      "source_fingerprint": "f8164c3fa13a88040827019d6a225a7db7a479e587b68a5932643eafbac5f468",
+      "template_id": "x8v5ygv91mc1s3bd3noz",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b8c3c5a3198a152477ae2ae929443a713eddd5611663496a8d88c7e0eccd0cf7",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:fab8515d92f0d44a80ea3fd0ce6c83a8bab82844edc4ed2149a2d3eee8988e68",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "712f28ccca0c3e26ff2d9a8a7e61cd265d9f3a724acd857f92660553c9ce7c5d",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "24397d4e3b7f72d261ff18b98faf574d5cb450ebb06756c6c77a74b0627f9e73"
+    },
+    "20648105b725958ee26bb225302547140173c40d94226dcb28c194e07c2a9567": {
+      "source_fingerprint": "20648105b725958ee26bb225302547140173c40d94226dcb28c194e07c2a9567",
+      "template_id": "qyfr58zdi3fkjmqqncdc",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3f7207d96523a38b758460def45d8e698e0d0daeb374a68d0508953f7853029a",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:355e6a54223a663df173a5b7e7f659a32ce6dd4166be430f3de805d46097dffb",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "e4f23dcadc4296161ca4893680750f98f5fab908ad7be08a28479e1d56836273",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "935d84b51c131a834fe6d7d47dff0d0852abdd6244fd12a8d9d827420dce107e"
+    },
+    "dede89fc240b77d967038403d5c59ab1e3b48b2fa13ad34499d3f3fc6ad0b9ad": {
+      "source_fingerprint": "dede89fc240b77d967038403d5c59ab1e3b48b2fa13ad34499d3f3fc6ad0b9ad",
+      "template_id": "jts6kaohn7fbraaisuec",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ed3dd959a469aaa13e6a44e2f35e4cbb85ac16ea5b85d7f95591a3e93e951aac",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:dd7ec4b9373b76e72505c4ccf9e0583cfe87ea42bb750cc3b96821ec15eda117",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "07e59edc62ba187172a20b2d7175600c53e332a08813830326f5d46283163c06",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b5308f5af06e03e589d04e23eec9cb5841de07be47f3a682fe30108376933a53"
+    },
+    "7a8c9233fec8129ea30bf261a679db2083a058faeddbe806aea704fc94bb4993": {
+      "source_fingerprint": "7a8c9233fec8129ea30bf261a679db2083a058faeddbe806aea704fc94bb4993",
+      "template_id": "gb1fd31xsb16y6spkct7",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:84cb10a8c02f8dcf81772f801aeb6d7a933be4b38a42773dcf4bedd0ff3189de",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:36890d5e1c036a60da7fd45687cda2cba648efdc832b5e9bb5e22d532a0b7bc6",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d0fcc0dd2f0ef74f922634eaa3995bd5eb97e7e9d1e1a63dacef1c7fcd55e8ed",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "0d7767923990e88f51bdf1eb62dd77a7756b3a52a046b475a3355a1e4556c186"
+    },
+    "a4244e7243a607883f5dff0939581041f930210677f7e43de8cfa965ca185aa7": {
+      "source_fingerprint": "a4244e7243a607883f5dff0939581041f930210677f7e43de8cfa965ca185aa7",
+      "template_id": "qvsd3deximctadyv8ibv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6a11b707fb5ad3a6ec9d0bbf9b577fdafd2003bf731dfe75a1c68ecfd34c6b4e",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:458b7f0925d56a57cd9664fbc0bdbfd79c8d8e20c21dfe92d4863dbe7ad6ae8a",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d3e21f7801a1de9cbe0dd9ef4d43f90df1e9fa3f3f74486d598887ed63c45b43",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "8d12792665e533f6c37f1ebf5d5105febe1b9fce789978959cb7e2939f7c3fae"
+    },
+    "df96edfdb718e61be438b85e20a76ed8131b7c3e34e66aac87c0c93c9227a341": {
+      "source_fingerprint": "df96edfdb718e61be438b85e20a76ed8131b7c3e34e66aac87c0c93c9227a341",
+      "template_id": "vf1ef5y7tz0awswgt1lm",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:394025bf49420b2b87375cc2879b6788c24ddfbf72ef6acc8c3f97d580bac8ae",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e07a6ab00f5c631591ea1360a5a08084a55f65647ab763f9223c1a4a55c6dd22",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "78b95cb0bb4b98de1e6defbda454857a9ca6a0dcf18bada5de3a85853a8d0ce9",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "afb1a9be33f7761128ed17c64b113709b1625f4c5fad91afb1566727846d7c2d"
+    },
+    "9f5349db514b21606563372907976b5bfa8cc8ed4781bc71d5959dfe7c655b5a": {
+      "source_fingerprint": "9f5349db514b21606563372907976b5bfa8cc8ed4781bc71d5959dfe7c655b5a",
+      "template_id": "k52ntjpfj4fjs3q4xert",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6ea82adb3c585e5e90a9005b35cb8fa3b20f71673e8e164597739c5f4601afa9",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:819ed79fce0097517efd78b9a8a5c1a8b40218c44e236d4f1168be009ad7b314",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8c14a4c567f6445d419e91ab555b1e54803c239fcc525d77cbdae448938a0820",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e17256ca8997220c6f7ebfe0184b08412bf0d50fa0606c7e239d0dcc2de95e1e"
+    },
+    "15d887d74c04370f28ff7159ee863ffc0711388501d07b88eee0e8f896917b13": {
+      "source_fingerprint": "15d887d74c04370f28ff7159ee863ffc0711388501d07b88eee0e8f896917b13",
+      "template_id": "01otgckol57ye33ww45j",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:aac18c650b24d8af94d9c3299fe36e81950e7a319f14dd5de34b9e7bb6a8a1e0",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:dcfdbc82b7b1ddbbf7e8ede6c9d32cafc95ac316334288b1e92a7902f113066f",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "a80c393754ae90e005d52ac69cfb797b029289fa0aec48c3d3bc086eeb3cd6ce",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "9119c6430033c502b12a1f29a00d3e4c8128a98e3e34095e111ead3403248936"
+    },
+    "c835b1b4da8b547a55921db157795bf3880437dd3d49acbf66feeab7373fd439": {
+      "source_fingerprint": "c835b1b4da8b547a55921db157795bf3880437dd3d49acbf66feeab7373fd439",
+      "template_id": "62zgp3wa7h4acc2afzid",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7a8d659ed57e9099b16745ac7ef65ff217d4c6b66ce028368e56860c7b06145a",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b8f5d4dff461366394e98fbc081c72ebf08065d9a5883c536f4c9b3b0d31dbfa",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "54c51484da581ecd0713f65b53bd170749d3a1f65aa67276c57751fc5258ea59",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "3db1ee7fc90b4eeb78dd08fafe252570299ae5db5c9016852ee1d32ef5e4e334"
+    },
+    "22495298e4e2d01df2ed3350929c3529771371b2c854f9e079a79b1c2272733f": {
+      "source_fingerprint": "22495298e4e2d01df2ed3350929c3529771371b2c854f9e079a79b1c2272733f",
+      "template_id": "covoekbkzh87e8r0ys67",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:732d243c3dc1e9c0aa785c7ce54e1b6116bee08190ed4823d89e3c56f9612226",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:49d18b584ae1713f25b72a6d0d6870e14eb720b0fc740a53eac6fc8b8a6b7fb3",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b35e1988ae9978aaf384064ed7ad6329374bbbe54f7a045afa82ca561b1c3709",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "473493703e4a2bc1d900d6f01ca0a89569344ed703a824cc53d5cddded204ccb"
+    },
+    "8e0f954a143bdd6fd1be21035daf7c9744dd847ae3e5702fe24ea6e4e1550dde": {
+      "source_fingerprint": "8e0f954a143bdd6fd1be21035daf7c9744dd847ae3e5702fe24ea6e4e1550dde",
+      "template_id": "i0ulyoze13qee2djpt20",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:64ab159f7c9532811abbfb7253227205795c140f458885ac7d3c7ba6fa940399",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ee9cddaeddf5431433b44cf19ff1d5c75c61b0d9493bcd8bed05598dc392fac7",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b9fb887ac36fbd6b608c54d71afdff2c2042fd5d77c286654dc1c287393d7dc6",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "2b5dbbd46c277e21c318b67b449b7d260fabfe26edfdca5ac2a91d3a69af0834"
+    },
+    "a5bbe1596ea3c958bb3175a17b83ab32add8286ddfbea07848e93e5f82d529e3": {
+      "source_fingerprint": "a5bbe1596ea3c958bb3175a17b83ab32add8286ddfbea07848e93e5f82d529e3",
+      "template_id": "g3hmg7t44oy4qgt3j3f6",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3d829d27cc72c7cd25ee5b7fcc8a1dda3af8f149afb5d52d28791ded99912fae",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3b60ae751dc6e81c8937ff2a43340f808afa46494b95cdfcf6f52a82f19ef588",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "a731b61621dea1faf16295ff2d1be232e78c6a60ba79cf6648afb8b7530e5c10",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b0e161b1f9d6c214498369afabe4674490fb6a023f170f6cfa951f65c1aba3c2"
+    },
+    "e8e7be324436a4969d7d124869635ab9ccdaf264f9359651ead998914773b140": {
+      "source_fingerprint": "e8e7be324436a4969d7d124869635ab9ccdaf264f9359651ead998914773b140",
+      "template_id": "vq2x8ogacln2uzorll8l",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d0fc081d7d89b22fef7f0fea97c6bdf8a54fbc61719e4a9f73e6dc342fce156a",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:00cd3bd51197237552ad66dee0479711d8fa1f6e5bd3efc9e0a4e2cb3c00d124",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "7da8d4a9840d762c2bfb224c6b5ccf481bd21f88580821416b4efee4a54340a7",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "68ac0134ba2fc60294528e4e48ce37e7a0e45bd05e299946331734832f6a0694"
+    },
+    "a8983a64236ddf08fb85a6fb83005a062cb02bcfe8ac1c60558e7e99d9f5cf04": {
+      "source_fingerprint": "a8983a64236ddf08fb85a6fb83005a062cb02bcfe8ac1c60558e7e99d9f5cf04",
+      "template_id": "858l0zhz5xr6s5hho9ur",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:986533a764654c369c5ee72c79b13d7dfb9037869d08e574fe21b38c180c9242",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a910b84c5460baf01090b38d8e66355735aa331c32fcd08b5745b8c5f8e4a826",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "142cdcff3e244b7c5d1c228b04684da4b7323a7052fca1005061e96afc2cae5d",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d0e0a0e9ed3e5c621ab3185d4e6cd34b21ddceb444ebb4038e4f4ab5ccedaa65"
+    },
+    "3dbdeec94c11a14a08b520398de528169d278150da249f41ee53fc23e4d504f8": {
+      "source_fingerprint": "3dbdeec94c11a14a08b520398de528169d278150da249f41ee53fc23e4d504f8",
+      "template_id": "0ywfjga6i6yb2ga8c71f",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4eb4078b2c8119560741fc894827e54cb1d95ff10ae3b1cf3c7439f8598dc4ed",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d7e11f99ed9cc1a44ea59d2e913729315e283c271dbff392dd11bb638632b476",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "40ad3d8907f4d0f95403904515189a4ea0f42c8277f9bc255dff286b8b471c9b",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e7d2a207724075c67f2064d0b0f377ad0f7255e19d50ba9963fe8558f9679d51"
+    },
+    "5ce79a44967534c1be9ab9444305bf398021ffbc912a50a5545557c98e5f4f9a": {
+      "source_fingerprint": "5ce79a44967534c1be9ab9444305bf398021ffbc912a50a5545557c98e5f4f9a",
+      "template_id": "n1x7zh4o4o4n5pq10ufy",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:487b1121f557ce15e374d1c6cbe7cd493bf723c57b3c0ecf0dba586d14eea4cd",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:cc0768649b9b39807b05e40dcdc0c57d33c9f635beb281ccf43de09d05ccf710",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/workspace",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "aea673762229b0f6ac2afa94c3d9fc1f8f27d212faa90b09a05a699555d4d89c",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "7023347ac14cc8f22105a5f1c07de34bcf8b77c642067a3492f333465b30b546"
+    },
+    "aa3353ec082da99ebe2c63a8504efec81b67725a70e9b19afbd04f46380ec55f": {
+      "source_fingerprint": "aa3353ec082da99ebe2c63a8504efec81b67725a70e9b19afbd04f46380ec55f",
+      "template_id": "xprj61mnguz05684v6ux",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6a044b7fef2851d72e6653618236ec23b00d7fe4958d4983604d5383ed72097a",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:017ebaa9ffeac897871fae987fa1391aeac75c316653dc7b567b45dd2fd253b7",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8719101f36e992067ed98e061a75135be08f7646cd638d85187fc66b150f6b31",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "2c4044f7fb8071702944dd2604c6f510eea68102407eb30f6c9b989c96effb1d"
+    },
+    "79558c9d4dd1fb217f953fe7a8fbb90641c6fec190a8b06dec4ad9e792a2747e": {
+      "source_fingerprint": "79558c9d4dd1fb217f953fe7a8fbb90641c6fec190a8b06dec4ad9e792a2747e",
+      "template_id": "acs2hkscpwt05ucfjq67",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:995b124305796144d4c32d572d50d4787c75713bddb88fa1ffd5c5d961031e4a",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e752fe275a659ffa6b30312319df554b7d2469c21f720f96c5fcd33856a780c3",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "739806e6be3c87c375746f89fc29b8061aa8384c483abeef8267671965fb419b",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "30f5ea56b0d2725603836f7d98af5586f97a5fcf74abbde10dedc584b4358524"
+    },
+    "68a79fda09fbb2c50ac6188073644394f656a89e7a9325f08f8816121725f754": {
+      "source_fingerprint": "68a79fda09fbb2c50ac6188073644394f656a89e7a9325f08f8816121725f754",
+      "template_id": "7kbpaeoxi5q2g55mj09p",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:1b4b5d4bee3580347633d53062f047179857b7a4d3a4d1b2bdc9990e99e86085",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:25a253bc563527f78958c82dfee1f0ba1773c40848f3187047ebdf86c613bb41",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b4de30c769463869cb351d669e4f13acc6a0004de0b4982eb5beefaa1330474a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "09a962ccda1509719cae8fb0f1d9a7091d976e0f306671698fb2cecffbb95467"
+    },
+    "ffb22a1cafc6d9329b69477036ebd47ed1d0e5290fb2f219e3341f83e9de7e46": {
+      "source_fingerprint": "ffb22a1cafc6d9329b69477036ebd47ed1d0e5290fb2f219e3341f83e9de7e46",
+      "template_id": "8dv7s661ve45strmu8ju",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:bc4fdb1f23a9963d9612bacd0ed62cc6492db401ee9fd1956506db2a39679f70",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e2aa31198bde84366b7e18796736a8985f340045cc4de7b4844486c84bf3c880",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "7a888430b72d9fb457cdde4cf94de87dfa0855ed3008cc773483784bf4a7668a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "9c76e5eeed5487402311c98563b72e5fe8e1d9c89c6561704445e2018893b0f3"
+    },
+    "62bfa22a311e030354edddd1ba842297d39960762213d98b6b6e6cb8ae018ba0": {
+      "source_fingerprint": "62bfa22a311e030354edddd1ba842297d39960762213d98b6b6e6cb8ae018ba0",
+      "template_id": "y0n6ba9us9o8p6u6trrq",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:cc5b7508288e429df7aa8aa8ca6846cf2839fd852c0c5ff1cd27b08e07fe61dc",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:43f58698eb9e004c32ea8a8741a82496e7f14e060ca86bf4b1da17a2329425e0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c25d701f3d6804dbd2c794a68e90ca75cc010a468b23c45f710c6a499bb72125",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "982f9f7dba8a05ed67fe0f98f6e8d6308721ad197c52304ed99564abe20861da"
+    },
+    "6b281801b2d0b598291a91d85c5d1fbc7f8fb15a61833b0ecb28d30b23649e32": {
+      "source_fingerprint": "6b281801b2d0b598291a91d85c5d1fbc7f8fb15a61833b0ecb28d30b23649e32",
+      "template_id": "vtcg4d3df6it2x2g69h4",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ffd006a446548a57ee1818f96ffb4f487bbe57621af9a95c42a06187b82e2945",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:33fe37efe3fef2ca281eadaa8621775c64c5d7f2ad733a5dad17c96e61d9e866",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "5f93223ed206b407e2592f7a2769fbb2cddfb27d41424ef92246b063a121fa2f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "2486117999c7150bbe0700f2d1ce9f2f031a50f6d9e682d520c072299da0145d"
+    },
+    "917a5a087b4b70dcca653f20aa9f6a04b5611341da2f9ec4f738b4ec33f1400c": {
+      "source_fingerprint": "917a5a087b4b70dcca653f20aa9f6a04b5611341da2f9ec4f738b4ec33f1400c",
+      "template_id": "yhypy4fvqe78wg5kmzfk",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7bc9bf25489da0b74d90ba8cc5117af393945e6012af602efb7a7bf8cf880788",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a7d2cf1a26ac052b8d46d8f7b815b66d187c014a54c8608312071376d67c4659",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "936cb5d4eececcd03db5f43f0998da711e3979691cc7870bdfb99fbe6354e760",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "eecd710700d106aa6a633cd21362c3c3d8aa7b42ea522f33326df687794b4e9e"
+    },
+    "84cd3adc103ca803ec36f6f2354cc9348cf8ae50f9c2b86033eb99412f447f2e": {
+      "source_fingerprint": "84cd3adc103ca803ec36f6f2354cc9348cf8ae50f9c2b86033eb99412f447f2e",
+      "template_id": "v2rb9g9qejmt1fgz2wq8",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:024141fe613665a2d352f636b90a8b2483d7df7220a1f54b289baf408b65bb13",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a3338beb2f154ecf0d0e39726b2a912ea17ec8a4493dc27436c0b2e7637f9180",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "a345fd0cee08a629c4b673946f8c450591674e0c0c9b0d648b07f853133cec60",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "6a935eacf5e24554ccb7540d621231c153a66325f648b0310a8aef6f6c13edae"
+    },
+    "6115847590afe17d3a68266710a0d372c9f79333f56b533172d95e3b984f38be": {
+      "source_fingerprint": "6115847590afe17d3a68266710a0d372c9f79333f56b533172d95e3b984f38be",
+      "template_id": "12ymu7tjsx506mc6z1mv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4ba2b9e22f5f69a537f1d885227d3aa607093062907f7dd9cbeec808dbeb4b4c",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0a9ce98b527d8062903aa25549cfefd1872e64ad8b3e4961a45c3c3c3f93b60e",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "04a0717ec78bb053fd811f5d541ec96c020bce1fe71a7db8f746937cf31a777c",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "6ce0faceee912f781e94299956e7491953864bf68259361e74c2aaab10d9a252"
+    },
+    "9ee6576319713eeb9fc60348f9e0a167009fdd6393df259028ed7acc84c59f03": {
+      "source_fingerprint": "9ee6576319713eeb9fc60348f9e0a167009fdd6393df259028ed7acc84c59f03",
+      "template_id": "ro1l9m4lae0qsxhb0p3w",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:1ba5b3e6b014cbc4adee8ee760cb0ad8d84c4d2321f6ade26bc8024c4eb35fe7",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7a9f7ecdb5d6a67a2a2d283e37caaba1c3da07e3235a77a0878aba20981ba05a",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "3b88f0553a0987de5729e23fae43b30e4867feca420f0fa6c4d5a4f28b7c9371",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "0c1497b1567fe08ff8bb068502522830be4277010839bae9905020680bc04dc2"
+    },
+    "e81ae16ebe012b1953d1c8f46554c5b00eff0d2e4cee9509014b45038edb8eb1": {
+      "source_fingerprint": "e81ae16ebe012b1953d1c8f46554c5b00eff0d2e4cee9509014b45038edb8eb1",
+      "template_id": "6yuthqb5lxo4720i6kjv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d7a354c0875b90629aea856ec666ce247c93a9a29c81375632e5c5d42dcc278d",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3fd7a7b2021a8df138ac3045e48f3ba14fcb2926f44283015c7f008623399998",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "cpu_affinity_limit": 1,
+        "allocated_cpus": 2
+      },
+      "build_identity": "553e0ee20562d9134fdf7c99da55c62f6f63437f98d3de8ad051819d2863a2eb",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "resource_adaptation": {
+        "allocated_cpus": 2,
+        "task_cpu_affinity": 1,
+        "reason": "Hong Kong FC requires memory_gib/cpus <= 4; user approved 2 CPUs with one-core task affinity"
+      },
+      "receipt_sha256": "c28568918e918111538a64186c8ad75cc57d8f4eaa2c6eaad94b106367ac4136"
+    },
+    "ada87be335943bd25f0c39eb15715686284051d528517c5862a81864b35106c3": {
+      "source_fingerprint": "ada87be335943bd25f0c39eb15715686284051d528517c5862a81864b35106c3",
+      "template_id": "357buo2wrldp0dl97c7e",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:2d97701c930d1c48d71c84ebae9a14c58465a982281300140fa26dba5b8337bf",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:23301cc75c9e4ce23edbde8668efb29501300f40e913916640088b07ae66ed94",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "cpu_affinity_limit": 1,
+        "allocated_cpus": 2
+      },
+      "build_identity": "a4578e8d85b60fc1889c72a6acd7aea63af40b552182d6c40cfc3a981b11413a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "resource_adaptation": {
+        "allocated_cpus": 2,
+        "task_cpu_affinity": 1,
+        "reason": "Hong Kong FC requires memory_gib/cpus <= 4; user approved 2 CPUs with one-core task affinity"
+      },
+      "receipt_sha256": "6d198c97fb2651f4851dd4882e0ab85d08e679debfb0b47876e20e3c87e48f9f"
+    },
+    "9e60f66002cd82e1a523f366db1c76fb527ffea0ba6a638244910b2c86c09d7e": {
+      "source_fingerprint": "9e60f66002cd82e1a523f366db1c76fb527ffea0ba6a638244910b2c86c09d7e",
+      "template_id": "x46bw3hyz4bol55pwa4c",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:81faf2d17fd6ed73c91cad37f768a1317e60bc5a7f2169fe94a40f71f4d69f66",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:9f21145aed814ee3cbada14e598b9cf4e6db57a73d07e167cf5872a437b54640",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "cpu_affinity_limit": 1,
+        "allocated_cpus": 2
+      },
+      "build_identity": "36f8dc3cd5e642b2adf253984533d7fc1a88275849d7cc6f12519be93af400af",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "resource_adaptation": {
+        "allocated_cpus": 2,
+        "task_cpu_affinity": 1,
+        "reason": "Hong Kong FC requires memory_gib/cpus <= 4; user approved 2 CPUs with one-core task affinity"
+      },
+      "receipt_sha256": "981b936b54c606be6e7de6020418e57b866da1b425ced228491e1e41d6e7e61d"
+    },
+    "3a9c1866b4cd7faf8c048c36c10436bbe0ce0755e3447176e49ead25f73d1ef8": {
+      "source_fingerprint": "3a9c1866b4cd7faf8c048c36c10436bbe0ce0755e3447176e49ead25f73d1ef8",
+      "template_id": "7ejk3693nj5cu3b4526a",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:932198da4e986913f8dad3dd42e199aaf1b5cbb944e41c6f9308b4950b85b0cd",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:667586bbd8174c90b89f923b48fb62cf4682b3de3f22d90aff6bf03b8249feae",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "cpu_affinity_limit": 1,
+        "allocated_cpus": 2
+      },
+      "build_identity": "1ce9849e72a38a79efe876bb16812b340189cdf6152d6404e5becdcb5390aaeb",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "resource_adaptation": {
+        "allocated_cpus": 2,
+        "task_cpu_affinity": 1,
+        "reason": "Hong Kong FC requires memory_gib/cpus <= 4; user approved 2 CPUs with one-core task affinity"
+      },
+      "receipt_sha256": "84760f4144acaa9b1c69706305c90392cfcf9c6bae1af5e6ba3aa7720a985aae"
+    },
+    "b8eafffb5b4ad624273417e5c2c21a20f2c996aac5e31f107ce58a8c8933b807": {
+      "source_fingerprint": "b8eafffb5b4ad624273417e5c2c21a20f2c996aac5e31f107ce58a8c8933b807",
+      "template_id": "2rn95bjgccduw18o8et6",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c7c4bc7a2974c7ed68bc10fdf5a34bf48f3f622ae6dc4470d95997d2aaaa9e3a",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e007ad46155b6d67b719692238d898dd8c0195871df5c5c6afd94ef671cc7f83",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app/personal-site",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "41127004197080a724536cfa8641ca390d12d74d07ef024e6153ab385bcaa107",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "3fec3104bde8809d565fb6ed342945e371ad63626c61b73927ade234deba8b12"
+    },
+    "eb0870eb0735a38be1b5571516e86b15ef98d523fa3bad9e3ff54c1625f13533": {
+      "source_fingerprint": "eb0870eb0735a38be1b5571516e86b15ef98d523fa3bad9e3ff54c1625f13533",
+      "template_id": "mzkc105mfsg373tmly9r",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:fc4161fc10b235d00eaa8e9d2a31e7ae06a9e4e159abb7b62b1f93d0be4b39eb",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:272215beffbc384e2f1342f594ae5a6a4b396e2172854313faf9896712b69fac",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "cpu_affinity_limit": 1,
+        "allocated_cpus": 2
+      },
+      "build_identity": "b370045e5e45178f85a78fe4d005dd43d7418c9ba77b11fab47a03c3ee162a44",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "resource_adaptation": {
+        "allocated_cpus": 2,
+        "task_cpu_affinity": 1,
+        "reason": "Hong Kong FC requires memory_gib/cpus <= 4; user approved 2 CPUs with one-core task affinity"
+      },
+      "receipt_sha256": "67106c063ae5019fd126df3eadf3c0adec397f4639a55670ed48fc2e7a8f9e20"
+    },
+    "51ec2addfa5f57e20eb65f418c3d775453b7d096e7244bb4824534ac7125d872": {
+      "source_fingerprint": "51ec2addfa5f57e20eb65f418c3d775453b7d096e7244bb4824534ac7125d872",
+      "template_id": "ue2yipb8rptxdvqy22k4",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:1856693e79c339d0cc04eb6c7380b559384946c6ea5698e36046cb6197f6d351",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b33526b20ffb8ecfa7d8f2d96c78977337164898f533b09cdacfc42a7d0588bd",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "e43c74b253003d3012c7178a353cf6ea45767032b19466c145c86d81ca36caf0",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "bb34ed452dc2ca7510cb1a1d948a01abbb21e5e7d1c93a30ac1e65d5508f701c"
+    },
+    "f0959aed649763f2756ed4c83be0793f87da9c103de893d09c43e112953c4081": {
+      "source_fingerprint": "f0959aed649763f2756ed4c83be0793f87da9c103de893d09c43e112953c4081",
+      "template_id": "eazeqqoya70gm715zw2f",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e7a0c8e7535b7fd98d4dd0a75e10d0c3793c49023d6400b49f7841dd91d06c88",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:526977db4fc9f7c0a7c7a4ab7bf696db78d47e87dfc2a3806d066313d2c971c1",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c32ee239bd07eb6631a739ceda89aca57a2ddc9815b6d81a394717e2de8c8439",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "a01365bd017eb10d781e64d67cfbf0a9b98d4ac8cca32e64bffe451aeae8982f"
+    },
+    "10818b1e9e3de402325a5e886ddb0758a6c2fcdcb690b57b2dacdc2d6dd9d0f5": {
+      "source_fingerprint": "10818b1e9e3de402325a5e886ddb0758a6c2fcdcb690b57b2dacdc2d6dd9d0f5",
+      "template_id": "uqj138din4yytt7vh2mb",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:c9e5cbce94467467e35a30fc0fa11dfd39a7fb9b7088565e8608dfa65a8c8a57",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:5edcc7b4d9443d5e81bb066338bccc119805394b1555822107fbc76d4566a7ec",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "1ce82b30acd4679694388430f302f558ef7b7eee305ce7ca9ab4c7470feadb02",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b451e9d52872c36e4ccd08fe80be9973d5b71a3561ade59497dd899aaae0db3b"
+    },
+    "8fcf56270a3003a3a1ea488e7a14c3b1ab5f621c384cb573502f3e128dc60c10": {
+      "source_fingerprint": "8fcf56270a3003a3a1ea488e7a14c3b1ab5f621c384cb573502f3e128dc60c10",
+      "template_id": "r7umc2znquat2r68kmlv",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:15cebde78bdc5a6941d14fde90d61e4d49b2ba75c42eda8eb16b83e3a09047a0",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:9254948a2c0c1759005302057d47952b816a77af2064972ecc29cca3d6b9aa6e",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "14c78174fc2c584e229b3ef61b23adfe055657c64aa608ef64d247a58927d253",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "f7a1ff25720381687c06df07a1957b467ada4da901401b6361f2381e9cb0064e"
+    },
+    "3bcdab40fc55dc73e74eed300be779f3e75b7adf235a804770f47565878cf4bb": {
+      "source_fingerprint": "3bcdab40fc55dc73e74eed300be779f3e75b7adf235a804770f47565878cf4bb",
+      "template_id": "9hv234uor60oxfurkdx4",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:14138fbbb5363638ef7c7e638f979a682f26ce9f0724d547ab820ab5ec9b135f",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:0d46a7ef9991483c9b1986af5f604d3b83620e7d93cb813ca1fd408fa9d65165",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ada0f3e847ea4ca6fd63993d6bf1ee50d706bae313b4b54a661979e15ec652e9",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "4c5b5616554306283124a5413a2bdf7253827b6fe2e0482a96ae0e404faff2e7"
+    },
+    "b547417ba40c0e3ee7331242d5905e7d6be71dfb3b0eea01c36831ca7fb8e87d": {
+      "source_fingerprint": "b547417ba40c0e3ee7331242d5905e7d6be71dfb3b0eea01c36831ca7fb8e87d",
+      "template_id": "3c490ytazwwdydfn8i3o",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:3b1db0d76b338ff4142ad03b346d6c0400fd3ce5071cd5452738f08e10046642",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ab648ddd191ebfea7d39dd0c654865796dca9a3ea03e74c6ba3d06366cfd6a55",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "d278e5fb21997faec11abd8a1ef678c121b96ed4757388b47450bac1e78c554a",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "347f601eead22a5d4a96b9d3ab49701595b039d99f011987b77ef0d570841fad"
+    },
+    "94bf821ab1b6eccba7d3e08c130c552d62a17c292d8fdb745fcd10580bb07c65": {
+      "source_fingerprint": "94bf821ab1b6eccba7d3e08c130c552d62a17c292d8fdb745fcd10580bb07c65",
+      "template_id": "9zbd4ylwbvai44anrbp4",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a1661f27127dafd8d7ddfab8ce51e72a67ab9376af08f6a01f77badcc5eb8bd0",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ce0b32a09b4e92eb3d26e2a96f0c6ccf6028702f18c067d18d9e79d9e9bb0925",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "9016c46f50d66d27b756b1689f8a3dd712532d6fbcd94f16295d5cb1053fbf2b",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "554c22566ff8404c0f31dd89c05ed750c970ba1b34ace924f8c4e240c9e40fa8"
+    },
+    "30060806f04e32698f26d12942d4bf720f8396cf2af0b5e7fae04d17bb42afd6": {
+      "source_fingerprint": "30060806f04e32698f26d12942d4bf720f8396cf2af0b5e7fae04d17bb42afd6",
+      "template_id": "00ucc1yp4pifzqcdn8d3",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:2d1ff4eabea9430a5723309a10251052bbf0be3718ea3078797ceb2d078039ae",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:00354667150e8f1898930d3165aa5129f148114632afef2588ced234b9b189ed",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ff881d76567192b8c035aaa56972b04bd5f1df5b752eea428069a5a8679c4487",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "c229c72f3f22ae851c3f8124fd7f2716eb363031dd7e15e2548978ec3c9d2cf9"
+    },
+    "2533f08178da8c02d9ac23098faae9089ad40e0ba857513a348d158adfe18d45": {
+      "source_fingerprint": "2533f08178da8c02d9ac23098faae9089ad40e0ba857513a348d158adfe18d45",
+      "template_id": "q3bmbuookj3rxlv33d45",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b59707345d41823b243e6e5c0e9abc61f32adac7c50a992fef46b5621c466380",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:ac03f448807a7893ef32eec262ef225eae8a4485f1b3e9325372d984340e02a9",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "5e3cc497d177655b81f0362c61d1a0f043c851fd8728a86d4f3d03fd8dddebf5",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "c99c61ce5043b4b3b44e14a5d9c9b37b4800055afadddbfdc6b0b9200b68dd52"
+    },
+    "3bd6d9d877f1c9d5ed6aae70c61497f55bf3f43804535f00614c926524181515": {
+      "source_fingerprint": "3bd6d9d877f1c9d5ed6aae70c61497f55bf3f43804535f00614c926524181515",
+      "template_id": "6eeiwotwmko48njsqvym",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7589ce9f595baab475074eb9b03ae4a16d734b2ca7351be0a6577915ab0be9af",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:a77a62c09bc1cdcc9abb12e9fe8f860dbfba315522fcfeb36abe0a62fe24a9ed",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ee0e346984d88f8ec7f8207814b1e326e2ae0d5e3f4ef72c222e008108aba6d2",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "787dde44b84f72f0f1d61594d7f414ad445766f0e777699990cde27a48f214d3"
+    },
+    "25f13892cc0da621e5e0e3ef41da5fa6aed05fc39082c1da1d98a60737a05cf9": {
+      "source_fingerprint": "25f13892cc0da621e5e0e3ef41da5fa6aed05fc39082c1da1d98a60737a05cf9",
+      "template_id": "dkfxw87wkq8tpq56iei8",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:347da67c068871b46b9253d666a4a6030022092c0100546573a6c33d97fa35fa",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e4864e82316d967383e08e044219e7fcd94e9444405fa6891965032783060114",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "8dd9799b4ccd3f066ab0af676f75ed3e9e80fab9fb294560a0cb815d0f63353e",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "b2491ca0bd4733c25cd3eca1851f7751eb84f0226b44725d9f2a54511baa7d59"
+    },
+    "81803af67363cd5c9c4500e82455c0ea2a2f3acc79995e5588b897573d991a4f": {
+      "source_fingerprint": "81803af67363cd5c9c4500e82455c0ea2a2f3acc79995e5588b897573d991a4f",
+      "template_id": "u1kwrm553vm2rihf3yxs",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:89a2cfe657b4a68d98855a3b647f418d6be2a0875a55a9d3128049dc112b39a0",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:375a8460f83b8289b14120d00fe928171d7f69798c515251857f37de1f987365",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "a25f212646038b0c05cbb4cdb23e794616b738149db523689da11e49df81e5c8",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "302760a45c385668cfd2aa546454c96b9de84366ee3e24a63b872a2fc67dd4fb"
+    },
+    "915150465654ac866db72297189a5d21d0ee879da801e3b466d10ce22ebcea66": {
+      "source_fingerprint": "915150465654ac866db72297189a5d21d0ee879da801e3b466d10ce22ebcea66",
+      "template_id": "a5k6tf4xkrbtv6uiffat",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:bc5bd351c489605fec0998a3eae5deeb4f8ee9ba1c660cd4e180885ecad6cb29",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:f0ed66f8e1c29d3b8873f988f159903f58c589f708fed34f1dec6434769f7fc7",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "ba7b1867986f5408ffd1d32fb927c00740308bc2df2877b2a11d64fc2bf16c5f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "4a9d844412e4f572c982691a9b1937eafa1a2e87ddaa63b8234c7c0052ab271b"
+    },
+    "55e8c3d6b045ae6e411d0f86f4dab624650eb558779b4c28a96e78938fca8867": {
+      "source_fingerprint": "55e8c3d6b045ae6e411d0f86f4dab624650eb558779b4c28a96e78938fca8867",
+      "template_id": "wbwm5y4avkj8crowu6xx",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:10cff66050b346a0200f7cfb1a7f3d41af68f6b6ff77fea748b358b69ac8640f",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:5250a28c221b22e7e1ee5bcbb3ea3baabfe2db352bbd65832848a3a72b50e803",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "c37928429dde14a00d85ed33af3bf498c5f5fc992b3380a98bc1738c7a5be492",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "d5b64868e3220c1a7b5d2920e2093fd48ee354b80731ade31ec50c53e1435fbe"
+    },
+    "a7de05bb7f7f3bc285290831d9974afc37ed01c803bdcc00fadc2bf2c9501892": {
+      "source_fingerprint": "a7de05bb7f7f3bc285290831d9974afc37ed01c803bdcc00fadc2bf2c9501892",
+      "template_id": "61cyzilx9i3qgzqdmesn",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:56c082d51a704db1bf055c7201fd653b2fc2b66ec924b6d6daa92d5209ebdf5b",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e2472051d8b2dff063d0833adef1b6202e1f2cbc2d318054278f3dae179b48c0",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app/dclm",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "b94b4e78ae145db81b0e46008c3df822a3a4926dbed834bb19d7c0c31e0de0f0",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e71eb57d467cda47416977e9e321114c80f94f407a4fabbb8b51901a8566630e"
+    },
+    "d6c58ad1771ce0d850beba0680f10507cd8e1e856f9af41128ffa8dbb221ef92": {
+      "source_fingerprint": "d6c58ad1771ce0d850beba0680f10507cd8e1e856f9af41128ffa8dbb221ef92",
+      "template_id": "dmer8at186ws7trmst62",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:b3326d67e80a87874871c699cdd922875f015f588b2f1719b6679fc3ad981443",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:55c3a5156e2cb2921449d0d8315df7724b8797a669e8475b6c2b665cc68ce6bb",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "6b70c77a61d4c3edd40a7ca06534d1110f87721e7a3d2e9fd8044aa3692c67c8",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "e03a7cd68c46c7c18809756497ea4229b5bcbd30ad14ff69fb50bdf7b3c149c2"
+    },
+    "d64c05e666bb9deb2776dfe57f032538878acd40c13b507b8ce0af35bd2aa029": {
+      "source_fingerprint": "d64c05e666bb9deb2776dfe57f032538878acd40c13b507b8ce0af35bd2aa029",
+      "template_id": "7yqajjfcf1mx0dksjrql",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:7632d4bf2a45a7dffc2e279851ea35ed7fc44f4e544f2cd1cab1ee2ac4e510c2",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:4d4df53d4d4fe7900bd111f39da67a0a1faba018e11e4254d99365abd6dcdd16",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "4475bd0e28fafd8a8c6ce64656a450d58fd1436ca1125d3c7d2eb811d1bd915f",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "f251fa81cd1ec222f3bf59a29c0b1379af46bf8ea016af5ae0e0c5eeaaa6036a"
+    },
+    "a5bea9e40acb917e996f1064e0d4b508c4cae23debd23f3ff0ba00bc0668ee4d": {
+      "source_fingerprint": "a5bea9e40acb917e996f1064e0d4b508c4cae23debd23f3ff0ba00bc0668ee4d",
+      "template_id": "rqbqeuvwy8thw8ii2io9",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:e3c2286bb2e431cfe7a66344e4e99a0fe050215130d619f839b3dd765ce890ba",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:60de66402ada5c3c7b9b315dbda233444715283be9a36c3edf1bfe03fa2a115f",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "875ded6f2517dafe99dedc1efc99edb422f6e97e3b7e77c0dd587fc4df185f99",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "f62b7d6b802f0faa108518599639de2d896deddc795a39a069fd6bcbc039be58"
+    },
+    "cca208075b157d61983ae1746ecc2bc070fb02bb2e6f1a4b5d4d22cf3f9f2506": {
+      "source_fingerprint": "cca208075b157d61983ae1746ecc2bc070fb02bb2e6f1a4b5d4d22cf3f9f2506",
+      "template_id": "jqi2oxaneb6qzah9k1yh",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:16ac9444afae13646f3f572e0d4a2a4b95757cf0c2b39f87bb521164527f1872",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:6aa238bed871611e6ab378a9f7d6671f419d9b5a42a63d48735dd8dee1a65a28",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "bea07fbd2494518fb9a012e26312494e2b173fa804f82f6b579bf33dadc30848",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "7f7fad84cc4940af956a05ba3845280b5630f4998e38d7a6c63ad16eeb4f1086"
+    },
+    "8826a5fd9cab4195c73679303a94b531961c17515a13e9320af6b2a47289f6b1": {
+      "source_fingerprint": "8826a5fd9cab4195c73679303a94b531961c17515a13e9320af6b2a47289f6b1",
+      "template_id": "r5mfewls3djrquw74gvo",
+      "image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:947a251a3b80fd3439a33f0e1ac928a2ac4d59e31fd684d6da791571af9c27c4",
+      "source_image": "ghcr.io/caromiobenn/benchmark-sandbox-builder@sha256:d244b65738e1c9e1783771a9f39ef33200315a91216c72a76158b882cb9fe61a",
+      "profile_domain": "cn-hongkong.e2b.fc.aliyuncs.com",
+      "runtime": {
+        "user": "root",
+        "home": "/root",
+        "workdir": "/app",
+        "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "build_identity": "4cfa3ae5f5deb13e9673e823bddea0eb4532db2149a18b283029081176e92805",
+      "validation_status": "runtime_smoke_passed_official_controls_pending",
+      "receipt_sha256": "9d42f5481097b7eba07ac15c0d7308ec9216bd838d418dde2eb52febb544f55f"
+    }
+  }
+}

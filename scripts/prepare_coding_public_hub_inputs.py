@@ -74,6 +74,17 @@ for config in {dataset["configs"]!r}:
     data=load_dataset({dataset["repo_id"]!r},config,split='train')
     records.append({{'configuration':config,'rows':len(data)}})
 """
+    elif recipe["kind"] == "mteb_embedding":
+        code += f"""import mteb
+from importlib.metadata import version
+assert version('mteb')=={recipe["mteb_version"]!r}
+model=mteb.get_model({model["repo_id"]!r},revision={model["revision"]!r})
+embedding=model.encode(['public dependency cache probe'],task_name='SciFact',
+    prompt_type=mteb.encoder_interface.PromptType.query)
+assert len(embedding.shape)==2 and embedding.shape[0]==1
+records.append({{'repository':{model["repo_id"]!r},'revision':{model["revision"]!r},
+    'mteb_version':version('mteb'),'probe_shape':list(embedding.shape)}})
+"""
     else:
         raise ValueError("Unknown public input loading probe")
     return code + "print(json.dumps(records))\n"

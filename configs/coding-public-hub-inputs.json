@@ -19,6 +19,18 @@
         }
       ]
     },
+    "mteb-retrieve": {
+      "kind": "mteb_embedding",
+      "mteb_version": "1.36.8",
+      "repositories": [
+        {
+          "repo_id": "BAAI/bge-small-zh-v1.5",
+          "repo_type": "model",
+          "revision": "7999e1d3359715c523056ef9478215996d62a620",
+          "files": ["README.md", "config.json", "config_sentence_transformers.json", "model.safetensors", "modules.json", "sentence_bert_config.json", "special_tokens_map.json", "tokenizer.json", "tokenizer_config.json", "vocab.txt", "1_Pooling/config.json"]
+        }
+      ]
+    },
     "hf-model-inference": {
       "kind": "sentiment_model",
       "repositories": [

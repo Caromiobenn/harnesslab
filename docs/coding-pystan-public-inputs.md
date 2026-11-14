@@ -40,3 +40,17 @@ resides in `/usr/local/bin` so the original `sudo` command finds it through its 
 Repository hashes, resolved package versions, an offline installation probe, and cleanup
 results are saved in the preparation receipt. The four full native controls remain required
 before this task's model cells can be released.
+
+
+The Makefile download stage caches the exact pybind11 2.9.2, RapidJSON 1.1.0,
+Stan 2.35.0, Math 4.9.0 and Linux stanc 2.35.0 URLs from that frozen source commit.
+The download helper can install curl from the previously accepted public APT cache
+inside its temporary preparation instance. Only the raw downloads and URL transport
+helper are archived. The actor still installs curl, runs the original Makefile, compiles
+httpstan, and performs task sampling. Both network arms use identical pinned downloaded
+bytes, with checksums recorded in the receipt; unknown URLs retain normal curl behavior.
+
+The offline probe invokes curl with the Makefile's normal location/output options and
+checks every resulting file hash. A regression test exercises actual curl with HTTP
+protocols disabled. This is dependency acceptance, not a completed task run; Python
+package closure and all four native task controls must pass before model release.

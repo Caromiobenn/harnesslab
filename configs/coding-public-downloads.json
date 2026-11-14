@@ -44,6 +44,35 @@
         }
       ],
       "source": "Original CIFAR-10 binary archive and publisher MD5, referenced by the pinned BVLC download script."
+    },
+    "rstan-to-pystan": {
+      "files": [
+        {
+          "name": "pybind11-2.9.2.tar.gz",
+          "url": "https://github.com/pybind/pybind11/archive/v2.9.2.tar.gz"
+        },
+        {
+          "name": "rapidjson-1.1.0.tar.gz",
+          "url": "https://github.com/Tencent/rapidjson/archive/v1.1.0.tar.gz"
+        },
+        {
+          "name": "stan-v2.35.0.tar.gz",
+          "url": "https://github.com/stan-dev/stan/archive/v2.35.0.tar.gz"
+        },
+        {
+          "name": "math-v4.9.0.tar.gz",
+          "url": "https://github.com/stan-dev/math/archive/v4.9.0.tar.gz"
+        },
+        {
+          "name": "linux-stanc",
+          "url": "https://github.com/stan-dev/stanc3/releases/download/v2.35.0/linux-stanc"
+        }
+      ],
+      "probe_tool": "curl",
+      "system_packages": [
+        "curl"
+      ],
+      "source": "Exact five upstream download URLs from the httpstan 4.13.0 Makefile at commit 2bb63becd5f9a2931ad0bf48ce9e87b81fbf9eac. Raw source archives and the official compiler executable only; build and task sampling remain inside the actor environment."
     }
   }
 }

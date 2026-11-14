@@ -14,6 +14,7 @@ from pathlib import Path
 import certifi
 
 from harnesslab.coding.config import configure_runtime, project_root, save_json
+from harnesslab.coding.native_controls import public_cache
 from harnesslab.coding.public_downloads import wget_wrapper
 from harnesslab.coding.verifier_cache import curl_wrapper
 
@@ -48,7 +49,7 @@ print(json.dumps({{'files':records,'downloads':downloads}}))
 """
 
 
-async def prepare_one(root, dataset, run, task, recipe):
+async def prepare_one(root, dataset, run, task, recipe, ledger=None):
     from benchmark_next_cleanup import cleanup_run
     from benchmark_next_environment import source_fingerprint
     from harbor.models.task.config import TaskConfig
@@ -64,19 +65,19 @@ async def prepare_one(root, dataset, run, task, recipe):
     if folder.exists():
         raise ValueError("Inspect the previous public download preparation before a new run")
     profile = folder / "profile.json"
-    save_json(
-        profile,
-        {
-            "tasks": {
-                task: {
-                    "runtime_profile": "native",
-                    "source_fingerprint": fingerprint,
-                    "capture_paths": ["/app"],
-                    "archives": [],
-                }
-            }
-        },
-    )
+    entry = {
+        "runtime_profile": "native",
+        "source_fingerprint": fingerprint,
+        "capture_paths": ["/app"],
+        "archives": [],
+    }
+    system = None
+    if recipe.get("system_packages"):
+        system = public_cache(root, ledger["families"]["actor_system"][task])
+        if system["source_fingerprint"] != fingerprint:
+            raise ValueError("Download tool installers differ from the task image")
+        entry.update(archives=[system["archive"]], env=system["env"])
+    save_json(profile, {"tasks": {task: entry}})
     identity = run + "-downloads-" + task
     environment = NativeStudyEnvironment(
         environment_dir=source / "environment",
@@ -103,6 +104,20 @@ async def prepare_one(root, dataset, run, task, recipe):
         owned.add(environment._sandbox.sandbox_id)
         record["sandbox_id"] = environment._sandbox.sandbox_id
         save_json(folder / "receipt.json", record)
+        if system:
+            command = "apt-get update -qq && apt-get install -y " + shlex.join(
+                recipe["system_packages"]
+            )
+            output = await environment.exec(
+                command, user="root", env=system["offline_env"], timeout_sec=300
+            )
+            (folder / "tool-install.stdout").write_text(output.stdout or "")
+            (folder / "tool-install.stderr").write_text(output.stderr or "")
+            if output.return_code:
+                raise RuntimeError("Public download tool did not install from cached packages")
+            record["system_cache_receipt_sha256"] = ledger["families"]["actor_system"][task][
+                "receipt_sha256"
+            ]
         ca = CONTROL + "/public-release-ca.pem"
         await environment._sandbox.files.write(ca, Path(certifi.where()).read_bytes())
         code = download_code(recipe, ca)
@@ -124,14 +139,23 @@ async def prepare_one(root, dataset, run, task, recipe):
             )
             await environment.root_command("chmod 755 " + PREFIX + "/bin/" + tool)
             tools[tool] = binary
-        if "wget" not in tools:
-            raise ValueError("The task image must provide wget for its official download command")
+        probe_tool = recipe.get("probe_tool", "wget")
+        if probe_tool not in {"wget", "curl"} or probe_tool not in tools:
+            raise ValueError("The task requires its declared public download tool")
         shell_path = (await environment.root_command('printf "%s" "$PATH"')).stdout.strip()
         env = {"PATH": PREFIX + "/bin:" + shell_path}
         await environment._sandbox.update_network({"allow_internet_access": False, "allow_out": []})
         for item in recipe["files"]:
+            command = (
+                "wget " + shlex.quote(item["url"])
+                if probe_tool == "wget"
+                else "curl --silent --location "
+                + shlex.quote(item["url"])
+                + " -o "
+                + shlex.quote(item["name"])
+            )
             result = await environment.exec(
-                "cd /tmp/harnesslab-download-probe && wget " + shlex.quote(item["url"]),
+                "cd /tmp/harnesslab-download-probe && " + command,
                 env=env,
                 timeout_sec=120,
             )
@@ -205,6 +229,7 @@ async def main():
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--run", required=True)
     parser.add_argument("--tasks", nargs="+", required=True)
+    parser.add_argument("--cache-ledger", type=Path)
     args = parser.parse_args()
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,47}", args.run):
         raise ValueError("Use a short preparation run name")
@@ -215,8 +240,13 @@ async def main():
     provenance = json.loads((args.dataset / "provenance.json").read_text())
     if profiles["benchmark_revision"] != provenance["revision"]:
         raise ValueError("Public releases belong to a different task revision")
+    ledger = json.loads(args.cache_ledger.read_text()) if args.cache_ledger else None
+    if any(profiles["tasks"][task].get("system_packages") for task in args.tasks) and (
+        not ledger or ledger["benchmark_revision"] != provenance["revision"]
+    ):
+        raise ValueError("Public download tools require an accepted matching system cache")
     results = [
-        await prepare_one(root, args.dataset, args.run, task, profiles["tasks"][task])
+        await prepare_one(root, args.dataset, args.run, task, profiles["tasks"][task], ledger)
         for task in args.tasks
     ]
     save_json(

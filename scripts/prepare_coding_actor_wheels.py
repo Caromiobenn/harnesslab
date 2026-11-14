@@ -37,7 +37,9 @@ def uv_probe_source(recipe):
     )
 
 
-def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
+def package_commands(
+    python: str, recipe: dict, probe_target: str | None = None
+) -> tuple[str, str, dict]:
     packages = recipe["packages"]
     download_packages = packages + recipe.get("build_packages", [])
     if not packages or any(
@@ -73,6 +75,9 @@ def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
     }
     install_flag = " --break-system-packages" if recipe.get("break_system_packages") else ""
+    if probe_target:
+        install_flag += " --target " + shlex.quote(probe_target)
+    check_prefix = "PYTHONPATH=" + shlex.quote(probe_target) + " " if probe_target else ""
     index = (
         " --extra-index-url " + shlex.quote(recipe["extra_index_url"])
         if recipe.get("extra_index_url")
@@ -82,7 +87,7 @@ def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
         f"{shlex.quote(python)} -m pip download --dest {PREFIX} "
         f"{shlex.join(download_packages)}{index}",
         f"{shlex.quote(python)} -m pip install {names}{install_flag} && "
-        f"{shlex.quote(python)} -c {shlex.quote(checks)}",
+        f"{check_prefix}{shlex.quote(python)} -c {shlex.quote(checks)}",
         env,
     )
 
@@ -152,9 +157,30 @@ async def prepare_one(
         result["sandbox_id"] = environment._sandbox.sandbox_id
         save_json(folder / "receipt.json", result)
         uses_uv = recipe.get("installer") == "uv"
+        if recipe.get("python_executable"):
+            if not system:
+                raise ValueError("A selected Python interpreter requires its public system cache")
+            bootstrap = (
+                "apt-get update -qq && apt-get install -y "
+                + shlex.join(recipe["system_packages"])
+                + " && "
+                + shlex.quote(recipe["python_executable"])
+                + " -m venv /tmp/harnesslab-wheel-python"
+            )
+            output = await environment.exec(
+                bootstrap, user="root", env=system["offline_env"], timeout_sec=600
+            )
+            (folder / "python-prepare.stdout").write_text(output.stdout or "")
+            (folder / "python-prepare.stderr").write_text(output.stderr or "")
+            if output.return_code:
+                raise RuntimeError(
+                    "The selected Python interpreter did not install from its public cache"
+                )
         python = (
             "uv"
             if uses_uv
+            else "/tmp/harnesslab-wheel-python/bin/python"
+            if recipe.get("python_executable")
             else (
                 await environment.root_command("command -v python || command -v python3")
             ).stdout.strip()
@@ -172,6 +198,17 @@ async def prepare_one(
         (folder / "prepare.stderr").write_text(online.stderr or "")
         if online.return_code:
             raise RuntimeError("Public actor dependency download failed")
+        additional = []
+        for index, binary in enumerate(recipe.get("additional_python_executables", [])):
+            online_extra, offline_extra, extra_env = package_commands(
+                binary, recipe, probe_target=f"/tmp/harnesslab-extra-packages-{index}"
+            )
+            output = await environment.exec(online_extra, env=extra_env, timeout_sec=1200)
+            (folder / f"additional-{index}-download.stdout").write_text(output.stdout or "")
+            (folder / f"additional-{index}-download.stderr").write_text(output.stderr or "")
+            if output.return_code:
+                raise RuntimeError("Additional Python dependency download failed")
+            additional.append((binary, offline_extra, extra_env))
         await environment._sandbox.update_network({"allow_internet_access": False, "allow_out": []})
         offline_env = dict(env, PIP_NO_INDEX="1")
         if system:
@@ -193,6 +230,18 @@ async def prepare_one(
         if offline.return_code:
             raise RuntimeError("Public actor packages did not install and import offline")
         result["offline_probe"] = {"return_code": 0, "stdout": offline.stdout[-1200:]}
+        result["additional_python_probes"] = []
+        for index, (binary, command, extra_env) in enumerate(additional):
+            output = await environment.exec(
+                command, env=dict(extra_env, PIP_NO_INDEX="1"), timeout_sec=600
+            )
+            (folder / f"additional-{index}-offline.stdout").write_text(output.stdout or "")
+            (folder / f"additional-{index}-offline.stderr").write_text(output.stderr or "")
+            if output.return_code:
+                raise RuntimeError("Additional Python packages did not install and import offline")
+            result["additional_python_probes"].append(
+                {"python": binary, "return_code": 0, "stdout": output.stdout[-1200:]}
+            )
         inspect_code = (
             "import json,sys;from importlib.metadata import distributions;"
             "print(json.dumps({'python':sys.version,'packages':"

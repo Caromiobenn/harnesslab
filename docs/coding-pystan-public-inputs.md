@@ -54,3 +54,19 @@ The offline probe invokes curl with the Makefile's normal location/output option
 checks every resulting file hash. A regression test exercises actual curl with HTTP
 protocols disabled. This is dependency acceptance, not a completed task run; Python
 package closure and all four native task controls must pass before model release.
+
+
+The Python package stage resolves and downloads the public task libraries for both
+the reference's Python 3.10 and the image's native Python. It creates a temporary
+Python 3.10 venv using only the accepted APT installers; the secondary interpreter's
+offline import probe uses an isolated installation target. These probe environments
+are never archived. Each interpreter must install and import the requested packages
+with the network disabled and pip's public index disabled during the probe.
+
+The actor archive contains ordinary public distribution files only. It includes the
+publicly published httpstan 4.13.0 wheels as well as PyStan, matching normal pip
+availability for an actor choosing that route. The original reference remains unchanged
+and builds httpstan from its pinned source. Poetry 1.8.5 satisfies the reference's
+`~=1.8` requirement; setuptools 70.3.0 satisfies its final `<71` compatibility requirement.
+Both network arms receive the same installer files. Per-interpreter resolved package
+versions, file hashes, import results and cleanup are retained in the cache receipt.

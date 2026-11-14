@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 import shlex
 import subprocess
 import sys
@@ -42,6 +43,31 @@ def test_offline_probe_is_valid_python_and_keeps_public_index_available(builder,
 def test_actor_cache_rejects_unpinned_requirements(builder):
     with pytest.raises(ValueError, match="version pins"):
         builder.package_commands("python", {"packages": ["grpcio"], "import_modules": ["grpc"]})
+
+
+def test_secondary_python_probe_imports_its_isolated_install_target(builder, tmp_path):
+    target = tmp_path / "secondary packages"
+    target.mkdir()
+    (target / "secondary_probe.py").write_text("value = 123\n")
+    metadata = target / "secondary_probe-1.2.3.dist-info"
+    metadata.mkdir()
+    (metadata / "METADATA").write_text("Name: secondary-probe\nVersion: 1.2.3\n")
+    _, offline, actor_env = builder.package_commands(
+        sys.executable,
+        {"packages": ["secondary-probe==1.2.3"], "import_modules": ["secondary_probe"]},
+        probe_target=str(target),
+    )
+    install, check = offline.split(" && ", 1)
+    args = shlex.split(install)
+    assert args[args.index("--target") + 1] == str(target)
+    assignment, *command = shlex.split(check)
+    name, value = assignment.split("=", 1)
+    result = subprocess.run(
+        command, env=dict(os.environ, **{name: value}), capture_output=True, text=True
+    )
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout) == {"secondary-probe": "1.2.3"}
+    assert "PYTHONPATH" not in actor_env
 
 
 def test_source_build_dependencies_are_downloaded_without_becoming_task_requirements(builder):

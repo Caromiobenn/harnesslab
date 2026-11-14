@@ -9,7 +9,8 @@ The upstream repository revision is `1588ec454efa1a09f29cd18ddd04fe05fc8653a2`.
 The 318,185,592-byte shard has SHA-256
 `807a548efbb10153c9eff0df5733a97a1b51ab1743242530de1b02a8ea17ace7`.
 Preparation verifies those bytes, compares the pinned and default loads, then disables internet
-and repeats the exact default load, requiring the same row count, columns and dataset fingerprint.
+and repeats the exact default load, requiring the same row count, columns and Arrow-file SHA-256
+values. The pinned and default online loads must also have identical dataset fingerprints.
 
 The cache is attached through the existing `verifier_inputs` ledger family and transferred only
 after actor submission. It contains public dataset caches, not generated test directories, solution
@@ -23,3 +24,13 @@ Preparation uses the imported task directory returned by `task_plan`, which veri
 against the pinned lock. The external dataset argument is checked for the benchmark revision;
 its absolute directory need not equal the worktree-local imported copy. The first preparation
 (job 1209570) stopped at the old directory-equality check before creating any cloud instance.
+
+Job 1209577 downloaded and verified the shard (356,318 rows), but datasets 3.6.0 requested
+`default-c33333bd6ac7ada4` offline while its online load had stored `default-190d56c218a41267`.
+The online path resolves file metadata before computing the key; the offline Cache builder
+uses the original `data_files` argument. Preparation now derives that second key with the same
+upstream `BuilderConfig.create_config_id` call and adds a relative directory symlink to the
+unchanged Arrow cache. No dataset library or official test is patched. The failed preparation
+made zero model calls and its instance was deleted and verified absent.
+
+Source: [datasets 3.6.0 offline cache lookup](https://github.com/huggingface/datasets/blob/3.6.0/src/datasets/packaged_modules/cache/cache.py).

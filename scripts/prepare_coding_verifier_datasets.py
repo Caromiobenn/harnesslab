@@ -26,7 +26,7 @@ def dataset_code(recipe: dict, online: bool) -> str:
         raise ValueError("A verifier dataset needs a fixed repository revision")
     return f"""import hashlib,json
 from pathlib import Path
-from datasets import load_dataset
+from datasets import BuilderConfig,load_dataset
 from huggingface_hub import HfApi,hf_hub_download
 recipe={recipe!r};prefix=Path({PREFIX!r});prefix.mkdir(parents=True,exist_ok=True)
 if {online!r}:
@@ -39,10 +39,24 @@ if {online!r}:
     pinned=load_dataset(recipe['repository'],data_files=recipe['data_files'],
                         revision=recipe['revision'],split=recipe['split'])
 data=load_dataset(recipe['repository'],data_files=recipe['data_files'],split=recipe['split'])
-record={{'rows':len(data),'columns':data.column_names,'fingerprint':data._fingerprint,
+files=[Path(item['filename']) for item in data.cache_files]
+hashes=[]
+for path in files:
+    with path.open('rb') as stream:hashes.append(hashlib.file_digest(stream,'sha256').hexdigest())
+record={{'rows':len(data),'columns':data.column_names,'arrow_sha256':hashes,
          'repository':recipe['repository'],'revision':recipe['revision']}}
 if {online!r}:
     assert len(pinned)==len(data) and pinned._fingerprint==data._fingerprint
+    configs={{path.parents[2] for path in files}}
+    assert len(configs)==1
+    original=configs.pop()
+    config_id=BuilderConfig('default').create_config_id(
+        config_kwargs={{'data_files':recipe['data_files']}},custom_features=None)
+    alias=original.parent/config_id
+    if alias!=original:
+        alias.symlink_to(original.name,target_is_directory=True)
+    (prefix/'cache-alias.json').write_text(json.dumps({{
+        'original':str(original),'offline':str(alias),'online_fingerprint':data._fingerprint}}))
     (prefix/'download.json').write_text(json.dumps(record))
 else:
     assert record==json.loads((prefix/'download.json').read_text())

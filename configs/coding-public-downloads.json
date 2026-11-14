@@ -2,12 +2,34 @@
   "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
   "tasks": {
     "install-windows-3.11": {
-      "files": [{
-        "name": "qemu-5.2.0.tar.xz",
-        "url": "https://download.qemu.org/qemu-5.2.0.tar.xz",
-        "tar_version": {"member": "qemu-5.2.0/VERSION", "value": "5.2.0"}
-      }],
+      "files": [
+        {
+          "name": "qemu-5.2.0.tar.xz",
+          "url": "https://download.qemu.org/qemu-5.2.0.tar.xz",
+          "tar_version": {
+            "member": "qemu-5.2.0/VERSION",
+            "value": "5.2.0"
+          }
+        }
+      ],
       "source": "QEMU release archive explicitly downloaded by the official reference. The cache contains source and upstream firmware assets, not a compiled task solution."
+    },
+    "build-pov-ray": {
+      "files": [
+        {
+          "name": "POVDOC.TAR.Z",
+          "url": "https://www.povray.org/ftp/pub/povray/Old-Versions/Official-2.2/POVDOC.TAR.Z"
+        },
+        {
+          "name": "POVSCN.TAR.Z",
+          "url": "https://www.povray.org/ftp/pub/povray/Old-Versions/Official-2.2/POVSCN.TAR.Z"
+        },
+        {
+          "name": "POVSRC.TAR.Z",
+          "url": "https://www.povray.org/ftp/pub/povray/Old-Versions/Official-2.2/POVSRC.TAR.Z"
+        }
+      ],
+      "source": "The three upstream release URLs in the fixed official reference script. Cache raw archives only."
     }
   }
 }

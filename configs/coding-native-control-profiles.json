@@ -438,6 +438,13 @@
         "/etc/nginx",
         "/opt/harnesslab-public-downloads/cache-hits.jsonl"
       ]
+    },
+    "build-pov-ray": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin/povray",
+        "/opt/harnesslab-public-downloads/cache-hits.jsonl"
+      ]
     }
   }
 }

@@ -125,6 +125,13 @@
         "curl",
         "libgl1"
       ]
+    },
+    "build-pov-ray": {
+      "packages": [
+        "build-essential",
+        "wget=1.21.4-1ubuntu4.1",
+        "ncompress=5.0-1"
+      ]
     }
   }
 }

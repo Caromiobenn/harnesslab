@@ -253,6 +253,60 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "nginx-request-logging": {
+      "capture_paths": [
+        "/app",
+        "/etc/nginx",
+        "/var/www",
+        "/var/log/nginx"
+      ]
+    },
+    "configure-git-webserver": {
+      "capture_paths": [
+        "/app",
+        "/git",
+        "/etc/nginx",
+        "/etc/ssh",
+        "/etc/passwd",
+        "/etc/shadow",
+        "/etc/group",
+        "/etc/gshadow",
+        "/home",
+        "/root/.ssh",
+        "/var/www"
+      ]
+    },
+    "dna-assembly": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "dna-insert": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "adaptive-rejection-sampler": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "overfull-hbox": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sqlite-with-gcov": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin"
+      ]
+    },
+    "make-doom-for-mips": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

@@ -6,7 +6,9 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import tarfile
+import tempfile
 import urllib.request
 import zipfile
 from pathlib import Path, PurePosixPath
@@ -14,15 +16,18 @@ from pathlib import Path, PurePosixPath
 from harnesslab.coding.config import configure_runtime, project_root, save_json
 
 
-def prepare_files(folder, task, recipe):
+def prepare_files(folder, task, recipe, source_files=None):
     downloads, files = {}, {}
     definitions = recipe.get("files") or [{"name": "testbed.zip", "url": recipe["url"]}]
     for item in definitions:
         path = folder / item["name"]
         if path.parent != folder:
             raise ValueError("Use a single filename for each public input")
-        with urllib.request.urlopen(item["url"], timeout=60) as response:
-            path.write_bytes(response.read())
+        if source_files is not None:
+            path.write_bytes(source_files[item["name"]])
+        else:
+            with urllib.request.urlopen(item["url"], timeout=60) as response:
+                path.write_bytes(response.read())
         data = path.read_bytes()
         if item.get("md5") and hashlib.md5(data, usedforsecurity=False).hexdigest() != item["md5"]:
             raise ValueError("Public input differs from the upstream dataset checksum")
@@ -50,11 +55,34 @@ def prepare_files(folder, task, recipe):
     return archive, downloads, files
 
 
+def git_input_files(root, task, recipe, cached):
+    """Read exactly pinned blobs from the already verified public repository archive."""
+    if cached["recipe"]["revision"] != recipe["git_revision"]:
+        raise ValueError("Verifier input Git revision differs from the public cache")
+    with tempfile.TemporaryDirectory(prefix="verifier-git-", dir=root / "cache/tmp") as scratch:
+        with tarfile.open(root / cached["archive"]["archive"]) as archive:
+            archive.extractall(scratch, filter="fully_trusted")
+        repo = Path(scratch) / "opt/harnesslab-public-git" / (task + ".git")
+        result = {}
+        for item in recipe["files"]:
+            ref = recipe["git_revision"] + ":" + item["git_path"]
+            blob = subprocess.check_output(
+                ["git", "--git-dir", str(repo), "rev-parse", ref], text=True
+            ).strip()
+            if blob != item["git_blob_sha1"]:
+                raise ValueError("Public Git path differs from the pinned weight object")
+            result[item["name"]] = subprocess.check_output(
+                ["git", "--git-dir", str(repo), "cat-file", "blob", blob]
+            )
+        return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--run", required=True)
     parser.add_argument("--tasks", nargs="+", required=True)
+    parser.add_argument("--cache-ledger", type=Path)
     args = parser.parse_args()
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,47}", args.run):
         raise ValueError("Use a short verifier-input preparation run name")
@@ -93,7 +121,21 @@ def main():
             "cleanup": {"verified": True, "reason": "No cloud instance created"},
         }
         save_json(folder / "receipt.json", record)
-        archive, downloads, files = prepare_files(folder, task, recipe)
+        source_files = None
+        if recipe.get("git_revision"):
+            from harnesslab.coding.native_controls import public_cache
+
+            ledger = json.loads(args.cache_ledger.read_text())
+            cached = public_cache(root, ledger["families"]["actor_git"][task])
+            if cached["source_fingerprint"] != record["source_fingerprint"]:
+                raise ValueError("Public Git cache belongs to another task image")
+            (root / "cache/tmp").mkdir(parents=True, exist_ok=True)
+            source_files = git_input_files(root, task, recipe, cached)
+            record["git_source"] = {
+                "revision": cached["recipe"]["revision"],
+                "archive": cached["archive"],
+            }
+        archive, downloads, files = prepare_files(folder, task, recipe, source_files)
         record.update(
             ok=True,
             python_downloads={} if recipe.get("transport") == "curl" else downloads,

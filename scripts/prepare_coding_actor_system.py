@@ -107,7 +107,7 @@ async def prepare_one(
             }
         },
     )
-    identity = run + "-" + name
+    identity = run + "-system-" + name
     environment = NativeStudyEnvironment(
         environment_dir=source / "environment",
         environment_name=name,

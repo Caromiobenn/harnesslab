@@ -94,7 +94,7 @@ async def prepare_one(root, dataset, run, task, recipe):
             }
         },
     )
-    identity = run + "-" + task
+    identity = run + "-r-" + task
     environment = NativeStudyEnvironment(
         environment_dir=source / "environment",
         environment_name=task,

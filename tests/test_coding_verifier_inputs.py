@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import io
+import subprocess
 import tarfile
 import zipfile
 from pathlib import Path
@@ -90,6 +91,52 @@ def test_pinned_git_weights_and_original_download_alias_share_verified_bytes(
             == downloads["https://public/master/weights.pt"]
         )
         assert len(files) == 1 and files["weights.pt"]["sha256"] == hashlib.sha256(data).hexdigest()
+
+
+def test_verifier_weights_can_be_read_from_a_pinned_git_cache_without_network(
+    builder, tmp_path, monkeypatch
+):
+    source = tmp_path / "public.git"
+    subprocess.run(["git", "init", "--bare", str(source)], check=True, capture_output=True)
+    data = b"public weights from the fixed repository"
+
+    def git(*args, input=None):
+        return subprocess.check_output(
+            ["git", "--git-dir", str(source), *args], input=input
+        ).strip()
+
+    blob = git("hash-object", "-w", "--stdin", input=data).decode()
+    tree = git("mktree", input=f"100644 blob {blob}\tweights.pt\n".encode()).decode()
+    monkeypatch.setenv("GIT_AUTHOR_NAME", "Fixture")
+    monkeypatch.setenv("GIT_AUTHOR_EMAIL", "fixture@example.invalid")
+    monkeypatch.setenv("GIT_COMMITTER_NAME", "Fixture")
+    monkeypatch.setenv("GIT_COMMITTER_EMAIL", "fixture@example.invalid")
+    revision = git("commit-tree", tree, "-m", "public input").decode()
+    archive = tmp_path / "public.tar.gz"
+    with tarfile.open(archive, "w:gz") as output:
+        output.add(source, arcname="opt/harnesslab-public-git/fixture.git")
+    recipe = {
+        "git_revision": revision,
+        "files": [
+            {
+                "name": "weights.pt",
+                "git_path": "weights.pt",
+                "git_blob_sha1": blob,
+                "url": "https://fixture/weights.pt",
+            }
+        ],
+    }
+    (tmp_path / "cache/tmp").mkdir(parents=True)
+    cached = {"recipe": {"revision": revision}, "archive": {"archive": archive.name}}
+    files = builder.git_input_files(tmp_path, "fixture", recipe, cached)
+    assert files == {"weights.pt": data}
+
+    def network_disabled(*args, **kwargs):
+        raise AssertionError("A pinned Git input must not be downloaded again")
+
+    monkeypatch.setattr(builder.urllib.request, "urlopen", network_disabled)
+    _, downloads, _ = builder.prepare_files(tmp_path, "fixture", recipe, files)
+    assert downloads["https://fixture/weights.pt"]["sha256"] == hashlib.sha256(data).hexdigest()
 
 
 @pytest.mark.parametrize("changed_revision", [False, True])

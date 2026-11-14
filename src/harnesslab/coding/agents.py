@@ -110,6 +110,25 @@ class ExecutionTrace(BaseCallbackHandler):
     def on_tool_end(self, output, **kwargs):
         self.emit("tool_result", {"run_id": str(kwargs.get("run_id")), "output": str(output)})
 
+    def on_llm_new_token(self, token, **kwargs):
+        if self.stopped.is_set():
+            raise InterruptedError("Agent execution has ended")
+
+    def on_llm_error(self, error, **kwargs):
+        response = kwargs.get("response")
+        self.emit(
+            "model_error",
+            {
+                "error_type": type(error).__name__,
+                "partial_generations": [
+                    [message_to_dict(generation.message) for generation in batch]
+                    for batch in response.generations
+                ]
+                if response
+                else [],
+            },
+        )
+
     def on_tool_start(self, serialized, input_str, **kwargs):
         self.emit(
             "tool_start",
@@ -170,6 +189,8 @@ class DeepAgentsCodingAgent(BaseAgent):
             max_tokens=config.max_output_tokens,
             timeout=config.request_timeout,
             max_retries=0,
+            streaming=config.response_transport == "streaming",
+            stream_usage=config.response_transport == "streaming",
             extra_body=thinking_body(config, settings),
             reasoning_effort=config.reasoning_effort,
             **sampling_options(config),
@@ -312,6 +333,8 @@ class MiniCodingAgent(BaseAgent):
         from minisweagent.agents.default import DefaultAgent
         from minisweagent.models.litellm_model import LitellmModel
 
+        from harnesslab.coding.streaming import collect_completion
+
         settings = model_settings(project_root())
         config = self.experiment
         data = (Path(minisweagent.__file__).parent / "config/mini.yaml").read_bytes()
@@ -343,8 +366,18 @@ class MiniCodingAgent(BaseAgent):
         bridge = MiniCommandBridge(
             environment, asyncio.get_running_loop(), stopped, config.command_timeout, self.logs_dir
         )
-        model = LitellmModel(**model_options)
-        model.abort_exceptions = [*model.abort_exceptions, ImportError, TypeError]
+
+        class StreamingModel(LitellmModel):
+            def _query(self, messages, **kwargs):
+                response = super()._query(
+                    messages, stream=True, stream_options={"include_usage": True}, **kwargs
+                )
+                return collect_completion(response, messages, stopped, self_logs_dir)
+
+        self_logs_dir = self.logs_dir
+        model_class = StreamingModel if config.response_transport == "streaming" else LitellmModel
+        model = model_class(**model_options)
+        model.abort_exceptions = [*model.abort_exceptions, ImportError, TypeError, InterruptedError]
         agent = DefaultAgent(model, bridge, **options)
         started = monotonic()
         worker = asyncio.create_task(asyncio.to_thread(agent.run, instruction))

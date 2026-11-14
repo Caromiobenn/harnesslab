@@ -32,6 +32,7 @@ class CodingConfig(BaseModel):
     network_mode: Literal["public", "offline"] = "public"
     prerequisites_manifest: str | None = None
     request_timeout: int = Field(default=240, gt=0)
+    response_transport: Literal["non_streaming", "streaming"] = "non_streaming"
     command_timeout: int = Field(default=120, gt=0)
     concurrency: int = Field(default=2, ge=1, le=4)
     repeats: int = Field(default=1, ge=1)

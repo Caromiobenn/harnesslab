@@ -132,6 +132,26 @@
         "wget=1.21.4-1ubuntu4.1",
         "ncompress=5.0-1"
       ]
+    },
+    "caffe-cifar-10": {
+      "packages": [
+        "build-essential",
+        "cmake",
+        "git",
+        "pkg-config",
+        "wget",
+        "libprotobuf-dev",
+        "libleveldb-dev",
+        "libsnappy-dev",
+        "libopencv-dev",
+        "libhdf5-serial-dev",
+        "protobuf-compiler",
+        "libatlas-base-dev",
+        "libboost-all-dev",
+        "libgflags-dev",
+        "libgoogle-glog-dev",
+        "liblmdb-dev"
+      ]
     }
   }
 }

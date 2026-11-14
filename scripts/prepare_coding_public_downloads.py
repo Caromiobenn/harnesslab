@@ -38,6 +38,9 @@ for item in {recipe["files"]!r}:
             assert archive.extractfile(spec['member']).read().decode().strip()==spec['value']
     with path.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
     if item.get('sha256'):assert sha==item['sha256']
+    if item.get('md5'):
+        with path.open('rb') as stream:
+            assert hashlib.file_digest(stream,'md5').hexdigest()==item['md5']
     records[item['name']]={{'url':item['url'],'sha256':sha,'bytes':path.stat().st_size}}
     for url in [item['url'],*item.get('aliases',[])]:
         downloads[url]={{'path':str(path),'sha256':sha}}

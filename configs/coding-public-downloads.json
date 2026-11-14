@@ -30,6 +30,20 @@
         }
       ],
       "source": "The three upstream release URLs in the fixed official reference script. Cache raw archives only."
+    },
+    "caffe-cifar-10": {
+      "files": [
+        {
+          "name": "cifar-10-binary.tar.gz",
+          "url": "https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz",
+          "aliases": [
+            "http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz",
+            "https://cave.cs.toronto.edu/kriz/cifar-10-binary.tar.gz"
+          ],
+          "md5": "c32a1d4ab5d03f1284b67883e8d87530"
+        }
+      ],
+      "source": "Original CIFAR-10 binary archive and publisher MD5, referenced by the pinned BVLC download script."
     }
   }
 }

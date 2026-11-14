@@ -41,6 +41,19 @@
         "weights/mobile_sam.pt"
       ],
       "source": "The exact commit specified by the official task reference and verifier. Public weight blob 7ef2d090979fd9853adf17b7a99c8b94a1c5a6a7."
+    },
+    "caffe-cifar-10": {
+      "url": "https://github.com/BVLC/caffe.git",
+      "aliases": [
+        "https://github.com/BVLC/caffe"
+      ],
+      "revision": "9b891540183ddc834a02b2bd81b31afae71b2153",
+      "required_paths": [
+        "Makefile.config.example",
+        "data/cifar10/get_cifar10.sh",
+        "examples/cifar10"
+      ],
+      "source": "Exact commit 9b89154 selected by the pinned official reference, resolved through the upstream GitHub API."
     }
   }
 }

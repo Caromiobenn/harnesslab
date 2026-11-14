@@ -448,6 +448,12 @@
         "/usr/local/bin/povray",
         "/opt/harnesslab-public-downloads/cache-hits.jsonl"
       ]
+    },
+    "caffe-cifar-10": {
+      "capture_paths": [
+        "/app",
+        "/opt/harnesslab-public-downloads/cache-hits.jsonl"
+      ]
     }
   }
 }

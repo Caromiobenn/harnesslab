@@ -29,6 +29,7 @@
       "source": "Public main revision from March 2024, verified through the upstream repository API; used for both actor and verifier clones."
     },
     "sam-cell-seg": {
+      "full_history": true,
       "url": "https://github.com/ChaoningZhang/MobileSAM.git",
       "aliases": [
         "https://github.com/ChaoningZhang/MobileSAM"

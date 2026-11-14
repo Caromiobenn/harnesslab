@@ -68,3 +68,61 @@ def test_public_git_input_rejects_a_moving_branch(builder):
         builder.download_command(
             {"revision": "main", "url": "https://example.invalid/public"}, "/cache"
         )
+
+
+def test_pip_filtered_clone_preserves_public_commit_history_offline(builder, tmp_path):
+    source = tmp_path / "source"
+    env = dict(
+        os.environ, GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM="1", GIT_ALLOW_PROTOCOL="file"
+    )
+
+    def git(*args):
+        return subprocess.check_output(["git", *args], env=env, text=True).strip()
+
+    git("init", str(source))
+    for version in range(2):
+        (source / "input.txt").write_text(f"Public input {version}")
+        git("-C", str(source), "add", "input.txt")
+        git(
+            "-C",
+            str(source),
+            "-c",
+            "user.name=Test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-m",
+            "public input",
+        )
+    revision = git("-C", str(source), "rev-parse", "HEAD")
+    bare = tmp_path / "public.git"
+    recipe = {
+        "url": source.as_uri(),
+        "revision": revision,
+        "full_history": True,
+        "required_paths": ["input.txt"],
+    }
+    subprocess.run(
+        builder.download_command(recipe, str(bare)),
+        shell=True,
+        check=True,
+        env=env,
+        capture_output=True,
+        timeout=30,
+    )
+    assert not (bare / "shallow").exists()
+    destination = tmp_path / "filtered-clone"
+    probe = {**recipe, "url": "https://example.invalid/public.git"}
+    result = subprocess.run(
+        [sys.executable, "-c", builder.probe_code(probe, str(bare), str(destination))],
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert result.returncode == 0, result.stderr
+    assert '"filtered_clone_verified": true' in result.stdout
+    assert (destination / "input.txt").read_bytes() == (source / "input.txt").read_bytes()
+    assert git("-C", str(destination), "rev-parse", "HEAD^") == git(
+        "-C", str(source), "rev-parse", "HEAD^"
+    )

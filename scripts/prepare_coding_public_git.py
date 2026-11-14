@@ -32,14 +32,18 @@ def download_command(recipe: dict, target: str) -> str:
     if not re.fullmatch(r"[0-9a-f]{40}", recipe["revision"]):
         raise ValueError("Public repositories require a full commit revision")
     git = "git --git-dir=" + shlex.quote(target)
+    depth = "" if recipe.get("full_history") else " --depth 1"
     return " && ".join(
         [
             "git init --bare " + shlex.quote(target),
             git
-            + " -c http.version=HTTP/1.1 fetch --depth 1 "
+            + " -c http.version=HTTP/1.1 fetch"
+            + depth
+            + " "
             + shlex.join([recipe["url"], recipe["revision"]]),
             git + " update-ref refs/heads/main " + recipe["revision"],
             git + " symbolic-ref HEAD refs/heads/main",
+            *([git + " config uploadpack.allowFilter true"] if recipe.get("full_history") else []),
         ]
     )
 
@@ -54,12 +58,14 @@ def git(*args):
     assert p.returncode==0,p.stderr
     return p.stdout.strip()
 git('--git-dir',{target!r},'fsck','--full')
-git('clone',{recipe["url"]!r},{destination!r})
+git('clone',*{(["--filter=blob:none"] if recipe.get("full_history") else [])!r},
+    {recipe["url"]!r},{destination!r})
 git('-C',{destination!r},'checkout',{recipe["revision"]!r})
 assert git('-C',{destination!r},'rev-parse','HEAD')=={recipe["revision"]!r}
 for name in {recipe["required_paths"]!r}:
     assert (Path({destination!r})/name).exists(),name
-print(json.dumps({{'revision':{recipe["revision"]!r},'offline_clone_verified':True}}))
+print(json.dumps({{'revision':{recipe["revision"]!r},'offline_clone_verified':True,
+                  'filtered_clone_verified':{bool(recipe.get("full_history"))!r}}}))
 """
 
 

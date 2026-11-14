@@ -303,6 +303,12 @@
         "/usr/local/bin"
       ]
     },
+    "chess-best-move": {
+      "capture_paths": ["/app"]
+    },
+    "gcode-to-text": {
+      "capture_paths": ["/app"]
+    },
     "make-doom-for-mips": {
       "capture_paths": [
         "/app"

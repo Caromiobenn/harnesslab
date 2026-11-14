@@ -54,6 +54,24 @@
         "examples/cifar10"
       ],
       "source": "Exact commit 9b89154 selected by the pinned official reference, resolved through the upstream GitHub API."
+    },
+    "rstan-to-pystan": {
+      "url": "https://github.com/stan-dev/httpstan.git",
+      "aliases": [
+        "https://github.com/stan-dev/httpstan"
+      ],
+      "tag": "4.13.0",
+      "tag_object": "f9a5833a5bff4f44489f070fbfb0f20f0dc64d50",
+      "revision": "2bb63becd5f9a2931ad0bf48ce9e87b81fbf9eac",
+      "required_paths": [
+        "Makefile",
+        "pyproject.toml",
+        "httpstan/__init__.py"
+      ],
+      "system_packages": [
+        "git"
+      ],
+      "source": "Exact annotated release tag and commit used by the pinned official reference; verified through the upstream GitHub API."
     }
   }
 }

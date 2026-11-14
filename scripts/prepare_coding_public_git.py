@@ -33,6 +33,11 @@ def download_command(recipe: dict, target: str) -> str:
         raise ValueError("Public repositories require a full commit revision")
     git = "git --git-dir=" + shlex.quote(target)
     depth = "" if recipe.get("full_history") else " --depth 1"
+    reference = (
+        "refs/tags/" + recipe["tag"] + ":refs/tags/" + recipe["tag"]
+        if recipe.get("tag")
+        else recipe["revision"]
+    )
     return " && ".join(
         [
             "git init --bare " + shlex.quote(target),
@@ -40,7 +45,7 @@ def download_command(recipe: dict, target: str) -> str:
             + " -c http.version=HTTP/1.1 fetch"
             + depth
             + " "
-            + shlex.join([recipe["url"], recipe["revision"]]),
+            + shlex.join([recipe["url"], reference]),
             git + " update-ref refs/heads/main " + recipe["revision"],
             git + " symbolic-ref HEAD refs/heads/main",
             *([git + " config uploadpack.allowFilter true"] if recipe.get("full_history") else []),
@@ -49,6 +54,9 @@ def download_command(recipe: dict, target: str) -> str:
 
 
 def probe_code(recipe: dict, target: str, destination: str) -> str:
+    clone_options = ["--filter=blob:none"] if recipe.get("full_history") else []
+    if recipe.get("tag"):
+        clone_options += ["--depth", "1", "--branch", recipe["tag"]]
     return f"""import json,os,subprocess
 from pathlib import Path
 env=dict(os.environ,**{git_environment(recipe, target)!r})
@@ -58,13 +66,20 @@ def git(*args):
     assert p.returncode==0,p.stderr
     return p.stdout.strip()
 git('--git-dir',{target!r},'fsck','--full')
-git('clone',*{(["--filter=blob:none"] if recipe.get("full_history") else [])!r},
+git('clone',*{clone_options!r},
     {recipe["url"]!r},{destination!r})
+if {bool(recipe.get("tag"))!r}:
+    assert git('-C',{destination!r},'rev-parse','HEAD')=={recipe["revision"]!r}
+if {recipe.get("tag_object")!r}:
+    tag_reference = {"refs/tags/" + recipe.get("tag", "")!r}
+    tag_object = git('-C',{destination!r},'rev-parse',tag_reference)
+    assert tag_object == {recipe.get("tag_object")!r}
 git('-C',{destination!r},'checkout',{recipe["revision"]!r})
 assert git('-C',{destination!r},'rev-parse','HEAD')=={recipe["revision"]!r}
 for name in {recipe["required_paths"]!r}:
     assert (Path({destination!r})/name).exists(),name
 print(json.dumps({{'revision':{recipe["revision"]!r},'offline_clone_verified':True,
+                  'tag_clone_verified':{bool(recipe.get("tag"))!r},
                   'filtered_clone_verified':{bool(recipe.get("full_history"))!r}}}))
 """
 

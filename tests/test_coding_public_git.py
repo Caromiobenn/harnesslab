@@ -70,7 +70,8 @@ def test_public_git_input_rejects_a_moving_branch(builder):
         )
 
 
-def test_pip_filtered_clone_preserves_public_commit_history_offline(builder, tmp_path):
+@pytest.mark.parametrize("shallow_tag", [False, True])
+def test_public_history_and_pinned_tag_clones_work_offline(builder, tmp_path, shallow_tag):
     source = tmp_path / "source"
     env = dict(
         os.environ, GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM="1", GIT_ALLOW_PROTOCOL="file"
@@ -95,13 +96,30 @@ def test_pip_filtered_clone_preserves_public_commit_history_offline(builder, tmp
             "public input",
         )
     revision = git("-C", str(source), "rev-parse", "HEAD")
+    if shallow_tag:
+        git(
+            "-C",
+            str(source),
+            "-c",
+            "user.name=Test",
+            "-c",
+            "user.email=test@example.invalid",
+            "tag",
+            "-a",
+            "4.13.0",
+            "-m",
+            "Public release",
+        )
     bare = tmp_path / "public.git"
     recipe = {
         "url": source.as_uri(),
         "revision": revision,
-        "full_history": True,
+        "full_history": not shallow_tag,
         "required_paths": ["input.txt"],
     }
+    if shallow_tag:
+        recipe["tag"] = "4.13.0"
+        recipe["tag_object"] = git("-C", str(source), "rev-parse", "refs/tags/4.13.0")
     subprocess.run(
         builder.download_command(recipe, str(bare)),
         shell=True,
@@ -110,7 +128,7 @@ def test_pip_filtered_clone_preserves_public_commit_history_offline(builder, tmp
         capture_output=True,
         timeout=30,
     )
-    assert not (bare / "shallow").exists()
+    assert (bare / "shallow").exists() == shallow_tag
     destination = tmp_path / "filtered-clone"
     probe = {**recipe, "url": "https://example.invalid/public.git"}
     result = subprocess.run(
@@ -121,8 +139,16 @@ def test_pip_filtered_clone_preserves_public_commit_history_offline(builder, tmp
         timeout=30,
     )
     assert result.returncode == 0, result.stderr
-    assert '"filtered_clone_verified": true' in result.stdout
+    assert (
+        '"tag_clone_verified": true' if shallow_tag else '"filtered_clone_verified": true'
+    ) in result.stdout
     assert (destination / "input.txt").read_bytes() == (source / "input.txt").read_bytes()
-    assert git("-C", str(destination), "rev-parse", "HEAD^") == git(
-        "-C", str(source), "rev-parse", "HEAD^"
-    )
+    if shallow_tag:
+        assert git("-C", str(destination), "rev-parse", "refs/tags/4.13.0") == git(
+            "-C", str(source), "rev-parse", "refs/tags/4.13.0"
+        )
+        assert git("-C", str(destination), "rev-list", "--count", "HEAD") == "1"
+    else:
+        assert git("-C", str(destination), "rev-parse", "HEAD^") == git(
+            "-C", str(source), "rev-parse", "HEAD^"
+        )

@@ -161,6 +161,13 @@
         "liblapack-dev",
         "libblas-dev"
       ]
+    },
+    "rstan-to-pystan": {
+      "packages": [
+        "git"
+      ],
+      "preserve_sudo_apt_config": true,
+      "source": "Bootstrap installer for the pinned public Git cache. PPA/compiler dependencies require the next preparation stage before model release."
     }
   }
 }

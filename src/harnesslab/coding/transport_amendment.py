@@ -87,6 +87,26 @@ def reserve_transport_attempts(full, selection, model_profile, folder, selected)
     ):
         raise ValueError("Both agent transports require successful API acceptance")
     old_protocol = {**full, "response_transport": "non_streaming"}
+    retained_tasks, attempted, unstarted, studies = collect_retired_attempts(
+        full, selection, model_profile, amendment, old_protocol, retirement, selected
+    )
+    record = {
+        "from": "non_streaming",
+        "to": "streaming",
+        "studies": studies,
+        "retained_attempts": list(attempted.values()),
+        "replaced_unstarted_cells": [list(cell) for cell in sorted(unstarted)],
+        "canary": {"path": amendment["canary"], "sha256": amendment["canary_sha256"]},
+        "retirement": {"path": amendment["retirement"], "sha256": amendment["retirement_sha256"]},
+    }
+    save_json(folder / "transport-amendment.json", record)
+    return retained_tasks, record
+
+
+def collect_retired_attempts(
+    full, selection, model_profile, amendment, old_protocol, retirement, selected
+):
+    """Validate closed attempts and replacement cells against the retired queue."""
     all_cells, attempted, unstarted, studies = set(), {}, set(), []
     for reference in amendment["studies"]:
         origin = Path(reference["root"])
@@ -154,14 +174,4 @@ def reserve_transport_attempts(full, selection, model_profile, folder, selected)
         or set(map(tuple, retirement["not_started_cells"])) != unstarted
     ):
         raise ValueError("Queue retirement does not match the cells being replaced")
-    record = {
-        "from": "non_streaming",
-        "to": "streaming",
-        "studies": studies,
-        "retained_attempts": list(attempted.values()),
-        "replaced_unstarted_cells": [list(cell) for cell in sorted(unstarted)],
-        "canary": {"path": amendment["canary"], "sha256": amendment["canary_sha256"]},
-        "retirement": {"path": amendment["retirement"], "sha256": amendment["retirement_sha256"]},
-    }
-    save_json(folder / "transport-amendment.json", record)
-    return retained_tasks, record
+    return retained_tasks, attempted, unstarted, studies

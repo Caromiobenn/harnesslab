@@ -32,6 +32,10 @@ PROTOCOL_FIELDS = (
 
 def pilot_gate(study: dict) -> dict:
     target = study["configuration"]
+    if study.get("image_amendment"):
+        for name in ("canary", "retirement"):
+            reference = study["image_amendment"][name]
+            checked_json(Path(reference["path"]), reference["sha256"])
     expected = set(
         itertools.product(("offline", "public"), study["pilot_tasks"], target["groups"], [0])
     )

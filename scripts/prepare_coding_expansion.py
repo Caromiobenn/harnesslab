@@ -12,6 +12,7 @@ from pathlib import Path
 
 from harnesslab.coding.config import configure_runtime, load_config, project_root, save_json
 from harnesslab.coding.control_reuse import load_control_reuse, source_differences
+from harnesslab.coding.image_amendment import inherited_image_attempts, reserve_image_attempts
 from harnesslab.coding.native_controls import official_control_result
 from harnesslab.coding.reuse import checked_json, digest
 from harnesslab.coding.runner import build_plan
@@ -123,7 +124,7 @@ def main():
     if full.repeats != 1 or full.reasoning_effort != "high":
         raise ValueError("This expansion is the HIGH, one-attempt study")
     selection = json.loads(args.selection.read_text())
-    if selection.get("transport_amendment"):
+    if selection.get("transport_amendment") or selection.get("image_amendment"):
         full = full.model_copy(update={"response_transport": "streaming"})
     elif selection.get("prior_studies"):
         first = selection["prior_studies"][0]
@@ -225,9 +226,17 @@ def main():
     )
     plan = build_plan(root, config)
     profile = {key: plan[key] for key in ("model", "base_url", "api_style", "thinking_body")}
-    retained, transport_amendment = reserve_transport_attempts(
+    retained, transport_amendment, image_amendment = reserve_image_attempts(
         full.model_dump(), selection, profile, folder, set(selected)
     )
+    if image_amendment is None:
+        retained, transport_amendment, image_amendment = inherited_image_attempts(
+            full.model_dump(), selection, profile, folder, set(selected)
+        )
+    if transport_amendment is None:
+        retained, transport_amendment = reserve_transport_attempts(
+            full.model_dump(), selection, profile, folder, set(selected)
+        )
     if transport_amendment is None:
         retained, transport_amendment = inherited_transport_attempts(
             full.model_dump(), selection, profile, folder, set(selected)
@@ -287,6 +296,7 @@ def main():
         "ready_tasks": selected,
         "prior_studies": prior_studies,
         "transport_amendment": transport_amendment,
+        "image_amendment": image_amendment,
         "reserved_prior_tasks": sorted(reserved),
         "reserved_prior_cells": len(reserved) * len(full.groups) * 2,
         "pending_tasks": [

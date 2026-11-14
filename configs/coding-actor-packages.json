@@ -160,6 +160,23 @@
         "libgl1"
       ],
       "source": "Exact reference dependency versions with CPU wheels. Public build dependencies support the separately pinned MobileSAM Git install."
+    },
+    "protein-assembly": {
+      "packages": [
+        "biopython==1.85",
+        "rcsb-api==1.4.0",
+        "dnachisel==3.2.16",
+        "pandas==2.2.3",
+        "requests==2.32.4"
+      ],
+      "import_modules": [
+        "Bio",
+        "rcsbapi",
+        "dnachisel",
+        "pandas",
+        "requests"
+      ],
+      "source": "Exact public software packages from the official reference. Task-specific public database responses and derived sequence data are not cached."
     }
   }
 }

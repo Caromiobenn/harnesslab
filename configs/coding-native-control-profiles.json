@@ -460,6 +460,11 @@
         "/app",
         "/opt/harnesslab-public-r/cache-hits.txt"
       ]
+    },
+    "protein-assembly": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

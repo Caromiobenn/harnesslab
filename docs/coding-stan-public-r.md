@@ -45,3 +45,18 @@ stopped at its own BH version assertion: R normalizes `1.87.0-1` to `1.87.0.1` w
 printing a package version. The check now compares R version objects, while the
 download stage still checks the literal source DESCRIPTION version against the pin.
 This changes only the preparation probe; the official reference and scoring stay fixed.
+
+## Sudo package-cache configuration
+
+Job 1209680 accepted the complete 48-package R source cache after installing and loading it
+offline. Its original offline reference then failed before model sampling: `sudo apt-get`
+discarded `APT_CONFIG`, attempted the internet repositories and could not locate gfortran,
+BLAS or LAPACK. The later RcppEigen linker failures were a consequence of those missing
+system packages. The original failed reference, official test results and cleanup remain saved.
+
+The system-package recipe now explicitly preserves only `APT_CONFIG` through sudo inside
+the disposable task instance, with a syntax-checked sudoers fragment. The preparation probe
+executes the original `sudo apt-get` form offline before accepting that archive. This preserves
+the selected public/offline package sources, changes no user privileges, and installs no task
+dependencies before the actor. Other recipes keep their existing behavior unless they request
+this configuration. The accepted R source archive is reused unchanged for subsequent controls.

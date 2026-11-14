@@ -155,6 +155,7 @@
       "download_timeout_sec": 1800
     },
     "mcmc-sampling-stan": {
+      "preserve_sudo_apt_config": true,
       "packages": [
         "gfortran",
         "liblapack-dev",

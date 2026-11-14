@@ -67,6 +67,7 @@ async def prepare_one(
     packages: list[str],
     source_packages: list[str] | None = None,
     download_timeout_sec: int = 600,
+    preserve_sudo_apt_config: bool = False,
 ) -> dict:
     from benchmark_next_cleanup import cleanup_run
     from benchmark_next_environment import source_fingerprint
@@ -86,6 +87,7 @@ async def prepare_one(
         if (
             saved["packages"] == packages
             and saved.get("source_packages", []) == source_packages
+            and saved.get("preserve_sudo_apt_config", False) == preserve_sudo_apt_config
             and saved["source_fingerprint"] == fingerprint
             and saved["ok"]
             and saved["cleanup"]["verified"]
@@ -126,6 +128,7 @@ async def prepare_one(
         "packages": packages,
         "source_packages": source_packages,
         "download_timeout_sec": download_timeout_sec,
+        "preserve_sudo_apt_config": preserve_sudo_apt_config,
         "ok": False,
         "model_calls": 0,
     }
@@ -185,8 +188,20 @@ async def prepare_one(
         result["repository"] = json.loads(repository.stdout)
         env = {"APT_CONFIG": PREFIX + "/apt-public.conf"}
         offline_env = {"APT_CONFIG": PREFIX + "/apt-offline.conf"}
+        if preserve_sudo_apt_config:
+            await environment.python_command(
+                "from pathlib import Path\n"
+                "path=Path('/etc/sudoers.d/harnesslab-public-apt')\n"
+                "path.write_text('Defaults env_keep += \\\"APT_CONFIG\\\"\\n')\n"
+                "path.chmod(0o440)\n"
+            )
+            await environment.root_command("visudo -cf /etc/sudoers.d/harnesslab-public-apt")
+        apt_command = "sudo apt-get" if preserve_sudo_apt_config else "apt-get"
         install = (
-            "apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -y install "
+            apt_command
+            + " update -qq && DEBIAN_FRONTEND=noninteractive "
+            + apt_command
+            + " -y install "
             + shlex.join(packages)
         )
         if source_packages:
@@ -229,6 +244,9 @@ with tarfile.open(archive,'w:gz') as stream:
         stream.add(prefix/name,arcname=str(prefix/name).lstrip('/'))
     for name in indexes:
         stream.add(name,arcname=name.lstrip('/'))
+    if {preserve_sudo_apt_config!r}:
+        stream.add('/etc/sudoers.d/harnesslab-public-apt',
+                   arcname='etc/sudoers.d/harnesslab-public-apt')
 parts=[]
 with archive.open('rb') as stream:
     while data:=stream.read({PART_SIZE}):
@@ -322,6 +340,7 @@ async def main():
                 profiles["tasks"][name]["packages"],
                 profiles["tasks"][name].get("source_packages"),
                 profiles["tasks"][name].get("download_timeout_sec", 600),
+                profiles["tasks"][name].get("preserve_sudo_apt_config", False),
             )
 
     results = await asyncio.gather(*(one(name) for name in args.tasks))

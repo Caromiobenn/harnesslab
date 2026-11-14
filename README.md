@@ -47,6 +47,8 @@ matched tasks. The [case index](docs/coding-case-index.md) connects measured beh
 saved evidence and separates retained main-study samples from diagnostic experiments.
 The [answer-access review](docs/coding-answer-access-review.md) distinguishes keyword
 candidates, empty-directory probes, and confirmed access to task reference solutions.
+The [artifact audit](docs/coding-artifact-retention-audit.md) checks saved submissions,
+official results, metric completeness, and LangSmith readbacks for a fixed run snapshot.
 
 Implemented harness adapters:
 

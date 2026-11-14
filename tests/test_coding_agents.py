@@ -76,7 +76,7 @@ def test_deepagents_bridge_accounts_usage_and_keeps_secrets_out_of_trace(
         captured.update(kwargs)
         return ToolModel(messages=iter(responses))
 
-    monkeypatch.setattr("langchain_deepseek.ChatDeepSeek", create_model)
+    monkeypatch.setattr("harnesslab.coding.deepseek_adapter.MultimodalChatDeepSeek", create_model)
     environment = Environment()
     logs = tmp_path / "agent"
     logs.mkdir()
@@ -93,7 +93,7 @@ def test_deepagents_bridge_accounts_usage_and_keeps_secrets_out_of_trace(
     assert context.metadata["role_usage"]["actor"]["model_calls"] == 2
     assert captured["extra_body"] == {"enable_thinking": True}
     assert captured["temperature"] == 1.0 and captured["top_p"] == 0.95
-    assert captured["profile"]["max_input_tokens"] == 1048576
+    assert captured["profile"]["max_input_tokens"] == 1000000
     assert "fixture-secret" not in (logs / "events.jsonl").read_text()
     assert json.loads((logs / "messages.json").read_text())[-1]["data"]["content"] == "done"
 
@@ -110,7 +110,8 @@ def test_deadline_stops_tools_before_draining_a_pending_model_call(profile, tmp_
         yield AIMessage(content="done")
 
     monkeypatch.setattr(
-        "langchain_deepseek.ChatDeepSeek", lambda **kwargs: ToolModel(messages=responses())
+        "harnesslab.coding.deepseek_adapter.MultimodalChatDeepSeek",
+        lambda **kwargs: ToolModel(messages=responses()),
     )
 
     class DeadlineEnvironment(Environment):
@@ -241,7 +242,9 @@ def test_transcript_review_is_invoked_and_grader_usage_is_separate(profile, tmp_
             ]
         )
     )
-    monkeypatch.setattr("langchain_deepseek.ChatDeepSeek", lambda **kwargs: model)
+    monkeypatch.setattr(
+        "harnesslab.coding.deepseek_adapter.MultimodalChatDeepSeek", lambda **kwargs: model
+    )
     logs = tmp_path / "agent"
     logs.mkdir()
     agent = DeepAgentsCodingAgent(
@@ -270,7 +273,9 @@ def test_generation_limit_stops_real_deepagent_before_next_api_call(profile, tmp
             for i in count()
         )
     )
-    monkeypatch.setattr("langchain_deepseek.ChatDeepSeek", lambda **kwargs: model)
+    monkeypatch.setattr(
+        "harnesslab.coding.deepseek_adapter.MultimodalChatDeepSeek", lambda **kwargs: model
+    )
     logs = tmp_path / "agent"
     logs.mkdir()
     profile = profile.model_copy(update={"max_model_calls": 2})

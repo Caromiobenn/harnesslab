@@ -171,8 +171,11 @@ class DeepAgentsCodingAgent(BaseAgent):
 
     async def run(self, instruction, environment, context) -> None:
         from deepagents import create_deep_agent
-        from langchain_deepseek import ChatDeepSeek
 
+        from harnesslab.coding.deepseek_adapter import (
+            MultimodalChatDeepSeek,
+            aliyun_deepseek_profile,
+        )
         from harnesslab.coding.review import build_review
 
         settings = model_settings(project_root())
@@ -182,7 +185,8 @@ class DeepAgentsCodingAgent(BaseAgent):
         backend = HarborSandboxBackend(
             environment, asyncio.get_running_loop(), stopped, self.logs_dir, config.command_timeout
         )
-        model = ChatDeepSeek(
+        profile = aliyun_deepseek_profile(config.context_window_tokens, config.max_output_tokens)
+        model = MultimodalChatDeepSeek(
             model=settings["model"],
             api_key=settings["api_key"],
             api_base=settings["base_url"],
@@ -194,16 +198,7 @@ class DeepAgentsCodingAgent(BaseAgent):
             extra_body=thinking_body(config, settings),
             reasoning_effort=config.reasoning_effort,
             **sampling_options(config),
-            **(
-                {
-                    "profile": {
-                        "max_input_tokens": config.context_window_tokens,
-                        "max_output_tokens": config.max_output_tokens,
-                    }
-                }
-                if config.context_window_tokens
-                else {}
-            ),
+            profile=profile,
         )
         middleware, review_input, ledger = build_review(
             self.group,
@@ -265,6 +260,8 @@ class DeepAgentsCodingAgent(BaseAgent):
                 "response_models": sorted(trace.models),
                 "elapsed_seconds": actor_elapsed,
                 "configuration": config.model_dump(),
+                "request_adapter": "native_tool_images_v1",
+                "effective_model_profile": profile,
                 "role_usage": trace.role_usage,
                 "finish_reasons": trace.finish_reasons,
                 "review_outcome": (

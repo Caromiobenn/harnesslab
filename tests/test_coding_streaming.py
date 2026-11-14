@@ -10,10 +10,10 @@ pytest.importorskip("harbor")
 
 import httpx
 from harbor.models.agent.context import AgentContext
-from langchain_deepseek import ChatDeepSeek
 
 from harnesslab.coding.agents import DeepAgentsCodingAgent, ExecutionTrace, MiniCodingAgent
 from harnesslab.coding.config import CodingConfig
+from harnesslab.coding.deepseek_adapter import MultimodalChatDeepSeek
 from harnesslab.coding.streaming import collect_completion
 
 
@@ -113,7 +113,8 @@ def test_real_deepseek_sse_reassembles_tools_reasoning_and_usage(setup, monkeypa
 
     with httpx.Client(transport=httpx.MockTransport(handle)) as client:
         monkeypatch.setattr(
-            "langchain_deepseek.ChatDeepSeek", lambda **kw: ChatDeepSeek(http_client=client, **kw)
+            "harnesslab.coding.deepseek_adapter.MultimodalChatDeepSeek",
+            lambda **kw: MultimodalChatDeepSeek(http_client=client, **kw),
         )
         environment = Environment()
         context = AgentContext()

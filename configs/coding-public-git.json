@@ -3,18 +3,43 @@
   "tasks": {
     "mteb-leaderboard": {
       "url": "https://github.com/embeddings-benchmark/results",
-      "aliases": ["https://github.com/embeddings-benchmark/results.git"],
+      "aliases": [
+        "https://github.com/embeddings-benchmark/results.git"
+      ],
       "revision": "c0fd3271442f8c0c839084a109fede85c8514dab",
-      "required_paths": ["results"],
+      "required_paths": [
+        "results"
+      ],
       "source": "Historical August 2025 commit explicitly selected by the official reference."
     },
     "train-fasttext": {
       "url": "https://github.com/facebookresearch/fastText.git",
-      "aliases": ["https://github.com/facebookresearch/fastText"],
+      "aliases": [
+        "https://github.com/facebookresearch/fastText"
+      ],
       "revision": "1142dc4c4ecbc19cc16eee5cdd28472e689267e6",
-      "required_paths": ["Makefile", "src"],
-      "system_packages": ["git", "build-essential"],
+      "required_paths": [
+        "Makefile",
+        "src"
+      ],
+      "system_packages": [
+        "git",
+        "build-essential"
+      ],
       "source": "Public main revision from March 2024, verified through the upstream repository API; used for both actor and verifier clones."
+    },
+    "sam-cell-seg": {
+      "url": "https://github.com/ChaoningZhang/MobileSAM.git",
+      "aliases": [
+        "https://github.com/ChaoningZhang/MobileSAM"
+      ],
+      "revision": "34bbbfdface3c18e5221aa7de6032d7220c6c6a1",
+      "required_paths": [
+        "setup.py",
+        "mobile_sam",
+        "weights/mobile_sam.pt"
+      ],
+      "source": "The exact commit specified by the official task reference and verifier. Public weight blob 7ef2d090979fd9853adf17b7a99c8b94a1c5a6a7."
     }
   }
 }

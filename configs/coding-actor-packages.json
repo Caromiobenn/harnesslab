@@ -4,16 +4,44 @@
     "financial-document-processor": {
       "installer": "uv",
       "python": "3.13",
-      "packages": ["numpy==2.3.2", "opencv-python==4.11.0.86", "packaging==25.0", "pandas==2.3.2", "pillow==11.3.0", "pymupdf==1.25.2", "pytesseract==0.3.13", "python-dateutil==2.9.0.post0", "pytz==2025.2", "six==1.17.0", "tzdata==2025.2"],
-      "import_modules": ["numpy", "pandas", "PIL", "fitz", "pytesseract"],
-      "system_packages": ["tesseract-ocr"],
+      "packages": [
+        "numpy==2.3.2",
+        "opencv-python==4.11.0.86",
+        "packaging==25.0",
+        "pandas==2.3.2",
+        "pillow==11.3.0",
+        "pymupdf==1.25.2",
+        "pytesseract==0.3.13",
+        "python-dateutil==2.9.0.post0",
+        "pytz==2025.2",
+        "six==1.17.0",
+        "tzdata==2025.2"
+      ],
+      "import_modules": [
+        "numpy",
+        "pandas",
+        "PIL",
+        "fitz",
+        "pytesseract"
+      ],
+      "system_packages": [
+        "tesseract-ocr"
+      ],
       "source": "Exact Python and dependency requirements from the official reference PEP 723 header. Cache contains the public interpreter and dependency packages, without task documents, extracted text or reference code."
     },
     "pytorch-model-cli": {
-      "packages": ["torch==2.7.0+cpu", "numpy==2.3.1"],
-      "import_modules": ["torch", "numpy"],
+      "packages": [
+        "torch==2.7.0+cpu",
+        "numpy==2.3.1"
+      ],
+      "import_modules": [
+        "torch",
+        "numpy"
+      ],
       "extra_index_url": "https://download.pytorch.org/whl/cpu",
-      "system_packages": ["build-essential"],
+      "system_packages": [
+        "build-essential"
+      ],
       "source": "Official reference installs torch 2.7.0 from the CPU index and NumPy; NumPy is pinned to the official verifier version. Cache contains public installers only."
     },
     "kv-store-grpc": {
@@ -106,6 +134,32 @@
       ],
       "source": "Public package versions from the pinned task image and official reference installation commands. Installer archives contain no submitted vectorops package.",
       "offline_local_index": true
+    },
+    "sam-cell-seg": {
+      "packages": [
+        "torch==2.5.1+cpu",
+        "torchvision==0.20.1+cpu",
+        "pandas==2.3.2",
+        "timm==1.0.19",
+        "opencv-python==4.12.0.88",
+        "numpy==2.2.6",
+        "setuptools==75.6.0",
+        "wheel==0.45.1"
+      ],
+      "import_modules": [
+        "torch",
+        "torchvision",
+        "pandas",
+        "timm",
+        "cv2"
+      ],
+      "extra_index_url": "https://download.pytorch.org/whl/cpu",
+      "system_packages": [
+        "git",
+        "curl",
+        "libgl1"
+      ],
+      "source": "Exact reference dependency versions with CPU wheels. Public build dependencies support the separately pinned MobileSAM Git install."
     }
   }
 }

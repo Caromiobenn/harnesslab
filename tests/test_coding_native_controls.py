@@ -130,6 +130,12 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom,
                 source_fingerprint="image",
                 test_script_sha256=sha,
                 verifier_env={"SE_CHROMEDRIVER": "/usr/bin/chromedriver"},
+                cli_downloads={
+                    "https://public.test/weights.pt": {
+                        "path": "/verifier-weights.pt",
+                        "sha256": "weights",
+                    }
+                },
                 python_downloads={
                     "https://public.test/data.zip": {
                         "path": "/verifier-data.zip",
@@ -165,6 +171,8 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom,
     assert len(profile["verifier"]["archives"]) == 2 + int(custom)
     if custom:
         assert "https://public.test/data.zip" in profile["verifier"]["python_downloads"]
+        assert "https://public.test/weights.pt" in profile["verifier"]["downloads"]
+        assert "downloads" not in profile
         assert "python_downloads" not in profile
         assert profile["verifier"]["env"]["SE_CHROMEDRIVER"] == "/usr/bin/chromedriver"
         assert "SE_CHROMEDRIVER" not in profile["env"]

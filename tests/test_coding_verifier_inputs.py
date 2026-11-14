@@ -60,6 +60,38 @@ def test_public_dataset_checksum_mismatch_stops_preparation(builder, tmp_path, m
     assert not (tmp_path / "verifier-inputs.tar.gz").exists()
 
 
+@pytest.mark.parametrize("changed", [False, True])
+def test_pinned_git_weights_and_original_download_alias_share_verified_bytes(
+    builder, tmp_path, monkeypatch, changed
+):
+    data = b"public model weights"
+    blob = b"blob " + str(len(data)).encode() + b"\0" + data
+    monkeypatch.setattr(builder.urllib.request, "urlopen", lambda url, timeout: io.BytesIO(data))
+    recipe = {
+        "transport": "curl",
+        "files": [
+            {
+                "name": "weights.pt",
+                "url": "https://public/pinned/weights.pt",
+                "aliases": ["https://public/master/weights.pt"],
+                "git_blob_sha1": "wrong"
+                if changed
+                else hashlib.sha1(blob, usedforsecurity=False).hexdigest(),
+            }
+        ],
+    }
+    if changed:
+        with pytest.raises(ValueError, match="pinned Git object"):
+            builder.prepare_files(tmp_path, "fixture", recipe)
+    else:
+        _, downloads, files = builder.prepare_files(tmp_path, "fixture", recipe)
+        assert (
+            downloads["https://public/pinned/weights.pt"]
+            == downloads["https://public/master/weights.pt"]
+        )
+        assert len(files) == 1 and files["weights.pt"]["sha256"] == hashlib.sha256(data).hexdigest()
+
+
 @pytest.mark.parametrize("changed_revision", [False, True])
 def test_existing_zip_input_still_checks_the_original_commit(
     builder, tmp_path, monkeypatch, changed_revision

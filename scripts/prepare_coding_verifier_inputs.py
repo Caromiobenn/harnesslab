@@ -26,6 +26,10 @@ def prepare_files(folder, task, recipe):
         data = path.read_bytes()
         if item.get("md5") and hashlib.md5(data, usedforsecurity=False).hexdigest() != item["md5"]:
             raise ValueError("Public input differs from the upstream dataset checksum")
+        if item.get("git_blob_sha1"):
+            blob = b"blob " + str(len(data)).encode() + b"\0" + data
+            if hashlib.sha1(blob, usedforsecurity=False).hexdigest() != item["git_blob_sha1"]:
+                raise ValueError("Public input differs from the pinned Git object")
         if "zip_root" in recipe:
             with zipfile.ZipFile(path) as archive:
                 if archive.comment.decode() != recipe["revision"]:
@@ -36,7 +40,8 @@ def prepare_files(folder, task, recipe):
                         raise ValueError("Unexpected public test archive paths")
         target = "/opt/harnesslab-verifier-inputs/" + task + "/" + item["name"]
         digest = hashlib.sha256(data).hexdigest()
-        downloads[item["url"]] = {"path": target, "sha256": digest}
+        for url in [item["url"], *item.get("aliases", [])]:
+            downloads[url] = {"path": target, "sha256": digest}
         files[item["name"]] = {"sha256": digest, "bytes": len(data), "target": target}
     archive = folder / "verifier-inputs.tar.gz"
     with tarfile.open(archive, "w:gz") as stream:
@@ -91,7 +96,8 @@ def main():
         archive, downloads, files = prepare_files(folder, task, recipe)
         record.update(
             ok=True,
-            python_downloads=downloads,
+            python_downloads={} if recipe.get("transport") == "curl" else downloads,
+            cli_downloads=downloads if recipe.get("transport") == "curl" else {},
             verifier_env=recipe.get("verifier_env", {}),
             downloaded_files=files,
             archive={

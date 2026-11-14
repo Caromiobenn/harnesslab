@@ -3,7 +3,15 @@
 from __future__ import annotations
 
 import json
-import shlex
+
+
+def archive_extract_code(archive: str, destination: str = "/") -> str:
+    """Extract a hash-verified public archive with its links and executable modes."""
+    return (
+        "import tarfile\n"
+        f"with tarfile.open({archive!r}, 'r:gz') as stream:\n"
+        f"    stream.extractall({destination!r}, filter='fully_trusted')\n"
+    )
 
 
 def curl_wrapper(python: str, real_curl: str, downloads: dict, log_path: str) -> str:
@@ -38,7 +46,7 @@ async def prepare_verifier(environment, spec: dict, control: str, python: str) -
         await environment.upload_archive(
             environment._root / artifact["archive"], artifact["sha256"], target
         )
-        await environment.root_command("tar -xzf " + shlex.quote(target) + " -C /", timeout=300)
+        await environment.python_command(archive_extract_code(target), timeout=300)
     if spec.get("install_command"):
         await environment.root_command(spec["install_command"], timeout=300)
     real_curl = (await environment.root_command("command -v curl")).stdout.strip()
@@ -53,7 +61,16 @@ async def prepare_verifier(environment, spec: dict, control: str, python: str) -
     shell_path = (await environment.root_command("printf '%s' \"$PATH\"")).stdout.strip()
     # uvx's explicit -p 3.13 overrides UV_PYTHON; expose the already-pinned
     # interpreter as a fallback while preserving the image's Python precedence.
-    env["PATH"] = directory + ":" + shell_path + ":" + DIRECTORY + "/python313/bin"
+    env["PATH"] = (
+        directory
+        + ":"
+        + DIRECTORY
+        + "/uv-x86_64-unknown-linux-gnu:"
+        + shell_path
+        + ":"
+        + DIRECTORY
+        + "/python313/bin"
+    )
     if spec.get("python_downloads"):
         hooks = control + "/verifier-python"
         await environment.root_command("mkdir -p " + hooks)

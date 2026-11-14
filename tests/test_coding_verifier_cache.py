@@ -6,11 +6,44 @@ import json
 import os
 import subprocess
 import sys
+import tarfile
 from types import SimpleNamespace
 
 import pytest
 
-from harnesslab.coding.verifier_cache import curl_wrapper, prepare_verifier, urllib_cache_hook
+from harnesslab.coding.verifier_cache import (
+    archive_extract_code,
+    curl_wrapper,
+    prepare_verifier,
+    urllib_cache_hook,
+)
+
+
+@pytest.mark.skipif(os.name == "nt", reason="The cloud archive uses POSIX links and modes")
+def test_public_archive_preserves_package_links_and_executable_modes(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    executable = source / "tool"
+    executable.write_text("#!/bin/sh\nexit 0\n")
+    executable.chmod(0o755)
+    os.link(executable, source / "hardlink")
+    (source / "symlink").symlink_to("tool")
+    archive = tmp_path / "public.tar.gz"
+    with tarfile.open(archive, "w:gz") as stream:
+        stream.add(source, arcname="package")
+    target = tmp_path / "destination"
+    result = subprocess.run(
+        [sys.executable, "-c", archive_extract_code(str(archive), str(target))],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    unpacked = target / "package"
+    assert (unpacked / "tool").read_bytes() == executable.read_bytes()
+    assert (unpacked / "tool").stat().st_mode & 0o777 == 0o755
+    assert (unpacked / "hardlink").stat().st_ino == (unpacked / "tool").stat().st_ino
+    assert (unpacked / "symlink").is_symlink()
+    assert (unpacked / "symlink").resolve() == unpacked / "tool"
 
 
 @pytest.mark.skipif(os.name == "nt", reason="The cloud command launcher runs on Linux")
@@ -92,6 +125,7 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
         _root=tmp_path,
         upload_archive=upload,
         root_command=command,
+        python_command=command,
         _startup_env=lambda: {},
         _sandbox=SimpleNamespace(files=SimpleNamespace(write=write)),
     )
@@ -112,7 +146,8 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
     expected = {
         "UV_PYTHON": "pinned-python",
         "UV_OFFLINE": "1",
-        "PATH": "/controller/verifier-bin:/image/bin:/usr/bin:/pinned-bootstrap/python313/bin",
+        "PATH": "/controller/verifier-bin:/pinned-bootstrap/uv-x86_64-unknown-linux-gnu:"
+        "/image/bin:/usr/bin:/pinned-bootstrap/python313/bin",
     }
     if python_downloads:
         expected["PYTHONPATH"] = "/controller/verifier-python:/existing-helper"

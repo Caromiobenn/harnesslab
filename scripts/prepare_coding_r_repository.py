@@ -128,7 +128,7 @@ profile="""local({{
         file={json.dumps(PREFIX + "/cache-hits.txt")}, append=TRUE)
     invisible(0L)
   }}
-  assignInNamespace('download.file', transfer, ns='utils')
+  utils::assignInNamespace('download.file', transfer, ns='utils')
 }})
 """
 (prefix/'profile.R').write_text(profile)

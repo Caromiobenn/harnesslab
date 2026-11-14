@@ -55,6 +55,42 @@ def distribution(values):
     }
 
 
+def runtime_cohorts(records):
+    cohorts = defaultdict(list)
+    for row in records:
+        key = (
+            row["network"],
+            row["group"],
+            row["response_transport"],
+            row["request_adapter"],
+            json.dumps(row["effective_model_profile"], sort_keys=True),
+        )
+        cohorts[key].append(row)
+    result = []
+    for (network, group, transport, adapter, profile), rows in sorted(cohorts.items()):
+        scored = [row for row in rows if row["reward"] is not None]
+        successes = sum(row["reward"] == 1 for row in scored)
+        result.append(
+            {
+                "network": network,
+                "group": group,
+                "response_transport": transport,
+                "request_adapter": adapter,
+                "effective_model_profile": json.loads(profile),
+                "tasks": sorted({row["task"] for row in rows}),
+                "ended_attempts": len(rows),
+                "valid_scored_cells": len(scored),
+                "successes": successes,
+                "success_rate": successes / len(scored) if scored else None,
+                "partial_usage_trials": sum(row["usage_completeness"] == "partial" for row in rows),
+                "all_ended_attempt_usage": {
+                    key: distribution([row[key] for row in rows]) for key in MEASURES
+                },
+            }
+        )
+    return result
+
+
 def regrade_scores(paths):
     index = {}
     for path in paths:
@@ -142,6 +178,9 @@ def make_report(root, config, batches, regrades=()):
                 "response_transport": (metadata.get("configuration") or {}).get(
                     "response_transport", "non_streaming"
                 ),
+                "request_adapter": metadata.get("request_adapter")
+                or ("mini_native_shell" if row["group"] == "mini" else "legacy_sdk_tool_content"),
+                "effective_model_profile": metadata.get("effective_model_profile"),
                 "started_model_calls": started,
                 "usage_completeness": ("partial" if started > received else "complete")
                 if started is not None and received is not None
@@ -256,6 +295,8 @@ def make_report(root, config, batches, regrades=()):
                 "treatment_reward": treatment["reward"],
                 "base_pipeline_ok": base["pipeline_ok"],
                 "treatment_pipeline_ok": treatment["pipeline_ok"],
+                "base_request_adapter": base["request_adapter"],
+                "treatment_request_adapter": treatment["request_adapter"],
                 "review_candidates": treatment["candidates"],
                 "evidence_checks": treatment["evidence_checks"],
                 "output_token_delta": treatment["output_tokens"] - base["output_tokens"]
@@ -289,12 +330,15 @@ def make_report(root, config, batches, regrades=()):
                 "public_trial": public["trial"],
                 "offline_pipeline_ok": offline["pipeline_ok"],
                 "public_pipeline_ok": public["pipeline_ok"],
+                "offline_request_adapter": offline["request_adapter"],
+                "public_request_adapter": public["request_adapter"],
             }
         )
     return {
         "configuration": config,
         "batches": batches,
         "groups": groups,
+        "runtime_cohorts": runtime_cohorts(records),
         "trials": records,
         "case_candidates": cases,
         "network_pairs": network_pairs,
@@ -321,6 +365,11 @@ def make_report(root, config, batches, regrades=()):
             "missing": "Missing measurements stay null; observed_trials is the metric denominator.",
             "cases": "Inspection candidates, not causal explanations or hacking verdicts.",
             "repetitions": "One independent attempt per cell; no best-of-N selection.",
+            "runtime_cohorts": (
+                "Separate observed scores and all-ended-attempt usage by network, harness, "
+                "response transport, request adapter and effective model profile. Task sets may "
+                "differ across cohorts; their aggregate rates do not estimate adapter effects."
+            ),
         },
     }
 

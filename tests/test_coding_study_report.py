@@ -63,6 +63,45 @@ def test_case_comparison_keeps_scored_errors_visible(tmp_path):
     assert report["case_candidates"][0]["treatment_pipeline_ok"] is False
 
 
+def test_runtime_cohorts_preserve_errors_and_costs_in_their_original_adapter(tmp_path):
+    config = {
+        "tasks": ["legacy", "native", "error"],
+        "groups": ["deepagents_default"],
+        "repeats": 1,
+    }
+    for task, reward, tokens in [("legacy", 1, 10), ("native", 0, 20), ("error", None, 30)]:
+        outcome(tmp_path, "first", task, reward, reward is not None, "deepagents_default", tokens)
+        path = tmp_path / f"artifacts/coding/first/{task}-deepagents_default.outcome.json"
+        row = json.loads(path.read_text())
+        metadata = {"configuration": {"response_transport": "streaming"}}
+        if task != "legacy":
+            metadata.update(
+                request_adapter="native_tool_images_v1",
+                effective_model_profile={"max_input_tokens": 1000000},
+            )
+        row["agent_result"] = {"metadata": metadata}
+        path.write_text(json.dumps(row))
+    report = reporter.make_report(tmp_path, config, ["first"])
+    cohorts = {row["request_adapter"]: row for row in report["runtime_cohorts"]}
+    assert len(cohorts) == 2
+    legacy, native = cohorts["legacy_sdk_tool_content"], cohorts["native_tool_images_v1"]
+    assert legacy["success_rate"] == 1 and native["success_rate"] == 0
+    assert legacy["effective_model_profile"] is None
+    assert native["ended_attempts"] == 2 and native["valid_scored_cells"] == 1
+    assert native["all_ended_attempt_usage"]["output_tokens"]["sum"] == 50
+    assert report["groups"][0]["all_ended_attempt_usage"]["output_tokens"]["sum"] == 60
+
+
+def test_mini_native_tooling_remains_visible_in_case_comparisons(tmp_path):
+    config = {"tasks": ["task"], "groups": ["mini", "deepagents_default"], "repeats": 1}
+    for group in config["groups"]:
+        outcome(tmp_path, "first", "task", 1, True, group)
+    report = reporter.make_report(tmp_path, config, ["first"])
+    case = report["case_candidates"][0]
+    assert case["base_request_adapter"] == "mini_native_shell"
+    assert case["treatment_request_adapter"] == "legacy_sdk_tool_content"
+
+
 @pytest.fixture
 def regraded(tmp_path):
     config = {"tasks": ["task"], "groups": ["deepagents_default"], "repeats": 1}

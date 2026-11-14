@@ -202,6 +202,22 @@ def test_pilot_gate_preserves_valid_zeros_and_retains_unscored_setup_failures(pi
     assert len(gate["unscored_attempts_retained"]) == 1
 
 
+def test_pilot_gate_requires_a_recorded_transport_amendment(pilot):
+    worker, study, root = pilot
+    study["configuration"]["response_transport"] = "streaming"
+    with pytest.raises(ValueError, match="explicit amendment"):
+        worker.pilot_gate(study)
+    study["transport_amendment"] = {"from": "non_streaming", "to": "streaming"}
+    for name in ("canary", "retirement"):
+        path = root / f"{name}.json"
+        save_json(path, {"fixture": name})
+        study["transport_amendment"][name] = {"path": str(path), "sha256": digest(path)}
+    assert worker.pilot_gate(study)["ok"]
+    save_json(root / "canary.json", {"changed": True})
+    with pytest.raises(ValueError):
+        worker.pilot_gate(study)
+
+
 @pytest.mark.parametrize(
     "change",
     [

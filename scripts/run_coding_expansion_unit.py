@@ -38,6 +38,14 @@ def pilot_gate(study: dict) -> dict:
     found, discarded = {}, []
     for batch in map(Path, study["pilot_batches"]):
         source = json.loads((batch / "plan.json").read_text())
+        before = source["configuration"].get("response_transport", "non_streaming")
+        after = target.get("response_transport", "non_streaming")
+        if before != after:
+            amendment = study.get("transport_amendment") or {}
+            if amendment.get("from") != before or amendment.get("to") != after:
+                raise ValueError("Pilot transport difference lacks an explicit amendment")
+            for reference in (amendment["canary"], amendment["retirement"]):
+                checked_json(Path(reference["path"]), reference["sha256"])
         if any(source["configuration"][key] != target[key] for key in PROTOCOL_FIELDS):
             raise ValueError("Pilot model protocol differs from the full study")
         if any(source[key] != value for key, value in study["model_profile"].items()):

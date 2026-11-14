@@ -15,6 +15,7 @@ from harnesslab.coding.control_reuse import load_control_reuse, source_differenc
 from harnesslab.coding.native_controls import official_control_result
 from harnesslab.coding.reuse import checked_json, digest
 from harnesslab.coding.runner import build_plan
+from harnesslab.coding.transport_amendment import reserve_transport_attempts
 
 
 def execution_units(rows: list[dict], groups: list[str], wall_seconds: int = 43200) -> list[dict]:
@@ -114,6 +115,8 @@ def main():
     if full.repeats != 1 or full.reasoning_effort != "high":
         raise ValueError("This expansion is the HIGH, one-attempt study")
     selection = json.loads(args.selection.read_text())
+    if selection.get("transport_amendment"):
+        full = full.model_copy(update={"response_transport": "streaming"})
     folder = root / "artifacts/expansions" / args.run
     if folder.exists():
         raise ValueError("Expansion plans are immutable; inspect the existing plan first")
@@ -212,6 +215,10 @@ def main():
     reserved, prior_studies = prior_reservations(
         full.model_dump(), selection, profile, folder, set(selected)
     )
+    retained, transport_amendment = reserve_transport_attempts(
+        full.model_dump(), selection, profile, folder, set(selected)
+    )
+    reserved.update(retained)
     for reference in references:
         reference["reviewed_source_differences"] = source_differences(
             reference.pop("source_hashes"), plan["source_hashes"]
@@ -263,6 +270,7 @@ def main():
         "pilot_batches": selection["pilot_batches"],
         "ready_tasks": selected,
         "prior_studies": prior_studies,
+        "transport_amendment": transport_amendment,
         "reserved_prior_tasks": sorted(reserved),
         "reserved_prior_cells": len(reserved) * len(full.groups) * 2,
         "pending_tasks": [

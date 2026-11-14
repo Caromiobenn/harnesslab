@@ -165,12 +165,7 @@ Path({(CONTROL + "/baseline.json")!r}).write_text(json.dumps(data))
         parent = super()._dispatch_command
         if not self._actor_active:
             return await parent(command, cwd=cwd, env=env, timeout_sec=timeout_sec, user=user)
-        actor_command = (
-            actor_python_command(command, ACTOR_PYTHON_BIN)
-            if self.entry.get("actor_python_fallback", False)
-            else command
-        )
-        wrapped, cleanup = process_group_command(self._sandbox, actor_command, python=PYTHON)
+        wrapped, cleanup = process_group_command(self._sandbox, command, python=PYTHON)
         started = monotonic()
 
         async def launch():
@@ -257,6 +252,10 @@ Path({(CONTROL + "/submission.json")!r}).write_text(json.dumps(record))
 
     async def exec(self, command, **kwargs):
         kwargs["env"] = {**self._runtime_env, **(kwargs.get("env") or {})}
+        if self._actor_active and self.entry.get("actor_python_fallback", False):
+            # The parent prepends the image PATH restoration. Append the fallback
+            # inside its command so that restoration cannot discard it.
+            command = actor_python_command(command, ACTOR_PYTHON_BIN)
         if not self._actor_active and "/tests/test.sh" in command:
             if self._study_verifier_env is None:
                 from harnesslab.coding.verifier_cache import prepare_verifier

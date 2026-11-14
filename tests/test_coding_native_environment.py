@@ -5,6 +5,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -275,7 +276,7 @@ def test_actor_python_fallback_runs_helpers_and_preserves_task_interpreter(
 
 
 @pytest.mark.parametrize("enabled", [False, True])
-def test_actor_dispatch_applies_opted_in_fallback_before_process_tracking(
+def test_actor_dispatch_preserves_already_prepared_commands_during_process_tracking(
     native, monkeypatch, enabled
 ):
     module, environment, _, _ = native
@@ -305,12 +306,42 @@ def test_actor_dispatch_applies_opted_in_fallback_before_process_tracking(
             "python3 helper.py", cwd="/app", env={}, timeout_sec=120, user="root"
         )
     )
-    expected = (
-        module.actor_python_command("python3 helper.py", module.ACTOR_PYTHON_BIN)
-        if enabled
-        else "python3 helper.py"
-    )
+    expected = "python3 helper.py"
     assert observed == {"command": expected, "python": module.PYTHON, "launched": "tracked-command"}
     assert environment._command_records == [
         {"sdk_command_id": "sdk-command", "identity_file": "identity-record"}
     ]
+
+
+@pytest.mark.skipif(os.name != "posix", reason="Actor commands run in a Linux shell")
+@pytest.mark.parametrize("task_python", [False, True])
+@pytest.mark.parametrize("actor_active", [False, True])
+def test_fallback_runs_after_parent_image_path_restoration(
+    native, tmp_path, monkeypatch, task_python, actor_active
+):
+    module, environment, _, _ = native
+    fallback = tmp_path / "fallback"
+    task = tmp_path / "task-bin"
+    fallback.mkdir()
+    task.mkdir()
+    for directory, label in [(fallback, "fallback"), *([(task, "task")] if task_python else [])]:
+        executable = directory / "python3"
+        executable.write_text("#!/bin/sh\nprintf '" + label + "\\n'\n")
+        executable.chmod(0o755)
+
+    async def parent_exec(self, command, **kwargs):
+        # Match the vendor's image PATH restoration before command dispatch.
+        command = "export PATH=" + shlex.quote(str(task)) + "; " + command
+        result = subprocess.run(["/bin/bash", "-c", command], capture_output=True, text=True)
+        return SimpleNamespace(return_code=result.returncode, stdout=result.stdout)
+
+    monkeypatch.setattr(module.BenchmarkAliyunEnvironment, "exec", parent_exec)
+    monkeypatch.setattr(module, "ACTOR_PYTHON_BIN", str(fallback))
+    environment.entry["actor_python_fallback"] = True
+    environment._actor_active = actor_active
+    result = asyncio.run(environment.exec("python3 --version"))
+    if task_python or actor_active:
+        assert result.return_code == 0
+        assert result.stdout.strip() == ("task" if task_python else "fallback")
+    else:
+        assert result.return_code == 127

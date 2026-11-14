@@ -17,6 +17,7 @@ from harnesslab.coding.environment import NETWORK_PROBE
 
 CONTROL = "/opt/harnesslab-controller"
 PYTHON = CONTROL + "/python313/bin/python3.13"
+ACTOR_PYTHON_BIN = CONTROL + "/actor-bin"
 PART_SIZE = 16 * 1024 * 1024
 
 PROCESS_SNAPSHOT = """import json,os
@@ -34,6 +35,11 @@ for folder in Path('/proc').glob('[0-9]*'):
     except (FileNotFoundError,ProcessLookupError,PermissionError): pass
 print(json.dumps(result))
 """
+
+
+def actor_python_command(command: str, directory: str) -> str:
+    """Make the pinned runtime a fallback while preferring the task's own Python."""
+    return 'export PATH="${PATH:+$PATH:}"' + shlex.quote(directory) + "\n" + command
 
 
 class NativeStudyEnvironment(BenchmarkAliyunEnvironment):
@@ -91,6 +97,10 @@ class NativeStudyEnvironment(BenchmarkAliyunEnvironment):
             CONTROL + "/python.tar.gz",
         )
         await self.root_command(f"tar -xzf {CONTROL}/python.tar.gz -C {CONTROL}")
+        if self.entry.get("actor_python_fallback", False):
+            await self.root_command(
+                f"mkdir -p {ACTOR_PYTHON_BIN} && ln -s {PYTHON} {ACTOR_PYTHON_BIN}/python3"
+            )
         module = Path(__file__).with_name("submission_delta.py")
         await self._sandbox.files.write(CONTROL + "/submission_delta.py", module.read_bytes())
         for index, artifact in enumerate(self.entry["archives"]):
@@ -128,6 +138,7 @@ class NativeStudyEnvironment(BenchmarkAliyunEnvironment):
                 "verifier_mode": network_mode,
                 "prerequisites": self.entry,
                 "offline_env": offline_env,
+                "actor_python_fallback": self.entry.get("actor_python_fallback", False),
             },
         )
         if not verified:
@@ -154,7 +165,12 @@ Path({(CONTROL + "/baseline.json")!r}).write_text(json.dumps(data))
         parent = super()._dispatch_command
         if not self._actor_active:
             return await parent(command, cwd=cwd, env=env, timeout_sec=timeout_sec, user=user)
-        wrapped, cleanup = process_group_command(self._sandbox, command, python=PYTHON)
+        actor_command = (
+            actor_python_command(command, ACTOR_PYTHON_BIN)
+            if self.entry.get("actor_python_fallback", False)
+            else command
+        )
+        wrapped, cleanup = process_group_command(self._sandbox, actor_command, python=PYTHON)
         started = monotonic()
 
         async def launch():

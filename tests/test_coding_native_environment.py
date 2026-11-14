@@ -4,6 +4,8 @@ import asyncio
 import hashlib
 import importlib.util
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -245,3 +247,70 @@ def test_prerequisites_added_after_sandbox_creation_reach_actor_commands(native)
         "APT_CONFIG": "/cache/apt.conf",
         "TEST_MARKER": "passed",
     }
+
+
+@pytest.mark.skipif(os.name != "posix", reason="Actor commands run in a Linux shell")
+@pytest.mark.parametrize("task_python", [False, True])
+def test_actor_python_fallback_runs_helpers_and_preserves_task_interpreter(
+    native, tmp_path, task_python
+):
+    module, _, _, _ = native
+    fallback = tmp_path / "runtime with spaces"
+    task = tmp_path / "task-bin"
+    fallback.mkdir()
+    task.mkdir()
+    for directory, label in [(fallback, "controller"), *([(task, "task")] if task_python else [])]:
+        executable = directory / "python3"
+        executable.write_text("#!/bin/sh\nprintf '" + label + "\\n'\n")
+        executable.chmod(0o755)
+    command = module.actor_python_command("python3 -c 'helper code'", str(fallback))
+    result = subprocess.run(
+        ["/bin/bash", "-c", command],
+        env={"PATH": str(task)},
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert result.stdout.strip() == ("task" if task_python else "controller")
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+def test_actor_dispatch_applies_opted_in_fallback_before_process_tracking(
+    native, monkeypatch, enabled
+):
+    module, environment, _, _ = native
+    environment.entry["actor_python_fallback"] = enabled
+    environment._actor_active = True
+    observed = {}
+
+    async def dispatch_parent(self, command, **kwargs):
+        observed["launched"] = command
+        return SimpleNamespace(pid="sdk-command")
+
+    def wrap(sandbox, command, python):
+        observed.update(command=command, python=python)
+        return "tracked-command", SimpleNamespace(record_path="identity-record")
+
+    class Scope:
+        async def dispatch(self, launch, cleanup):
+            return await launch()
+
+    monkeypatch.setattr(
+        module.BenchmarkAliyunEnvironment, "_dispatch_command", dispatch_parent, raising=False
+    )
+    monkeypatch.setattr(module, "process_group_command", wrap)
+    environment._scope = Scope()
+    asyncio.run(
+        environment._dispatch_command(
+            "python3 helper.py", cwd="/app", env={}, timeout_sec=120, user="root"
+        )
+    )
+    expected = (
+        module.actor_python_command("python3 helper.py", module.ACTOR_PYTHON_BIN)
+        if enabled
+        else "python3 helper.py"
+    )
+    assert observed == {"command": expected, "python": module.PYTHON, "launched": "tracked-command"}
+    assert environment._command_records == [
+        {"sdk_command_id": "sdk-command", "identity_file": "identity-record"}
+    ]

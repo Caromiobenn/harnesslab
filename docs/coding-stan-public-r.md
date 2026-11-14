@@ -36,3 +36,12 @@ The canary completed in nine seconds, made zero model calls and verified instanc
 
 Source: [remotes 2.5.0 download implementation](https://github.com/r-lib/remotes/blob/v2.5.0/R/download.R),
 which calls `utils::download.file` for the R version in the task image.
+
+## Version validation
+
+Job 1209662 confirmed that the startup transport installs the pinned remotes, Rcpp,
+RcppEigen and BH sources with network access disabled. The installation probe then
+stopped at its own BH version assertion: R normalizes `1.87.0-1` to `1.87.0.1` when
+printing a package version. The check now compares R version objects, while the
+download stage still checks the literal source DESCRIPTION version against the pin.
+This changes only the preparation probe; the official reference and scoring stay fixed.

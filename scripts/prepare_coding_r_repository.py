@@ -90,7 +90,7 @@ def installation_probe(recipe: dict) -> str:
             [
                 f"remotes::install_version({name},version={version},"
                 "repos='https://cloud.r-project.org/')",
-                f"stopifnot(as.character(packageVersion({name}))=={version})",
+                f"stopifnot(packageVersion({name})==package_version({version}))",
                 f"library({name},character.only=TRUE)",
             ]
         )

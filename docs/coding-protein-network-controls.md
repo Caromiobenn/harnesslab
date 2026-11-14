@@ -23,3 +23,10 @@ while retaining all 10 model conditions and the original scoring assertions.
 
 The control implementation and actual outcomes are recorded in subsequent stages; this profile
 and plan alone do not establish acceptance or model performance.
+
+The first dependency probe (job 1209651) downloaded the five pinned packages but stopped
+before any control or model call: the source distribution of rcsb-api needed an isolated
+setuptools build environment. The package cache now also downloads setuptools 80.9.0 and
+wheel 0.45.1 as build inputs. The original task installation command and source distributions
+remain unchanged; these extra wheels are available to pip's isolated build subprocess.
+The failed probe and verified instance cleanup are retained in its receipt.

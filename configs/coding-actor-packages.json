@@ -162,6 +162,10 @@
       "source": "Exact reference dependency versions with CPU wheels. Public build dependencies support the separately pinned MobileSAM Git install."
     },
     "protein-assembly": {
+      "build_packages": [
+        "setuptools==80.9.0",
+        "wheel==0.45.1"
+      ],
       "packages": [
         "biopython==1.85",
         "rcsb-api==1.4.0",

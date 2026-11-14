@@ -44,6 +44,22 @@ def test_actor_cache_rejects_unpinned_requirements(builder):
         builder.package_commands("python", {"packages": ["grpcio"], "import_modules": ["grpc"]})
 
 
+def test_source_build_dependencies_are_downloaded_without_becoming_task_requirements(builder):
+    recipe = {
+        "packages": ["pytest==8.4.1"],
+        "build_packages": ["setuptools==80.9.0", "wheel==0.45.1"],
+        "import_modules": ["pytest"],
+    }
+    online, offline, _ = builder.package_commands("python", recipe)
+    assert all(package in shlex.split(online) for package in recipe["build_packages"])
+    assert all(package not in offline for package in recipe["build_packages"])
+    command = shlex.split(offline.split(" && ", 1)[1])
+    result = subprocess.run([sys.executable, *command[1:]], capture_output=True, text=True)
+    assert result.returncode == 0 and list(json.loads(result.stdout)) == ["pytest"]
+    with pytest.raises(ValueError, match="version pins"):
+        builder.package_commands("python", dict(recipe, build_packages=["setuptools"]))
+
+
 def test_cpu_wheel_index_is_used_only_during_public_cache_download(builder):
     online, offline, env = builder.package_commands(
         "python",

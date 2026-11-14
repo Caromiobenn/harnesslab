@@ -39,8 +39,9 @@ def uv_probe_source(recipe):
 
 def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
     packages = recipe["packages"]
+    download_packages = packages + recipe.get("build_packages", [])
     if not packages or any(
-        not re.fullmatch(r"[A-Za-z0-9_.-]+==[A-Za-z0-9_.+-]+", item) for item in packages
+        not re.fullmatch(r"[A-Za-z0-9_.-]+==[A-Za-z0-9_.+-]+", item) for item in download_packages
     ):
         raise ValueError("Actor cache packages require explicit public version pins")
     if recipe.get("installer") == "uv":
@@ -78,7 +79,8 @@ def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
         else ""
     )
     return (
-        f"{shlex.quote(python)} -m pip download --dest {PREFIX} {names}{index}",
+        f"{shlex.quote(python)} -m pip download --dest {PREFIX} "
+        f"{shlex.join(download_packages)}{index}",
         f"{shlex.quote(python)} -m pip install {names}{install_flag} && "
         f"{shlex.quote(python)} -c {shlex.quote(checks)}",
         env,

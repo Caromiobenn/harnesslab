@@ -18,3 +18,8 @@ Empty/reference controls must pass in both network modes before the task receive
 
 Sources: [repository revision](https://huggingface.co/datasets/allenai/c4/commit/1588ec454efa1a09f29cd18ddd04fe05fc8653a2),
 [official shard and SHA-256](https://huggingface.co/datasets/allenai/c4/blob/1588ec454efa1a09f29cd18ddd04fe05fc8653a2/en/c4-train.00009-of-01024.json.gz).
+
+Preparation uses the imported task directory returned by `task_plan`, which verifies every file
+against the pinned lock. The external dataset argument is checked for the benchmark revision;
+its absolute directory need not equal the worktree-local imported copy. The first preparation
+(job 1209570) stopped at the old directory-equality check before creating any cloud instance.

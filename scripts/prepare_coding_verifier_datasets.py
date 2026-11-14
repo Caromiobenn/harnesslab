@@ -61,9 +61,7 @@ async def prepare_one(root: Path, dataset: Path, run: str, task: str, recipe: di
 
     config = load_config(root, Path("configs/coding-tb21-full.json"))
     row = task_plan(root, config, task)
-    source = dataset / "tasks" / task
-    if source.resolve() != Path(row["path"]).resolve():
-        raise ValueError("Dataset preparation source differs from the task lock")
+    source = Path(row["path"])
     folder = root / "artifacts/coding-verifier-datasets" / run / task
     if folder.exists():
         raise ValueError("Inspect the previous dataset preparation before choosing another run")

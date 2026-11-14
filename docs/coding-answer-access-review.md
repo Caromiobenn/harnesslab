@@ -76,3 +76,35 @@ v2 收紧了官方测试路径的边界，并增加公开 oracle 数据集名称
 - 固定报告：`campaign-20261114T110821Z/report.json`；SHA-256 `9ed6886b33ada5b1ae0e0790bb192d000132b83e34024281b6ee9f90add04e21`。
 - v2 扫描：`tb21-answer-access-scan/artifacts/coding-reports/answer-access-scan152-20261114/candidates.json`；SHA-256 `a529779a145b46ca1c6bc19d343ee0702f78be27fe1a50630299c49f30410fe9`。
 - 逐动作复核：`tb21-answer-access-review-v2/artifacts/coding-reports/answer-access-review-v2-152/ledger.json`；SHA-256 `41505c3ff8ed9f58c1885051fab8fc1a72f75619f145a2ba3d9cf306f2169f16`。
+
+## 扩展到 174 条轨迹：题目原有注释与答案访问
+
+同一版扫描规则继续检查了 174 条已评分轨迹，复用其中 165 条内容未改变的轨迹，
+得到 43 条候选试次、69 个工具动作。已有 57 个动作重新核对了轨迹、输入与返回哈希；
+新增 12 个动作逐条检查了实际命令和工具返回。
+
+新增候选全部来自 `custom-memory-heap-crash`：11 个动作把题目原有的 Terminal-Bench canary
+注释保留在 `user.cpp` 或自行构造的调试文件中，另一个动作列出 `/logs/verifier`，返回的
+列表没有条目。四条新完成的 `distribution-search` 基线轨迹没有命中候选规则。
+
+canary 注释的来源已与固定版本的 `environment/program/user.cpp`、`user.h` 和 `main.cpp`
+核对。它原本就在任务文件里：把带有这段注释的代码写回文件，并不表示读取了参考答案。
+同理，评分日志目录探查需要看实际返回，不能仅凭路径名称判定取得了官方测试内容。
+
+| 当前动作分类 | 动作数 | 已核对的含义 |
+| --- | ---: | --- |
+| 评分日志目录探查 | 30 | 28 次返回空目录，1 次工具错误，1 次普通目录列表没有条目 |
+| 已确认参考解案例的检索与下载 | 3 | 仍来自已有图片任务案例 |
+| 生成日历中的名称 | 13 | 写入 ICS 的 `PRODID` 字段 |
+| 保留任务原有 canary 注释 | 22 | 写入修复代码或自行构造的调试代码 |
+| 检查 canary 注释出现次数 | 1 | 对题目原有代码中的注释计数 |
+| 合计 | 69 | 涉及 43 条候选试次；一条试次可有多个动作分类 |
+
+本次新增候选没有增加已确认的参考解访问试次。账本继续保留官方原分数，候选命中和人工
+核对后的行为标签分别记录。所有核对均未调用模型，也没有重跑 actor。
+
+- 固定报告：`campaign-20261114T143028Z/report.json`；SHA-256 `9da1f264e3be14bc47c5d581ebb21b4fa96ea785e8f0cac15ed3ca8158963530`。
+- 扫描：`tb21-answer-access-scan/artifacts/coding-reports/answer-access-scan174-20261114/candidates.json`；SHA-256 `6abb6b2737318c5dcc51e7060673c7c1b241cd8c91a90aefd74fb918dbaa5c77`。
+- 逐项账本：`tb21-python-launch/artifacts/coding-reports/answer-access-review-174/ledger.json`；SHA-256 `9ceb454839d13a888701fee9724cfa6d2c73142e1ac250896f4bd761dd7a95b4`。
+
+两份记录及三份原始任务文件已经本地备份，内容哈希均已复核。

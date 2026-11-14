@@ -254,6 +254,7 @@ def run_batch(
     batch: str,
     resume: bool = False,
     reuse_manifest: Path | None = None,
+    controls_manifest: Path | None = None,
 ) -> dict:
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", batch):
         raise ValueError("Use a short alphanumeric batch name")
@@ -295,6 +296,18 @@ def run_batch(
         references = load_reuse(reuse_manifest, plan)
         plan["reuse_manifest"] = {"path": str(reuse_manifest), "sha256": digest(reuse_manifest)}
     plan_path = folder / "plan.json"
+    control_references = {}
+    if controls_manifest is not None:
+        from harnesslab.coding.control_reuse import load_control_reuse
+        from harnesslab.coding.reuse import digest
+
+        control_references = load_control_reuse(root, controls_manifest, plan)
+        if control_references.keys() & references.keys():
+            raise ValueError("A control is supplied by two continuation manifests")
+        plan["controls_manifest"] = {
+            "path": str(controls_manifest),
+            "sha256": digest(controls_manifest),
+        }
     if plan_path.exists() and (not resume or json.loads(plan_path.read_text()) != plan):
         raise ValueError("Batch plan is immutable; use a new batch for code/config changes")
     save_json(plan_path, plan)
@@ -302,6 +315,10 @@ def run_batch(
 
     def stage(row, group, repeat):
         key = config.network_mode, row["task"], group, repeat
+        if key in control_references:
+            from harnesslab.coding.control_reuse import save_reused_control
+
+            return save_reused_control(folder, batch, control_references[key], resume)
         if key in references:
             from harnesslab.coding.reuse import save_reused
 

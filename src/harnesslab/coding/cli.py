@@ -1,4 +1,4 @@
-"""Plan and run the six-task coding-agent integration matrix."""
+"""Plan and run a pinned coding-agent evaluation matrix."""
 
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ def main() -> None:
     run.add_argument("--tasks", nargs="+")
     run.add_argument("--resume", action="store_true")
     run.add_argument("--reuse-manifest", type=Path)
+    run.add_argument("--controls-manifest", type=Path)
     run.add_argument("--network", choices=["public", "offline"])
     run.add_argument("--repeats", type=int)
     for command in (doctor, plan, run):
@@ -82,10 +83,12 @@ def main() -> None:
             updates["groups"] = args.groups
         if args.tasks:
             if not set(args.tasks) <= set(config.tasks):
-                parser.error("Task is outside the frozen six-task set")
+                parser.error("Task is outside the configured frozen task set")
             updates["tasks"] = args.tasks
         config = type(config).model_validate({**config.model_dump(), **updates})
-        result = run_batch(root, config, args.batch, args.resume, args.reuse_manifest)
+        result = run_batch(
+            root, config, args.batch, args.resume, args.reuse_manifest, args.controls_manifest
+        )
         print(json.dumps({k: v for k, v in result.items() if k != "outcomes"}, indent=2))
         sys.exit(0 if result["integration_passed"] else 1)
 

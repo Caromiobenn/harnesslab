@@ -325,6 +325,75 @@ def test_batch_reuses_a_scored_zero_without_executing_its_model(project, monkeyp
     assert saved["reuse"]["source_sha256"] == digest(outcome_path)
 
 
+def test_native_controls_are_reused_while_new_model_cell_executes_once(project, monkeypatch):
+    from harnesslab.coding.native_controls import official_control_result
+    from harnesslab.coding.reuse import digest
+
+    root, config, _ = project
+    config = config.model_copy(update={"prerequisites_manifest": "native.json", "groups": []})
+    inputs = root / "native.json"
+    save_json(inputs, {"tasks": {"task": {"runtime_profile": "native"}}})
+    monkeypatch.setattr(runner, "preflight_environment", lambda *args: None)
+    calls = []
+
+    def stage(root, folder, task, group, current, batch, repeat, resume):
+        calls.append(group)
+        reward = int(group == "oracle")
+        trial = root / "original-trials" / group
+        save_json(trial / "verifier/ctrf.json", {"results": {"summary": {"tests": 1}}})
+        return {
+            "task": task["task"],
+            "group": group,
+            "repeat": 0,
+            "network_mode": current.network_mode,
+            "reward": reward,
+            "pipeline_ok": True,
+            "cleanup_verified": True,
+            "trial": str(trial),
+        }
+
+    monkeypatch.setattr(runner, "execute_stage", stage)
+    original = runner.run_batch(root, config, "controls-only")
+    plan = json.loads((root / "artifacts/coding/controls-only/plan.json").read_text())
+    acceptance = root / "acceptance.json"
+    save_json(
+        acceptance,
+        {
+            **plan,
+            "model_calls": 0,
+            "manifest_sha256": digest(inputs),
+            "outcomes": [
+                official_control_result(row, int(row["group"] == "oracle"))
+                for row in original["outcomes"]
+            ],
+        },
+    )
+    manifest = root / "reuse-controls.json"
+    save_json(
+        manifest,
+        {
+            "target_source_hashes": plan["source_hashes"],
+            "references": [
+                {
+                    "task": "task",
+                    "acceptance_path": str(acceptance),
+                    "acceptance_sha256": digest(acceptance),
+                    "prerequisites_path": str(inputs),
+                    "reviewed_source_differences": {},
+                    "compatibility_reason": "Same source and inputs.",
+                }
+            ],
+        },
+    )
+    calls.clear()
+    config = config.model_copy(update={"groups": ["mini"], "langsmith_tracing": True})
+    result = runner.run_batch(root, config, "models", controls_manifest=manifest)
+    assert calls == ["mini"]
+    assert result["groups"]["mini"] == {"valid_runs": 1, "successes": 0}
+    assert result["reused_model_runs"] == 0
+    assert all("control_reuse" in row for row in result["outcomes"] if row["group"] != "mini")
+
+
 @pytest.mark.parametrize("group", ["empty", "oracle", "mini", "rubric_evidence"])
 def test_full_task_profile_uses_matching_controls_without_changing_model_budget(project, group):
     root, config, _ = project

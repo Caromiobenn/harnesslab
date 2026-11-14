@@ -34,7 +34,9 @@ def public_cache(root: Path, origin: dict) -> dict:
     return saved
 
 
-def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: dict) -> dict:
+def task_prerequisites(
+    root: Path, row: dict, capture_paths: list[str], ledger: dict, verifier_env: dict | None = None
+) -> dict:
     """Build one explicit profile from pinned test source and accepted public receipts."""
     task = row["task"]
     families = ledger["families"]
@@ -90,6 +92,7 @@ def task_prerequisites(root: Path, row: dict, capture_paths: list[str], ledger: 
         entry["verifier"]["archives"].append(inputs["archive"])
         entry["verifier"]["python_downloads"] = inputs["python_downloads"]
         entry["verifier"]["env"].update(inputs.get("verifier_env", {}))
+    entry["verifier"]["env"].update(verifier_env or {})
     return entry
 
 

@@ -11,3 +11,13 @@ local mailboxes, task-created account metadata, and the reference's Mailman
 configuration helper. Service processes remain running for the official
 verifier. The mail exercise uses local test users and the local.edu test
 domain inside the disposable task environment.
+
+The first empty controls exposed a verifier-interpreter mismatch: the official
+script created `.tb` with Python 3.12, but the bootstrap's `UV_PYTHON` then sent
+`uv pip install` to its managed Python 3.13 installation. Installation failed
+and no official test summary was produced. Keep these rejected controls.
+
+The task profile now sets the verifier-only `UV_PYTHON` to
+`/app/.tb/bin/python`, the environment created by the unchanged official script.
+The existing dependency archive was already prepared and tested with Python
+3.12, so its bytes remain unchanged. Actor environment variables are unaffected.

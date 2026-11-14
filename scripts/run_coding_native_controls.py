@@ -39,7 +39,13 @@ def main():
         raise ValueError("Public caches belong to a different benchmark revision")
     rows = [task_plan(root, config, name) for name in selected]
     entries = {
-        row["task"]: task_prerequisites(root, row, profiles[row["task"]]["capture_paths"], ledger)
+        row["task"]: task_prerequisites(
+            root,
+            row,
+            profiles[row["task"]]["capture_paths"],
+            ledger,
+            profiles[row["task"]].get("verifier_env"),
+        )
         for row in rows
     }
     manifest = folder / "prerequisites.json"

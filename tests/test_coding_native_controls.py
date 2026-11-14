@@ -59,7 +59,8 @@ def test_public_cache_checks_receipt_archive_and_preparation(tmp_path):
 
 
 @pytest.mark.parametrize("custom", [False, True])
-def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom):
+@pytest.mark.parametrize("override", [False, True])
+def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom, override):
     task = tmp_path / "task"
     (task / "tests").mkdir(parents=True)
     (task / "tests/test.sh").write_text("official assertions")
@@ -69,7 +70,13 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
         if custom
         else {"recipe": {"test_script_sha256": {"task": sha}}}
     )
-    python = cache_origin(tmp_path, "python", downloads={}, env={"UV_OFFLINE": "1"}, **recipe)
+    python = cache_origin(
+        tmp_path,
+        "python",
+        downloads={},
+        env={"UV_OFFLINE": "1", "UV_PYTHON": "bootstrap-python"},
+        **recipe,
+    )
     system = cache_origin(tmp_path, "system", source_fingerprint="image", install_command="apt")
     families = {
         "shared_python": {} if custom else {"recipe": python},
@@ -132,7 +139,14 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
             )
         }
     row = {"task": "task", "path": str(task), "source_fingerprint": "image"}
-    profile = task_prerequisites(tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger)
+    verifier_env = {"UV_PYTHON": "/app/.tb/bin/python"} if override else None
+    profile = task_prerequisites(
+        tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger, verifier_env
+    )
+    assert profile["verifier"]["env"]["UV_PYTHON"] == (
+        "/app/.tb/bin/python" if override else "bootstrap-python"
+    )
+    assert "UV_PYTHON" not in profile["env"]
     assert len(profile["archives"]) == 4 * int(custom)
     assert "install_command" not in profile
     if custom:

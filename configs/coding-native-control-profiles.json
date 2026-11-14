@@ -393,7 +393,10 @@
         "/var/lib/mailman3",
         "/var/mail",
         "/usr/lib/mailman3/configure_list.py"
-      ]
+      ],
+      "verifier_env": {
+        "UV_PYTHON": "/app/.tb/bin/python"
+      }
     }
   }
 }

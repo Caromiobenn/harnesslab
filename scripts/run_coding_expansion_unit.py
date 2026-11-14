@@ -10,6 +10,7 @@ import subprocess
 from pathlib import Path
 
 from harnesslab.coding.config import CodingConfig, configure_runtime, project_root, save_json
+from harnesslab.coding.observability import measurements
 from harnesslab.coding.reuse import checked_json, digest
 from harnesslab.coding.runner import build_plan, run_batch
 
@@ -74,11 +75,15 @@ def pilot_gate(study: dict) -> dict:
                 )
             ):
                 raise ValueError("Pilot score lacks complete usage, timing or cleanup evidence")
-            if (
-                row["group"] != "mini"
-                and (row.get("langsmith") or {}).get("feedback_status") != "verified"
-            ):
-                raise ValueError("Pilot Deep Agents metrics are not verified in LangSmith")
+            feedback = None
+            if row["group"] != "mini":
+                receipt_path = Path(row["trial"]) / "agent/langsmith-metrics.json"
+                receipt = json.loads(receipt_path.read_text()) if receipt_path.exists() else {}
+                if not receipt.get("verified") or receipt.get("measurements") != measurements(row):
+                    raise ValueError(
+                        "Pilot Deep Agents metrics lack a matching verified LangSmith receipt"
+                    )
+                feedback = {"path": str(receipt_path), "sha256": digest(receipt_path)}
             if key in found:
                 raise ValueError("Pilot has more than one scored attempt for a cell")
             found[key] = {
@@ -86,6 +91,7 @@ def pilot_gate(study: dict) -> dict:
                 "path": str(path),
                 "sha256": digest(path),
                 "reward": row["reward"],
+                "langsmith_receipt": feedback,
             }
     if set(found) != expected:
         raise ValueError(f"Pilot gate incomplete: {len(found)}/{len(expected)} scored cells")

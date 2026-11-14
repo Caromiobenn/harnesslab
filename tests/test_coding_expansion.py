@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from harnesslab.coding.config import save_json
+from harnesslab.coding.observability import measurements
 
 
 def script(name):
@@ -46,35 +47,44 @@ def pilot(tmp_path):
         batches.append(str(folder))
         save_json(folder / "plan.json", {"configuration": protocol, **profile})
         for group in protocol["groups"]:
-            save_json(
-                folder / f"{group}.outcome.json",
-                {
-                    "network_mode": mode,
-                    "task": "task",
-                    "group": group,
-                    "repeat": 0,
-                    "reward": 0,
-                    "pipeline_ok": False,
-                    "cleanup_verified": True,
-                    "langsmith": {"feedback_status": "verified"},
-                    "metrics": {
-                        "model_responses": 2,
-                        "model_issued_tool_calls": 1,
-                        "agent_seconds": 2,
-                        "trial_seconds": 3,
-                        "tokens_and_lengths": {
-                            key: 1
-                            for key in (
-                                "input_tokens",
-                                "output_tokens",
-                                "visible_text_chars",
-                                "reasoning_text_chars",
-                                "tool_argument_chars",
-                            )
-                        },
+            row = {
+                "network_mode": mode,
+                "task": "task",
+                "group": group,
+                "repeat": 0,
+                "reward": 0,
+                "pipeline_ok": False,
+                "cleanup_verified": True,
+                "trial": str(folder / "trials" / group),
+                "langsmith": {"feedback_status": "uploaded"},
+                "metrics": {
+                    "model_responses": 2,
+                    "model_issued_tool_calls": 1,
+                    "agent_seconds": 2,
+                    "trial_seconds": 3,
+                    "environment_commands": 1,
+                    "environment_command_failures": 0,
+                    "submission_capture_seconds": 1,
+                    "candidates": 1,
+                    "evidence_checks": 0,
+                    "tokens_and_lengths": {
+                        key: 1
+                        for key in (
+                            "input_tokens",
+                            "output_tokens",
+                            "visible_text_chars",
+                            "reasoning_text_chars",
+                            "tool_argument_chars",
+                        )
                     },
                 },
-            )
+            }
+            save_json(folder / f"{group}.outcome.json", row)
+            if group != "mini":
+                save_json(
+                    Path(row["trial"]) / "agent/langsmith-metrics.json",
+                    {"verified": True, "measurements": measurements(row)},
+                )
     return (
         worker,
         {
@@ -99,7 +109,17 @@ def test_pilot_gate_preserves_valid_zeros_and_retains_unscored_setup_failures(pi
 
 
 @pytest.mark.parametrize(
-    "change", ["missing", "duplicate", "metrics", "langsmith", "protocol", "model"]
+    "change",
+    [
+        "missing",
+        "duplicate",
+        "metrics",
+        "langsmith",
+        "feedback_values",
+        "missing_feedback",
+        "protocol",
+        "model",
+    ],
 )
 def test_pilot_gate_stops_expansion_before_new_model_calls(pilot, change):
     worker, study, root = pilot
@@ -112,9 +132,17 @@ def test_pilot_gate_stops_expansion_before_new_model_calls(pilot, change):
     elif change == "metrics":
         row["metrics"]["tokens_and_lengths"]["input_tokens"] = None
         save_json(path, row)
-    elif change == "langsmith":
-        row["langsmith"]["feedback_status"] = "pending"
-        save_json(path, row)
+    elif change in ("langsmith", "feedback_values", "missing_feedback"):
+        receipt_path = Path(row["trial"]) / "agent/langsmith-metrics.json"
+        if change == "missing_feedback":
+            receipt_path.unlink()
+        else:
+            receipt = json.loads(receipt_path.read_text())
+            if change == "langsmith":
+                receipt["verified"] = False
+            else:
+                receipt["measurements"] = {}
+            save_json(receipt_path, receipt)
     elif change == "protocol":
         study["configuration"]["repeats"] = 2
     else:

@@ -4,7 +4,10 @@ import pytest
 
 from harnesslab.coding.config import CodingConfig, save_json
 from harnesslab.coding.reuse import digest
-from harnesslab.coding.transport_amendment import reserve_transport_attempts
+from harnesslab.coding.transport_amendment import (
+    inherited_transport_attempts,
+    reserve_transport_attempts,
+)
 
 
 @pytest.fixture
@@ -139,3 +142,56 @@ def test_transport_replacement_rejects_unsafe_cell_accounting(scenario, problem)
     with pytest.raises(ValueError):
         reserve_transport_attempts(*scenario)
     assert not (folder / "transport-amendment.json").exists()
+
+
+@pytest.mark.parametrize(
+    "problem", [None, "resample", "source", "missing_cell", "protocol", "skipped_first", "receipt"]
+)
+def test_later_streaming_batches_keep_original_api_failures_reserved(scenario, problem):
+    from pathlib import Path
+
+    full, original, model, folder, selected = scenario
+    retained, record = reserve_transport_attempts(*scenario)
+    path = folder / "study.json"
+    study = {
+        "configuration": full,
+        "model_profile": model,
+        "prior_studies": [],
+        "reserved_prior_tasks": sorted(retained),
+        "transport_amendment": record,
+    }
+    selection = {"pilot_tasks": original["pilot_tasks"], "prior_studies": []}
+    if problem == "resample":
+        selected.add("attempted")
+    elif problem == "source":
+        Path(record["retained_attempts"][0]["path"]).write_text("{}")
+    elif problem == "missing_cell":
+        record["retained_attempts"].pop()
+    elif problem == "protocol":
+        study["model_profile"] = {"model": "changed"}
+    elif problem == "skipped_first":
+        study["prior_studies"] = [{"earlier": "missing"}]
+    elif problem == "receipt":
+        Path(record["canary"]["path"]).write_text("{}")
+    save_json(path, study)
+    selection["prior_studies"].append(
+        {"root": str(folder), "study": "study.json", "sha256": digest(path)}
+    )
+    destination = folder / "followup"
+    if problem:
+        with pytest.raises(ValueError):
+            inherited_transport_attempts(full, selection, model, destination, selected)
+    else:
+        tasks, copied = inherited_transport_attempts(full, selection, model, destination, selected)
+        assert tasks == {"attempted"} and copied == record
+        assert sum(row["reward"] is None for row in copied["retained_attempts"]) == 2
+
+
+def test_non_amended_continuation_has_no_extra_retained_cells(tmp_path):
+    assert inherited_transport_attempts({}, {}, {}, tmp_path, set()) == (set(), None)
+    path = tmp_path / "study.json"
+    save_json(path, {})
+    selection = {
+        "prior_studies": [{"root": str(tmp_path), "study": "study.json", "sha256": digest(path)}]
+    }
+    assert inherited_transport_attempts({}, selection, {}, tmp_path, set()) == (set(), None)

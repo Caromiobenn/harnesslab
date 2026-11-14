@@ -85,6 +85,26 @@ def test_followup_expansion_reserves_prior_cells_and_freezes_their_plans(prior_b
         assert digest(Path(row["snapshot"])) == row["sha256"]
 
 
+def test_followup_reservations_include_original_transport_attempts(prior_batches):
+    builder, full, profile, selection, root = prior_batches
+    full["tasks"].append("retained")
+    for reference in selection["prior_studies"]:
+        path = Path(reference["root"]) / reference["study"]
+        saved = json.loads(path.read_text())
+        saved["configuration"] = full
+        saved["reserved_prior_tasks"].append("retained")
+        save_json(path, saved)
+        reference["sha256"] = digest(path)
+    reserved, _ = builder.prior_reservations(
+        full, selection, profile, root / "next", {"next"}, initial_reserved={"retained"}
+    )
+    assert reserved == {"retained", "first", "second"}
+    with pytest.raises(ValueError, match="resample"):
+        builder.prior_reservations(
+            full, selection, profile, root / "again", {"retained"}, initial_reserved={"retained"}
+        )
+
+
 @pytest.mark.parametrize(
     "change",
     [

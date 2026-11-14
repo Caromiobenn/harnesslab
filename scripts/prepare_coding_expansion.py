@@ -15,7 +15,10 @@ from harnesslab.coding.control_reuse import load_control_reuse, source_differenc
 from harnesslab.coding.native_controls import official_control_result
 from harnesslab.coding.reuse import checked_json, digest
 from harnesslab.coding.runner import build_plan
-from harnesslab.coding.transport_amendment import reserve_transport_attempts
+from harnesslab.coding.transport_amendment import (
+    inherited_transport_attempts,
+    reserve_transport_attempts,
+)
 
 
 def execution_units(rows: list[dict], groups: list[str], wall_seconds: int = 43200) -> list[dict]:
@@ -42,10 +45,15 @@ def execution_units(rows: list[dict], groups: list[str], wall_seconds: int = 432
 
 
 def prior_reservations(
-    full: dict, selection: dict, model_profile: dict, folder: Path, selected: set[str]
+    full: dict,
+    selection: dict,
+    model_profile: dict,
+    folder: Path,
+    selected: set[str],
+    initial_reserved: set[str] | None = None,
 ) -> tuple[set[str], list[dict]]:
     """Reserve every cell of earlier batches before preparing additional tasks."""
-    reserved, snapshots = set(), []
+    reserved, snapshots = set(initial_reserved or ()), []
     for index, reference in enumerate(selection.get("prior_studies", [])):
         origin = Path(reference["root"])
         path = origin / reference["study"]
@@ -117,6 +125,11 @@ def main():
     selection = json.loads(args.selection.read_text())
     if selection.get("transport_amendment"):
         full = full.model_copy(update={"response_transport": "streaming"})
+    elif selection.get("prior_studies"):
+        first = selection["prior_studies"][0]
+        previous = checked_json(Path(first["root"]) / first["study"], first["sha256"])
+        if previous.get("transport_amendment"):
+            full = full.model_copy(update={"response_transport": "streaming"})
     folder = root / "artifacts/expansions" / args.run
     if folder.exists():
         raise ValueError("Expansion plans are immutable; inspect the existing plan first")
@@ -212,13 +225,16 @@ def main():
     )
     plan = build_plan(root, config)
     profile = {key: plan[key] for key in ("model", "base_url", "api_style", "thinking_body")}
-    reserved, prior_studies = prior_reservations(
-        full.model_dump(), selection, profile, folder, set(selected)
-    )
     retained, transport_amendment = reserve_transport_attempts(
         full.model_dump(), selection, profile, folder, set(selected)
     )
-    reserved.update(retained)
+    if transport_amendment is None:
+        retained, transport_amendment = inherited_transport_attempts(
+            full.model_dump(), selection, profile, folder, set(selected)
+        )
+    reserved, prior_studies = prior_reservations(
+        full.model_dump(), selection, profile, folder, set(selected), initial_reserved=retained
+    )
     for reference in references:
         reference["reviewed_source_differences"] = source_differences(
             reference.pop("source_hashes"), plan["source_hashes"]

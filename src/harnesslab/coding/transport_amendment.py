@@ -6,6 +6,58 @@ from harnesslab.coding.config import save_json
 from harnesslab.coding.reuse import checked_json, digest
 
 
+def inherited_transport_attempts(full, selection, model_profile, folder, selected):
+    """Carry the first streaming cohort's completed old attempts into later batches."""
+    priors = selection.get("prior_studies", [])
+    if not priors:
+        return set(), None
+    reference = priors[0]
+    path = Path(reference["root"]) / reference["study"]
+    previous = checked_json(path, reference["sha256"])
+    record = previous.get("transport_amendment")
+    if record is None:
+        return set(), None
+    if (
+        previous["configuration"] != full
+        or previous["model_profile"] != model_profile
+        or previous.get("prior_studies")
+        or record["from"] != "non_streaming"
+        or record["to"] != "streaming"
+        or full.get("response_transport") != "streaming"
+    ):
+        raise ValueError("The first predecessor must be the original streaming replacement")
+    for name in ("canary", "retirement"):
+        checked_json(Path(record[name]["path"]), record[name]["sha256"])
+    cells = []
+    for saved in record["retained_attempts"]:
+        outcome = checked_json(Path(saved["path"]), saved["sha256"])
+        cell = (outcome["network_mode"], outcome["task"], outcome["group"], outcome["repeat"])
+        if (
+            list(cell) != saved["cell"]
+            or not outcome["cleanup_verified"]
+            or (outcome.get("metrics") or {}).get("model_responses", 0) < 1
+        ):
+            raise ValueError("Retained actor attempt is unclosed or disagrees with its source")
+        cells.append(cell)
+    tasks = {cell[1] for cell in cells}
+    expected = {
+        (net, task, group, 0)
+        for task in tasks
+        for net in ("offline", "public")
+        for group in full["groups"]
+    }
+    if (
+        len(cells) != len(expected)
+        or set(cells) != expected
+        or not tasks <= set(full["tasks"])
+        or tasks & (selected | set(selection["pilot_tasks"]))
+        or tasks != set(previous["reserved_prior_tasks"])
+    ):
+        raise ValueError("Streaming continuation must reserve every original attempted cell")
+    save_json(folder / "transport-amendment.json", record)
+    return tasks, record
+
+
 def reserve_transport_attempts(full, selection, model_profile, folder, selected):
     amendment = selection.get("transport_amendment")
     if amendment is None:

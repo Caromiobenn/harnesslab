@@ -1,0 +1,86 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "cobol-modernization": {
+      "packages": [
+        "gnucobol3"
+      ]
+    },
+    "merge-diff-arc-agi-task": {
+      "packages": [
+        "git"
+      ]
+    },
+    "nginx-request-logging": {
+      "packages": [
+        "nginx"
+      ]
+    },
+    "configure-git-webserver": {
+      "packages": [
+        "git",
+        "nginx",
+        "openssh-server"
+      ]
+    },
+    "dna-assembly": {
+      "packages": [
+        "emboss",
+        "primer3"
+      ]
+    },
+    "dna-insert": {
+      "packages": [
+        "emboss",
+        "primer3"
+      ]
+    },
+    "adaptive-rejection-sampler": {
+      "packages": [
+        "openssl",
+        "r-base-core"
+      ]
+    },
+    "overfull-hbox": {
+      "packages": [
+        "python3-pip"
+      ]
+    },
+    "sqlite-with-gcov": {
+      "packages": [
+        "fossil",
+        "gcc",
+        "jimsh",
+        "tclsh",
+        "make"
+      ]
+    },
+    "chess-best-move": {
+      "packages": [
+        "stockfish"
+      ]
+    },
+    "financial-document-processor": {
+      "packages": [
+        "tesseract-ocr"
+      ]
+    },
+    "gcode-to-text": {
+      "packages": [
+        "python3-opencv",
+        "tesseract-ocr",
+        "libtesseract-dev"
+      ]
+    },
+    "make-doom-for-mips": {
+      "packages": [
+        "clang",
+        "gcc-mips-linux-gnu",
+        "g++-mips-linux-gnu",
+        "llvm",
+        "llvm-dev",
+        "lld"
+      ]
+    }
+  }
+}

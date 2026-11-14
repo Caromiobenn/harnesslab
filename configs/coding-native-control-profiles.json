@@ -243,6 +243,16 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "cobol-modernization": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "merge-diff-arc-agi-task": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

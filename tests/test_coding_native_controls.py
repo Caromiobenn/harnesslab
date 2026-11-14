@@ -95,6 +95,15 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
                 offline_env={"HF_HUB_OFFLINE": "1"},
             )
         }
+        families["actor_system"] = {
+            "task": cache_origin(
+                tmp_path,
+                "actor-system",
+                source_fingerprint="image",
+                env={"APT_CONFIG": "/public-apt/online.conf"},
+                offline_env={"APT_CONFIG": "/public-apt/offline.conf"},
+            )
+        }
         families["verifier_inputs"] = {
             "task": cache_origin(
                 tmp_path,
@@ -112,11 +121,18 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
         }
     row = {"task": "task", "path": str(task), "source_fingerprint": "image"}
     profile = task_prerequisites(tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger)
-    assert len(profile["archives"]) == 2 * int(custom)
+    assert len(profile["archives"]) == 3 * int(custom)
     assert "install_command" not in profile
     if custom:
-        assert profile["env"] == {"PIP_FIND_LINKS": "/public-wheels", "HF_HOME": "/public-hub"}
-        assert profile["offline_env"] == {"HF_HUB_OFFLINE": "1"}
+        assert profile["env"] == {
+            "PIP_FIND_LINKS": "/public-wheels",
+            "HF_HOME": "/public-hub",
+            "APT_CONFIG": "/public-apt/online.conf",
+        }
+        assert profile["offline_env"] == {
+            "HF_HUB_OFFLINE": "1",
+            "APT_CONFIG": "/public-apt/offline.conf",
+        }
     assert len(profile["verifier"]["archives"]) == 2 + int(custom)
     if custom:
         assert "https://public.test/data.zip" in profile["verifier"]["python_downloads"]

@@ -342,6 +342,22 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "pypi-server": {
+      "capture_paths": [
+        "/app",
+        "/opt/pypiserver",
+        "/srv/pypi-packages",
+        "/tmp/vectorops",
+        "/var/log/pypiserver.log",
+        "/usr/local/bin",
+        "/usr/local/lib/python3.13/site-packages"
+      ]
+    },
+    "crack-7z-hash": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

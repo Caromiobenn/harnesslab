@@ -2,32 +2,94 @@
   "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
   "tasks": {
     "kv-store-grpc": {
-      "packages": ["grpcio==1.73.0", "grpcio-tools==1.73.0"],
-      "import_modules": ["grpc", "grpc_tools.protoc"],
+      "packages": [
+        "grpcio==1.73.0",
+        "grpcio-tools==1.73.0"
+      ],
+      "import_modules": [
+        "grpc",
+        "grpc_tools.protoc"
+      ],
       "source": "Package versions explicitly required by the public task instruction."
     },
     "largest-eigenval": {
-      "packages": ["eigenpy==3.10.3"],
-      "import_modules": ["eigenpy"],
+      "packages": [
+        "eigenpy==3.10.3"
+      ],
+      "import_modules": [
+        "eigenpy"
+      ],
       "source": "Public library version used by the official reference runtime; cache includes installers, no reference implementation."
     },
     "chess-best-move": {
-      "packages": ["numpy==2.3.2", "python-chess==1.2.0"],
-      "import_modules": ["numpy", "chess"],
+      "packages": [
+        "numpy==2.3.2",
+        "python-chess==1.2.0"
+      ],
+      "import_modules": [
+        "numpy",
+        "chess"
+      ],
       "break_system_packages": true,
-      "system_packages": ["stockfish"],
+      "system_packages": [
+        "stockfish"
+      ],
       "source": "Exact public dependency pins from the official reference installation commands; no task solution is cached."
     },
     "gcode-to-text": {
-      "packages": ["matplotlib==3.10.7", "pytesseract==0.3.13", "pillow==12.0.0", "opencv-python==4.12.0.88"],
-      "import_modules": ["matplotlib", "pytesseract", "PIL", "cv2"],
-      "system_packages": ["python3-opencv", "tesseract-ocr", "libtesseract-dev"],
+      "packages": [
+        "matplotlib==3.10.7",
+        "pytesseract==0.3.13",
+        "pillow==12.0.0",
+        "opencv-python==4.12.0.88"
+      ],
+      "import_modules": [
+        "matplotlib",
+        "pytesseract",
+        "PIL",
+        "cv2"
+      ],
+      "system_packages": [
+        "python3-opencv",
+        "tesseract-ocr",
+        "libtesseract-dev"
+      ],
       "source": "Exact public dependency pins from the official reference installation commands; OpenCV system dependencies are probed with the accepted public APT cache."
     },
     "count-dataset-tokens": {
-      "packages": ["datasets==4.0.0", "transformers==4.56.0", "jinja2==3.1.6"],
-      "import_modules": ["datasets", "transformers", "jinja2"],
+      "packages": [
+        "datasets==4.0.0",
+        "transformers==4.56.0",
+        "jinja2==3.1.6"
+      ],
+      "import_modules": [
+        "datasets",
+        "transformers",
+        "jinja2"
+      ],
       "source": "Public library versions used by the official reference runtime; dataset and tokenizer snapshots are provisioned separately."
+    },
+    "pypi-server": {
+      "packages": [
+        "pypiserver==2.3.2",
+        "passlib==1.7.4",
+        "bcrypt==4.3.0",
+        "packaging==25.0",
+        "build==1.3.0",
+        "twine==6.1.0",
+        "setuptools==75.6.0",
+        "wheel==0.45.1"
+      ],
+      "import_modules": [
+        "pypiserver",
+        "passlib",
+        "bcrypt",
+        "packaging",
+        "build",
+        "twine",
+        "wheel"
+      ],
+      "source": "Public package versions from the pinned task image and official reference installation commands. Installer archives contain no submitted vectorops package."
     }
   }
 }

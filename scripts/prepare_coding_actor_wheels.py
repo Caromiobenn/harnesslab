@@ -126,7 +126,7 @@ async def prepare_one(
         if online.return_code:
             raise RuntimeError("Public actor dependency download failed")
         await environment._sandbox.update_network({"allow_internet_access": False, "allow_out": []})
-        offline_env = dict(env)
+        offline_env = dict(env, PIP_NO_INDEX="1")
         if system:
             offline_env.update(system["env"])
             offline_env.update(system["offline_env"])
@@ -187,6 +187,9 @@ print(json.dumps({{'sha256':digest,'bytes':archive.stat().st_size,'parts':parts,
             ok=True,
             files=info["files"],
             env=env,
+            offline_env=(
+                {"PIP_INDEX_URL": "file://" + PREFIX} if recipe.get("offline_local_index") else {}
+            ),
             archive={
                 "archive": str(archive.relative_to(root)),
                 "sha256": info["sha256"],

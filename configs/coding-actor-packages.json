@@ -89,7 +89,8 @@
         "twine",
         "wheel"
       ],
-      "source": "Public package versions from the pinned task image and official reference installation commands. Installer archives contain no submitted vectorops package."
+      "source": "Public package versions from the pinned task image and official reference installation commands. Installer archives contain no submitted vectorops package.",
+      "offline_local_index": true
     }
   }
 }

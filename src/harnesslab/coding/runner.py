@@ -159,6 +159,7 @@ def execute_stage(
     batch: str,
     repeat: int,
     resume: bool,
+    agent_override: dict | None = None,
 ) -> dict:
     from benchmark_next_cleanup import cleanup_run
 
@@ -166,6 +167,8 @@ def execute_stage(
     config_path = folder / f"{name}.config.json"
     outcome_path = folder / f"{name}.outcome.json"
     data = job_config(root, config, row, group, name)
+    if agent_override is not None:
+        data["agents"] = [agent_override]
     if config_path.exists():
         if not resume or json.loads(config_path.read_text()) != data:
             raise ValueError(f"Existing stage has a different plan or needs --resume: {name}")

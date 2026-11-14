@@ -1,0 +1,13 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "install-windows-3.11": {
+      "files": [{
+        "name": "qemu-5.2.0.tar.xz",
+        "url": "https://download.qemu.org/qemu-5.2.0.tar.xz",
+        "tar_version": {"member": "qemu-5.2.0/VERSION", "value": "5.2.0"}
+      }],
+      "source": "QEMU release archive explicitly downloaded by the official reference. The cache contains source and upstream firmware assets, not a compiled task solution."
+    }
+  }
+}

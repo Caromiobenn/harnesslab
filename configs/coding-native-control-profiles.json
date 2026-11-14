@@ -428,6 +428,16 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "install-windows-3.11": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin",
+        "/usr/local/share/qemu",
+        "/etc/supervisor",
+        "/etc/nginx",
+        "/opt/harnesslab-public-downloads/cache-hits.jsonl"
+      ]
     }
   }
 }

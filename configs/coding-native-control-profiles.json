@@ -304,12 +304,41 @@
       ]
     },
     "chess-best-move": {
-      "capture_paths": ["/app"]
+      "capture_paths": [
+        "/app"
+      ]
     },
     "gcode-to-text": {
-      "capture_paths": ["/app"]
+      "capture_paths": [
+        "/app"
+      ]
     },
     "make-doom-for-mips": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "fix-code-vulnerability": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "log-summary-date-ranges": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "openssl-selfsigned-cert": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "polyglot-c-py": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "sqlite-db-truncate": {
       "capture_paths": [
         "/app"
       ]

@@ -252,4 +252,7 @@ Path({(CONTROL + "/submission.json")!r}).write_text(json.dumps(record))
                 self._verifier_bootstrap = False
                 save_json(self._logs / "verifier-prerequisites.json", self.entry["verifier"])
             kwargs["env"] = {**(kwargs.get("env") or {}), **self._study_verifier_env}
+            for name, value in self.entry["verifier"]["env"].items():
+                if value is None:
+                    kwargs["env"].pop(name, None)
         return await super().exec(command, **kwargs)

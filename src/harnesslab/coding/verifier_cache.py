@@ -58,6 +58,7 @@ async def prepare_verifier(environment, spec: dict, control: str, python: str) -
     )
     await environment.root_command("chmod 755 " + directory + "/curl")
     env = {**verifier_environment(), **spec["env"]}
+    env = {name: value for name, value in env.items() if value is not None}
     shell_path = (await environment.root_command("printf '%s' \"$PATH\"")).stdout.strip()
     # uvx's explicit -p 3.13 overrides UV_PYTHON; expose the already-pinned
     # interpreter as a fallback while preserving the image's Python precedence.

@@ -200,7 +200,11 @@ def test_official_verifier_uses_cache_after_submission_once(native, tmp_path, mo
 
     _, environment, calls, _ = native
     prepared = []
-    environment.entry["verifier"] = {"archives": ["pinned-public-cache"]}
+    environment.entry["verifier"] = {
+        "archives": ["pinned-public-cache"],
+        "env": {"UV_PYTHON": None},
+    }
+    environment._runtime_env["UV_PYTHON"] = "/actor/python"
     environment._logs = tmp_path
     environment._actor_active = True
 
@@ -213,12 +217,13 @@ def test_official_verifier_uses_cache_after_submission_once(native, tmp_path, mo
     async def scenario():
         await environment.exec("ls /tests/test.sh")
         assert not prepared
+        assert calls[-1][2]["env"]["UV_PYTHON"] == "/actor/python"
         environment._actor_active = False
         await environment.exec("bash /tests/test.sh", env={"TEST_VALUE": "preserved"})
         await environment.exec("bash /tests/test.sh")
 
     asyncio.run(scenario())
-    assert prepared == [{"archives": ["pinned-public-cache"]}]
+    assert prepared == [environment.entry["verifier"]]
     assert not environment._verifier_bootstrap
     assert calls[-2][2]["env"] == {
         "TEST_VALUE": "preserved",

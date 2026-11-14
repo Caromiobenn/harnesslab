@@ -87,8 +87,9 @@ def test_cached_curl_preserves_options_output_and_unknown_urls(tmp_path):
 
 
 @pytest.mark.parametrize("python_downloads", [False, True])
+@pytest.mark.parametrize("unset_python", [False, True])
 def test_verifier_preparation_initializes_upload_directory_and_cached_environment(
-    tmp_path, monkeypatch, python_downloads
+    tmp_path, monkeypatch, python_downloads, unset_python
 ):
     events = []
     files = {}
@@ -135,6 +136,8 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
         "downloads": {},
         "env": {"UV_OFFLINE": "1"},
     }
+    if unset_python:
+        spec["env"]["UV_PYTHON"] = None
     if python_downloads:
         spec["python_downloads"] = {
             "https://example.test/input.zip": {"path": "/public.zip", "sha256": "fixed"}
@@ -149,6 +152,8 @@ def test_verifier_preparation_initializes_upload_directory_and_cached_environmen
         "PATH": "/controller/verifier-bin:/pinned-bootstrap/uv-x86_64-unknown-linux-gnu:"
         "/image/bin:/usr/bin:/pinned-bootstrap/python313/bin",
     }
+    if unset_python:
+        expected.pop("UV_PYTHON")
     if python_downloads:
         expected["PYTHONPATH"] = "/controller/verifier-python:/existing-helper"
         assert "urlopen" in files["/controller/verifier-python/sitecustomize.py"]

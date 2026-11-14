@@ -223,7 +223,10 @@
     "reshard-c4-data": {
       "capture_paths": [
         "/app"
-      ]
+      ],
+      "verifier_env": {
+        "UV_PYTHON": null
+      }
     },
     "sparql-university": {
       "capture_paths": [

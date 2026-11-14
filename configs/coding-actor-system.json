@@ -153,6 +153,13 @@
         "liblmdb-dev"
       ],
       "download_timeout_sec": 1800
+    },
+    "mcmc-sampling-stan": {
+      "packages": [
+        "gfortran",
+        "liblapack-dev",
+        "libblas-dev"
+      ]
     }
   }
 }

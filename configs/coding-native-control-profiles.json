@@ -454,6 +454,12 @@
         "/app",
         "/opt/harnesslab-public-downloads/cache-hits.jsonl"
       ]
+    },
+    "mcmc-sampling-stan": {
+      "capture_paths": [
+        "/app",
+        "/opt/harnesslab-public-r/cache-hits.txt"
+      ]
     }
   }
 }

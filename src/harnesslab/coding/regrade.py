@@ -43,6 +43,9 @@ def unchanged_submission(path: Path, expected_sha: str) -> dict:
 
 
 class UnchangedSubmissionRegrader(NativeEmptyControl):
+    validate_submission = staticmethod(unchanged_submission)
+    method = "unchanged-filesystem-submission"
+
     @staticmethod
     def name():
         return "harnesslab-unchanged-submission-regrader"
@@ -53,7 +56,7 @@ class UnchangedSubmissionRegrader(NativeEmptyControl):
         self.source_sha256 = source_sha256
 
     async def setup(self, environment):
-        self.saved = unchanged_submission(self.source_manifest, self.source_sha256)
+        self.saved = self.validate_submission(self.source_manifest, self.source_sha256)
         if (
             environment.entry != self.saved["prerequisites"]
             or environment._source_fingerprint != self.saved["source_fingerprint"]
@@ -72,11 +75,14 @@ class UnchangedSubmissionRegrader(NativeEmptyControl):
     async def run(self, instruction, environment, context):
         await super().run(instruction, environment, context)
         fresh_path = self.logs_dir / "submission/manifest.json"
-        fresh = unchanged_submission(fresh_path, digest(fresh_path))
-        if fresh["baseline_sha256"] != self.saved["baseline_sha256"]:
+        fresh = self.validate_submission(fresh_path, digest(fresh_path))
+        if any(
+            fresh[key] != self.saved[key]
+            for key in ("baseline_sha256", "changed", "removed", "archived_files")
+        ):
             raise ValueError("Captured submission changed before regrading")
         record = {
-            "method": "unchanged-filesystem-submission",
+            "method": self.method,
             "source_manifest": str(self.source_manifest),
             "source_sha256": self.source_sha256,
             "baseline_sha256": fresh["baseline_sha256"],
@@ -84,3 +90,57 @@ class UnchangedSubmissionRegrader(NativeEmptyControl):
         }
         context.metadata = record
         save_json(self.logs_dir / "regrade-provenance.json", record)
+
+
+def file_submission(path, expected_sha):
+    from harnesslab.coding.submission_restore import file_members
+
+    manifest = checked_json(path, expected_sha)
+    baseline = json.loads((path.parent / "baseline.json").read_text())
+    if (
+        hashlib.sha256(json.dumps(baseline, sort_keys=True).encode()).hexdigest()
+        != manifest["baseline_sha256"]
+    ):
+        raise ValueError("Saved baseline changed")
+    archive = path.parent / manifest["archive"]
+    if digest(archive) != manifest["sha256"] or archive.stat().st_size != manifest["bytes"]:
+        raise ValueError("Saved submission archive changed")
+    file_members(manifest, archive)
+    return manifest
+
+
+class FileSubmissionRegrader(UnchangedSubmissionRegrader):
+    validate_submission = staticmethod(file_submission)
+    method = "restored-filesystem-submission"
+
+    @staticmethod
+    def name():
+        return "harnesslab-file-submission-regrader"
+
+    async def run(self, instruction, environment, context):
+        from harnesslab.coding.native_environment import CONTROL
+
+        remote_archive = CONTROL + "/saved-submission.tar.gz"
+        await environment.upload_archive(
+            self.source_manifest.parent / self.saved["archive"],
+            self.saved["sha256"],
+            remote_archive,
+        )
+        module = Path(__file__).with_name("submission_restore.py").read_text()
+        # The sandbox helper is standalone; submission_delta.py is already installed there.
+        module = module.replace("from harnesslab.coding.submission_delta", "from submission_delta")
+        await environment._sandbox.files.write(CONTROL + "/submission_restore.py", module)
+        await environment._sandbox.files.write(
+            CONTROL + "/saved-manifest.json", json.dumps(self.saved)
+        )
+        code = f"""import json,sys
+from pathlib import Path
+sys.path.insert(0,{CONTROL!r})
+from submission_restore import restore_file_delta
+baseline=json.loads(Path({(CONTROL + "/baseline.json")!r}).read_text())
+manifest=json.loads(Path({(CONTROL + "/saved-manifest.json")!r}).read_text())
+print(json.dumps(restore_file_delta(Path('/'),baseline,manifest,Path({remote_archive!r}))))
+"""
+        result = await environment.python_command(code, timeout=300)
+        save_json(self.logs_dir / "restore-result.json", json.loads(result.stdout))
+        await super().run(instruction, environment, context)

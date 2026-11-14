@@ -5,7 +5,7 @@ from pathlib import Path
 
 from harnesslab.coding.config import CodingConfig, configure_runtime, project_root, save_json
 from harnesslab.coding.native_controls import official_control_result
-from harnesslab.coding.regrade import unchanged_submission
+from harnesslab.coding.regrade import file_submission, unchanged_submission
 from harnesslab.coding.reuse import checked_json
 from harnesslab.coding.runner import execute_stage, task_plan
 
@@ -18,6 +18,8 @@ def main():
     root = project_root()
     configure_runtime(root)
     selection = checked_json(args.selection, args.selection_sha256)
+    restore_files = selection.get("method") == "restore_files"
+    validate = file_submission if restore_files else unchanged_submission
     folder = root / "artifacts/regrades" / selection["run"]
     if folder.exists():
         raise ValueError("Regrade results are immutable; inspect the existing run")
@@ -25,7 +27,7 @@ def main():
     outcomes = []
     for index, reference in enumerate(selection["sources"]):
         original = checked_json(Path(reference["outcome"]), reference["outcome_sha256"])
-        manifest = unchanged_submission(Path(reference["manifest"]), reference["manifest_sha256"])
+        manifest = validate(Path(reference["manifest"]), reference["manifest_sha256"])
         config = CodingConfig.model_validate(original["agent_result"]["metadata"]["configuration"])
         config = config.model_copy(
             update={
@@ -46,7 +48,8 @@ def main():
             index,
             False,
             agent_override={
-                "import_path": "harnesslab.coding.regrade:UnchangedSubmissionRegrader",
+                "import_path": "harnesslab.coding.regrade:"
+                + ("FileSubmissionRegrader" if restore_files else "UnchangedSubmissionRegrader"),
                 "kwargs": {
                     "network_mode": original["network_mode"],
                     "source_manifest": reference["manifest"],

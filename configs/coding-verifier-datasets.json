@@ -1,0 +1,13 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "reshard-c4-data": {
+      "repository": "allenai/c4",
+      "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+      "data_files": {"train": ["en/c4-train.00009-of-01024.json.gz"]},
+      "split": "train",
+      "sha256": {"en/c4-train.00009-of-01024.json.gz": "807a548efbb10153c9eff0df5733a97a1b51ab1743242530de1b02a8ea17ace7"},
+      "source": "https://huggingface.co/datasets/allenai/c4/blob/1588ec454efa1a09f29cd18ddd04fe05fc8653a2/en/c4-train.00009-of-01024.json.gz"
+    }
+  }
+}

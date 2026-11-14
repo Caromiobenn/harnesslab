@@ -16,14 +16,22 @@ def builder():
     return module
 
 
-def test_offline_probe_is_valid_python_and_keeps_public_index_available(builder):
+@pytest.mark.parametrize("system_python", [False, True])
+def test_offline_probe_is_valid_python_and_keeps_public_index_available(builder, system_python):
     # Probe Python executes the real import/version check without downloading anything.
     online, offline, env = builder.package_commands(
-        "/image/bin/python", {"packages": ["pytest==8.4.1"], "import_modules": ["pytest"]}
+        "/image/bin/python3",
+        {
+            "packages": ["pytest==8.4.1"],
+            "import_modules": ["pytest"],
+            "break_system_packages": system_python,
+        },
     )
     assert "pip download" in online and "pip install" not in online
     assert "pip install pytest==8.4.1" in offline and "--no-index" not in offline
     assert env["PIP_FIND_LINKS"] == builder.PREFIX and "PIP_NO_INDEX" not in env
+    assert ("--break-system-packages" in offline) == system_python
+    assert "--break-system-packages" not in online
     command = shlex.split(offline.split(" && ", 1)[1])
     result = subprocess.run([sys.executable, *command[1:]], capture_output=True, text=True)
     assert result.returncode == 0 and '"pytest"' in result.stdout

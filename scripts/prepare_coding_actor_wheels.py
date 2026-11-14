@@ -12,6 +12,7 @@ import shlex
 from pathlib import Path
 
 from harnesslab.coding.config import configure_runtime, project_root, save_json
+from harnesslab.coding.native_controls import public_cache
 
 PREFIX = "/opt/harnesslab-public-wheels"
 PART_SIZE = 16 * 1024 * 1024
@@ -40,15 +41,18 @@ def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
         "PIP_TIMEOUT": "5",
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
     }
+    install_flag = " --break-system-packages" if recipe.get("break_system_packages") else ""
     return (
         f"{shlex.quote(python)} -m pip download --dest {PREFIX} {names}",
-        f"{shlex.quote(python)} -m pip install {names} && "
+        f"{shlex.quote(python)} -m pip install {names}{install_flag} && "
         f"{shlex.quote(python)} -c {shlex.quote(checks)}",
         env,
     )
 
 
-async def prepare_one(root: Path, dataset: Path, run: str, task: str, recipe: dict) -> dict:
+async def prepare_one(
+    root: Path, dataset: Path, run: str, task: str, recipe: dict, ledger: dict | None = None
+) -> dict:
     from benchmark_next_cleanup import cleanup_run
     from benchmark_next_environment import source_fingerprint
     from harbor.models.task.config import TaskConfig
@@ -67,18 +71,21 @@ async def prepare_one(root: Path, dataset: Path, run: str, task: str, recipe: di
     if folder.exists():
         raise ValueError("Inspect the previous preparation before selecting another run")
     profile = folder / "profile.json"
+    entry = {
+        "runtime_profile": "native",
+        "source_fingerprint": fingerprint,
+        "capture_paths": ["/app"],
+        "archives": [],
+    }
+    system = None
+    if recipe.get("system_packages"):
+        system = public_cache(root, ledger["families"]["actor_system"][task])
+        if system["source_fingerprint"] != fingerprint:
+            raise ValueError("Public system installer image differs from task image")
+        entry.update(archives=[system["archive"]], env=system["env"])
     save_json(
         profile,
-        {
-            "tasks": {
-                task: {
-                    "runtime_profile": "native",
-                    "source_fingerprint": fingerprint,
-                    "capture_paths": ["/app"],
-                    "archives": [],
-                }
-            }
-        },
+        {"tasks": {task: entry}},
     )
     identity = run + "-" + task
     environment = NativeStudyEnvironment(
@@ -107,7 +114,9 @@ async def prepare_one(root: Path, dataset: Path, run: str, task: str, recipe: di
         owned.add(environment._sandbox.sandbox_id)
         result["sandbox_id"] = environment._sandbox.sandbox_id
         save_json(folder / "receipt.json", result)
-        python = (await environment.root_command("command -v python")).stdout.strip()
+        python = (
+            await environment.root_command("command -v python || command -v python3")
+        ).stdout.strip()
         online_command, offline_command, env = package_commands(python, recipe)
         await environment.root_command("mkdir -p " + PREFIX)
         (folder / "prepare.sh").write_text(online_command + "\n")
@@ -117,8 +126,21 @@ async def prepare_one(root: Path, dataset: Path, run: str, task: str, recipe: di
         if online.return_code:
             raise RuntimeError("Public actor dependency download failed")
         await environment._sandbox.update_network({"allow_internet_access": False, "allow_out": []})
+        offline_env = dict(env)
+        if system:
+            offline_env.update(system["env"])
+            offline_env.update(system["offline_env"])
+            offline_command = (
+                "apt-get update && apt-get install -y "
+                + shlex.join(recipe["system_packages"])
+                + " && "
+                + offline_command
+            )
+            result["system_cache_receipt_sha256"] = ledger["families"]["actor_system"][task][
+                "receipt_sha256"
+            ]
         (folder / "offline.sh").write_text(offline_command + "\n")
-        offline = await environment.exec(offline_command, env=env, timeout_sec=600)
+        offline = await environment.exec(offline_command, env=offline_env, timeout_sec=600)
         (folder / "offline.stdout").write_text(offline.stdout or "")
         (folder / "offline.stderr").write_text(offline.stderr or "")
         if offline.return_code:
@@ -196,6 +218,7 @@ print(json.dumps({{'sha256':digest,'bytes':archive.stat().st_size,'parts':parts,
 async def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=Path, required=True)
+    parser.add_argument("--cache-ledger", type=Path)
     parser.add_argument("--run", required=True)
     parser.add_argument("--tasks", nargs="+", required=True)
     args = parser.parse_args()
@@ -205,14 +228,21 @@ async def main():
     configure_runtime(root)
     os.environ.pop("BENCHMARK_NEXT_RUN", None)
     profiles = json.loads((root / "configs/coding-actor-packages.json").read_text())
+    ledger = json.loads(args.cache_ledger.read_text()) if args.cache_ledger else None
     provenance = json.loads((args.dataset / "provenance.json").read_text())
     if profiles["benchmark_revision"] != provenance["revision"]:
         raise ValueError("Package profiles belong to a different task revision")
+    if any(profiles["tasks"][task].get("system_packages") for task in args.tasks) and (
+        ledger is None or ledger["benchmark_revision"] != provenance["revision"]
+    ):
+        raise ValueError("System-dependent Python probes require a matching public cache ledger")
     gate = asyncio.Semaphore(2)
 
     async def one(task):
         async with gate:
-            return await prepare_one(root, args.dataset, args.run, task, profiles["tasks"][task])
+            return await prepare_one(
+                root, args.dataset, args.run, task, profiles["tasks"][task], ledger
+            )
 
     results = await asyncio.gather(*(one(task) for task in args.tasks))
     save_json(

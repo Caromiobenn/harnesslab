@@ -11,6 +11,19 @@
       "import_modules": ["eigenpy"],
       "source": "Public library version used by the official reference runtime; cache includes installers, no reference implementation."
     },
+    "chess-best-move": {
+      "packages": ["numpy==2.3.2", "python-chess==1.2.0"],
+      "import_modules": ["numpy", "chess"],
+      "break_system_packages": true,
+      "system_packages": ["stockfish"],
+      "source": "Exact public dependency pins from the official reference installation commands; no task solution is cached."
+    },
+    "gcode-to-text": {
+      "packages": ["matplotlib==3.10.7", "pytesseract==0.3.13", "pillow==12.0.0", "opencv-python==4.12.0.88"],
+      "import_modules": ["matplotlib", "pytesseract", "PIL", "cv2"],
+      "system_packages": ["python3-opencv", "tesseract-ocr", "libtesseract-dev"],
+      "source": "Exact public dependency pins from the official reference installation commands; OpenCV system dependencies are probed with the accepted public APT cache."
+    },
     "count-dataset-tokens": {
       "packages": ["datasets==4.0.0", "transformers==4.56.0", "jinja2==3.1.6"],
       "import_modules": ["datasets", "transformers", "jinja2"],

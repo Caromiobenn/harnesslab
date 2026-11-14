@@ -379,6 +379,21 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "mailman": {
+      "capture_paths": [
+        "/app",
+        "/etc/postfix",
+        "/etc/mailman3",
+        "/etc/mailname",
+        "/etc/passwd",
+        "/etc/group",
+        "/etc/shadow",
+        "/etc/gshadow",
+        "/var/lib/mailman3",
+        "/var/mail",
+        "/usr/lib/mailman3/configure_list.py"
+      ]
     }
   }
 }

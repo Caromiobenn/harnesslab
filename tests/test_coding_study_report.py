@@ -1,5 +1,6 @@
 """Official scores and integration errors use independent denominators."""
 
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -60,3 +61,103 @@ def test_case_comparison_keeps_scored_errors_visible(tmp_path):
     report = reporter.make_report(tmp_path, config, ["first"])
     assert report["case_candidates"][0]["label"] == "regression_to_inspect"
     assert report["case_candidates"][0]["treatment_pipeline_ok"] is False
+
+
+@pytest.fixture
+def regraded(tmp_path):
+    config = {"tasks": ["task"], "groups": ["deepagents_default"], "repeats": 1}
+    outcome(tmp_path, "first", "task", None, False, "deepagents_default", tokens=30)
+    path = tmp_path / "artifacts/coding/first/task-deepagents_default.outcome.json"
+    row = json.loads(path.read_text())
+    row.update(
+        exception={"exception_type": "OpenAITimeoutError"},
+        agent_result={
+            "metadata": {
+                "started_model_calls": 4,
+                "configuration": {"response_transport": "non_streaming"},
+            }
+        },
+    )
+    row["metrics"]["model_responses"] = 3
+    path.write_text(json.dumps(row))
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text('{"fixture":"unchanged submission"}')
+
+    def sha(file):
+        return hashlib.sha256(file.read_bytes()).hexdigest()
+
+    trial = tmp_path / "regrade"
+    (trial / "agent").mkdir(parents=True)
+    (trial / "verifier").mkdir()
+    (trial / "agent/regrade-provenance.json").write_text(
+        json.dumps({"source_sha256": sha(manifest), "model_calls": 0})
+    )
+    (trial / "result.json").write_text(json.dumps({"verifier_result": {"rewards": {"reward": 0}}}))
+    tests = {"tests": 9, "passed": 0, "failed": 9}
+    (trial / "verifier/ctrf.json").write_text(json.dumps({"results": {"summary": tests}}))
+    ledger = {
+        "ok": True,
+        "expected": 1,
+        "outcomes": [
+            {
+                "cell": ["offline", "task", "deepagents_default", 0],
+                "accepted": True,
+                "model_calls": 0,
+                "reward": 0,
+                "ctrf_summary": tests,
+                "source": {
+                    "outcome": str(path),
+                    "outcome_sha256": sha(path),
+                    "manifest": str(manifest),
+                    "manifest_sha256": sha(manifest),
+                },
+                "regrade": {"pipeline_ok": True, "cleanup_verified": True, "trial": str(trial)},
+            }
+        ],
+    }
+    ledger_path = tmp_path / "regrades.json"
+    ledger_path.write_text(json.dumps(ledger))
+    return config, path, ledger_path, ledger
+
+
+def test_regrade_recovers_score_without_erasing_error_or_counting_another_attempt(
+    tmp_path, regraded
+):
+    config, original, ledger_path, _ = regraded
+    before = original.read_bytes()
+    report = reporter.make_report(tmp_path, config, ["first"], [ledger_path])
+    (row,) = report["trials"]
+    assert row["reward"] == 0 and row["original_reward"] is None
+    assert row["error_type"] == "OpenAITimeoutError" and row["pipeline_ok"] is False
+    assert row["usage_completeness"] == "partial"
+    group = next(g for g in report["groups"] if g["network"] == "offline")
+    assert (
+        group["valid_scored_cells"]
+        == group["scored_pipeline_error_cells"]
+        == group["regraded_cells"]
+        == 1
+    )
+    assert group["all_ended_attempt_usage"]["output_tokens"]["sum"] == 30
+    assert group["ended_attempts_including_replacements"] == 1
+    assert original.read_bytes() == before
+
+
+@pytest.mark.parametrize("change", ["source", "existing_score", "duplicate", "manifest"])
+def test_report_rejects_invalid_or_duplicated_regrade_provenance(tmp_path, regraded, change):
+    config, original, ledger_path, ledger = regraded
+    paths = [ledger_path]
+    if change in ("source", "existing_score"):
+        row = json.loads(original.read_text())
+        row["reward"] = 1
+        original.write_text(json.dumps(row))
+        if change == "existing_score":
+            ledger["outcomes"][0]["source"]["outcome_sha256"] = hashlib.sha256(
+                original.read_bytes()
+            ).hexdigest()
+            ledger_path.write_text(json.dumps(ledger))
+    elif change == "duplicate":
+        paths.append(ledger_path)
+    else:
+        Path(ledger["outcomes"][0]["source"]["manifest"]).write_text("{}")
+    with pytest.raises(ValueError):
+        reporter.make_report(tmp_path, config, ["first"], paths)

@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 from statistics import mean, median
 
@@ -54,7 +55,48 @@ def distribution(values):
     }
 
 
-def make_report(root, config, batches):
+def regrade_scores(paths):
+    index = {}
+    for path in paths:
+        ledger = read_json(Path(path))
+        if not ledger["ok"] or len(ledger["outcomes"]) != ledger["expected"]:
+            raise ValueError("Regrade ledger is incomplete")
+        for row in ledger["outcomes"]:
+            source = row["source"]
+            original = Path(source["outcome"]).resolve()
+            if hashlib.sha256(original.read_bytes()).hexdigest() != source["outcome_sha256"]:
+                raise ValueError("Regraded source outcome changed")
+            if (
+                hashlib.sha256(Path(source["manifest"]).read_bytes()).hexdigest()
+                != source["manifest_sha256"]
+            ):
+                raise ValueError("Regraded submission manifest changed")
+            result = row["regrade"]
+            trial = Path(result["trial"])
+            provenance = read_json(trial / "agent/regrade-provenance.json")
+            official = read_json(trial / "result.json")
+            tests = read_json(trial / "verifier/ctrf.json")["results"]["summary"]
+            if (
+                original in index
+                or not row["accepted"]
+                or row["model_calls"] != 0
+                or not result["pipeline_ok"]
+                or not result["cleanup_verified"]
+                or not row["ctrf_summary"]["tests"]
+                or tests != row["ctrf_summary"]
+                or provenance["model_calls"] != 0
+                or provenance["source_sha256"] != source["manifest_sha256"]
+                or official["verifier_result"]["rewards"]["reward"] != row["reward"]
+                or row["reward"] is None
+            ):
+                raise ValueError("Regrade lacks unique official score and provenance")
+            index[original] = row
+    return index
+
+
+def make_report(root, config, batches, regrades=()):
+    recovered = regrade_scores(regrades)
+    used_regrades = set()
     records = []
     for batch in batches:
         for path in sorted((root / "artifacts/coding" / batch).glob("*.outcome.json")):
@@ -62,6 +104,16 @@ def make_report(root, config, batches):
             if row.get("group") not in config["groups"]:
                 continue
             metrics = row.get("metrics") or {}
+            regrade = recovered.get(path.resolve())
+            if regrade is not None:
+                if row["reward"] is not None or regrade["cell"] != [
+                    row["network_mode"],
+                    row["task"],
+                    row["group"],
+                    row["repeat"],
+                ]:
+                    raise ValueError("Regrades cannot replace an existing score or another cell")
+                used_regrades.add(path.resolve())
             trial = Path(row["trial"]) if row.get("trial") else None
             saved_metrics = trial / "agent/metrics.json" if trial else None
             if not metrics and saved_metrics and saved_metrics.exists():
@@ -72,6 +124,9 @@ def make_report(root, config, batches):
                 read_json(monitoring_path) if monitoring_path and monitoring_path.exists() else {}
             )
             lengths = metrics.get("tokens_and_lengths") or {}
+            metadata = (row.get("agent_result") or {}).get("metadata") or {}
+            started = metadata.get("started_model_calls")
+            received = metrics.get("model_responses")
             record = {
                 "task": row["task"],
                 "group": row["group"],
@@ -80,7 +135,17 @@ def make_report(root, config, batches):
                 "batch": batch,
                 "job_name": row["job_name"],
                 "pipeline_ok": row["pipeline_ok"],
-                "reward": row["reward"],
+                "reward": regrade["reward"] if regrade else row["reward"],
+                "original_reward": row["reward"],
+                "score_source": "saved_submission_regrade" if regrade else "original_verifier",
+                "regrade_trial": regrade["regrade"]["trial"] if regrade else None,
+                "response_transport": (metadata.get("configuration") or {}).get(
+                    "response_transport", "non_streaming"
+                ),
+                "started_model_calls": started,
+                "usage_completeness": ("partial" if started > received else "complete")
+                if started is not None and received is not None
+                else "not_reported",
                 "deadline_stop": (row.get("exception") or {}).get("exception_type")
                 == "AgentTimeoutError",
                 "error_type": (row.get("exception") or {}).get("exception_type"),
@@ -111,6 +176,8 @@ def make_report(root, config, batches):
                 grader_output_tokens=(roles.get("grader") or {}).get("output_tokens"),
             )
             records.append(record)
+    if used_regrades != set(recovered):
+        raise ValueError("A regraded cell is outside the selected report batches")
     cells = defaultdict(list)
     for row in records:
         cells[(row["network"], row["task"], row["group"], row["repeat"])].append(row)
@@ -146,6 +213,13 @@ def make_report(root, config, batches):
                     "successes": successes,
                     "success_rate": successes / len(valid) if valid else None,
                     "deadline_stops": sum(r["deadline_stop"] for r in rows),
+                    "regraded_cells": sum(
+                        r["score_source"] == "saved_submission_regrade" for r in rows
+                    ),
+                    "partial_usage_trials": sum(
+                        r["usage_completeness"] == "partial" for r in all_rows
+                    ),
+                    "transport_counts": dict(Counter(r["response_transport"] for r in rows)),
                     "ended_attempts_including_replacements": len(all_rows),
                     "all_ended_attempt_usage": usage,
                     "output_tokens_per_success": usage["output_tokens"]["sum"] / successes
@@ -236,6 +310,14 @@ def make_report(root, config, batches):
                 "Scored cells with a separate integration error; retained in the score denominator."
             ),
             "usage": "All ended attempts, including infrastructure failures.",
+            "partial_usage": (
+                "Started requests without a complete response may have unreported billable usage; "
+                "recorded totals are observed usage only."
+            ),
+            "regrades": (
+                "Saved-submission scores retain the original pipeline error and original actor "
+                "usage; no second actor attempt is added."
+            ),
             "missing": "Missing measurements stay null; observed_trials is the metric denominator.",
             "cases": "Inspection candidates, not causal explanations or hacking verdicts.",
             "repetitions": "One independent attempt per cell; no best-of-N selection.",
@@ -249,8 +331,9 @@ def main():
     parser.add_argument("--config", default="configs/coding-tb21-study.json")
     parser.add_argument("--batches", nargs="+", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--regrades", type=Path, nargs="*", default=[])
     args = parser.parse_args()
-    report = make_report(args.root, read_json(args.root / args.config), args.batches)
+    report = make_report(args.root, read_json(args.root / args.config), args.batches, args.regrades)
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False))
     if report["trials"]:

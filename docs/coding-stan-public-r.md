@@ -25,8 +25,14 @@ Four unchanged official empty/reference controls are required before model execu
 
 The first preparation (job 1209632) downloaded and verified 48 source packages, then stopped
 at R startup because `assignInNamespace` was referenced before utils was attached. The profile
-now uses `utils::assignInNamespace` explicitly. The failed instance was deleted and verified
-absent, with zero model calls; the accepted system-package archive is reused.
+used `utils::assignInNamespace` explicitly in the next attempt. Job 1209642 then showed that
+this helper refuses to replace utils' locked binding. Both failed instances were deleted and
+verified absent, with zero model calls; the accepted system-package archive is reused.
+
+The profile now explicitly unlocks, assigns and relocks only utils' `download.file` binding.
+Native-image canary 1209650 verified R startup, cached-file retrieval and fallback to the original
+download implementation. A second check changed the cached bytes and confirmed rejection.
+The canary completed in nine seconds, made zero model calls and verified instance deletion.
 
 Source: [remotes 2.5.0 download implementation](https://github.com/r-lib/remotes/blob/v2.5.0/R/download.R),
 which calls `utils::download.file` for the R version in the task image.

@@ -128,7 +128,10 @@ profile="""local({{
         file={json.dumps(PREFIX + "/cache-hits.txt")}, append=TRUE)
     invisible(0L)
   }}
-  utils::assignInNamespace('download.file', transfer, ns='utils')
+  namespace <- asNamespace('utils')
+  unlockBinding('download.file', namespace)
+  assign('download.file', transfer, envir=namespace)
+  lockBinding('download.file', namespace)
 }})
 """
 (prefix/'profile.R').write_text(profile)

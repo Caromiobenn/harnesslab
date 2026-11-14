@@ -358,6 +358,17 @@
       "capture_paths": [
         "/app"
       ]
+    },
+    "mteb-leaderboard": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "train-fasttext": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin"
+      ]
     }
   }
 }

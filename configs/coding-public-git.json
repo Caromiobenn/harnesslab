@@ -1,0 +1,20 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "mteb-leaderboard": {
+      "url": "https://github.com/embeddings-benchmark/results",
+      "aliases": ["https://github.com/embeddings-benchmark/results.git"],
+      "revision": "c0fd3271442f8c0c839084a109fede85c8514dab",
+      "required_paths": ["results"],
+      "source": "Historical August 2025 commit explicitly selected by the official reference."
+    },
+    "train-fasttext": {
+      "url": "https://github.com/facebookresearch/fastText.git",
+      "aliases": ["https://github.com/facebookresearch/fastText"],
+      "revision": "1142dc4c4ecbc19cc16eee5cdd28472e689267e6",
+      "required_paths": ["Makefile", "src"],
+      "system_packages": ["git", "build-essential"],
+      "source": "Public main revision from March 2024, verified through the upstream repository API; used for both actor and verifier clones."
+    }
+  }
+}

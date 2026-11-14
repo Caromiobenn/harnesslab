@@ -104,6 +104,18 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
                 offline_env={"APT_CONFIG": "/public-apt/offline.conf"},
             )
         }
+        families["actor_git"] = {
+            "task": cache_origin(
+                tmp_path,
+                "public-git",
+                source_fingerprint="image",
+                env={
+                    "GIT_CONFIG_COUNT": "1",
+                    "GIT_CONFIG_KEY_0": "url.file:///public.git.insteadOf",
+                    "GIT_CONFIG_VALUE_0": "https://example.invalid/public",
+                },
+            )
+        }
         families["verifier_inputs"] = {
             "task": cache_origin(
                 tmp_path,
@@ -121,13 +133,16 @@ def test_task_profile_joins_only_matching_public_prerequisites(tmp_path, custom)
         }
     row = {"task": "task", "path": str(task), "source_fingerprint": "image"}
     profile = task_prerequisites(tmp_path / "runtime", row, ["/app", "/etc/nginx"], ledger)
-    assert len(profile["archives"]) == 3 * int(custom)
+    assert len(profile["archives"]) == 4 * int(custom)
     assert "install_command" not in profile
     if custom:
         assert profile["env"] == {
             "PIP_FIND_LINKS": "/public-wheels",
             "HF_HOME": "/public-hub",
             "APT_CONFIG": "/public-apt/online.conf",
+            "GIT_CONFIG_COUNT": "1",
+            "GIT_CONFIG_KEY_0": "url.file:///public.git.insteadOf",
+            "GIT_CONFIG_VALUE_0": "https://example.invalid/public",
         }
         assert profile["offline_env"] == {
             "HF_HUB_OFFLINE": "1",

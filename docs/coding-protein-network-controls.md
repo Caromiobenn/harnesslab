@@ -30,3 +30,27 @@ setuptools build environment. The package cache now also downloads setuptools 80
 wheel 0.45.1 as build inputs. The original task installation command and source distributions
 remain unchanged; these extra wheels are available to pip's isolated build subprocess.
 The failed probe and verified instance cleanup are retained in its receipt.
+
+## Public reference compatibility
+
+Job 1209669 passed the offline package-installation probe. Its unmodified online reference
+then retrieved public task data but failed during sequence optimization: the RCSB entity
+responses for the selected donor and acceptor contain no `modified_monomer` features, leaving
+one unknown residue in each sequence. The independent component endpoint still returns the
+ordered parent residues for their encoded components. This is a reference/API compatibility
+failure, separately recorded from network access and model performance.
+
+`ProteinPublicReferenceControl` makes a labelled copy of the pinned reference script and adds
+one fallback: expand parenthesized component IDs using public `chemcomp` metadata when the
+original lookup leaves an unknown residue. It records original and patched source hashes.
+It uses no scoring constants or cached retrieval answers. The official task files, reference
+source, verifier and model-facing inputs remain unchanged.
+
+`run_coding_reference_compatibility.py` requires the four completed original controls, keeps
+their outcomes in `reference_network_observations`, and checks the accepted empty submissions.
+It executes the compatibility reference online, then restores that accepted submission into
+a fresh offline instance through `FileSubmissionRegrader`. Both positive controls must pass
+the unchanged official assertions with verified cleanup. The offline result establishes
+grading of a valid saved submission, not independent offline solution of the task. Control
+records label these two methods explicitly; model groups receive neither reference copy nor
+reference submission. Runtime acceptance is established by the resulting receipt, not this plan.

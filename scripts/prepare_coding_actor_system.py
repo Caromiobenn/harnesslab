@@ -161,17 +161,25 @@ for path in sorted((prefix/'repo/debs').glob('*.deb')):
     files[path.name]={{'sha256':digest,'bytes':path.stat().st_size,
         'metadata':subprocess.check_output(['dpkg-deb','-f',str(path)],text=True)}}
 (prefix/'files.json').write_text(json.dumps(files,sort_keys=True))
+indexes={{}}
+for path in Path('/var/lib/apt/lists').glob('*harnesslab-public-apt*'):
+    if path.is_file():
+        with path.open('rb') as stream: digest=hashlib.file_digest(stream,'sha256').hexdigest()
+        indexes[str(path)]={{'sha256':digest,'bytes':path.stat().st_size}}
 archive=Path('/tmp/verifier-system.tar.gz')
 with tarfile.open(archive,'w:gz') as stream:
     for name in ['repo','public-sources.list','public-sources.d','offline-sources.list',
                  'empty-sources.d','apt-public.conf','apt-offline.conf','files.json']:
         stream.add(prefix/name,arcname=str(prefix/name).lstrip('/'))
+    for name in indexes:
+        stream.add(name,arcname=name.lstrip('/'))
 parts=[]
 with archive.open('rb') as stream:
     while data:=stream.read({PART_SIZE}):
         part=str(archive)+'.part-'+str(len(parts));Path(part).write_bytes(data);parts.append(part)
 with archive.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
-print(json.dumps({{'parts':parts,'files':files,'sha256':digest,'bytes':archive.stat().st_size}}))
+print(json.dumps({{'parts':parts,'files':files,'indexes':indexes,
+                  'sha256':digest,'bytes':archive.stat().st_size}}))
 """
         info = json.loads((await environment.python_command(code, timeout=300)).stdout)
         archive = folder / "system.tar.gz"
@@ -191,6 +199,7 @@ print(json.dumps({{'parts':parts,'files':files,'sha256':digest,'bytes':archive.s
                 "bytes": info["bytes"],
             },
             files=info["files"],
+            apt_indexes=info["indexes"],
             env=env,
             offline_env=offline_env,
         )

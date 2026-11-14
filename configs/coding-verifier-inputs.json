@@ -44,9 +44,11 @@
           "aliases": [
             "https://github.com/ChaoningZhang/MobileSAM/raw/master/weights/mobile_sam.pt"
           ],
-          "git_blob_sha1": "7ef2d090979fd9853adf17b7a99c8b94a1c5a6a7"
+          "git_blob_sha1": "7ef2d090979fd9853adf17b7a99c8b94a1c5a6a7",
+          "git_path": "weights/mobile_sam.pt"
         }
-      ]
+      ],
+      "git_revision": "34bbbfdface3c18e5221aa7de6032d7220c6c6a1"
     }
   }
 }

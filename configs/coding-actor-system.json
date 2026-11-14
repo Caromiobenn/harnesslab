@@ -151,7 +151,8 @@
         "libgflags-dev",
         "libgoogle-glog-dev",
         "liblmdb-dev"
-      ]
+      ],
+      "download_timeout_sec": 1800
     }
   }
 }

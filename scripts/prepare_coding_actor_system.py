@@ -66,6 +66,7 @@ async def prepare_one(
     name: str,
     packages: list[str],
     source_packages: list[str] | None = None,
+    download_timeout_sec: int = 600,
 ) -> dict:
     from benchmark_next_cleanup import cleanup_run
     from benchmark_next_environment import source_fingerprint
@@ -116,7 +117,7 @@ async def prepare_one(
         task_env_config=spec.environment,
         profile_file=".env.sandbox",
         image_map="configs/benchmark-images-next.json",
-        sandbox_timeout_secs=1800,
+        sandbox_timeout_secs=download_timeout_sec + 1200,
         prerequisites_manifest=str(profile.relative_to(root)),
     )
     result = {
@@ -124,6 +125,7 @@ async def prepare_one(
         "source_fingerprint": fingerprint,
         "packages": packages,
         "source_packages": source_packages,
+        "download_timeout_sec": download_timeout_sec,
         "ok": False,
         "model_calls": 0,
     }
@@ -147,7 +149,7 @@ async def prepare_one(
             + shlex.join(packages)
         )
         (folder / "prepare.sh").write_text(command + "\n")
-        output = await environment.exec(command, user="root", timeout_sec=600)
+        output = await environment.exec(command, user="root", timeout_sec=download_timeout_sec)
         (folder / "prepare.stdout").write_text(output.stdout or "")
         (folder / "prepare.stderr").write_text(output.stderr or "")
         if output.return_code:
@@ -319,6 +321,7 @@ async def main():
                 name,
                 profiles["tasks"][name]["packages"],
                 profiles["tasks"][name].get("source_packages"),
+                profiles["tasks"][name].get("download_timeout_sec", 600),
             )
 
     results = await asyncio.gather(*(one(name) for name in args.tasks))

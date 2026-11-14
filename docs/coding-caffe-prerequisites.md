@@ -15,6 +15,13 @@ The two network conditions use the same caches and official CPU, memory and dead
 Empty and reference controls must execute the unchanged official assertions in both modes
 before this task is added to the model matrix.
 
+The first preparation (job 1209583) verified the 170 MB raw-data archive, but the system-package
+download reached its 600-second preparation limit. A read-only check immediately beforehand
+found 305 MiB of downloaded packages and an active APT downloader. Its instance was deleted
+and verified absent; no model was called. The Caffe profile now permits 1,800 seconds for this
+one-time package download and reuses the already accepted CIFAR archive. The official actor
+and verifier time limits are unchanged.
+
 Sources: [BVLC revision](https://github.com/BVLC/caffe/commit/9b891540183ddc834a02b2bd81b31afae71b2153),
 [upstream download script](https://github.com/BVLC/caffe/blob/9b891540183ddc834a02b2bd81b31afae71b2153/data/cifar10/get_cifar10.sh),
 [CIFAR-10 publisher and checksum](https://www.cs.toronto.edu/~kriz/cifar.html).

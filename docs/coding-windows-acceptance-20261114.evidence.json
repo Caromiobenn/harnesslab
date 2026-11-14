@@ -1,0 +1,490 @@
+{
+  "recorded_at": "2026-11-14T05:21:29.892639+00:00",
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "controls": {
+    "acceptance": "artifacts/worktrees/tb21-public-downloads/artifacts/native-controls/tb21-public-downloads-controls-20261114/acceptance.json",
+    "acceptance_sha256": "bd35e75c697d2e0161e6f5bfa370ce631aac61081862c3ccb4fdca143cb40ce7",
+    "prerequisites_sha256": "ab9d7a329cb19b27bd9fbda4778dcc9545df4acf74325d5cd2e87db78c75f767",
+    "source_files_verified": 41,
+    "model_calls": 0,
+    "outcomes": [
+      {
+        "group": "empty",
+        "network_mode": "public",
+        "reward": 0.0,
+        "control_accepted": true,
+        "cleanup_verified": true,
+        "ctrf_summary": {
+          "tests": 4,
+          "passed": 1,
+          "failed": 3,
+          "skipped": 0,
+          "pending": 0,
+          "other": 0,
+          "start": 1794632382.0203493,
+          "stop": 1794632387.608251
+        }
+      },
+      {
+        "group": "oracle",
+        "network_mode": "public",
+        "reward": 1.0,
+        "control_accepted": true,
+        "cleanup_verified": true,
+        "ctrf_summary": {
+          "tests": 4,
+          "passed": 4,
+          "failed": 0,
+          "skipped": 0,
+          "pending": 0,
+          "other": 0,
+          "start": 1794632672.6628273,
+          "stop": 1794632682.5171356
+        }
+      },
+      {
+        "group": "empty",
+        "network_mode": "offline",
+        "reward": 0.0,
+        "control_accepted": true,
+        "cleanup_verified": true,
+        "ctrf_summary": {
+          "tests": 4,
+          "passed": 1,
+          "failed": 3,
+          "skipped": 0,
+          "pending": 0,
+          "other": 0,
+          "start": 1794632403.89819,
+          "stop": 1794632409.0877302
+        }
+      },
+      {
+        "group": "oracle",
+        "network_mode": "offline",
+        "reward": 1.0,
+        "control_accepted": true,
+        "cleanup_verified": true,
+        "ctrf_summary": {
+          "tests": 4,
+          "passed": 4,
+          "failed": 0,
+          "skipped": 0,
+          "pending": 0,
+          "other": 0,
+          "start": 1794632989.3203182,
+          "stop": 1794632997.288415
+        }
+      }
+    ]
+  },
+  "queued_expansion": {
+    "array_job_id": "1209444",
+    "study_sha256": "e2c3d3933b5fefc648daa89cdd9ed652b298606cda0583fd09aeb83ea64bce37",
+    "submission_sha256": "7edae92f0286082d59311985874f4e91a1f2440ba2d72e7ba58667c109f9e73e",
+    "dependency": "afterany:1209353",
+    "runtime_commit": "09336c9e5aebe08a80d803b5bb8cd01b5f2a8e38",
+    "new_cells": 10,
+    "units": 4,
+    "reserved_prior_cells": 750,
+    "preserved_pilot_cells": 60,
+    "pending_tasks": [
+      "build-pov-ray",
+      "caffe-cifar-10",
+      "mcmc-sampling-stan",
+      "protein-assembly",
+      "reshard-c4-data",
+      "rstan-to-pystan",
+      "sam-cell-seg"
+    ],
+    "reasoning_effort": "high",
+    "repeats": 1
+  },
+  "published_stages": [
+    {
+      "branch": "feat/tb21-public-release-cache",
+      "commit": "09336c9e5aebe08a80d803b5bb8cd01b5f2a8e38",
+      "files": [
+        "scripts/prepare_coding_public_downloads.py",
+        "src/harnesslab/coding/public_downloads.py",
+        "src/harnesslab/coding/native_controls.py",
+        "tests/test_coding_public_downloads.py",
+        "configs/coding-public-downloads.json",
+        "configs/coding-native-control-profiles.json",
+        "docs/coding-public-download-prerequisites.md"
+      ],
+      "tests_passed": 298,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "fix/tb21-pip-filtered-git-cache",
+      "commit": "a7ff22fda2b0db8788430d85ee6ede1e683f8036",
+      "files": [
+        "scripts/prepare_coding_public_git.py",
+        "configs/coding-public-git.json",
+        "tests/test_coding_public_git.py",
+        "docs/coding-public-git-filter-fix.md"
+      ],
+      "tests_passed": 299,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "feat/tb21-povray-source-cache",
+      "commit": "46cc2861915f6d893138e79d2d2fecf0af47bd1d",
+      "files": [
+        "configs/coding-public-downloads.json",
+        "configs/coding-actor-system.json",
+        "configs/coding-native-control-profiles.json",
+        "docs/coding-povray-prerequisites.md"
+      ],
+      "tests_passed": 299,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "fix/tb21-pinned-apt-inspection",
+      "commit": "8725b396543060dd9c7a17c6037f2b6dfbdc5ee4",
+      "files": [
+        "scripts/prepare_coding_actor_system.py",
+        "docs/coding-povray-prerequisites.md"
+      ],
+      "tests_passed": 299,
+      "pushed": true,
+      "remote_sha_verified": true
+    }
+  ],
+  "progress_snapshot": {
+    "report": "/WORK/PUBLIC/lijuanzi_work/ShaojunYin/harnesslab/artifacts/worktrees/tb21-cohort-report/artifacts/coding-reports/full-progress-20261114T051836Z/report.json",
+    "report_sha256": "5e69dbb4c9b9bff3495c2c355d226249b52ccd5b01eb8bbafea8af7754091907",
+    "expected_cells": 890,
+    "scored_cells": 94,
+    "successes": 68,
+    "regraded_cells": 13,
+    "partial_usage_trials": 15,
+    "ended_attempts": 104,
+    "groups": [
+      {
+        "network": "offline",
+        "group": "mini",
+        "valid_scored_cells": 10,
+        "successes": 8,
+        "regraded_cells": 0,
+        "partial_usage_trials": 0,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "valid_scored_cells": 10,
+        "successes": 6,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "valid_scored_cells": 9,
+        "successes": 6,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "offline",
+        "group": "rubric_transcript",
+        "valid_scored_cells": 9,
+        "successes": 6,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "offline",
+        "group": "rubric_evidence",
+        "valid_scored_cells": 9,
+        "successes": 7,
+        "regraded_cells": 1,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "public",
+        "group": "mini",
+        "valid_scored_cells": 10,
+        "successes": 8,
+        "regraded_cells": 0,
+        "partial_usage_trials": 0,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "valid_scored_cells": 10,
+        "successes": 7,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "valid_scored_cells": 9,
+        "successes": 6,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "public",
+        "group": "rubric_transcript",
+        "valid_scored_cells": 9,
+        "successes": 7,
+        "regraded_cells": 1,
+        "partial_usage_trials": 1,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "public",
+        "group": "rubric_evidence",
+        "valid_scored_cells": 9,
+        "successes": 7,
+        "regraded_cells": 1,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      }
+    ],
+    "runtime_cohorts": [
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "native_tool_images_v1",
+        "ended_attempts": 1,
+        "valid_scored_cells": 1,
+        "successes": 0
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "mini",
+        "response_transport": "non_streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 6
+      },
+      {
+        "network": "offline",
+        "group": "mini",
+        "response_transport": "streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 3,
+        "valid_scored_cells": 3,
+        "successes": 2
+      },
+      {
+        "network": "offline",
+        "group": "rubric_evidence",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 6
+      },
+      {
+        "network": "offline",
+        "group": "rubric_evidence",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "rubric_transcript",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "offline",
+        "group": "rubric_transcript",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "native_tool_images_v1",
+        "ended_attempts": 1,
+        "valid_scored_cells": 1,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "mini",
+        "response_transport": "non_streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "mini",
+        "response_transport": "streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 3,
+        "valid_scored_cells": 3,
+        "successes": 3
+      },
+      {
+        "network": "public",
+        "group": "rubric_evidence",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "rubric_evidence",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 2
+      },
+      {
+        "network": "public",
+        "group": "rubric_transcript",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 6
+      },
+      {
+        "network": "public",
+        "group": "rubric_transcript",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      }
+    ]
+  }
+}

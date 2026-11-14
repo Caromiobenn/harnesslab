@@ -45,6 +45,8 @@ The [full matrix release](docs/coding-full-matrix-release.md) records all 890 ce
 The [paired report](docs/coding-paired-comparisons.md) compares scores and observed costs on
 matched tasks. The [case index](docs/coding-case-index.md) connects measured behavior to
 saved evidence and separates retained main-study samples from diagnostic experiments.
+The [answer-access review](docs/coding-answer-access-review.md) distinguishes keyword
+candidates, empty-directory probes, and confirmed access to task reference solutions.
 
 Implemented harness adapters:
 

@@ -1,6 +1,10 @@
 {
   "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
   "tasks": {
+    "build-pmars": {
+      "packages": ["build-essential", "libncurses-dev", "ca-certificates", "dpkg-dev", "devscripts"],
+      "source_packages": ["pmars"]
+    },
     "pytorch-model-cli": {"packages": ["build-essential"]},
     "cobol-modernization": {
       "packages": [

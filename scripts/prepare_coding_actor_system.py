@@ -20,7 +20,7 @@ PART_SIZE = 16 * 1024 * 1024
 REVISION = "12b7565679ce5006230b820666353673a133db93"
 
 
-def repository_code(prefix: str) -> str:
+def repository_code(prefix: str, with_sources: bool = False) -> str:
     """Build APT's normal file repository; preserve public sources in the online arm."""
     return f"""import hashlib,json,shutil,subprocess
 from pathlib import Path
@@ -36,6 +36,12 @@ for path in sorted((repo/'debs').glob('*.deb')):
 (prefix/'empty-sources.d').mkdir(exist_ok=True)
 original=Path('/etc/apt/sources.list')
 local='deb [trusted=yes] file:'+str(repo)+' ./\\n'
+source_index=None
+if {with_sources!r}:
+    sources=subprocess.check_output(['dpkg-scansources','sources'],cwd=repo,text=True)
+    (repo/'Sources').write_text(sources)
+    source_index=hashlib.sha256(sources.encode()).hexdigest()
+    local+='deb-src [trusted=yes] file:'+str(repo)+' ./\\n'
 (prefix/'public-sources.list').write_text(local+(original.read_text() if original.exists() else ''))
 for path in Path('/etc/apt/sources.list.d').glob('*'):
     if path.is_file() and path.suffix in ('.list','.sources'):
@@ -48,11 +54,19 @@ for mode,sources,parts in modes:
                    'Acquire::Retries':'0','Acquire::http::Timeout':'10','Acquire::https::Timeout':'10'}}
     text='\\n'.join(key+' "'+value+'";' for key,value in configuration.items())+'\\n'
     (prefix/('apt-'+mode+'.conf')).write_text(text)
-print(json.dumps({{'packages':files,'index_sha256':hashlib.sha256((repo/'Packages').read_bytes()).hexdigest()}}))
+print(json.dumps({{'packages':files,'index_sha256':hashlib.sha256((repo/'Packages').read_bytes()).hexdigest(),
+                  'source_index_sha256':source_index}}))
 """
 
 
-async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: list[str]) -> dict:
+async def prepare_one(
+    root: Path,
+    dataset: Path,
+    run: str,
+    name: str,
+    packages: list[str],
+    source_packages: list[str] | None = None,
+) -> dict:
     from benchmark_next_cleanup import cleanup_run
     from benchmark_next_environment import source_fingerprint
     from harbor.models.task.config import TaskConfig
@@ -60,6 +74,7 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
 
     from harnesslab.coding.native_environment import NativeStudyEnvironment
 
+    source_packages = source_packages or []
     source = dataset / "tasks" / name
     spec = TaskConfig.model_validate_toml((source / "task.toml").read_text())
     fingerprint = source_fingerprint(source / "environment", spec.environment)
@@ -69,6 +84,7 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
         saved = json.loads(receipt.read_text())
         if (
             saved["packages"] == packages
+            and saved.get("source_packages", []) == source_packages
             and saved["source_fingerprint"] == fingerprint
             and saved["ok"]
             and saved["cleanup"]["verified"]
@@ -107,6 +123,7 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
         "task": name,
         "source_fingerprint": fingerprint,
         "packages": packages,
+        "source_packages": source_packages,
         "ok": False,
         "model_calls": 0,
     }
@@ -135,7 +152,34 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
         (folder / "prepare.stderr").write_text(output.stderr or "")
         if output.return_code:
             raise RuntimeError("System package download failed; see preparation logs")
-        repository = await environment.python_command(repository_code(PREFIX), timeout=120)
+        if source_packages:
+            await environment.root_command(
+                apt + " install -y --no-install-recommends dpkg-dev", timeout=300
+            )
+            await environment._sandbox.files.write(
+                PREFIX + "/source-preparation.list",
+                "deb-src http://deb.debian.org/debian trixie main\n",
+            )
+            source_apt = (
+                apt
+                + " -o Dir::Etc::sourcelist="
+                + PREFIX
+                + "/source-preparation.list -o Dir::Etc::sourceparts=-"
+            )
+            source_command = (
+                f"mkdir -p {PREFIX}/repo/sources && {source_apt} update -qq && "
+                f"cd {PREFIX}/repo/sources && {source_apt} source --download-only "
+                + shlex.join(source_packages)
+            )
+            (folder / "source-prepare.sh").write_text(source_command + "\n")
+            source_result = await environment.exec(source_command, user="root", timeout_sec=600)
+            (folder / "source-prepare.stdout").write_text(source_result.stdout or "")
+            (folder / "source-prepare.stderr").write_text(source_result.stderr or "")
+            if source_result.return_code:
+                raise RuntimeError("Public Debian source download failed")
+        repository = await environment.python_command(
+            repository_code(PREFIX, bool(source_packages)), timeout=120
+        )
         result["repository"] = json.loads(repository.stdout)
         env = {"APT_CONFIG": PREFIX + "/apt-public.conf"}
         offline_env = {"APT_CONFIG": PREFIX + "/apt-offline.conf"}
@@ -143,6 +187,11 @@ async def prepare_one(root: Path, dataset: Path, run: str, name: str, packages: 
             "apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -y install "
             + shlex.join(packages)
         )
+        if source_packages:
+            install += (
+                " && mkdir -p /tmp/offline-source-probe && cd /tmp/offline-source-probe"
+                " && apt-get source --download-only " + shlex.join(source_packages)
+            )
         await environment._sandbox.update_network({"allow_internet_access": False, "allow_out": []})
         offline = await environment.exec(install, env=offline_env, user="root", timeout_sec=600)
         (folder / "offline.stdout").write_text(offline.stdout or "")
@@ -160,6 +209,10 @@ for path in sorted((prefix/'repo/debs').glob('*.deb')):
     with path.open('rb') as stream: digest=hashlib.file_digest(stream,'sha256').hexdigest()
     files[path.name]={{'sha256':digest,'bytes':path.stat().st_size,
         'metadata':subprocess.check_output(['dpkg-deb','-f',str(path)],text=True)}}
+for path in sorted((prefix/'repo/sources').glob('*')):
+    if path.is_file():
+        with path.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
+        files['sources/'+path.name]={{'sha256':digest,'bytes':path.stat().st_size}}
 (prefix/'files.json').write_text(json.dumps(files,sort_keys=True))
 indexes={{}}
 for path in Path('/var/lib/apt/lists').glob('*harnesslab-public-apt*'):
@@ -259,7 +312,12 @@ async def main():
     async def one(name):
         async with gate:
             return await prepare_one(
-                root, args.dataset, args.run, name, profiles["tasks"][name]["packages"]
+                root,
+                args.dataset,
+                args.run,
+                name,
+                profiles["tasks"][name]["packages"],
+                profiles["tasks"][name].get("source_packages"),
             )
 
     results = await asyncio.gather(*(one(name) for name in args.tasks))

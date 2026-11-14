@@ -383,10 +383,14 @@ def main():
     parser.add_argument("--regrades", type=Path, nargs="*", default=[])
     args = parser.parse_args()
     report = make_report(args.root, read_json(args.root / args.config), args.batches, args.regrades)
-    args.output.mkdir(parents=True, exist_ok=True)
-    (args.output / "report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False))
+    write_report(report, args.output)
+
+
+def write_report(report, output):
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False))
     if report["trials"]:
-        with (args.output / "trials.csv").open("w", newline="") as stream:
+        with (output / "trials.csv").open("w", newline="") as stream:
             writer = csv.DictWriter(stream, fieldnames=list(report["trials"][0]))
             writer.writeheader()
             writer.writerows(report["trials"])
@@ -403,7 +407,7 @@ def main():
         "pipeline_error_cells",
         "deadline_stops",
     ]
-    with (args.output / "groups.csv").open("w", newline="") as stream:
+    with (output / "groups.csv").open("w", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=columns, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(report["groups"])
@@ -412,7 +416,7 @@ def main():
             {
                 "ended_trials": len(report["trials"]),
                 "case_candidates": len(report["case_candidates"]),
-                "output": str(args.output),
+                "output": str(output),
             }
         )
     )

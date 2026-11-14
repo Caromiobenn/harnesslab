@@ -40,6 +40,67 @@ def execution_units(rows: list[dict], groups: list[str], wall_seconds: int = 432
     return units
 
 
+def prior_reservations(
+    full: dict, selection: dict, model_profile: dict, folder: Path, selected: set[str]
+) -> tuple[set[str], list[dict]]:
+    """Reserve every cell of earlier batches before preparing additional tasks."""
+    reserved, snapshots = set(), []
+    for index, reference in enumerate(selection.get("prior_studies", [])):
+        origin = Path(reference["root"])
+        path = origin / reference["study"]
+        previous = checked_json(path, reference["sha256"])
+        if previous["configuration"] != full or previous["model_profile"] != model_profile:
+            raise ValueError("Previous expansion uses a different study protocol or model")
+        if (
+            set(previous["pilot_tasks"]) != set(selection["pilot_tasks"])
+            or previous["pilot_batches"] != selection["pilot_batches"]
+            or not set(previous.get("reserved_prior_tasks", [])) <= reserved
+        ):
+            raise ValueError("Provide every preceding expansion in order with the same pilot")
+        tasks = set(previous["ready_tasks"])
+        if (
+            len(tasks) != len(previous["ready_tasks"])
+            or tasks & (reserved | set(selection["pilot_tasks"]))
+            or not tasks <= set(full["tasks"])
+        ):
+            raise ValueError("Previous expansion contains duplicated or out-of-scope tasks")
+        expected = {
+            (task, mode, group)
+            for task in tasks
+            for mode in ("offline", "public")
+            for group in full["groups"]
+        }
+        cells = [
+            (unit["task"], unit["network"], group)
+            for unit in previous["units"]
+            for group in unit["groups"]
+        ]
+        if len(cells) != len(expected) or set(cells) != expected:
+            raise ValueError("Previous expansion has missing or duplicated execution cells")
+        if previous["new_model_cells"] != len(expected):
+            raise ValueError("Previous expansion cell count does not match its units")
+        for name, sha in {**previous["source_hashes"], **previous["script_hashes"]}.items():
+            if digest(origin / name) != sha:
+                raise ValueError("Previous expansion source changed: " + name)
+        snapshot = folder / "prior-studies" / f"{index:02}.json"
+        snapshot.parent.mkdir(parents=True, exist_ok=True)
+        snapshot.write_bytes(path.read_bytes())
+        snapshots.append(
+            {
+                "origin": str(path),
+                "sha256": reference["sha256"],
+                "snapshot": str(snapshot),
+                "run": previous["run"],
+                "tasks": sorted(tasks),
+                "model_cells": len(cells),
+            }
+        )
+        reserved.update(tasks)
+    if reserved & selected:
+        raise ValueError("New expansion would resample tasks reserved by an earlier batch")
+    return reserved, snapshots
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--selection", type=Path, required=True)
@@ -147,6 +208,10 @@ def main():
         }
     )
     plan = build_plan(root, config)
+    profile = {key: plan[key] for key in ("model", "base_url", "api_style", "thinking_body")}
+    reserved, prior_studies = prior_reservations(
+        full.model_dump(), selection, profile, folder, set(selected)
+    )
     for reference in references:
         reference["reviewed_source_differences"] = source_differences(
             reference.pop("source_hashes"), plan["source_hashes"]
@@ -183,9 +248,7 @@ def main():
         ).strip(),
         "configuration": full.model_dump(),
         "source_hashes": plan["source_hashes"],
-        "model_profile": {
-            key: plan[key] for key in ("model", "base_url", "api_style", "thinking_body")
-        },
+        "model_profile": profile,
         "script_hashes": {
             name: digest(root / name)
             for name in (
@@ -199,10 +262,13 @@ def main():
         "pilot_tasks": selection["pilot_tasks"],
         "pilot_batches": selection["pilot_batches"],
         "ready_tasks": selected,
+        "prior_studies": prior_studies,
+        "reserved_prior_tasks": sorted(reserved),
+        "reserved_prior_cells": len(reserved) * len(full.groups) * 2,
         "pending_tasks": [
             task
             for task in full.tasks
-            if task not in entries and task not in selection["pilot_tasks"]
+            if task not in entries and task not in selection["pilot_tasks"] and task not in reserved
         ],
         "full_model_cells": len(full.tasks) * len(full.groups) * 2,
         "preserved_pilot_cells": len(selection["pilot_tasks"]) * len(full.groups) * 2,

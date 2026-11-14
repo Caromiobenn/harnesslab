@@ -6,6 +6,7 @@ import pytest
 
 from harnesslab.coding.config import save_json
 from harnesslab.coding.observability import measurements
+from harnesslab.coding.reuse import digest
 
 
 def script(name):
@@ -28,6 +29,99 @@ def test_long_tasks_split_groups_without_duplicating_or_dropping_cells():
     assert all(unit["timeout_bound_seconds"] <= 43200 for unit in units)
     with pytest.raises(ValueError, match="wall-time"):
         builder.execution_units(rows, groups, wall_seconds=3600)
+
+
+@pytest.fixture
+def prior_batches(tmp_path):
+    builder = script("prepare_coding_expansion.py")
+    full = {
+        "tasks": ["pilot", "first", "second", "next"],
+        "groups": ["mini", "deepagents_default"],
+        "repeats": 1,
+        "reasoning_effort": "high",
+    }
+    profile = {"model": "fixed", "thinking_body": {"reasoning_effort": "high"}}
+    selection = {"pilot_tasks": ["pilot"], "pilot_batches": ["pilot-output"], "prior_studies": []}
+    for task, preceding in [("first", []), ("second", ["first"])]:
+        root = tmp_path / task
+        root.mkdir()
+        (root / "source.py").write_text("frozen runtime\n")
+        path = root / "study.json"
+        save_json(
+            path,
+            {
+                "run": task,
+                "configuration": full,
+                "model_profile": profile,
+                "pilot_tasks": selection["pilot_tasks"],
+                "pilot_batches": selection["pilot_batches"],
+                "ready_tasks": [task],
+                "reserved_prior_tasks": preceding,
+                "source_hashes": {"source.py": digest(root / "source.py")},
+                "script_hashes": {},
+                "new_model_cells": 4,
+                "units": [
+                    {"task": task, "network": mode, "groups": full["groups"]}
+                    for mode in ["offline", "public"]
+                ],
+            },
+        )
+        selection["prior_studies"].append(
+            {"root": str(root), "study": "study.json", "sha256": digest(path)}
+        )
+    return builder, full, profile, selection, tmp_path
+
+
+def test_followup_expansion_reserves_prior_cells_and_freezes_their_plans(prior_batches):
+    builder, full, profile, selection, root = prior_batches
+    reserved, snapshots = builder.prior_reservations(
+        full, selection, profile, root / "next", {"next"}
+    )
+    assert reserved == {"first", "second"}
+    assert sum(row["model_cells"] for row in snapshots) == 8
+    assert set(full["tasks"]) - reserved - set(selection["pilot_tasks"]) == {"next"}
+    for row in snapshots:
+        assert Path(row["snapshot"]).read_bytes() == Path(row["origin"]).read_bytes()
+        assert digest(Path(row["snapshot"])) == row["sha256"]
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "resample",
+        "model",
+        "protocol",
+        "source",
+        "missing_ancestor",
+        "duplicate_cell",
+        "missing_cell",
+    ],
+)
+def test_followup_expansion_rejects_duplicate_or_incompatible_reservations(prior_batches, change):
+    builder, full, profile, selection, root = prior_batches
+    selected = {"next"}
+    if change == "resample":
+        selected = {"first"}
+    elif change == "model":
+        profile = {**profile, "model": "different"}
+    elif change == "protocol":
+        full = {**full, "repeats": 2}
+    elif change == "source":
+        (root / "first/source.py").write_text("changed runtime\n")
+    elif change == "missing_ancestor":
+        selection["prior_studies"] = selection["prior_studies"][1:]
+    else:
+        reference = selection["prior_studies"][0]
+        path = Path(reference["root"]) / reference["study"]
+        saved = json.loads(path.read_text())
+        if change == "duplicate_cell":
+            saved["units"].append(saved["units"][0])
+        else:
+            saved["units"].pop()
+        save_json(path, saved)
+        reference["sha256"] = digest(path)
+    with pytest.raises(ValueError):
+        builder.prior_reservations(full, selection, profile, root / "next", selected)
 
 
 @pytest.fixture

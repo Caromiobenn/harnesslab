@@ -45,3 +45,38 @@ Python。新增配置 `actor_python_fallback: true` 只用于尚未启动的单�
 `campaign-20261114T135312Z/report.json` 的 SHA-256 为
 `40c66d5469189afbd4a2719120499bf43d62c7ae75ba67624dc184e366469fdc`。
 后续报告继续按实际 Python 工具回退开关区分运行版本，同时保留网络和 harness 的配对分析。
+
+## 接续试次已实际开始
+
+旧作业 `1209096_17` 已正常结束，退出码为 0。接续队列的 `1211366_0` 和 `1211366_1`
+随即启动，分别执行 `distribution-search` 的禁网和联网单元。启动核验已观察到两条 mini
+轨迹中的真实模型响应，两侧网络检查均通过，实际保存的 `actor_python_fallback` 均为 `true`。
+两个单元继续使用 HIGH、N1，响应模型为 `deepseek-v4.1-flash-1017`。
+
+旧队列结束后的固定快照共有 170/890 个单元已评分、132 个通过，仍有 720 个单元待完成。
+报告保留 180 次已结束尝试及原有失败成本，其中 13 个单元使用原提交的独立复评结果。
+
+该快照已完成两项核验：
+
+- 170 个已评分单元的轨迹、提交、官方测试、指标字段和回收记录检查均通过；提交记录包括
+  130 个归档、31 个单文件输出，以及 9 个确实未产出目标文件的失败记录。
+- 136 个 Deep Agents 试次的 LangSmith 轨迹均已结束；远端评分及用量字段与本地记录一致。
+  34 个 mini 试次仍使用本地轨迹和指标。
+
+用量完整性另行保留：105 个试次的请求与响应记录完整，31 个标记为部分响应；34 个 mini
+试次未提供请求开始数，但保留了响应 token 和长度指标。部分响应试次的用量统计覆盖已收到的响应。
+
+内存堆题的十个单元也已全部结束，九个通过。完整指标和原始证据索引保存在
+`tb21-python-release/artifacts/coding-reports/heap-case-20261114/`；其中的文字复核误拒绝
+见[案例分析](case-heap-review-false-rejection.md)。
+
+| 记录 | SHA-256 |
+| --- | --- |
+| `python-replacement-20261114/launch-verified.json` | `25776872989ecd75eaa0faeafcd103ef82ceb2950f94dd5c0da0e0a99792e07a` |
+| `campaign-20261114T142138Z/report.json` | `ae0e8df7700be0319905b6e18de76a7aeb855ed825e87bfebb8c1521965b3540` |
+| `artifact-audit-20261114T142244Z/audit.json` | `e9f9f4336be36c36ff7c80a05e1f548be2cd34cf7104834f6aa175949592dd6a` |
+| `langsmith-audit-20261114T142317Z/audit.json` | `923de1d4ee62c8a677ca97c50c217a6f0471ac06fea6cfa5d176c1159b0e2825` |
+| 内存堆题 `evidence.json` | `ffc589f10e2921a6db5c903dffe0ccde75a053683be6bb2d4e5324e89114fa90` |
+
+启动记录位于接续 worktree 的 `artifacts/setup/`，报告与审计位于该 worktree 的
+`artifacts/coding-reports/`。这些记录及内存堆题的完整指标已经本地备份并校验哈希。

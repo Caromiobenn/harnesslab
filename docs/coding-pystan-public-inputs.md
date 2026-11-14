@@ -94,3 +94,18 @@ instance or model call; the accepted package receipt is reused without rebuildin
 Preparation receipts retain actual versions separately for each interpreter: an isolated
 native-Python probe can resolve transitive build-tool versions differently from Python
 3.10. The original reference's final `setuptools<71` installation remains unchanged.
+
+The first complete native control run passed the public reference (6/6), while the
+offline reference reached the original 1,800-second deadline at 88% of sampling.
+Its build succeeded, but the output CSV files were not yet written (1/6 official
+checks passed). The failed native run and its costs remain preserved.
+
+The earlier package import probe explicitly disabled pip's public index; the runtime
+receipt instead provided local find-links without replacing the public index. Under
+network denial, pip could still spend time attempting that unreachable index for each
+dependency. The PyStan recipe now uses the existing `offline_local_index` option, so
+the offline runtime selects the local wheel directory as its index as well as its
+find-links location. The public arm retains normal public-index access. Both arms
+receive the same public installer archive, and package pins, original reference,
+sampling settings and official deadline remain unchanged. New native controls must
+verify this configuration before the task's model cells are released.

@@ -183,6 +183,7 @@
       "source": "Exact public software packages from the official reference. Task-specific public database responses and derived sequence data are not cached."
     },
     "rstan-to-pystan": {
+      "offline_local_index": true,
       "packages": [
         "pystan==3.10.0",
         "httpstan==4.13.0",

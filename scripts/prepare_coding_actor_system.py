@@ -14,6 +14,7 @@ from pathlib import Path
 import certifi
 
 from harnesslab.coding.config import configure_runtime, project_root, save_json
+from harnesslab.coding.public_apt import registration_wrapper, repository_inputs
 
 PREFIX = "/opt/harnesslab-public-apt"
 PART_SIZE = 16 * 1024 * 1024
@@ -68,15 +69,19 @@ async def prepare_one(
     source_packages: list[str] | None = None,
     download_timeout_sec: int = 600,
     preserve_sudo_apt_config: bool = False,
+    public_repositories: list[dict] | None = None,
 ) -> dict:
     from benchmark_next_cleanup import cleanup_run
     from benchmark_next_environment import source_fingerprint
     from harbor.models.task.config import TaskConfig
     from harbor.models.trial.paths import TrialPaths
 
-    from harnesslab.coding.native_environment import NativeStudyEnvironment
+    from harnesslab.coding.native_environment import PYTHON, NativeStudyEnvironment
 
     source_packages = source_packages or []
+    public_repositories = public_repositories or []
+    repositories = repository_inputs(root, public_repositories)
+    all_packages = packages + [package for item in repositories for package in item["packages"]]
     source = dataset / "tasks" / name
     spec = TaskConfig.model_validate_toml((source / "task.toml").read_text())
     fingerprint = source_fingerprint(source / "environment", spec.environment)
@@ -88,6 +93,7 @@ async def prepare_one(
             saved["packages"] == packages
             and saved.get("source_packages", []) == source_packages
             and saved.get("preserve_sudo_apt_config", False) == preserve_sudo_apt_config
+            and saved.get("public_repositories", []) == public_repositories
             and saved["source_fingerprint"] == fingerprint
             and saved["ok"]
             and saved["cleanup"]["verified"]
@@ -129,6 +135,7 @@ async def prepare_one(
         "source_packages": source_packages,
         "download_timeout_sec": download_timeout_sec,
         "preserve_sudo_apt_config": preserve_sudo_apt_config,
+        "public_repositories": public_repositories,
         "ok": False,
         "model_calls": 0,
     }
@@ -146,10 +153,19 @@ async def prepare_one(
             "sha256": hashlib.sha256(ca_bundle).hexdigest(),
         }
         apt = "apt-get -o Acquire::https::CaInfo=" + shlex.quote(ca_path)
+        if repositories:
+            await environment.root_command("mkdir -p " + PREFIX + "/repositories")
+        for item in repositories:
+            await environment._sandbox.files.write(
+                "/etc/apt/sources.list.d/" + item["filename"], item["text"]
+            )
+            await environment._sandbox.files.write(
+                PREFIX + "/repositories/" + item["filename"], item["text"]
+            )
         command = (
             f"mkdir -p {PREFIX}/repo/debs/partial && {apt} update -qq && "
             f"{apt} -y --download-only -o Dir::Cache::archives={PREFIX}/repo/debs install "
-            + shlex.join(packages)
+            + shlex.join(all_packages)
         )
         (folder / "prepare.sh").write_text(command + "\n")
         output = await environment.exec(command, user="root", timeout_sec=download_timeout_sec)
@@ -188,6 +204,12 @@ async def prepare_one(
         result["repository"] = json.loads(repository.stdout)
         env = {"APT_CONFIG": PREFIX + "/apt-public.conf"}
         offline_env = {"APT_CONFIG": PREFIX + "/apt-offline.conf"}
+        if repositories:
+            wrapper = "/usr/local/bin/add-apt-repository"
+            await environment._sandbox.files.write(
+                wrapper, registration_wrapper(PYTHON, PREFIX, repositories)
+            )
+            await environment.root_command("chmod 755 " + wrapper)
         if preserve_sudo_apt_config:
             await environment.python_command(
                 "from pathlib import Path\n"
@@ -204,6 +226,18 @@ async def prepare_one(
             + " -y install "
             + shlex.join(packages)
         )
+        for item in repositories:
+            sudo = "sudo " if preserve_sudo_apt_config else ""
+            install += (
+                " && "
+                + sudo
+                + "add-apt-repository -y "
+                + shlex.quote(item["ppa"])
+                + " && "
+                + apt_command
+                + " -y install "
+                + shlex.join(item["packages"])
+            )
         if source_packages:
             install += (
                 " && mkdir -p /tmp/offline-source-probe && cd /tmp/offline-source-probe"
@@ -217,7 +251,7 @@ async def prepare_one(
             raise RuntimeError("Cached packages could not be installed offline")
         versions = await environment.root_command(
             "dpkg-query -W -f='${Package}=${Version}\\n' "
-            + shlex.join(package.partition("=")[0] for package in packages)
+            + shlex.join(package.partition("=")[0] for package in all_packages)
         )
         result["offline_probe"] = {"return_code": offline.return_code, "versions": versions.stdout}
         code = f"""import hashlib,json,subprocess,tarfile
@@ -247,6 +281,9 @@ with tarfile.open(archive,'w:gz') as stream:
     if {preserve_sudo_apt_config!r}:
         stream.add('/etc/sudoers.d/harnesslab-public-apt',
                    arcname='etc/sudoers.d/harnesslab-public-apt')
+    if {bool(repositories)!r}:
+        stream.add(prefix/'repositories',arcname=str(prefix/'repositories').lstrip('/'))
+        stream.add('/usr/local/bin/add-apt-repository',arcname='usr/local/bin/add-apt-repository')
 parts=[]
 with archive.open('rb') as stream:
     while data:=stream.read({PART_SIZE}):
@@ -341,6 +378,7 @@ async def main():
                 profiles["tasks"][name].get("source_packages"),
                 profiles["tasks"][name].get("download_timeout_sec", 600),
                 profiles["tasks"][name].get("preserve_sudo_apt_config", False),
+                profiles["tasks"][name].get("public_repositories"),
             )
 
     results = await asyncio.gather(*(one(name) for name in args.tasks))

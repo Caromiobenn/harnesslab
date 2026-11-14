@@ -164,10 +164,36 @@
     },
     "rstan-to-pystan": {
       "packages": [
-        "git"
+        "build-essential",
+        "gfortran",
+        "libatlas-base-dev",
+        "liblapack-dev",
+        "libblas-dev",
+        "curl",
+        "ca-certificates",
+        "gnupg",
+        "software-properties-common",
+        "git",
+        "make",
+        "cmake",
+        "pkg-config"
       ],
       "preserve_sudo_apt_config": true,
-      "source": "Bootstrap installer for the pinned public Git cache. PPA/compiler dependencies require the next preparation stage before model release."
+      "public_repositories": [
+        {
+          "ppa": "ppa:deadsnakes/ppa",
+          "source_file": "configs/coding-public-apt/deadsnakes-ubuntu-ppa-noble.sources",
+          "sha256": "4b92f4660bca3776e03329264f89398156f13de893992ce31251df16427bd151",
+          "packages": [
+            "python3.10=3.10.22-1+noble1",
+            "python3.10-venv=3.10.22-1+noble1",
+            "python3.10-dev=3.10.22-1+noble1",
+            "python3.10-distutils=3.10.22-1+noble1"
+          ],
+          "source": "Unchanged Deb822 metadata emitted by the original add-apt-repository command in the official task image on 2026-11-14. The file embeds the public signing key."
+        }
+      ],
+      "source": "Public compiler and Python installers for the pinned official reference. Downloaded before actor execution; packages still install inside each task instance."
     }
   }
 }

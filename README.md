@@ -31,7 +31,7 @@ The repository provides the historical contract suites and a coding-agent evalua
 |---|---|---|
 | v0.1 offline contract suite | Mock and scripted model runs through real framework graphs | Adapters, tools, traces, validators, and artifacts are wired correctly |
 | v0.2 benchmark protocol | Public/private task packages and OpenAI-compatible execution | Real models can be evaluated without receiving oracle fields |
-| Terminal-Bench 2.1 integration | mini-swe-agent and four Deep Agents groups on six pinned tasks | Official verification, comparable runtime budgets, and observable review/repair behavior |
+| Terminal-Bench 2.1 integration | mini-swe-agent and four Deep Agents groups on 89 pinned tasks | Official verification, task resource budgets, review/repair traces, and measured costs; full evaluation is running |
 
 The [coding-agent guide](docs/coding-tb21.md) covers the DeepSeek API profile, the reused
 Harbor / Alibaba Hong Kong environment, and the HIGH study's five groups and paired
@@ -39,6 +39,12 @@ online/offline conditions. Earlier integration runs remain separate. The guide a
 links the first independently regraded answer-access case and its saved evidence.
 The controller needs CPU only: model inference is remote, and task commands plus official
 tests run in the cloud task environment.
+
+The [full matrix release](docs/coding-full-matrix-release.md) records all 890 cells queued:
+89 tasks × five groups × online/offline, with one independent run per cell.
+The [paired report](docs/coding-paired-comparisons.md) compares scores and observed costs on
+matched tasks. The [case index](docs/coding-case-index.md) connects measured behavior to
+saved evidence and separates retained main-study samples from diagnostic experiments.
 
 Implemented harness adapters:
 

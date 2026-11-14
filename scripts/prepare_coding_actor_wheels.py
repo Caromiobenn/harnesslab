@@ -122,7 +122,7 @@ async def prepare_one(
         profile,
         {"tasks": {task: entry}},
     )
-    identity = run + "-" + task
+    identity = run + "-wheels-" + task
     environment = NativeStudyEnvironment(
         environment_dir=source / "environment",
         environment_name=task,

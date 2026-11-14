@@ -93,7 +93,7 @@ async def prepare_one(root: Path, dataset: Path, run: str, task: str, recipe: di
         entry.update(archives=[system["archive"]], env=system["env"])
     profile = folder / "profile.json"
     save_json(profile, {"tasks": {task: entry}})
-    identity = run + "-" + task
+    identity = run + "-git-" + task
     environment = NativeStudyEnvironment(
         environment_dir=source / "environment",
         environment_name=task,

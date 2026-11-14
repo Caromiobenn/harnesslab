@@ -14,6 +14,37 @@ from pathlib import Path, PurePosixPath
 from harnesslab.coding.config import configure_runtime, project_root, save_json
 
 
+def prepare_files(folder, task, recipe):
+    downloads, files = {}, {}
+    definitions = recipe.get("files") or [{"name": "testbed.zip", "url": recipe["url"]}]
+    for item in definitions:
+        path = folder / item["name"]
+        if path.parent != folder:
+            raise ValueError("Use a single filename for each public input")
+        with urllib.request.urlopen(item["url"], timeout=60) as response:
+            path.write_bytes(response.read())
+        data = path.read_bytes()
+        if item.get("md5") and hashlib.md5(data, usedforsecurity=False).hexdigest() != item["md5"]:
+            raise ValueError("Public input differs from the upstream dataset checksum")
+        if "zip_root" in recipe:
+            with zipfile.ZipFile(path) as archive:
+                if archive.comment.decode() != recipe["revision"]:
+                    raise ValueError("Official public test archive moved to a different commit")
+                for name in archive.namelist():
+                    parts = PurePosixPath(name).parts
+                    if parts[0] != recipe["zip_root"] or ".." in parts:
+                        raise ValueError("Unexpected public test archive paths")
+        target = "/opt/harnesslab-verifier-inputs/" + task + "/" + item["name"]
+        digest = hashlib.sha256(data).hexdigest()
+        downloads[item["url"]] = {"path": target, "sha256": digest}
+        files[item["name"]] = {"sha256": digest, "bytes": len(data), "target": target}
+    archive = folder / "verifier-inputs.tar.gz"
+    with tarfile.open(archive, "w:gz") as stream:
+        for name, info in files.items():
+            stream.add(folder / name, arcname=info["target"].lstrip("/"))
+    return archive, downloads, files
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=Path, required=True)
@@ -57,27 +88,12 @@ def main():
             "cleanup": {"verified": True, "reason": "No cloud instance created"},
         }
         save_json(folder / "receipt.json", record)
-        path = folder / "testbed.zip"
-        with urllib.request.urlopen(recipe["url"], timeout=60) as response:
-            path.write_bytes(response.read())
-        with zipfile.ZipFile(path) as archive:
-            if archive.comment.decode() != recipe["revision"]:
-                raise ValueError("Official public test archive moved to a different commit")
-            for name in archive.namelist():
-                parts = PurePosixPath(name).parts
-                if parts[0] != recipe["zip_root"] or ".." in parts:
-                    raise ValueError("Unexpected public test archive paths")
-            record["archive_members"] = len(archive.namelist())
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
-        target = "/opt/harnesslab-verifier-inputs/" + task + "/testbed.zip"
-        archive = folder / "verifier-inputs.tar.gz"
-        with tarfile.open(archive, "w:gz") as stream:
-            stream.add(path, arcname=target.lstrip("/"))
+        archive, downloads, files = prepare_files(folder, task, recipe)
         record.update(
             ok=True,
-            python_downloads={recipe["url"]: {"path": target, "sha256": digest}},
+            python_downloads=downloads,
             verifier_env=recipe.get("verifier_env", {}),
-            downloaded_file={"sha256": digest, "bytes": path.stat().st_size},
+            downloaded_files=files,
             archive={
                 "archive": str(archive.relative_to(root)),
                 "sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),

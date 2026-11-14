@@ -40,3 +40,18 @@ def test_offline_probe_is_valid_python_and_keeps_public_index_available(builder,
 def test_actor_cache_rejects_unpinned_requirements(builder):
     with pytest.raises(ValueError, match="version pins"):
         builder.package_commands("python", {"packages": ["grpcio"], "import_modules": ["grpc"]})
+
+
+def test_cpu_wheel_index_is_used_only_during_public_cache_download(builder):
+    online, offline, env = builder.package_commands(
+        "python",
+        {
+            "packages": ["torch==2.7.0+cpu", "numpy==2.3.1"],
+            "import_modules": ["torch", "numpy"],
+            "extra_index_url": "https://download.pytorch.org/whl/cpu",
+        },
+    )
+    args = shlex.split(online)
+    assert args[args.index("--extra-index-url") + 1] == "https://download.pytorch.org/whl/cpu"
+    assert "torch==2.7.0+cpu" in args and "torch==2.7.0+cpu" in offline
+    assert "https://" not in offline and "PIP_INDEX_URL" not in env

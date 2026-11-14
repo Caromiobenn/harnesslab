@@ -174,6 +174,9 @@ def test_urllib_verifier_cache_uses_exact_url_and_checks_bytes_in_real_python(tm
     )
     code = f"""import urllib.request
 urllib.request.urlretrieve({url!r},'copied.zip')
+request=urllib.request.Request({url!r},headers={{'Method':'HEAD'}})
+with urllib.request.urlopen(request) as response:
+    assert response.length==len(b'public test archive') and response.url=={url!r}
 assert urllib.request.urlopen({archive.as_uri()!r}).read()==b'public test archive'
 """
     env = {**os.environ, "PYTHONPATH": str(tmp_path)}
@@ -182,7 +185,7 @@ assert urllib.request.urlopen({archive.as_uri()!r}).read()==b'public test archiv
     )
     assert result.returncode == 0, result.stderr
     assert (tmp_path / "copied.zip").read_bytes() == archive.read_bytes()
-    assert len(log.read_text().splitlines()) == 1
+    assert len(log.read_text().splitlines()) == 2
     archive.write_bytes(b"changed archive")
     result = subprocess.run(
         [sys.executable, "-c", code], cwd=tmp_path, env=env, capture_output=True, text=True

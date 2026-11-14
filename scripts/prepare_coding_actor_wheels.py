@@ -42,8 +42,13 @@ def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
     }
     install_flag = " --break-system-packages" if recipe.get("break_system_packages") else ""
+    index = (
+        " --extra-index-url " + shlex.quote(recipe["extra_index_url"])
+        if recipe.get("extra_index_url")
+        else ""
+    )
     return (
-        f"{shlex.quote(python)} -m pip download --dest {PREFIX} {names}",
+        f"{shlex.quote(python)} -m pip download --dest {PREFIX} {names}{index}",
         f"{shlex.quote(python)} -m pip install {names}{install_flag} && "
         f"{shlex.quote(python)} -c {shlex.quote(checks)}",
         env,

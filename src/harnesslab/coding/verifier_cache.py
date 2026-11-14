@@ -112,6 +112,8 @@ def _cached_urlopen(url,*args,**kwargs):
     headers['Content-Type']='application/octet-stream'
     with open({log_path!r},'a') as stream:
         stream.write(json.dumps({{'url':address,'path':str(path),'sha256':artifact['sha256']}})+'\\n')
-    return urllib.response.addinfourl(path.open('rb'),headers,address,200)
+    response=urllib.response.addinfourl(path.open('rb'),headers,address,200)
+    response.length=path.stat().st_size
+    return response
 urllib.request.urlopen=_cached_urlopen
 """

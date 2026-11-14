@@ -1,6 +1,13 @@
 {
   "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
   "tasks": {
+    "pytorch-model-cli": {
+      "packages": ["torch==2.7.0+cpu", "numpy==2.3.1"],
+      "import_modules": ["torch", "numpy"],
+      "extra_index_url": "https://download.pytorch.org/whl/cpu",
+      "system_packages": ["build-essential"],
+      "source": "Official reference installs torch 2.7.0 from the CPU index and NumPy; NumPy is pinned to the official verifier version. Cache contains public installers only."
+    },
     "kv-store-grpc": {
       "packages": [
         "grpcio==1.73.0",

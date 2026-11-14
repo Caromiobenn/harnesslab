@@ -1,6 +1,14 @@
 {
   "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
   "tasks": {
+    "financial-document-processor": {
+      "installer": "uv",
+      "python": "3.13",
+      "packages": ["numpy==2.3.2", "opencv-python==4.11.0.86", "packaging==25.0", "pandas==2.3.2", "pillow==11.3.0", "pymupdf==1.25.2", "pytesseract==0.3.13", "python-dateutil==2.9.0.post0", "pytz==2025.2", "six==1.17.0", "tzdata==2025.2"],
+      "import_modules": ["numpy", "pandas", "PIL", "fitz", "pytesseract"],
+      "system_packages": ["tesseract-ocr"],
+      "source": "Exact Python and dependency requirements from the official reference PEP 723 header. Cache contains the public interpreter and dependency packages, without task documents, extracted text or reference code."
+    },
     "pytorch-model-cli": {
       "packages": ["torch==2.7.0+cpu", "numpy==2.3.1"],
       "import_modules": ["torch", "numpy"],

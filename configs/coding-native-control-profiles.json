@@ -1,5 +1,6 @@
 {
   "tasks": {
+    "financial-document-processor": {"capture_paths": ["/app"]},
     "pytorch-model-cli": {"capture_paths": ["/app"]},
     "fix-git": {
       "capture_paths": [

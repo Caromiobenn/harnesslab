@@ -1,7 +1,9 @@
 import importlib.util
+import json
 import shlex
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -55,3 +57,27 @@ def test_cpu_wheel_index_is_used_only_during_public_cache_download(builder):
     assert args[args.index("--extra-index-url") + 1] == "https://download.pytorch.org/whl/cpu"
     assert "torch==2.7.0+cpu" in args and "torch==2.7.0+cpu" in offline
     assert "https://" not in offline and "PIP_INDEX_URL" not in env
+
+
+def test_uv_script_cache_uses_fresh_probe_path_and_the_reference_dependency_metadata(builder):
+    recipe = {
+        "installer": "uv",
+        "python": "3.13",
+        "packages": ["pytest==8.4.1"],
+        "import_modules": ["pytest"],
+    }
+    online, offline, env = builder.package_commands("uv", recipe)
+    assert shlex.split(online)[-1] != shlex.split(offline)[-1]
+    assert "--offline" not in shlex.split(online) and "--offline" in shlex.split(offline)
+    assert env["UV_PYTHON"] == "3.13" and "UV_OFFLINE" not in env
+    source = builder.uv_probe_source(recipe)
+    metadata = "\n".join(
+        line[2:] for line in source.splitlines() if line.startswith("# ") and "///" not in line
+    )
+    assert tomllib.loads(metadata) == {
+        "requires-python": ">=3.13",
+        "dependencies": recipe["packages"],
+    }
+    result = subprocess.run([sys.executable, "-c", source], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert "pytest" in json.loads(result.stdout)["packages"]

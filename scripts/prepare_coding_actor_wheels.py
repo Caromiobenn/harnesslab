@@ -18,12 +18,42 @@ PREFIX = "/opt/harnesslab-public-wheels"
 PART_SIZE = 16 * 1024 * 1024
 
 
+def uv_probe_source(recipe):
+    requirements = "\n".join("#     " + json.dumps(item) + "," for item in recipe["packages"])
+    names = [item.split("==")[0] for item in recipe["packages"]]
+    return (
+        '# /// script\n# requires-python = ">='
+        + recipe["python"]
+        + '"\n# dependencies = [\n'
+        + requirements
+        + "\n# ]\n# ///\n"
+        + "import importlib,json,sys\nfrom importlib.metadata import version\n"
+        + "[importlib.import_module(name) for name in "
+        + repr(recipe["import_modules"])
+        + "]\n"
+        + "print(json.dumps({'python':sys.version,'packages':{name:version(name) for name in "
+        + repr(names)
+        + "}}))\n"
+    )
+
+
 def package_commands(python: str, recipe: dict) -> tuple[str, str, dict]:
     packages = recipe["packages"]
     if not packages or any(
         not re.fullmatch(r"[A-Za-z0-9_.-]+==[A-Za-z0-9_.+-]+", item) for item in packages
     ):
         raise ValueError("Actor cache packages require explicit public version pins")
+    if recipe.get("installer") == "uv":
+        env = {
+            "UV_CACHE_DIR": PREFIX + "/uv-cache",
+            "UV_PYTHON_INSTALL_DIR": PREFIX + "/uv-python",
+            "UV_PYTHON": recipe["python"],
+        }
+        return (
+            "uv run --no-project --script /tmp/harnesslab-online-deps.py",
+            "uv run --no-project --offline --script /tmp/harnesslab-offline-deps.py",
+            env,
+        )
     names = shlex.join(packages)
     checks = (
         "import importlib,json;from importlib.metadata import version;"
@@ -119,13 +149,23 @@ async def prepare_one(
         owned.add(environment._sandbox.sandbox_id)
         result["sandbox_id"] = environment._sandbox.sandbox_id
         save_json(folder / "receipt.json", result)
+        uses_uv = recipe.get("installer") == "uv"
         python = (
-            await environment.root_command("command -v python || command -v python3")
-        ).stdout.strip()
+            "uv"
+            if uses_uv
+            else (
+                await environment.root_command("command -v python || command -v python3")
+            ).stdout.strip()
+        )
         online_command, offline_command, env = package_commands(python, recipe)
+        if uses_uv:
+            for name in ("online", "offline"):
+                await environment._sandbox.files.write(
+                    f"/tmp/harnesslab-{name}-deps.py", uv_probe_source(recipe)
+                )
         await environment.root_command("mkdir -p " + PREFIX)
         (folder / "prepare.sh").write_text(online_command + "\n")
-        online = await environment.exec(online_command, timeout_sec=1200)
+        online = await environment.exec(online_command, env=env, timeout_sec=1200)
         (folder / "prepare.stdout").write_text(online.stdout or "")
         (folder / "prepare.stderr").write_text(online.stderr or "")
         if online.return_code:
@@ -156,19 +196,24 @@ async def prepare_one(
             "print(json.dumps({'python':sys.version,'packages':"
             "sorted((d.metadata['Name'],d.version) for d in distributions())}))"
         )
-        result["resolved_environment"] = json.loads(
-            (
-                await environment.root_command(
-                    shlex.quote(python) + " -c " + shlex.quote(inspect_code)
-                )
-            ).stdout
+        result["resolved_environment"] = (
+            json.loads(offline.stdout.strip().splitlines()[-1])
+            if uses_uv
+            else json.loads(
+                (
+                    await environment.root_command(
+                        shlex.quote(python) + " -c " + shlex.quote(inspect_code)
+                    )
+                ).stdout
+            )
         )
         archive_code = f"""import hashlib,json,tarfile
 from pathlib import Path
 prefix=Path({PREFIX!r});files={{}}
-for path in prefix.iterdir():
+for path in prefix.rglob('*'):
+    if not path.is_file():continue
     with path.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
-    files[path.name]={{'sha256':digest,'bytes':path.stat().st_size}}
+    files[path.relative_to(prefix).as_posix()]={{'sha256':digest,'bytes':path.stat().st_size}}
 archive=Path('/tmp/actor-wheels.tar.gz')
 with tarfile.open(archive,'w:gz') as stream:stream.add(prefix,arcname=str(prefix).lstrip('/'))
 parts=[]
@@ -193,7 +238,13 @@ print(json.dumps({{'sha256':digest,'bytes':archive.stat().st_size,'parts':parts,
             files=info["files"],
             env=env,
             offline_env=(
-                {"PIP_INDEX_URL": "file://" + PREFIX} if recipe.get("offline_local_index") else {}
+                {"UV_OFFLINE": "1"}
+                if uses_uv
+                else (
+                    {"PIP_INDEX_URL": "file://" + PREFIX}
+                    if recipe.get("offline_local_index")
+                    else {}
+                )
             ),
             archive={
                 "archive": str(archive.relative_to(root)),

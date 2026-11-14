@@ -73,7 +73,7 @@ def task_prerequisites(
             "test_script_sha256": test_sha,
         },
     }
-    for family in ("actor_python", "actor_hub", "actor_system", "actor_git"):
+    for family in ("actor_python", "actor_hub", "actor_system", "actor_git", "actor_r"):
         if task not in families.get(family, {}):
             continue
         actor = public_cache(root, families[family][task])

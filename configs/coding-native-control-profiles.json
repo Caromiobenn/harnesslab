@@ -1,8 +1,21 @@
 {
   "tasks": {
-    "build-pmars": {"capture_paths": ["/app", "/usr/local/bin/pmars"]},
-    "financial-document-processor": {"capture_paths": ["/app"]},
-    "pytorch-model-cli": {"capture_paths": ["/app"]},
+    "build-pmars": {
+      "capture_paths": [
+        "/app",
+        "/usr/local/bin/pmars"
+      ]
+    },
+    "financial-document-processor": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
+    "pytorch-model-cli": {
+      "capture_paths": [
+        "/app"
+      ]
+    },
     "fix-git": {
       "capture_paths": [
         "/app"
@@ -384,7 +397,9 @@
       ]
     },
     "mteb-retrieve": {
-      "capture_paths": ["/app"]
+      "capture_paths": [
+        "/app"
+      ]
     },
     "mailman": {
       "capture_paths": [
@@ -403,6 +418,11 @@
       "verifier_env": {
         "UV_PYTHON": "/app/.tb/bin/python"
       }
+    },
+    "bn-fit-modify": {
+      "capture_paths": [
+        "/app"
+      ]
     }
   }
 }

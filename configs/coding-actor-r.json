@@ -1,0 +1,11 @@
+{
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "tasks": {
+    "bn-fit-modify": {
+      "packages": [
+        {"name": "remotes", "version": "2.5.0", "url": "https://cloud.r-project.org/src/contrib/remotes_2.5.0.tar.gz"},
+        {"name": "bnlearn", "version": "4.9", "url": "https://cloud.r-project.org/src/contrib/Archive/bnlearn/bnlearn_4.9.tar.gz"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,623 @@
+{
+  "recorded_at": "2026-11-14T05:57:22.559851+00:00",
+  "benchmark_revision": "12b7565679ce5006230b820666353673a133db93",
+  "controls": [
+    {
+      "task": "build-pov-ray",
+      "acceptance": "artifacts/worktrees/tb21-apt-version/artifacts/native-controls/tb21-apt-version-controls-20261114/acceptance.json",
+      "acceptance_sha256": "63a12fdfcbbca53cb846ca85957c15e5b264b0008d1ab44ada867354074d8241",
+      "prerequisites_sha256": "60bd3dc7016f3137071a056a8ffba8d0aa5b36994e83e1725b54e442e72e66f5",
+      "source_files_verified": 41,
+      "model_calls": 0,
+      "outcomes": [
+        {
+          "group": "empty",
+          "network_mode": "public",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794633588.9795954,
+            "stop": 1794633589.9712367
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "public",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794633647.8645153,
+            "stop": 1794633654.3670561
+          }
+        },
+        {
+          "group": "empty",
+          "network_mode": "offline",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794633612.1948574,
+            "stop": 1794633613.1717088
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "offline",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794633683.2004457,
+            "stop": 1794633689.975847
+          }
+        }
+      ]
+    },
+    {
+      "task": "sam-cell-seg",
+      "acceptance": "artifacts/worktrees/tb21-git-filter/artifacts/native-controls/tb21-git-filter-controls-20261114/acceptance.json",
+      "acceptance_sha256": "a646950db3caa2e138c8c7a66108db86c224e7a019197b8807875d80b726578c",
+      "prerequisites_sha256": "89c5063605f2d9d981ae4c12b3ec0273487829be30af9e569cbb9f9c660878d1",
+      "source_files_verified": 41,
+      "model_calls": 0,
+      "outcomes": [
+        {
+          "group": "empty",
+          "network_mode": "public",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 9,
+            "passed": 0,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794632930.5385704,
+            "stop": 1794632932.2291334
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "public",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794633104.4478374,
+            "stop": 1794633131.2712119
+          }
+        },
+        {
+          "group": "empty",
+          "network_mode": "offline",
+          "reward": 0.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 9,
+            "passed": 0,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794632940.2082155,
+            "stop": 1794632941.9022112
+          }
+        },
+        {
+          "group": "oracle",
+          "network_mode": "offline",
+          "reward": 1.0,
+          "control_accepted": true,
+          "cleanup_verified": true,
+          "ctrf_summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1794634306.0324426,
+            "stop": 1794634331.1451488
+          }
+        }
+      ]
+    }
+  ],
+  "queued_expansions": [
+    {
+      "task": "build-pov-ray",
+      "array_job_id": "1209478",
+      "dependency": "afterany:1209444",
+      "study_sha256": "54ffaf348a797facd124e4b28225bd88ce98812271017208bf552050793f2ab6",
+      "submission_sha256": "c7a8609aa2ca6c006eeaf3fd69bf4b224076486a825522132562cd005007cbea",
+      "runtime_commit": "8725b396543060dd9c7a17c6037f2b6dfbdc5ee4",
+      "new_cells": 10,
+      "units": 10,
+      "reserved_prior_cells": 760,
+      "preserved_pilot_cells": 60,
+      "pending_tasks": [
+        "caffe-cifar-10",
+        "mcmc-sampling-stan",
+        "protein-assembly",
+        "reshard-c4-data",
+        "rstan-to-pystan",
+        "sam-cell-seg"
+      ],
+      "reasoning_effort": "high",
+      "repeats": 1
+    },
+    {
+      "task": "sam-cell-seg",
+      "array_job_id": "1209505",
+      "dependency": "afterany:1209478",
+      "study_sha256": "f7f5024a2cd02a5780cf68600d3e5bf299dbedbf595b53f69bdb0ca362c6a5c2",
+      "submission_sha256": "d91237d9dea064abba846350ab18ba145e4a0db1d55105802b9d8d82998b9bfb",
+      "runtime_commit": "a7ff22fda2b0db8788430d85ee6ede1e683f8036",
+      "new_cells": 10,
+      "units": 6,
+      "reserved_prior_cells": 770,
+      "preserved_pilot_cells": 60,
+      "pending_tasks": [
+        "caffe-cifar-10",
+        "mcmc-sampling-stan",
+        "protein-assembly",
+        "reshard-c4-data",
+        "rstan-to-pystan"
+      ],
+      "reasoning_effort": "high",
+      "repeats": 1
+    }
+  ],
+  "published_stages": [
+    {
+      "branch": "fix/tb21-c4-python-selection",
+      "commit": "08778b76cb582833a41bb4c4f2f9b02a6325aa07",
+      "files": [
+        "src/harnesslab/coding/verifier_cache.py",
+        "src/harnesslab/coding/native_environment.py",
+        "configs/coding-native-control-profiles.json",
+        "tests/test_coding_verifier_cache.py",
+        "tests/test_coding_native_environment.py",
+        "docs/coding-c4-verifier-python.md"
+      ],
+      "tests_passed": 301,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "feat/tb21-c4-verifier-data",
+      "commit": "7d0ae1205beb8472d7a141388073a4fbff953f6b",
+      "files": [
+        "scripts/prepare_coding_verifier_datasets.py",
+        "configs/coding-verifier-datasets.json",
+        "docs/coding-c4-verifier-data.md"
+      ],
+      "tests_passed": 301,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "fix/tb21-c4-source-path",
+      "commit": "dabbaef5f1ea859ebdb9d5483d36c7979566711c",
+      "files": [
+        "scripts/prepare_coding_verifier_datasets.py",
+        "docs/coding-c4-verifier-data.md"
+      ],
+      "tests_passed": 301,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "feat/tb21-caffe-source-cache",
+      "commit": "8d35e35140a9b90fb58df346394e3cd8dd644210",
+      "files": [
+        "configs/coding-public-git.json",
+        "configs/coding-public-downloads.json",
+        "configs/coding-actor-system.json",
+        "configs/coding-native-control-profiles.json",
+        "scripts/prepare_coding_public_downloads.py",
+        "docs/coding-caffe-prerequisites.md"
+      ],
+      "tests_passed": 301,
+      "pushed": true,
+      "remote_sha_verified": true
+    },
+    {
+      "branch": "fix/tb21-c4-offline-index",
+      "commit": "4e4b15f48b3896e295a9327bb3fda654fa4d45d4",
+      "files": [
+        "scripts/prepare_coding_verifier_datasets.py",
+        "docs/coding-c4-verifier-data.md"
+      ],
+      "tests_passed": 301,
+      "pushed": true,
+      "remote_sha_verified": true
+    }
+  ],
+  "progress_snapshot": {
+    "report": "/WORK/PUBLIC/lijuanzi_work/ShaojunYin/harnesslab/artifacts/worktrees/tb21-cohort-report/artifacts/coding-reports/full-progress-20261114T055443Z/report.json",
+    "report_sha256": "6ac7f1e8125063f6dae9f09494e641ad72103d1fa4c0b667d5df7b941463487d",
+    "expected_cells": 890,
+    "scored_cells": 96,
+    "successes": 70,
+    "regraded_cells": 13,
+    "partial_usage_trials": 15,
+    "ended_attempts": 106,
+    "groups": [
+      {
+        "network": "offline",
+        "group": "mini",
+        "valid_scored_cells": 10,
+        "successes": 8,
+        "regraded_cells": 0,
+        "partial_usage_trials": 0,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "valid_scored_cells": 10,
+        "successes": 6,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "valid_scored_cells": 10,
+        "successes": 7,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "offline",
+        "group": "rubric_transcript",
+        "valid_scored_cells": 9,
+        "successes": 6,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "offline",
+        "group": "rubric_evidence",
+        "valid_scored_cells": 9,
+        "successes": 7,
+        "regraded_cells": 1,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "public",
+        "group": "mini",
+        "valid_scored_cells": 10,
+        "successes": 8,
+        "regraded_cells": 0,
+        "partial_usage_trials": 0,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "valid_scored_cells": 10,
+        "successes": 7,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "valid_scored_cells": 10,
+        "successes": 7,
+        "regraded_cells": 2,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 3
+        }
+      },
+      {
+        "network": "public",
+        "group": "rubric_transcript",
+        "valid_scored_cells": 9,
+        "successes": 7,
+        "regraded_cells": 1,
+        "partial_usage_trials": 1,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      },
+      {
+        "network": "public",
+        "group": "rubric_evidence",
+        "valid_scored_cells": 9,
+        "successes": 7,
+        "regraded_cells": 1,
+        "partial_usage_trials": 2,
+        "transport_counts": {
+          "non_streaming": 7,
+          "streaming": 2
+        }
+      }
+    ],
+    "runtime_cohorts": [
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "native_tool_images_v1",
+        "ended_attempts": 1,
+        "valid_scored_cells": 1,
+        "successes": 0
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "generic_retry",
+        "response_transport": "streaming",
+        "request_adapter": "native_tool_images_v1",
+        "ended_attempts": 1,
+        "valid_scored_cells": 1,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "mini",
+        "response_transport": "non_streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 6
+      },
+      {
+        "network": "offline",
+        "group": "mini",
+        "response_transport": "streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 3,
+        "valid_scored_cells": 3,
+        "successes": 2
+      },
+      {
+        "network": "offline",
+        "group": "rubric_evidence",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 6
+      },
+      {
+        "network": "offline",
+        "group": "rubric_evidence",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "offline",
+        "group": "rubric_transcript",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "offline",
+        "group": "rubric_transcript",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "deepagents_default",
+        "response_transport": "streaming",
+        "request_adapter": "native_tool_images_v1",
+        "ended_attempts": 1,
+        "valid_scored_cells": 1,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "generic_retry",
+        "response_transport": "streaming",
+        "request_adapter": "native_tool_images_v1",
+        "ended_attempts": 1,
+        "valid_scored_cells": 1,
+        "successes": 1
+      },
+      {
+        "network": "public",
+        "group": "mini",
+        "response_transport": "non_streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "mini",
+        "response_transport": "streaming",
+        "request_adapter": "mini_native_shell",
+        "ended_attempts": 3,
+        "valid_scored_cells": 3,
+        "successes": 3
+      },
+      {
+        "network": "public",
+        "group": "rubric_evidence",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 5
+      },
+      {
+        "network": "public",
+        "group": "rubric_evidence",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 2
+      },
+      {
+        "network": "public",
+        "group": "rubric_transcript",
+        "response_transport": "non_streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 8,
+        "valid_scored_cells": 7,
+        "successes": 6
+      },
+      {
+        "network": "public",
+        "group": "rubric_transcript",
+        "response_transport": "streaming",
+        "request_adapter": "legacy_sdk_tool_content",
+        "ended_attempts": 2,
+        "valid_scored_cells": 2,
+        "successes": 1
+      }
+    ]
+  }
+}

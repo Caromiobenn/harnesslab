@@ -1,0 +1,998 @@
+{
+  "cases": [
+    {
+      "case": "inventory-aging--c_required--setup--r1",
+      "final": {
+        "digest": "806d71fc858b4908e4a87541f141e39384eef1ba01cc5bb8ca7000ba8b9462db",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "final",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 45.817,
+        "tokens": 107547
+      },
+      "first_executable": {
+        "digest": "8159001aa6421b3670c63e880af4b2fe43e98f7dab1e996720e8ea95cc059764",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 12.835,
+        "tokens": 8308
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": {
+        "digest": "ca14f4e3a246fd1a47993a95b18d0d58b31fb145136aa9760cb48f94b7d6f599",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 9,
+        "seconds": 24.243,
+        "tokens": 30514
+      },
+      "first_public_gate_pass": {
+        "digest": "ca14f4e3a246fd1a47993a95b18d0d58b31fb145136aa9760cb48f94b7d6f599",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 9,
+        "seconds": 24.243,
+        "tokens": 30514
+      },
+      "repeat": 1,
+      "replayed_public_checks": {
+        "601fb8e64335fdb7b67ca1179f23f8b73330fa27cacddf437c0aa61f75b88cca": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        },
+        "806d71fc858b4908e4a87541f141e39384eef1ba01cc5bb8ca7000ba8b9462db": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        },
+        "8159001aa6421b3670c63e880af4b2fe43e98f7dab1e996720e8ea95cc059764": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        },
+        "ca14f4e3a246fd1a47993a95b18d0d58b31fb145136aa9760cb48f94b7d6f599": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "df171da2c79bcb8f0a690f4b0bdee4efd23b21080ba752bcbbedd6760f46666f": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        }
+      },
+      "requirement": "c_required",
+      "status": "response_budget",
+      "task": "inventory-aging",
+      "timeline_sha256": "2e7309d33c1db4240edc6312596324306ae3ad5b556ed3b129d61258f6c8b59f",
+      "toolchain": "setup"
+    },
+    {
+      "case": "inventory-aging--flexible--ready--r1",
+      "final": {
+        "digest": "82f078914e9986c4fd450e84eba5c546971180da44add8fee5a3a015b3f180b4",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "final",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 55.13,
+        "tokens": 115615
+      },
+      "first_executable": {
+        "digest": "607ec5f11b24b15b5c3a9c222d72d628de585060d1f89a81069248e660421eae",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 8.646,
+        "tokens": 4739
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": null,
+      "first_public_gate_pass": null,
+      "repeat": 1,
+      "replayed_public_checks": {
+        "607ec5f11b24b15b5c3a9c222d72d628de585060d1f89a81069248e660421eae": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        },
+        "82f078914e9986c4fd450e84eba5c546971180da44add8fee5a3a015b3f180b4": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "inventory-aging",
+      "timeline_sha256": "c54c8f2373e47fc9dd726a4b09636b67b7d10fe317643da1adb35a0db2069627",
+      "toolchain": "ready"
+    },
+    {
+      "case": "inventory-aging--flexible--ready--r2",
+      "final": {
+        "digest": "b27790a5ad6817aedd0a57188cfadd18186cc891fc84b9929a6cc5e8f4984cec",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 5,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 47.689,
+        "tokens": 85058
+      },
+      "first_executable": {
+        "digest": "178544ee9c9295ba4c372027f56e4a53ec700e8d43c41c1f75e65d16703ea13f",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 8.727,
+        "tokens": 4854
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": {
+        "digest": "178544ee9c9295ba4c372027f56e4a53ec700e8d43c41c1f75e65d16703ea13f",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 8.727,
+        "tokens": 4854
+      },
+      "first_public_gate_pass": {
+        "digest": "178544ee9c9295ba4c372027f56e4a53ec700e8d43c41c1f75e65d16703ea13f",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 6,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 8.727,
+        "tokens": 4854
+      },
+      "repeat": 2,
+      "replayed_public_checks": {
+        "045c8378d69b64ea3f0648e4350f9c6cd6c1f51dbe0c32cba3543e2442c5668e": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "082097eeccaaf71de130922a796f29274ba5438b94488fa812e77e1485381026": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "178544ee9c9295ba4c372027f56e4a53ec700e8d43c41c1f75e65d16703ea13f": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "4b5b69132d5ab81f10d5bf5e295c21d9de705c9fbe01cfefd4b7581421523885": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "6249324873447d8e378e07e7f5e5cb3977dd2deb7880f77e025a523cf5c6cac0": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "735333ff2b33e1a9298a3e4dce52eec0ff6ac4e042d62d441eb130af9cbb5fc8": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "b27790a5ad6817aedd0a57188cfadd18186cc891fc84b9929a6cc5e8f4984cec": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "d8c646c0d4e70724713baae9f8a219500cbffd3d15ded9b5a0df3f5472c0ee7c": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "d909378b32d55819d2485c599bcbe9b30a6cba183f3310b9b12e8f635ef17d91": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "inventory-aging",
+      "timeline_sha256": "e3ad52aad5869a37bf3e75bba8b356609c2cd6e0f1ff8f5c56181443242c3d02",
+      "toolchain": "ready"
+    },
+    {
+      "case": "inventory-aging--flexible--setup--r3",
+      "final": {
+        "digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 11,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 11,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 36.183,
+        "tokens": 72200
+      },
+      "first_executable": {
+        "digest": "4f6b43b355e77b89e8063ee067359fbedc1b34654c88021aa6918305638017ad",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 6.398,
+        "tokens": 4165
+      },
+      "first_hidden_qualified_as_recorded": {
+        "digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 11,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 9.996,
+        "tokens": 6935
+      },
+      "first_public_example_pass": {
+        "digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 11,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 9.996,
+        "tokens": 6935
+      },
+      "first_public_gate_pass": {
+        "digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 11,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 11,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 9.996,
+        "tokens": 6935
+      },
+      "repeat": 3,
+      "replayed_public_checks": {
+        "4f6b43b355e77b89e8063ee067359fbedc1b34654c88021aa6918305638017ad": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        },
+        "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "inventory-aging",
+      "timeline_sha256": "a23ee363ec6f643d9bc9cd74e2156e103b02d74dc2bcd0f61ac373059f27722a",
+      "toolchain": "setup"
+    },
+    {
+      "case": "route-ledger--c_required--ready--r1",
+      "final": {
+        "digest": "efc4f3fdd8a9f96bc3299186ecc45c7154a3ad68cf9f91bc68a35f814c6ba27d",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 2,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 94.65,
+        "tokens": 217076
+      },
+      "first_executable": {
+        "digest": "4ad0c6792a3669f8e8a080a02bde2d281a1da3a28bd2b8cb6591c0d3b17ecf16",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 2,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 6.475,
+        "tokens": 4618
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": null,
+      "first_public_gate_pass": null,
+      "repeat": 1,
+      "replayed_public_checks": {
+        "4ad0c6792a3669f8e8a080a02bde2d281a1da3a28bd2b8cb6591c0d3b17ecf16": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        },
+        "efc4f3fdd8a9f96bc3299186ecc45c7154a3ad68cf9f91bc68a35f814c6ba27d": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        }
+      },
+      "requirement": "c_required",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "9fe9575ae072de375d6d69c275e3e35c738d1a6f07f0a9da4bc3123f652ec962",
+      "toolchain": "ready"
+    },
+    {
+      "case": "route-ledger--c_required--ready--r3",
+      "final": {
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 4,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 45.184,
+        "tokens": 110423
+      },
+      "first_executable": {
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 4,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 9.416,
+        "tokens": 5094
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": {
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 4,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 9.416,
+        "tokens": 5094
+      },
+      "first_public_gate_pass": {
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 4,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 3,
+        "seconds": 9.416,
+        "tokens": 5094
+      },
+      "repeat": 3,
+      "replayed_public_checks": {
+        "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        }
+      },
+      "requirement": "c_required",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "63ec0baffeaff8c230f1fb28323c66f51459f7b3104409c5e1399467644641f4",
+      "toolchain": "ready"
+    },
+    {
+      "case": "route-ledger--c_required--setup--r1",
+      "final": {
+        "digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 48.909,
+        "tokens": 112078
+      },
+      "first_executable": {
+        "digest": "9ebb9d46337d6e5a3b307bcdde733e409e39ce355d07a3b95c123f94d53681a3",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 2,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 8.455,
+        "tokens": 7001
+      },
+      "first_hidden_qualified_as_recorded": {
+        "digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 5,
+        "seconds": 12.742,
+        "tokens": 10554
+      },
+      "first_public_example_pass": {
+        "digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 5,
+        "seconds": 12.742,
+        "tokens": 10554
+      },
+      "first_public_gate_pass": {
+        "digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 5,
+        "seconds": 12.742,
+        "tokens": 10554
+      },
+      "repeat": 1,
+      "replayed_public_checks": {
+        "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        },
+        "9ebb9d46337d6e5a3b307bcdde733e409e39ce355d07a3b95c123f94d53681a3": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        }
+      },
+      "requirement": "c_required",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "d2faf35b1b8ca847be9fa6ea31031c49fbab77b91ed5e00f36799a4700a944c4",
+      "toolchain": "setup"
+    },
+    {
+      "case": "route-ledger--flexible--ready--r1",
+      "final": {
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 78.889,
+        "tokens": 147814
+      },
+      "first_executable": {
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 16.461,
+        "tokens": 9018
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": {
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 16.461,
+        "tokens": 9018
+      },
+      "first_public_gate_pass": {
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 3,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 16.461,
+        "tokens": 9018
+      },
+      "repeat": 1,
+      "replayed_public_checks": {
+        "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "717b9ba4cc845eb2a5a7803fc9e6146c3970cc72b9bb5ceee0877eb4911956e3",
+      "toolchain": "ready"
+    },
+    {
+      "case": "route-ledger--flexible--ready--r3",
+      "final": {
+        "digest": "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 1,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 128.726,
+        "tokens": 157257
+      },
+      "first_executable": {
+        "digest": "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 1,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": false,
+        "public_gate_pass": false,
+        "public_requirements_pass": true,
+        "responses": 2,
+        "seconds": 6.652,
+        "tokens": 2736
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": null,
+      "first_public_gate_pass": null,
+      "repeat": 3,
+      "replayed_public_checks": {
+        "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5": {
+          "checks": {
+            "public_example": false,
+            "submitted_requirements": true
+          },
+          "reason": "public_example",
+          "trigger_review": true
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "ee84af9dc65c5b13e0a5314ff27768ab5f66c79c1595cbe5ce0db4ceac531b62",
+      "toolchain": "ready"
+    },
+    {
+      "case": "route-ledger--flexible--setup--r2",
+      "final": {
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 7,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 101.843,
+        "tokens": 136276
+      },
+      "first_executable": {
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 7,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 9.688,
+        "tokens": 6874
+      },
+      "first_hidden_qualified_as_recorded": null,
+      "first_public_example_pass": {
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 7,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 9.688,
+        "tokens": 6874
+      },
+      "first_public_gate_pass": {
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": false,
+        "hidden_passed_as_recorded": 7,
+        "hidden_qualified_as_recorded": false,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 9.688,
+        "tokens": 6874
+      },
+      "repeat": 2,
+      "replayed_public_checks": {
+        "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "47edbfd53c557e8c5b5374ed141282e71d61be179b1ea801645e9aeb499e315d",
+      "toolchain": "setup"
+    },
+    {
+      "case": "route-ledger--flexible--setup--r3",
+      "final": {
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "final",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 20,
+        "seconds": 66.346,
+        "tokens": 117418
+      },
+      "first_executable": {
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 10.056,
+        "tokens": 6199
+      },
+      "first_hidden_qualified_as_recorded": {
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 10.056,
+        "tokens": 6199
+      },
+      "first_public_example_pass": {
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 10.056,
+        "tokens": 6199
+      },
+      "first_public_gate_pass": {
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700",
+        "executable_present": true,
+        "hidden_function_pass_as_recorded": true,
+        "hidden_passed_as_recorded": 10,
+        "hidden_qualified_as_recorded": true,
+        "hidden_total_as_recorded": 10,
+        "label": "tool",
+        "public_example_pass": true,
+        "public_gate_pass": true,
+        "public_requirements_pass": true,
+        "responses": 4,
+        "seconds": 10.056,
+        "tokens": 6199
+      },
+      "repeat": 3,
+      "replayed_public_checks": {
+        "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700": {
+          "checks": {
+            "public_example": true,
+            "submitted_requirements": true
+          },
+          "reason": "public checks passed",
+          "trigger_review": false
+        }
+      },
+      "requirement": "flexible",
+      "status": "response_budget",
+      "task": "route-ledger",
+      "timeline_sha256": "8e6902098072787b1bf3ce333ba19957394ec72d6cfcaf9e1343b0bd46a28a10",
+      "toolchain": "setup"
+    }
+  ],
+  "design_sha256": "ff0dc8cf60cb569616665c76c262ee5d7e20ff752680253c732960eb6729f89a",
+  "final": {
+    "executable_present": 11,
+    "hidden_failed_with_public_example_pass": 4,
+    "hidden_failed_with_public_gate_pass": 4,
+    "hidden_qualified_as_recorded": 3,
+    "public_example_pass": 7,
+    "public_gate_pass": 7
+  },
+  "first_public_example": {
+    "ever": 8,
+    "final_hidden_failed_among_ever_public_passed": 5,
+    "hidden_qualified_when_first_passed_as_recorded": 3
+  },
+  "first_public_gate": {
+    "ever": 8,
+    "final_hidden_failed_among_ever_public_passed": 5,
+    "hidden_qualified_when_first_passed_as_recorded": 3
+  },
+  "matrix": "accepted-matrix-20261118",
+  "matrix_cells": 48,
+  "model_calls": 0,
+  "score_network": "none",
+  "score_sha256": "7067b9768d25557a2998e7f19960c3e2a7dfc7ce1fb5bb67469975c3fc8c07fd",
+  "scorer_image_id": "sha256:f40d78259a33169154cb9f150f7c84dd6fed61df7f3eb3dd7d619eddbcd56de8",
+  "selected_no_first_candidate": 11,
+  "unique_runnable_snapshots_replayed": 27,
+  "unique_snapshot_manifests_verified": 39
+}

@@ -1,0 +1,1032 @@
+{
+  "design_sha256": "796c8699948a5b5967d82acfe079c9bb515d24727f00184e855541bd63463efd",
+  "by_arm": {
+    "standard": {
+      "planned": 16,
+      "valid_finals": 16,
+      "qualified": 5,
+      "final_qualification_rate": 0.3125,
+      "final_statuses": {
+        "valid": 16
+      },
+      "stop_reasons": {
+        "response_budget": 11,
+        "completed": 4,
+        "time_budget": 1
+      },
+      "cost": {
+        "observed": 16,
+        "median": 91607.0,
+        "total": 1586654,
+        "per_qualified": 317330.8
+      },
+      "natural_final": 4,
+      "timelines": 16,
+      "runs_with_any_draft": 2,
+      "runs_with_accepted_draft": 2,
+      "draft_events": 3,
+      "accepted_draft_events": 3,
+      "unknown_draft_events": 0,
+      "first_public_draft_to_final": {
+        "qualified_unchanged": 2
+      },
+      "first_public_working": {
+        "timelines": 16,
+        "seen": 9,
+        "not_seen_at_end": 7,
+        "missing_timeline": 0,
+        "verification_gap": 0,
+        "timing_upper_bound": 0,
+        "by_response": {
+          "4": 8,
+          "8": 9,
+          "12": 9
+        },
+        "responses": {
+          "observed": 9,
+          "median": 4
+        },
+        "tokens": {
+          "observed": 9,
+          "median": 6755
+        }
+      },
+      "first_public_gate_pass": {
+        "timelines": 16,
+        "seen": 9,
+        "not_seen_at_end": 7,
+        "missing_timeline": 0,
+        "verification_gap": 0,
+        "timing_upper_bound": 0,
+        "by_response": {
+          "4": 8,
+          "8": 9,
+          "12": 9
+        },
+        "responses": {
+          "observed": 9,
+          "median": 4
+        },
+        "tokens": {
+          "observed": 9,
+          "median": 6755
+        }
+      },
+      "first_qualified": {
+        "timelines": 16,
+        "seen": 5,
+        "not_seen_at_end": 11,
+        "missing_timeline": 0,
+        "verification_gap": 0,
+        "timing_upper_bound": 0,
+        "by_response": {
+          "4": 4,
+          "8": 5,
+          "12": 5
+        },
+        "responses": {
+          "observed": 5,
+          "median": 4
+        },
+        "tokens": {
+          "observed": 5,
+          "median": 6755
+        }
+      },
+      "public_working_but_final_failed": 3,
+      "public_gate_passed_but_final_failed": 3
+    },
+    "early_draft": {
+      "planned": 16,
+      "valid_finals": 16,
+      "qualified": 5,
+      "final_qualification_rate": 0.3125,
+      "final_statuses": {
+        "valid": 16
+      },
+      "stop_reasons": {
+        "response_budget": 11,
+        "completed": 5
+      },
+      "cost": {
+        "observed": 16,
+        "median": 90183.5,
+        "total": 1394323,
+        "per_qualified": 278864.6
+      },
+      "natural_final": 5,
+      "timelines": 16,
+      "runs_with_any_draft": 13,
+      "runs_with_accepted_draft": 8,
+      "draft_events": 13,
+      "accepted_draft_events": 8,
+      "unknown_draft_events": 0,
+      "first_public_draft_to_final": {
+        "unqualified_unchanged": 4,
+        "qualified_unchanged": 4
+      },
+      "first_public_working": {
+        "timelines": 16,
+        "seen": 9,
+        "not_seen_at_end": 7,
+        "missing_timeline": 0,
+        "verification_gap": 0,
+        "timing_upper_bound": 0,
+        "by_response": {
+          "4": 8,
+          "8": 9,
+          "12": 9
+        },
+        "responses": {
+          "observed": 9,
+          "median": 4
+        },
+        "tokens": {
+          "observed": 9,
+          "median": 7701
+        }
+      },
+      "first_public_gate_pass": {
+        "timelines": 16,
+        "seen": 9,
+        "not_seen_at_end": 7,
+        "missing_timeline": 0,
+        "verification_gap": 0,
+        "timing_upper_bound": 0,
+        "by_response": {
+          "4": 8,
+          "8": 9,
+          "12": 9
+        },
+        "responses": {
+          "observed": 9,
+          "median": 4
+        },
+        "tokens": {
+          "observed": 9,
+          "median": 7701
+        }
+      },
+      "first_qualified": {
+        "timelines": 16,
+        "seen": 5,
+        "not_seen_at_end": 11,
+        "missing_timeline": 0,
+        "verification_gap": 0,
+        "timing_upper_bound": 0,
+        "by_response": {
+          "4": 5,
+          "8": 5,
+          "12": 5
+        },
+        "responses": {
+          "observed": 5,
+          "median": 4
+        },
+        "tokens": {
+          "observed": 5,
+          "median": 7701
+        }
+      },
+      "public_working_but_final_failed": 4,
+      "public_gate_passed_but_final_failed": 4
+    }
+  },
+  "matched": {
+    "planned": 16,
+    "complete": 16,
+    "joint_outcomes": {
+      "both_qualified": 2,
+      "both_failed": 8,
+      "early_draft_only": 3,
+      "standard_only": 3,
+      "incomplete": 0
+    },
+    "qualification_delta_early_minus_standard_pp": 0.0,
+    "recorded_token_delta_early_minus_standard": {
+      "observed": 16,
+      "median": -3590.5
+    },
+    "blocks": [
+      {
+        "task": "inventory-aging",
+        "requirement": "c_required",
+        "toolchain": "ready",
+        "repeat": 1,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 21251
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "c_required",
+        "toolchain": "ready",
+        "repeat": 2,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 22281
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "c_required",
+        "toolchain": "setup",
+        "repeat": 1,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -45471
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "c_required",
+        "toolchain": "setup",
+        "repeat": 2,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -45392
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "flexible",
+        "toolchain": "ready",
+        "repeat": 1,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -63626
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "flexible",
+        "toolchain": "ready",
+        "repeat": 2,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 116779
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "flexible",
+        "toolchain": "setup",
+        "repeat": 1,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -10297
+      },
+      {
+        "task": "inventory-aging",
+        "requirement": "flexible",
+        "toolchain": "setup",
+        "repeat": 2,
+        "outcome": "standard_only",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 37807
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "c_required",
+        "toolchain": "ready",
+        "repeat": 1,
+        "outcome": "both_failed",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -25593
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "c_required",
+        "toolchain": "ready",
+        "repeat": 2,
+        "outcome": "early_draft_only",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -146552
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "c_required",
+        "toolchain": "setup",
+        "repeat": 1,
+        "outcome": "both_qualified",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 74629
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "c_required",
+        "toolchain": "setup",
+        "repeat": 2,
+        "outcome": "standard_only",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 25421
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "flexible",
+        "toolchain": "ready",
+        "repeat": 1,
+        "outcome": "early_draft_only",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -129966
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "flexible",
+        "toolchain": "ready",
+        "repeat": 2,
+        "outcome": "both_qualified",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 3116
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "flexible",
+        "toolchain": "setup",
+        "repeat": 1,
+        "outcome": "early_draft_only",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": -76819
+      },
+      {
+        "task": "route-ledger",
+        "requirement": "flexible",
+        "toolchain": "setup",
+        "repeat": 2,
+        "outcome": "standard_only",
+        "incomplete_reasons": {},
+        "recorded_token_delta_early_minus_standard": 50101
+      }
+    ]
+  },
+  "by_task_and_arm": {
+    "inventory-aging": {
+      "standard": {
+        "planned": 8,
+        "valid_finals": 8,
+        "qualified": 1,
+        "final_qualification_rate": 0.125,
+        "final_statuses": {
+          "valid": 8
+        },
+        "stop_reasons": {
+          "response_budget": 7,
+          "completed": 1
+        },
+        "cost": {
+          "observed": 8,
+          "median": 91607.0,
+          "total": 809933,
+          "per_qualified": 809933.0
+        },
+        "natural_final": 1,
+        "timelines": 8,
+        "runs_with_any_draft": 1,
+        "runs_with_accepted_draft": 1,
+        "draft_events": 2,
+        "accepted_draft_events": 2,
+        "unknown_draft_events": 0,
+        "first_public_draft_to_final": {
+          "qualified_unchanged": 1
+        },
+        "first_public_working": {
+          "timelines": 8,
+          "seen": 3,
+          "not_seen_at_end": 5,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 3,
+            "8": 3,
+            "12": 3
+          },
+          "responses": {
+            "observed": 3,
+            "median": 4
+          },
+          "tokens": {
+            "observed": 3,
+            "median": 7338
+          }
+        },
+        "first_public_gate_pass": {
+          "timelines": 8,
+          "seen": 3,
+          "not_seen_at_end": 5,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 3,
+            "8": 3,
+            "12": 3
+          },
+          "responses": {
+            "observed": 3,
+            "median": 4
+          },
+          "tokens": {
+            "observed": 3,
+            "median": 7338
+          }
+        },
+        "first_qualified": {
+          "timelines": 8,
+          "seen": 1,
+          "not_seen_at_end": 7,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 1,
+            "8": 1,
+            "12": 1
+          },
+          "responses": {
+            "observed": 1,
+            "median": 4
+          },
+          "tokens": {
+            "observed": 1,
+            "median": 6926
+          }
+        },
+        "public_working_but_final_failed": 2,
+        "public_gate_passed_but_final_failed": 2
+      },
+      "early_draft": {
+        "planned": 8,
+        "valid_finals": 8,
+        "qualified": 0,
+        "final_qualification_rate": 0.0,
+        "final_statuses": {
+          "valid": 8
+        },
+        "stop_reasons": {
+          "response_budget": 8
+        },
+        "cost": {
+          "observed": 8,
+          "median": 100814.0,
+          "total": 843265,
+          "per_qualified": null
+        },
+        "natural_final": 0,
+        "timelines": 8,
+        "runs_with_any_draft": 5,
+        "runs_with_accepted_draft": 1,
+        "draft_events": 5,
+        "accepted_draft_events": 1,
+        "unknown_draft_events": 0,
+        "first_public_draft_to_final": {
+          "unqualified_unchanged": 1
+        },
+        "first_public_working": {
+          "timelines": 8,
+          "seen": 1,
+          "not_seen_at_end": 7,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 1,
+            "8": 1,
+            "12": 1
+          },
+          "responses": {
+            "observed": 1,
+            "median": 3
+          },
+          "tokens": {
+            "observed": 1,
+            "median": 4561
+          }
+        },
+        "first_public_gate_pass": {
+          "timelines": 8,
+          "seen": 1,
+          "not_seen_at_end": 7,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 1,
+            "8": 1,
+            "12": 1
+          },
+          "responses": {
+            "observed": 1,
+            "median": 3
+          },
+          "tokens": {
+            "observed": 1,
+            "median": 4561
+          }
+        },
+        "first_qualified": {
+          "timelines": 8,
+          "seen": 0,
+          "not_seen_at_end": 8,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 0,
+            "8": 0,
+            "12": 0
+          },
+          "responses": {
+            "observed": 0,
+            "median": null
+          },
+          "tokens": {
+            "observed": 0,
+            "median": null
+          }
+        },
+        "public_working_but_final_failed": 1,
+        "public_gate_passed_but_final_failed": 1
+      }
+    },
+    "route-ledger": {
+      "standard": {
+        "planned": 8,
+        "valid_finals": 8,
+        "qualified": 4,
+        "final_qualification_rate": 0.5,
+        "final_statuses": {
+          "valid": 8
+        },
+        "stop_reasons": {
+          "response_budget": 4,
+          "completed": 3,
+          "time_budget": 1
+        },
+        "cost": {
+          "observed": 8,
+          "median": 93480.0,
+          "total": 776721,
+          "per_qualified": 194180.25
+        },
+        "natural_final": 3,
+        "timelines": 8,
+        "runs_with_any_draft": 1,
+        "runs_with_accepted_draft": 1,
+        "draft_events": 1,
+        "accepted_draft_events": 1,
+        "unknown_draft_events": 0,
+        "first_public_draft_to_final": {
+          "qualified_unchanged": 1
+        },
+        "first_public_working": {
+          "timelines": 8,
+          "seen": 6,
+          "not_seen_at_end": 2,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 5,
+            "8": 6,
+            "12": 6
+          },
+          "responses": {
+            "observed": 6,
+            "median": 3.5
+          },
+          "tokens": {
+            "observed": 6,
+            "median": 5951.5
+          }
+        },
+        "first_public_gate_pass": {
+          "timelines": 8,
+          "seen": 6,
+          "not_seen_at_end": 2,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 5,
+            "8": 6,
+            "12": 6
+          },
+          "responses": {
+            "observed": 6,
+            "median": 3.5
+          },
+          "tokens": {
+            "observed": 6,
+            "median": 5951.5
+          }
+        },
+        "first_qualified": {
+          "timelines": 8,
+          "seen": 4,
+          "not_seen_at_end": 4,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 3,
+            "8": 4,
+            "12": 4
+          },
+          "responses": {
+            "observed": 4,
+            "median": 4.0
+          },
+          "tokens": {
+            "observed": 4,
+            "median": 6740.5
+          }
+        },
+        "public_working_but_final_failed": 1,
+        "public_gate_passed_but_final_failed": 1
+      },
+      "early_draft": {
+        "planned": 8,
+        "valid_finals": 8,
+        "qualified": 5,
+        "final_qualification_rate": 0.625,
+        "final_statuses": {
+          "valid": 8
+        },
+        "stop_reasons": {
+          "response_budget": 3,
+          "completed": 5
+        },
+        "cost": {
+          "observed": 8,
+          "median": 40851.0,
+          "total": 551058,
+          "per_qualified": 110211.6
+        },
+        "natural_final": 5,
+        "timelines": 8,
+        "runs_with_any_draft": 8,
+        "runs_with_accepted_draft": 7,
+        "draft_events": 8,
+        "accepted_draft_events": 7,
+        "unknown_draft_events": 0,
+        "first_public_draft_to_final": {
+          "unqualified_unchanged": 3,
+          "qualified_unchanged": 4
+        },
+        "first_public_working": {
+          "timelines": 8,
+          "seen": 8,
+          "not_seen_at_end": 0,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 7,
+            "8": 8,
+            "12": 8
+          },
+          "responses": {
+            "observed": 8,
+            "median": 4.0
+          },
+          "tokens": {
+            "observed": 8,
+            "median": 7809.5
+          }
+        },
+        "first_public_gate_pass": {
+          "timelines": 8,
+          "seen": 8,
+          "not_seen_at_end": 0,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 7,
+            "8": 8,
+            "12": 8
+          },
+          "responses": {
+            "observed": 8,
+            "median": 4.0
+          },
+          "tokens": {
+            "observed": 8,
+            "median": 7809.5
+          }
+        },
+        "first_qualified": {
+          "timelines": 8,
+          "seen": 5,
+          "not_seen_at_end": 3,
+          "missing_timeline": 0,
+          "verification_gap": 0,
+          "timing_upper_bound": 0,
+          "by_response": {
+            "4": 5,
+            "8": 5,
+            "12": 5
+          },
+          "responses": {
+            "observed": 5,
+            "median": 4
+          },
+          "tokens": {
+            "observed": 5,
+            "median": 7701
+          }
+        },
+        "public_working_but_final_failed": 3,
+        "public_gate_passed_but_final_failed": 3
+      }
+    }
+  },
+  "design": {
+    "cells": [
+      [
+        "early_draft",
+        "inventory-aging",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "standard",
+        "route-ledger",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "early_draft",
+        "inventory-aging",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "standard",
+        "inventory-aging",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "early_draft",
+        "route-ledger",
+        "c_required",
+        "ready",
+        1
+      ]
+    ],
+    "workflows": {
+      "standard": "",
+      "early_draft": "Prioritize an end-to-end runnable draft. As soon as it runs the public example with the expected output, call record_draft before doing further checks, polishing or optimization. Continue testing and improving the draft against the original requirements after marking it, and provide the normal final response when done."
+    },
+    "model": "deepseek-v4.1-flash-1017",
+    "provider": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "reasoning": "disabled",
+    "temperature": 0.3,
+    "score_seed": 18053,
+    "order_seed": 18118,
+    "response_cap": 20,
+    "token_cap_per_response": 4096,
+    "time_budget_seconds": 210,
+    "shared_draft_tool": "record_draft",
+    "last_snapshot_is_final": true,
+    "workers": 6,
+    "source_sha256": {
+      "phase3/run.py": "aedc6a7248c4764833737a11145afc7a28e7d07c6dcbb2350e0771505b63177b",
+      "run_study.py": "96e4a8560709cde09b033e4ee048b6f16c9665e3a9df593aa08925f7cc0f1076",
+      "study_client.py": "aa38a8b0ef2cbcd7868eccebbd1ca497d4f610c155ec0d33ada21863f477bc11",
+      "phase2/tasks/study_tasks.py": "7067b9768d25557a2998e7f19960c3e2a7dfc7ce1fb5bb67469975c3fc8c07fd"
+    },
+    "actor_image_id": "sha256:6208d06793c15a31f523245a7715739fdc3fd1b1da6b78634d8d01d617e1e8d9",
+    "scorer_image_id": "sha256:f40d78259a33169154cb9f150f7c84dd6fed61df7f3eb3dd7d619eddbcd56de8"
+  },
+  "verified_digests_per_trial": 134,
+  "historical": {
+    "planned": 48,
+    "no_first_candidate": 11,
+    "with_executable": 11,
+    "passing_at_least_one_hidden_case": 11,
+    "qualified_at_some_point": 3,
+    "qualified_at_first_executable": 1,
+    "final_qualified": 3,
+    "tool_calls_are_only_finish_reason": 11,
+    "last_tool_exit_zero": 11,
+    "no_deliverable_change_last_five_responses": 10,
+    "consecutive_exact_repeat_last_command": 6,
+    "incorrect_with_model_test_mismatch_marker": 7,
+    "after_first_qualified_observed_tokens": 278008,
+    "after_first_qualified_responses": 47,
+    "after_first_qualified_tool_calls": 47
+  },
+  "historical_public_checks": {
+    "first_public_example": {
+      "ever": 8,
+      "final_hidden_failed_among_ever_public_passed": 5,
+      "hidden_qualified_when_first_passed_as_recorded": 3
+    },
+    "first_public_gate": {
+      "ever": 8,
+      "final_hidden_failed_among_ever_public_passed": 5,
+      "hidden_qualified_when_first_passed_as_recorded": 3
+    },
+    "final": {
+      "executable_present": 11,
+      "hidden_failed_with_public_example_pass": 4,
+      "hidden_failed_with_public_gate_pass": 4,
+      "hidden_qualified_as_recorded": 3,
+      "public_example_pass": 7,
+      "public_gate_pass": 7
+    },
+    "model_calls": 0,
+    "score_sha256": "7067b9768d25557a2998e7f19960c3e2a7dfc7ce1fb5bb67469975c3fc8c07fd"
+  }
+}

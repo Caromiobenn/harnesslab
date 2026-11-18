@@ -1,0 +1,716 @@
+{
+  "source_root_name": "artifacts",
+  "source_file_index": [
+    {
+      "file": "accepted-matrix-20261118/design.json",
+      "sha256": "ff0dc8cf60cb569616665c76c262ee5d7e20ff752680253c732960eb6729f89a"
+    },
+    {
+      "file": "accepted-matrix-20261118/results.json",
+      "sha256": "ab4e0d7ecee189a6893b5bdf84b15abaf037cd68250fcc9e459f849993de6256"
+    },
+    {
+      "file": "final-summary/summary.json",
+      "sha256": "3f23fc6952e686c0b5f3d35c1d0318068ac3903a4f9c7f4adf88da1e165cf01a"
+    }
+  ],
+  "totals": {
+    "planned": 48,
+    "no_first_candidate": 11,
+    "with_executable": 11,
+    "passing_at_least_one_hidden_case": 11,
+    "qualified_at_some_point": 3,
+    "qualified_at_first_executable": 1,
+    "final_qualified": 3,
+    "tool_calls_are_only_finish_reason": 11,
+    "last_tool_exit_zero": 11,
+    "no_deliverable_change_last_five_responses": 10,
+    "consecutive_exact_repeat_last_command": 6,
+    "incorrect_with_model_test_mismatch_marker": 7,
+    "after_first_qualified_observed_tokens": 278008,
+    "after_first_qualified_responses": 47,
+    "after_first_qualified_tool_calls": 47
+  },
+  "cases": [
+    {
+      "case": "inventory-aging--c_required--setup--r1",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 4,
+        "seconds": 12.835,
+        "digest": "8159001aa6421b3670c63e880af4b2fe43e98f7dab1e996720e8ea95cc059764"
+      },
+      "first_correct_hidden_case": {
+        "responses": 4,
+        "seconds": 12.835,
+        "digest": "8159001aa6421b3670c63e880af4b2fe43e98f7dab1e996720e8ea95cc059764"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 11,
+        "seconds": 28.5,
+        "digest": "806d71fc858b4908e4a87541f141e39384eef1ba01cc5bb8ca7000ba8b9462db"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 6,
+      "final_hidden_total": 11,
+      "final_hidden_outcomes": {
+        "correct": 6,
+        "incorrect": 5
+      },
+      "final_artifact_digest": "806d71fc858b4908e4a87541f141e39384eef1ba01cc5bb8ca7000ba8b9462db",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 7,
+      "final_identical_command_streak": 1,
+      "final_command_sha256": "398a76dd314910d8e46eaa8c6b189b8e5dbc7a347f9334f65e0113b1ed52c90f",
+      "distinct_commands": 20,
+      "snapshot_hashes": {
+        "checked": 10,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--c_required--setup--r1/result.json",
+          "sha256": "b5dddb442173c3545fa2a40bc7bb8debb7bbe900f22068c4b70a0333c6c60353"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--c_required--setup--r1/timeline.json",
+          "sha256": "2e7309d33c1db4240edc6312596324306ae3ad5b556ed3b129d61258f6c8b59f"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--c_required--setup--r1/trajectory.jsonl",
+          "sha256": "32e30376e3a93d71bba2f7d42b1d458c27587b31b6ce9ff9e9a7a5b0ded06cee"
+        }
+      ]
+    },
+    {
+      "case": "inventory-aging--flexible--ready--r1",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 3,
+        "seconds": 8.646,
+        "digest": "607ec5f11b24b15b5c3a9c222d72d628de585060d1f89a81069248e660421eae"
+      },
+      "first_correct_hidden_case": {
+        "responses": 3,
+        "seconds": 8.646,
+        "digest": "607ec5f11b24b15b5c3a9c222d72d628de585060d1f89a81069248e660421eae"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 9,
+        "seconds": 20.695,
+        "digest": "82f078914e9986c4fd450e84eba5c546971180da44add8fee5a3a015b3f180b4"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 6,
+      "final_hidden_total": 11,
+      "final_hidden_outcomes": {
+        "correct": 6,
+        "incorrect": 5
+      },
+      "final_artifact_digest": "82f078914e9986c4fd450e84eba5c546971180da44add8fee5a3a015b3f180b4",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 10,
+      "final_identical_command_streak": 8,
+      "final_command_sha256": "1e98798c396484ec99e128cd6e536bd9e4b580707f4c2f22b99adb7a991f112e",
+      "distinct_commands": 13,
+      "snapshot_hashes": {
+        "checked": 4,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--ready--r1/result.json",
+          "sha256": "b300d74f86f57e5f83e09878f079b2403b6c09362daa5652fdb3872a10a97d09"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--ready--r1/timeline.json",
+          "sha256": "c54c8f2373e47fc9dd726a4b09636b67b7d10fe317643da1adb35a0db2069627"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--ready--r1/trajectory.jsonl",
+          "sha256": "a8c856f7b5178ecb439927c4bfd3325f8fd2e3a3c7bca547486611a8d23c0a64"
+        }
+      ]
+    },
+    {
+      "case": "inventory-aging--flexible--ready--r2",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 3,
+        "seconds": 8.727,
+        "digest": "178544ee9c9295ba4c372027f56e4a53ec700e8d43c41c1f75e65d16703ea13f"
+      },
+      "first_correct_hidden_case": {
+        "responses": 3,
+        "seconds": 8.727,
+        "digest": "178544ee9c9295ba4c372027f56e4a53ec700e8d43c41c1f75e65d16703ea13f"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 20,
+        "seconds": 47.324,
+        "digest": "b27790a5ad6817aedd0a57188cfadd18186cc891fc84b9929a6cc5e8f4984cec"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 5,
+      "final_hidden_total": 11,
+      "final_hidden_outcomes": {
+        "correct": 5,
+        "incorrect": 6
+      },
+      "final_artifact_digest": "b27790a5ad6817aedd0a57188cfadd18186cc891fc84b9929a6cc5e8f4984cec",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 17,
+      "final_identical_command_streak": 1,
+      "final_command_sha256": "1ea74ae1c9efd8455da26e9ad085091b649ee9740f73a7776e663b4d5b21d5c5",
+      "distinct_commands": 20,
+      "snapshot_hashes": {
+        "checked": 18,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--ready--r2/result.json",
+          "sha256": "8842bd4bac2122b305745902ca8e9c93a3d78225dbd32b2f888b5270d41e5bd2"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--ready--r2/timeline.json",
+          "sha256": "e3ad52aad5869a37bf3e75bba8b356609c2cd6e0f1ff8f5c56181443242c3d02"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--ready--r2/trajectory.jsonl",
+          "sha256": "e5e2286bb18db03c22b1835600104123819962ba047d8bf05fbb12c55dfd5e43"
+        }
+      ]
+    },
+    {
+      "case": "inventory-aging--flexible--setup--r3",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 3,
+        "seconds": 6.398,
+        "digest": "4f6b43b355e77b89e8063ee067359fbedc1b34654c88021aa6918305638017ad"
+      },
+      "first_correct_hidden_case": {
+        "responses": 3,
+        "seconds": 6.398,
+        "digest": "4f6b43b355e77b89e8063ee067359fbedc1b34654c88021aa6918305638017ad"
+      },
+      "first_qualified": {
+        "responses": 4,
+        "seconds": 9.996,
+        "digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6"
+      },
+      "last_deliverable_change": {
+        "responses": 4,
+        "seconds": 9.996,
+        "digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6"
+      },
+      "final_qualified": true,
+      "final_artifact_kind": "script",
+      "final_hidden_passed": 11,
+      "final_hidden_total": 11,
+      "final_hidden_outcomes": {
+        "correct": 11
+      },
+      "final_artifact_digest": "5224df48f8fb57746ec0110544095d9c348229d89fbbb16fe274eadbaa3d94b6",
+      "post_qualification_unchanged": true,
+      "post_qualification_tokens": 65265,
+      "post_qualification_responses": 16,
+      "post_qualification_tool_calls": 16,
+      "first_mismatch_marker_response": null,
+      "final_identical_command_streak": 1,
+      "final_command_sha256": "75adcf36e4372d78ea321cfd90449de069d5b55213679b0265a3ab5708cba32d",
+      "distinct_commands": 20,
+      "snapshot_hashes": {
+        "checked": 2,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--setup--r3/result.json",
+          "sha256": "a9d8bc0e9cc9104de2415cea4e5838786b0538f7db3bad83a01c83cccadaa77d"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--setup--r3/timeline.json",
+          "sha256": "a23ee363ec6f643d9bc9cd74e2156e103b02d74dc2bcd0f61ac373059f27722a"
+        },
+        {
+          "file": "accepted-matrix-20261118/inventory-aging--flexible--setup--r3/trajectory.jsonl",
+          "sha256": "ffac445157b48c4c28a2067700d949aa2d1d905b66f17fbf4310781e71b2f63d"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--c_required--ready--r1",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 3,
+        "seconds": 6.475,
+        "digest": "4ad0c6792a3669f8e8a080a02bde2d281a1da3a28bd2b8cb6591c0d3b17ecf16"
+      },
+      "first_correct_hidden_case": {
+        "responses": 3,
+        "seconds": 6.475,
+        "digest": "4ad0c6792a3669f8e8a080a02bde2d281a1da3a28bd2b8cb6591c0d3b17ecf16"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 4,
+        "seconds": 10.259,
+        "digest": "efc4f3fdd8a9f96bc3299186ecc45c7154a3ad68cf9f91bc68a35f814c6ba27d"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 2,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 2,
+        "incorrect": 8
+      },
+      "final_artifact_digest": "efc4f3fdd8a9f96bc3299186ecc45c7154a3ad68cf9f91bc68a35f814c6ba27d",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 5,
+      "final_identical_command_streak": 11,
+      "final_command_sha256": "957c85dd987d419e883d09ad2769391a1c0adf6498c27f3a51ebcacc3fa33ba5",
+      "distinct_commands": 9,
+      "snapshot_hashes": {
+        "checked": 4,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--ready--r1/result.json",
+          "sha256": "a27faf185452595141a946ac92933bfe8bd880a755dd8a045bef02ba55678078"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--ready--r1/timeline.json",
+          "sha256": "9fe9575ae072de375d6d69c275e3e35c738d1a6f07f0a9da4bc3123f652ec962"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--ready--r1/trajectory.jsonl",
+          "sha256": "0f4d85ffaa6ee0f1c0f143d7841589f1aac82a72303c48f70c6a127f8c25616e"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--c_required--ready--r3",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 3,
+        "seconds": 9.416,
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8"
+      },
+      "first_correct_hidden_case": {
+        "responses": 3,
+        "seconds": 9.416,
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 3,
+        "seconds": 9.416,
+        "digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 4,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 4,
+        "incorrect": 6
+      },
+      "final_artifact_digest": "91d7db95906d1556baa2f23334dff7de6e9db819ca864a85666d4d954fa5e5c8",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 4,
+      "final_identical_command_streak": 1,
+      "final_command_sha256": "5cfeaa5b94c5c4f2bb564c1c1dc9cdbea2b38d08dac313b373700812febe91e7",
+      "distinct_commands": 20,
+      "snapshot_hashes": {
+        "checked": 2,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--ready--r3/result.json",
+          "sha256": "e5356054cadd63b2e3fb12430187a880ec749e86bee683be51e33d6fecd9048a"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--ready--r3/timeline.json",
+          "sha256": "63ec0baffeaff8c230f1fb28323c66f51459f7b3104409c5e1399467644641f4"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--ready--r3/trajectory.jsonl",
+          "sha256": "8a79a6c517cc657db869ef2a68e97b60c831e24c82c859fd33997855faba7408"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--c_required--setup--r1",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 4,
+        "seconds": 8.455,
+        "digest": "9ebb9d46337d6e5a3b307bcdde733e409e39ce355d07a3b95c123f94d53681a3"
+      },
+      "first_correct_hidden_case": {
+        "responses": 4,
+        "seconds": 8.455,
+        "digest": "9ebb9d46337d6e5a3b307bcdde733e409e39ce355d07a3b95c123f94d53681a3"
+      },
+      "first_qualified": {
+        "responses": 5,
+        "seconds": 12.742,
+        "digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa"
+      },
+      "last_deliverable_change": {
+        "responses": 5,
+        "seconds": 12.742,
+        "digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa"
+      },
+      "final_qualified": true,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 10,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 10
+      },
+      "final_artifact_digest": "1c97b63298b41e6f9a713e7017c81fd879fc953252f2f25afd0f5b6a57968bfa",
+      "post_qualification_unchanged": true,
+      "post_qualification_tokens": 101524,
+      "post_qualification_responses": 15,
+      "post_qualification_tool_calls": 15,
+      "first_mismatch_marker_response": null,
+      "final_identical_command_streak": 14,
+      "final_command_sha256": "f37387d4ebb13dc55bf303cbfe08f5901ac3fb3d36b9ddce9f51a6347df0a602",
+      "distinct_commands": 7,
+      "snapshot_hashes": {
+        "checked": 4,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--setup--r1/result.json",
+          "sha256": "eb53eeb8c02a7a8e3ac482778e79aa2cb86e3eed72af89896d42c4818a14b657"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--setup--r1/timeline.json",
+          "sha256": "d2faf35b1b8ca847be9fa6ea31031c49fbab77b91ed5e00f36799a4700a944c4"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--c_required--setup--r1/trajectory.jsonl",
+          "sha256": "dd1d5a18b2278aaee34ac827364bf1933c078e84135bdae2699b5d1201df3fcc"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--flexible--ready--r1",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 4,
+        "seconds": 16.461,
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee"
+      },
+      "first_correct_hidden_case": {
+        "responses": 4,
+        "seconds": 16.461,
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 4,
+        "seconds": 16.461,
+        "digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 3,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 3,
+        "incorrect": 7
+      },
+      "final_artifact_digest": "18f75d5fd67a2b7574206fd6036261d91af09eb819cfb2abdef312561a9b78ee",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 5,
+      "final_identical_command_streak": 1,
+      "final_command_sha256": "a1416f68534c9bce6733074aff0d5cc6ac76b729236ec379074617e74b41dd67",
+      "distinct_commands": 20,
+      "snapshot_hashes": {
+        "checked": 3,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--ready--r1/result.json",
+          "sha256": "d99526e6641f6f7131580535a2e3853afff7e4bc22005df68b67c355e4323e8e"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--ready--r1/timeline.json",
+          "sha256": "717b9ba4cc845eb2a5a7803fc9e6146c3970cc72b9bb5ceee0877eb4911956e3"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--ready--r1/trajectory.jsonl",
+          "sha256": "fec6d7ad73ac5511f7961f18af1ac6e6f431c9c4351457a20e23e1a028515ef1"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--flexible--ready--r3",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 2,
+        "seconds": 6.652,
+        "digest": "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5"
+      },
+      "first_correct_hidden_case": {
+        "responses": 2,
+        "seconds": 6.652,
+        "digest": "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 2,
+        "seconds": 6.652,
+        "digest": "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 1,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 1,
+        "incorrect": 9
+      },
+      "final_artifact_digest": "eacbbe42d876275adc97ef4886dc765645932e1f0259c8293f011a0f7c9fa4c5",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": null,
+      "final_identical_command_streak": 19,
+      "final_command_sha256": "4317364c7ec49ae24074879c6b32b8ce02bd3baaf71500e3fe2cc26913c7cec6",
+      "distinct_commands": 2,
+      "snapshot_hashes": {
+        "checked": 2,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--ready--r3/result.json",
+          "sha256": "ab84a200b78a3e4d5b921cb3a363cf1b5581fb9ec5d035ae02c815e11634af1e"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--ready--r3/timeline.json",
+          "sha256": "ee84af9dc65c5b13e0a5314ff27768ab5f66c79c1595cbe5ce0db4ceac531b62"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--ready--r3/trajectory.jsonl",
+          "sha256": "e612a35a6304f78523cc8f64c8c1abd3838aee81f9cfc86f8981b0b0f9cdc77c"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--flexible--setup--r2",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 4,
+        "seconds": 9.688,
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56"
+      },
+      "first_correct_hidden_case": {
+        "responses": 4,
+        "seconds": 9.688,
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56"
+      },
+      "first_qualified": null,
+      "last_deliverable_change": {
+        "responses": 4,
+        "seconds": 9.688,
+        "digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56"
+      },
+      "final_qualified": false,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 7,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 7,
+        "incorrect": 3
+      },
+      "final_artifact_digest": "1b15b642661a3d773a7d51d3f55ee7a4cf5bd962a0c90b1cb700c94321bb4b56",
+      "post_qualification_unchanged": null,
+      "post_qualification_tokens": null,
+      "post_qualification_responses": null,
+      "post_qualification_tool_calls": null,
+      "first_mismatch_marker_response": 8,
+      "final_identical_command_streak": 7,
+      "final_command_sha256": "a7fe077096f2d8487920d37969ac56f2c9648a4d5a65a32155da714033fc942f",
+      "distinct_commands": 10,
+      "snapshot_hashes": {
+        "checked": 2,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--setup--r2/result.json",
+          "sha256": "a1afee844acb98f904555afa1a44c8664bba12a43f97ef96da2b7016819d6dab"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--setup--r2/timeline.json",
+          "sha256": "47edbfd53c557e8c5b5374ed141282e71d61be179b1ea801645e9aeb499e315d"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--setup--r2/trajectory.jsonl",
+          "sha256": "879af641322c340b38c180c46718b992ca7189186824d94a8a81e78b47fa3f35"
+        }
+      ]
+    },
+    {
+      "case": "route-ledger--flexible--setup--r3",
+      "actor_status": "response_budget",
+      "finish_reasons": {
+        "tool_calls": 20
+      },
+      "response_count": 20,
+      "tool_calls": 20,
+      "last_exit": "exit=0",
+      "first_executable": {
+        "responses": 4,
+        "seconds": 10.056,
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700"
+      },
+      "first_correct_hidden_case": {
+        "responses": 4,
+        "seconds": 10.056,
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700"
+      },
+      "first_qualified": {
+        "responses": 4,
+        "seconds": 10.056,
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700"
+      },
+      "last_deliverable_change": {
+        "responses": 4,
+        "seconds": 10.056,
+        "digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700"
+      },
+      "final_qualified": true,
+      "final_artifact_kind": "elf",
+      "final_hidden_passed": 10,
+      "final_hidden_total": 10,
+      "final_hidden_outcomes": {
+        "correct": 10
+      },
+      "final_artifact_digest": "65b69d787a51d0794971badcea5fefdf433a9c78803d0b860a1a49561d07d700",
+      "post_qualification_unchanged": true,
+      "post_qualification_tokens": 111219,
+      "post_qualification_responses": 16,
+      "post_qualification_tool_calls": 16,
+      "first_mismatch_marker_response": null,
+      "final_identical_command_streak": 10,
+      "final_command_sha256": "5d62fa9ceb9d514cf91dae4ff8f83feb502e0cb144f3c18fe58e87e1c3c20ad4",
+      "distinct_commands": 11,
+      "snapshot_hashes": {
+        "checked": 2,
+        "snapshot_file_not_copied": 0
+      },
+      "source_files": [
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--setup--r3/result.json",
+          "sha256": "36b89893d8379f9755839c2ddd8dc5df8c56a7d05e5e1c84bed659a515411951"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--setup--r3/timeline.json",
+          "sha256": "8e6902098072787b1bf3ce333ba19957394ec72d6cfcaf9e1343b0bd46a28a10"
+        },
+        {
+          "file": "accepted-matrix-20261118/route-ledger--flexible--setup--r3/trajectory.jsonl",
+          "sha256": "42491bd143fb4fd96cbd39e6843e03959ac71f69eb7029ce623c5d1cbd1c492e"
+        }
+      ]
+    }
+  ]
+}

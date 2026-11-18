@@ -5,6 +5,7 @@ import json
 import os
 import re
 import time
+from http.client import RemoteDisconnected
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -84,7 +85,7 @@ class DeepSeek:
                         error_code if re.fullmatch(r"[A-Za-z0-9_.-]{1,60}", error_code) else ""
                     )
                     raise RuntimeError(f"DashScope HTTP {exc.code} {safe_code}".strip()) from None
-            except (URLError, TimeoutError):
+            except (URLError, TimeoutError, RemoteDisconnected, ConnectionResetError):
                 if attempt == 2:
                     raise RuntimeError("DashScope request timed out or was unreachable") from None
             time.sleep(2 ** (attempt + 1))

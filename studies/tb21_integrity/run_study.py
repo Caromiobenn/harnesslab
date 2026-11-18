@@ -12,6 +12,7 @@ import subprocess
 import tempfile
 import time
 import uuid
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from urllib.request import Request, build_opener
@@ -31,6 +32,17 @@ COMMAND_TOOL = {
             "properties": {"command": {"type": "string"}},
             "required": ["command"],
         },
+    },
+}
+DRAFT_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "record_draft",
+        "description": (
+            "Save the current submission as a provisional version after it runs the public "
+            "example. This marker leaves the workspace and remaining budget available for work."
+        ),
+        "parameters": {"type": "object", "properties": {}, "additionalProperties": False},
     },
 }
 SYSTEM = (
@@ -184,6 +196,8 @@ def send_trace(config, run, run_id, project):
         "inputs": {key: run[key] for key in ("task", "requirement", "toolchain", "repeat")},
         "outputs": {key: run[key] for key in ("model", "status", "metrics")},
     }
+    if "workflow" in run:
+        data["inputs"]["workflow"] = run["workflow"]
     request = Request(
         "https://api.smith.langchain.com/api/v1/runs",
         data=json.dumps(data).encode(),
@@ -196,7 +210,13 @@ def send_trace(config, run, run_id, project):
         return f"http_{exc.code}" if hasattr(exc, "code") else type(exc).__name__
 
 
-def run_trial(args, cell, root, config, task_module, score_script):
+@dataclass(frozen=True)
+class DraftWorkflow:
+    name: str
+    instruction: str = ""
+
+
+def run_trial(args, cell, root, config, task_module, score_script, *, workflow=None):
     task, requirement, toolchain, repeat = cell
     folder = root / f"{task}--{requirement}--{toolchain}--r{repeat}"
     folder.mkdir()
@@ -216,6 +236,10 @@ def run_trial(args, cell, root, config, task_module, score_script):
         trace_id=run_id,
         status="completed",
     )
+    tools = [COMMAND_TOOL]
+    if workflow is not None:
+        result["workflow"] = workflow.name
+        tools.append(DRAFT_TOOL)
     events = []
     usage = []
     calls = 0
@@ -256,9 +280,12 @@ def run_trial(args, cell, root, config, task_module, score_script):
         if toolchain == "ready":
             checked("exec", container, "/bin/sh", "/work/setup-toolchain")
         checkpoint("start", "solve")
+        task_text = (work / "TASK.md").read_text(encoding="utf-8")
+        if workflow is not None and workflow.instruction:
+            task_text = task_text.rstrip() + "\n\n" + workflow.instruction + "\n"
         messages = [
             {"role": "system", "content": SYSTEM},
-            {"role": "user", "content": (work / "TASK.md").read_text(encoding="utf-8")},
+            {"role": "user", "content": task_text},
         ]
         client = DeepSeek.from_env(args.env_file, args.base_url, args.model)
         phase = "solve"
@@ -278,7 +305,7 @@ def run_trial(args, cell, root, config, task_module, score_script):
                     messages,
                     max_tokens=args.max_tokens,
                     thinking=False,
-                    tools=[COMMAND_TOOL],
+                    tools=tools,
                     temperature=0.3,
                 )
                 usage.append(response.get("usage") or {})
@@ -307,21 +334,35 @@ def run_trial(args, cell, root, config, task_module, score_script):
                     calls += 1
                     try:
                         function = call["function"]
-                        command = json.loads(function["arguments"])["command"]
-                        if function["name"] != "shell" or not isinstance(command, str):
+                        arguments = json.loads(function["arguments"])
+                        if workflow is not None and function["name"] == "record_draft":
+                            if arguments != {}:
+                                raise ValueError("record_draft takes no arguments")
+                            checkpoint("draft", phase)
+                            code, output = 0, "Provisional submission recorded."
+                        elif function["name"] == "shell" and isinstance(
+                            arguments.get("command"), str
+                        ):
+                            code, output = docker(
+                                "exec",
+                                container,
+                                "timeout",
+                                "--kill-after=2",
+                                "20",
+                                "/bin/bash",
+                                "-lc",
+                                arguments["command"],
+                                timeout=24,
+                            )
+                        else:
                             raise ValueError("invalid shell call")
-                        code, output = docker(
-                            "exec",
-                            container,
-                            "timeout",
-                            "--kill-after=2",
-                            "20",
-                            "/bin/bash",
-                            "-lc",
-                            command,
-                            timeout=24,
-                        )
-                    except (KeyError, TypeError, ValueError, subprocess.TimeoutExpired) as exc:
+                    except (
+                        AttributeError,
+                        KeyError,
+                        TypeError,
+                        ValueError,
+                        subprocess.TimeoutExpired,
+                    ) as exc:
                         code, output = 125, type(exc).__name__
                     event = {
                         "role": "tool",
@@ -341,7 +382,7 @@ def run_trial(args, cell, root, config, task_module, score_script):
         docker("rm", "-f", container, timeout=15)
     checkpoint("final", "end")
     first_candidate = next((event for event in events if event["label"] == "first_candidate"), None)
-    if args.suite == "phase2" and first_candidate is not None:
+    if workflow is None and args.suite == "phase2" and first_candidate is not None:
         gate_started = time.monotonic()
         result["public_gate"] = assess(
             store / first_candidate["digest"],
@@ -356,9 +397,23 @@ def run_trial(args, cell, root, config, task_module, score_script):
         score = assess(
             store / digest, task, requirement, args.scorer_image, score_script, seed=args.score_seed
         )
+        public = (
+            assess(
+                store / digest,
+                task,
+                requirement,
+                args.scorer_image,
+                score_script,
+                action="public-check",
+            )
+            if workflow is not None
+            else None
+        )
         for event in events:
             if event["digest"] == digest:
                 event["score"] = score
+                if public is not None:
+                    event["public"] = public
     write_json(folder / "timeline.json", events)
     result["score"] = events[-1]["score"]
     if any("score_error" in event["score"] for event in events):

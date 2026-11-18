@@ -1,0 +1,13 @@
+extend = "../../pyproject.toml"
+
+[lint]
+allowed-confusables = ["，", "（", "）", "–"]
+
+[lint.per-file-ignores]
+# Study prompts are kept as literal text. Report builders use full table rows.
+"audit/build.py" = ["E501"]
+"audit/run.py" = ["E501"]
+"phase2/audit/*.py" = ["E501"]
+"phase2/tasks/study_tasks.py" = ["E501"]
+"phase2/analysis/analyze.py" = ["E402", "E501"]
+"summarize.py" = ["E501"]

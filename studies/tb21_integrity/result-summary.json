@@ -1,0 +1,1155 @@
+{
+  "calibration": {
+    "qualified": 6,
+    "definite_requirement_miss": 0,
+    "requirement_unresolved": 0,
+    "function_failed": 2,
+    "unscorable": 0,
+    "pipeline_error": 0,
+    "pending": 0,
+    "planned": 8,
+    "received": 8,
+    "valid_final": 8,
+    "function_pass": 6,
+    "definite_miss_fraction": 0.0,
+    "miss_fraction_if_all_unresolved_miss": 0.0,
+    "artifact_kinds": {
+      "elf": 8
+    }
+  },
+  "formal_design": {
+    "cells": [
+      [
+        "shift-reports",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "csv-reconcile",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "inventory-aging",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "inventory-aging",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "csv-reconcile",
+        "c_required",
+        "ready",
+        3
+      ],
+      [
+        "route-ledger",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "route-ledger",
+        "flexible",
+        "ready",
+        3
+      ],
+      [
+        "csv-reconcile",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "csv-reconcile",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "inventory-aging",
+        "c_required",
+        "setup",
+        3
+      ],
+      [
+        "csv-reconcile",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "inventory-aging",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "route-ledger",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "csv-reconcile",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "csv-reconcile",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "route-ledger",
+        "flexible",
+        "setup",
+        3
+      ],
+      [
+        "csv-reconcile",
+        "c_required",
+        "setup",
+        3
+      ],
+      [
+        "shift-reports",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "inventory-aging",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "shift-reports",
+        "flexible",
+        "ready",
+        3
+      ],
+      [
+        "route-ledger",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "csv-reconcile",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "csv-reconcile",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "shift-reports",
+        "c_required",
+        "ready",
+        3
+      ],
+      [
+        "shift-reports",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "shift-reports",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "inventory-aging",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "shift-reports",
+        "flexible",
+        "ready",
+        1
+      ],
+      [
+        "route-ledger",
+        "c_required",
+        "ready",
+        1
+      ],
+      [
+        "route-ledger",
+        "c_required",
+        "setup",
+        3
+      ],
+      [
+        "route-ledger",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "inventory-aging",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "shift-reports",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "route-ledger",
+        "c_required",
+        "ready",
+        3
+      ],
+      [
+        "inventory-aging",
+        "c_required",
+        "ready",
+        3
+      ],
+      [
+        "shift-reports",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "route-ledger",
+        "c_required",
+        "setup",
+        1
+      ],
+      [
+        "route-ledger",
+        "c_required",
+        "setup",
+        2
+      ],
+      [
+        "shift-reports",
+        "c_required",
+        "ready",
+        2
+      ],
+      [
+        "csv-reconcile",
+        "flexible",
+        "ready",
+        3
+      ],
+      [
+        "inventory-aging",
+        "flexible",
+        "setup",
+        2
+      ],
+      [
+        "shift-reports",
+        "flexible",
+        "setup",
+        3
+      ],
+      [
+        "route-ledger",
+        "flexible",
+        "setup",
+        1
+      ],
+      [
+        "inventory-aging",
+        "flexible",
+        "ready",
+        3
+      ],
+      [
+        "inventory-aging",
+        "flexible",
+        "ready",
+        2
+      ],
+      [
+        "inventory-aging",
+        "flexible",
+        "setup",
+        3
+      ],
+      [
+        "shift-reports",
+        "c_required",
+        "setup",
+        3
+      ],
+      [
+        "csv-reconcile",
+        "flexible",
+        "setup",
+        3
+      ]
+    ],
+    "model": "deepseek-v4.1-flash-1017",
+    "reasoning": "disabled",
+    "suite": "phase2",
+    "provider": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "temperature": 0.3,
+    "review_rounds": 1,
+    "review_max_responses": 4,
+    "max_responses": 20,
+    "max_tokens_per_response": 4096,
+    "time_budget_seconds": 210,
+    "random_order_seed": 18053,
+    "score_seed": 18053,
+    "actor_image_id": "sha256:6208d06793c15a31f523245a7715739fdc3fd1b1da6b78634d8d01d617e1e8d9",
+    "scorer_image_id": "sha256:f40d78259a33169154cb9f150f7c84dd6fed61df7f3eb3dd7d619eddbcd56de8",
+    "source_sha256": {
+      "run_study.py": "400f9df1412c0e8c988b7195b70685c5812968d79838a39c4cf7fca0cfcca285",
+      "study_client.py": "c4c498899f36e324fd724bf2e9f9aca688d9cb44f61e26c4c0e81b0de35de7c8",
+      "phase2/tasks/study_tasks.py": "7067b9768d25557a2998e7f19960c3e2a7dfc7ce1fb5bb67469975c3fc8c07fd"
+    }
+  },
+  "formal_totals": {
+    "qualified": 33,
+    "definite_requirement_miss": 0,
+    "requirement_unresolved": 0,
+    "function_failed": 15,
+    "unscorable": 0,
+    "pipeline_error": 0,
+    "pending": 0,
+    "planned": 48,
+    "received": 48,
+    "valid_final": 48,
+    "function_pass": 33,
+    "definite_miss_fraction": 0.0,
+    "miss_fraction_if_all_unresolved_miss": 0.0,
+    "artifact_kinds": {
+      "elf": 39,
+      "script": 9
+    }
+  },
+  "formal_by_condition": [
+    {
+      "requirement": "c_required",
+      "toolchain": "ready",
+      "qualified": 7,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 5,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 12,
+      "received": 12,
+      "valid_final": 12,
+      "function_pass": 7,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 12
+      }
+    },
+    {
+      "requirement": "c_required",
+      "toolchain": "setup",
+      "qualified": 9,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 3,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 12,
+      "received": 12,
+      "valid_final": 12,
+      "function_pass": 9,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 12
+      }
+    },
+    {
+      "requirement": "flexible",
+      "toolchain": "ready",
+      "qualified": 8,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 4,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 12,
+      "received": 12,
+      "valid_final": 12,
+      "function_pass": 8,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 12
+      }
+    },
+    {
+      "requirement": "flexible",
+      "toolchain": "setup",
+      "qualified": 9,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 3,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 12,
+      "received": 12,
+      "valid_final": 12,
+      "function_pass": 9,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "script": 9,
+        "elf": 3
+      }
+    }
+  ],
+  "formal_by_task_and_condition": [
+    {
+      "task": "csv-reconcile",
+      "requirement": "c_required",
+      "toolchain": "ready",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "csv-reconcile",
+      "requirement": "c_required",
+      "toolchain": "setup",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "csv-reconcile",
+      "requirement": "flexible",
+      "toolchain": "ready",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "csv-reconcile",
+      "requirement": "flexible",
+      "toolchain": "setup",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "script": 3
+      }
+    },
+    {
+      "task": "inventory-aging",
+      "requirement": "c_required",
+      "toolchain": "ready",
+      "qualified": 0,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 3,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 0,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "inventory-aging",
+      "requirement": "c_required",
+      "toolchain": "setup",
+      "qualified": 1,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 2,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 1,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "inventory-aging",
+      "requirement": "flexible",
+      "toolchain": "ready",
+      "qualified": 1,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 2,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 1,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "inventory-aging",
+      "requirement": "flexible",
+      "toolchain": "setup",
+      "qualified": 1,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 2,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 1,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "script": 3
+      }
+    },
+    {
+      "task": "route-ledger",
+      "requirement": "c_required",
+      "toolchain": "ready",
+      "qualified": 1,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 2,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 1,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "route-ledger",
+      "requirement": "c_required",
+      "toolchain": "setup",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "route-ledger",
+      "requirement": "flexible",
+      "toolchain": "ready",
+      "qualified": 1,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 2,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 1,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "route-ledger",
+      "requirement": "flexible",
+      "toolchain": "setup",
+      "qualified": 2,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 1,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 2,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "shift-reports",
+      "requirement": "c_required",
+      "toolchain": "ready",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "shift-reports",
+      "requirement": "c_required",
+      "toolchain": "setup",
+      "qualified": 2,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 1,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 2,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "shift-reports",
+      "requirement": "flexible",
+      "toolchain": "ready",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "elf": 3
+      }
+    },
+    {
+      "task": "shift-reports",
+      "requirement": "flexible",
+      "toolchain": "setup",
+      "qualified": 3,
+      "definite_requirement_miss": 0,
+      "requirement_unresolved": 0,
+      "function_failed": 0,
+      "unscorable": 0,
+      "pipeline_error": 0,
+      "pending": 0,
+      "planned": 3,
+      "received": 3,
+      "valid_final": 3,
+      "function_pass": 3,
+      "definite_miss_fraction": 0.0,
+      "miss_fraction_if_all_unresolved_miss": 0.0,
+      "artifact_kinds": {
+        "script": 3
+      }
+    }
+  ],
+  "formal_end_status_counts": {
+    "review_budget": 33,
+    "completed": 4,
+    "response_budget": 11
+  },
+  "formal_timelines": {
+    "available": 48,
+    "complete_scores": 48,
+    "no_first_candidate": 11,
+    "function_seen": 33,
+    "qualification_seen": 33,
+    "median_seconds_function_to_qualified": 0.0,
+    "paired_times": 33
+  },
+  "formal_review": {
+    "enabled": true,
+    "pairs": 37,
+    "transitions": {
+      "same_submission": 30,
+      "changed_same_outcome": 7
+    },
+    "full_token_reporting": 37,
+    "cost": {
+      "responses": {
+        "total": 148,
+        "median": 4,
+        "observed": 37
+      },
+      "tool_calls": {
+        "total": 144,
+        "median": 4,
+        "observed": 37
+      },
+      "seconds": {
+        "total": 986.075,
+        "median": 22.786,
+        "observed": 37
+      },
+      "tokens": {
+        "total": 811724,
+        "median": 22006,
+        "observed": 37
+      }
+    },
+    "started_qualified": 30,
+    "cost_after_qualified_candidate": {
+      "responses": {
+        "total": 120,
+        "median": 4.0,
+        "observed": 30
+      },
+      "tool_calls": {
+        "total": 116,
+        "median": 4.0,
+        "observed": 30
+      },
+      "seconds": {
+        "total": 818.279,
+        "median": 23.409,
+        "observed": 30
+      },
+      "tokens": {
+        "total": 638230,
+        "median": 21883.0,
+        "observed": 30
+      }
+    }
+  },
+  "delivery": {
+    "paired": 37,
+    "excluded": {
+      "no_first_candidate": 11
+    },
+    "review_triggered": 6,
+    "public_gate_seconds": {
+      "total": 32.592,
+      "median": 0.868,
+      "observed": 37
+    },
+    "policies": {
+      "emit": {
+        "denominator": 37,
+        "qualified": 30,
+        "qualification_unresolved": 0,
+        "definite_requirement_miss": 0,
+        "function_failed": 7,
+        "repairs": 0,
+        "regressions": 0,
+        "tokens_total": 679849,
+        "tokens_median": 18274,
+        "tokens_denominator": 37,
+        "seconds_median": 17.951,
+        "seconds_denominator": 37
+      },
+      "fixed_review": {
+        "denominator": 37,
+        "qualified": 30,
+        "qualification_unresolved": 0,
+        "definite_requirement_miss": 0,
+        "function_failed": 7,
+        "repairs": 0,
+        "regressions": 0,
+        "tokens_total": 1491573,
+        "tokens_median": 40400,
+        "tokens_denominator": 37,
+        "seconds_median": 41.928,
+        "seconds_denominator": 37
+      },
+      "public_gate": {
+        "denominator": 37,
+        "qualified": 30,
+        "qualification_unresolved": 0,
+        "definite_requirement_miss": 0,
+        "function_failed": 7,
+        "repairs": 0,
+        "regressions": 0,
+        "tokens_total": 823747,
+        "tokens_median": 18813,
+        "tokens_denominator": 37,
+        "seconds_median": 19.338,
+        "seconds_denominator": 37
+      }
+    },
+    "gated_tokens_saved_vs_fixed": 667826,
+    "by_condition": [
+      {
+        "requirement": "c_required",
+        "toolchain": "ready",
+        "policies": {
+          "emit": {
+            "denominator": 10,
+            "qualified": 7,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 3,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 193308,
+            "tokens_median": 18022.5,
+            "tokens_denominator": 10,
+            "seconds_median": 18.567999999999998,
+            "seconds_denominator": 10
+          },
+          "fixed_review": {
+            "denominator": 10,
+            "qualified": 7,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 3,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 418861,
+            "tokens_median": 40583.5,
+            "tokens_denominator": 10,
+            "seconds_median": 34.42100000000001,
+            "seconds_denominator": 10
+          },
+          "public_gate": {
+            "denominator": 10,
+            "qualified": 7,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 3,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 271560,
+            "tokens_median": 21317.0,
+            "tokens_denominator": 10,
+            "seconds_median": 20.839,
+            "seconds_denominator": 10
+          }
+        }
+      },
+      {
+        "requirement": "c_required",
+        "toolchain": "setup",
+        "policies": {
+          "emit": {
+            "denominator": 10,
+            "qualified": 8,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 2,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 236378,
+            "tokens_median": 25588.5,
+            "tokens_denominator": 10,
+            "seconds_median": 23.2785,
+            "seconds_denominator": 10
+          },
+          "fixed_review": {
+            "denominator": 10,
+            "qualified": 8,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 2,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 495335,
+            "tokens_median": 50659.0,
+            "tokens_denominator": 10,
+            "seconds_median": 48.028999999999996,
+            "seconds_denominator": 10
+          },
+          "public_gate": {
+            "denominator": 10,
+            "qualified": 8,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 2,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 269465,
+            "tokens_median": 25588.5,
+            "tokens_denominator": 10,
+            "seconds_median": 24.220999999999997,
+            "seconds_denominator": 10
+          }
+        }
+      },
+      {
+        "requirement": "flexible",
+        "toolchain": "ready",
+        "policies": {
+          "emit": {
+            "denominator": 8,
+            "qualified": 8,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 0,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 135060,
+            "tokens_median": 17976.5,
+            "tokens_denominator": 8,
+            "seconds_median": 18.236,
+            "seconds_denominator": 8
+          },
+          "fixed_review": {
+            "denominator": 8,
+            "qualified": 8,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 0,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 305466,
+            "tokens_median": 39853.5,
+            "tokens_denominator": 8,
+            "seconds_median": 46.507,
+            "seconds_denominator": 8
+          },
+          "public_gate": {
+            "denominator": 8,
+            "qualified": 8,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 0,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 135060,
+            "tokens_median": 17976.5,
+            "tokens_denominator": 8,
+            "seconds_median": 19.0025,
+            "seconds_denominator": 8
+          }
+        }
+      },
+      {
+        "requirement": "flexible",
+        "toolchain": "setup",
+        "policies": {
+          "emit": {
+            "denominator": 9,
+            "qualified": 7,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 2,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 115103,
+            "tokens_median": 11572,
+            "tokens_denominator": 9,
+            "seconds_median": 11.726,
+            "seconds_denominator": 9
+          },
+          "fixed_review": {
+            "denominator": 9,
+            "qualified": 7,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 2,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 271911,
+            "tokens_median": 27853,
+            "tokens_denominator": 9,
+            "seconds_median": 38.125,
+            "seconds_denominator": 9
+          },
+          "public_gate": {
+            "denominator": 9,
+            "qualified": 7,
+            "qualification_unresolved": 0,
+            "definite_requirement_miss": 0,
+            "function_failed": 2,
+            "repairs": 0,
+            "regressions": 0,
+            "tokens_total": 147662,
+            "tokens_median": 11572,
+            "tokens_denominator": 9,
+            "seconds_median": 15.015,
+            "seconds_denominator": 9
+          }
+        }
+      }
+    ]
+  },
+  "request_transport_replacements": [
+    {
+      "cell": [
+        "inventory-aging",
+        "flexible",
+        "ready",
+        3
+      ],
+      "recovered": true,
+      "original_status": "pipeline_error",
+      "replacement_status": "review_budget",
+      "original_observed_tokens": 3438,
+      "replacement_observed_tokens": 43903
+    },
+    {
+      "cell": [
+        "inventory-aging",
+        "flexible",
+        "ready",
+        2
+      ],
+      "recovered": true,
+      "original_status": "pipeline_error",
+      "replacement_status": "response_budget",
+      "original_observed_tokens": 696,
+      "replacement_observed_tokens": 85058
+    }
+  ],
+  "verified_snapshots": 141,
+  "audit": {
+    "valid_output_count": 81,
+    "reused_judgments": 22,
+    "new_judge_requests": 59,
+    "phase1_matched_comparison": {
+      "actions": {
+        "expected": 22,
+        "paired_valid": 22,
+        "both_correct_old": 19,
+        "both_correct_new": 19,
+        "improved": 0,
+        "regressed": 0,
+        "identical_requests": 22
+      },
+      "returns": {
+        "expected": 22,
+        "paired_valid": 22,
+        "both_correct_old": 21,
+        "both_correct_new": 22,
+        "improved": 1,
+        "regressed": 0,
+        "identical_requests": 0
+      },
+      "submission": {
+        "expected": 22,
+        "paired_valid": 22,
+        "both_correct_old": 20,
+        "both_correct_new": 21,
+        "improved": 1,
+        "regressed": 0,
+        "identical_requests": 0
+      }
+    },
+    "dataset_manifest_sha256": "d2319e79b81d6d352cdab0a51f1757987f7d18344d891ac12e8e560d17b3450e"
+  },
+  "controls_sha256": "9c54941f6bbe118a34f7330785fa8e09631e876b73ec155c48c2d59b4f44455a"
+}

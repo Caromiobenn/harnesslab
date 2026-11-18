@@ -8,6 +8,8 @@ agents more reliable enough to justify their cost.
 This is an independent project built with LangChain, LangGraph, and Deep Agents. The
 Datawhale tutorials are learning references, not the repository skeleton.
 
+The [terminal delivery integrity study](studies/tb21_integrity/README.md) measures toolchain friction, evidence-based auditing, and the cost of reviewing an agent submission.
+
 ## Why this project exists
 
 An agent reaching the end of its graph is not evidence that the task succeeded. HarnessLab
